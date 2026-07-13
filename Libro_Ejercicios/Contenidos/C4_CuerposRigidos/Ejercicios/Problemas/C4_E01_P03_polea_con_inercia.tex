@@ -1,0 +1,56 @@
+\subsubsection{Sistema de bloques con polea de masa no despreciable}
+
+Dos bloques de masas $m_1$ y $m_2$ (con $m_1 > m_2$) cuelgan de los extremos de una cuerda ideal (inextensible y de masa despreciable) que pasa sin deslizar sobre una polea de radio $R$ y momento de inercia $I$ respecto a su eje, como se muestra en la Figura \ref{fig:c4_e01_p03_polea_inercia}. El eje de la polea es fijo y sin fricción. El sistema se suelta desde el reposo.
+
+\begin{enumerate}
+    \item Determine la aceleración de los bloques.
+    \item Determine las tensiones $T_1$ y $T_2$ en cada tramo de la cuerda, y demuestre que $T_1 \neq T_2$ cuando $I \neq 0$.
+    \item Verifique que en el límite $I \to 0$ se recupera el resultado de la máquina de Atwood ideal.
+\end{enumerate}
+
+\begin{figure}[!ht]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.4]
+        % --- Parámetros ---
+        \def\R{0.8}      % Radio de la polea
+        \def\hL{2.5}     % Altura del bloque izquierdo (m1)
+        \def\hR{1.5}     % Altura del bloque derecho (m2)
+        \def\sep{2.4}    % Separación horizontal entre cuerdas
+
+        % --- Soporte fijo del eje ---
+        \coordinate (O) at (0, 2.5);
+        \draw[pattern=north east lines, pattern color=gray!60] (-0.3,3.0) rectangle (0.3,3.3);
+        \draw[thick] (-0.35,3.0) -- (0.35,3.0);
+        \draw[thick] (0,3.0) -- (O);
+
+        % --- Polea (disco con inercia I) ---
+        \draw[thick, fill=gray!15] (O) circle (\R);
+        \filldraw (O) circle (1.2pt) node[right] {$O,\ I$};
+
+        % --- Cuerda sobre la polea ---
+        \draw[thick] ({-\R}, {2.5}) arc (180:0:\R);
+
+        % --- Cuerda izquierda y bloque m1 ---
+        \draw[thick] (-\R, 2.5) -- (-\R, {2.5-\hL+0.4});
+        \draw[thick, fill=gray!20] (-\R-0.4, {2.5-\hL}) rectangle (-\R+0.4, {2.5-\hL+0.4});
+        \node at (-\R, {2.5-\hL+0.2}) {$m_1$};
+        \draw[->, thick, azul] (-\R, {2.5-\hL-0.5}) -- (-\R, {2.5-\hL-1.1}) node[below, color=azul] {$m_1\vec{g}$};
+
+        % --- Cuerda derecha y bloque m2 ---
+        \draw[thick] (\R, 2.5) -- (\R, {2.5-\hR+0.4});
+        \draw[thick, fill=gray!20] (\R-0.4, {2.5-\hR}) rectangle (\R+0.4, {2.5-\hR+0.4});
+        \node at (\R, {2.5-\hR+0.2}) {$m_2$};
+        \draw[->, thick, azul] (\R, {2.5-\hR-0.5}) -- (\R, {2.5-\hR-1.1}) node[below, color=azul] {$m_2\vec{g}$};
+
+        % --- Tensiones ---
+        \draw[->, thick, myred] (-\R, 2.2) -- (-\R, 2.7) node[above, color=myred] {$T_1$};
+        \draw[->, thick, myred] (\R, 1.9) -- (\R, 2.4) node[above, color=myred] {$T_2$};
+
+        % --- Radio de la polea ---
+        \draw[dashed] (O) -- (0, {2.5+\R});
+        \node[right] at (0.1, {2.5+\R/2}) {$R$};
+
+    \end{tikzpicture}
+    \caption{Máquina de Atwood con polea de radio $R$ y momento de inercia $I$ no despreciable.}
+    \label{fig:c4_e01_p03_polea_inercia}
+\end{figure}

@@ -1,0 +1,49 @@
+\subsubsection{Cuenta deslizante sobre un aro que rota}
+
+Una pequeña cuenta de masa $m$ desliza sin fricción sobre un aro circular de radio $R$, contenido en un plano vertical. El aro gira alrededor de su diámetro vertical con velocidad angular constante $\Omega$ impuesta externamente (por un motor), como se muestra en la Figura \ref{fig:c5_e01_p04_cuenta_aro}. Sea $\phi$ el ángulo que forma la posición de la cuenta respecto al punto más bajo del aro.
+
+\begin{enumerate}
+    \item Identifique los grados de libertad del sistema, notando que $\Omega$ es impuesta (no es una coordenada generalizada dinámica).
+    \item Construya el Lagrangiano en términos de $\phi$.
+    \item Obtenga la ecuación de movimiento para $\phi(t)$.
+    \item Encuentre las posiciones de equilibrio relativo ($\ddot\phi = \dot\phi = 0$ en el marco rotante) y determine la condición sobre $\Omega$, $g$ y $R$ para que exista una posición de equilibrio con $\phi \neq 0, \pi$.
+\end{enumerate}
+
+\begin{figure}[!ht]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.8]
+        % --- Parámetros ---
+        \def\R{1.8}       % Radio del aro
+        \def\Phi{40}      % Ángulo phi respecto al punto más bajo
+
+        % --- Eje de rotación vertical ---
+        \draw[dashed, gray] (0,-\R-0.5) -- (0,\R+0.5);
+        \draw[->, thick] (0,\R+0.5) -- (0,\R+1.0) node[above] {$\vec\Omega$};
+
+        % --- Aro circular ---
+        \draw[thick] (0,0) circle (\R);
+        \filldraw (0,0) circle (1pt) node[left] {$O$};
+
+        % --- Cuenta sobre el aro ---
+        \coordinate (P) at ({\R*sin(\Phi)}, {-\R*cos(\Phi)});
+        \filldraw[fill=gray!15, thick] (P) circle (3pt);
+        \node[right] at (P) {$m$};
+
+        % --- Linea de referencia al punto mas bajo ---
+        \draw[dashed] (0,0) -- (0,-\R);
+        \draw[dashed] (0,0) -- (P);
+
+        % --- Angulo phi ---
+        \draw[->] (0,-0.7) arc (-90:{-90+\Phi}:0.7);
+        \node at (-90+\Phi/2:0.95) {$\phi$};
+
+        % --- Vector gravedad ---
+        \draw[->, thick, myred] (P) -- ++(0,-0.8) node[below, color=myred] {$m\vec{g}$};
+
+        % --- Etiqueta radio ---
+        \node[below right] at ({\R/2*sin(\Phi)}, {-\R/2*cos(\Phi)}) {$R$};
+
+    \end{tikzpicture}
+    \caption{Cuenta de masa $m$ deslizando sin fricción sobre un aro que rota con velocidad angular constante $\Omega$ respecto a su diámetro vertical.}
+    \label{fig:c5_e01_p04_cuenta_aro}
+\end{figure}

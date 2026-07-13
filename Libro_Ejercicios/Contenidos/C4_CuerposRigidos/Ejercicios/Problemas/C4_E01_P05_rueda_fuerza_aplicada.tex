@@ -1,0 +1,49 @@
+\subsubsection{Rueda empujada por una fuerza horizontal en su centro}
+
+Un aro delgado (anillo) homogéneo de masa $m$ y radio $R$ descansa sobre un plano horizontal rugoso, con coeficiente de roce estático $\mu_s$ entre el aro y el plano. Se le aplica una fuerza horizontal constante $F$ en su centro $G$, como se muestra en la Figura \ref{fig:c4_e01_p05_rueda_fuerza}. Inicialmente el aro está en reposo.
+
+\begin{enumerate}
+    \item Suponiendo que el aro rueda sin deslizar, determine la aceleración del centro y la fuerza de roce necesaria (magnitud y sentido) en función de $F$, $m$.
+    \item Determine el valor máximo de $F$ para el cual la hipótesis de rodadura sin deslizar es consistente, en función de $\mu_s$, $m$ y $g$.
+    \item Si $F$ supera ese valor máximo, el aro desliza. Determine la aceleración del centro y la aceleración angular en ese caso.
+\end{enumerate}
+
+\begin{figure}[!ht]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.4]
+        % --- Parámetros ---
+        \def\R{1.3}       % Radio del aro
+
+        % --- Suelo ---
+        \draw[thick] (-2.5,0) -- (3.5,0);
+        \fill[pattern=north east lines, pattern color=gray!60] (-2.5,-0.3) rectangle (3.5,0);
+
+        % --- Aro ---
+        \coordinate (G) at (0,\R);
+        \draw[thick] (G) circle (\R);
+        \filldraw (G) circle (1.5pt) node[above] {$G$};
+        \filldraw (0,0) circle (1pt) node[below] {$C$};
+
+        % --- Marca de rotacion (radio interno) ---
+        \draw[thick] (G) -- ({\R*cos(35)}, {\R+\R*sin(35)});
+
+        % --- Fuerza aplicada F ---
+        \draw[->, thick, azul] (G) -- ++(1.6,0) node[right, color=azul] {$\vec{F}$};
+
+        % --- Peso ---
+        \draw[->, thick, myred] (G) -- ++(0,-1.0) node[below, color=myred] {$m\vec{g}$};
+
+        % --- Normal ---
+        \draw[->, thick] (0,0) -- (0,0.9) node[above right] {$N$};
+
+        % --- Roce (sentido por determinar, se dibuja generico) ---
+        \draw[->, thick, gris1] (0,0) -- (-0.9,0) node[left, color=gris1] {$f$};
+
+        % --- Radio ---
+        \draw[dashed] (G) -- (0,0);
+        \node[right] at (0.05,{\R/2}) {$R$};
+
+    \end{tikzpicture}
+    \caption{Aro de radio $R$ empujado por una fuerza horizontal $F$ aplicada en su centro.}
+    \label{fig:c4_e01_p05_rueda_fuerza}
+\end{figure}

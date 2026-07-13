@@ -1,0 +1,53 @@
+\subsubsection{Péndulo suspendido de un carro móvil}
+
+Un carro de masa $M$ puede deslizar sin fricción a lo largo de un riel horizontal. De un punto fijo al carro cuelga un péndulo simple: una partícula de masa $m$ unida al carro mediante una varilla rígida ideal (sin masa) de longitud $\ell$, como se muestra en la Figura \ref{fig:c5_e01_p02_pendulo_carro}. Sea $x$ la posición horizontal del carro y $\theta$ el ángulo de la varilla respecto a la vertical. No hay fricción en ninguna parte del sistema.
+
+\begin{enumerate}
+    \item Identifique los grados de libertad y las coordenadas generalizadas.
+    \item Construya el Lagrangiano del sistema.
+    \item Obtenga las dos ecuaciones de movimiento acopladas.
+    \item Verifique que $x$ es una coordenada cíclica e interprete físicamente la cantidad conservada asociada.
+\end{enumerate}
+
+\begin{figure}[!ht]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.6]
+        % --- Parámetros ---
+        \def\ell{2.0}      % Longitud de la varilla
+        \def\Theta{30}     % Ángulo respecto a la vertical
+        \def\xC{0.8}       % Posición horizontal del carro
+
+        % --- Riel horizontal ---
+        \draw[thick] (-2.5,1.4) -- (3.5,1.4);
+        \fill[pattern=north east lines, pattern color=gray!60] (-2.5,1.4) rectangle (3.5,1.6);
+
+        % --- Carro ---
+        \coordinate (Ccarro) at (\xC, 1.0);
+        \draw[thick, fill=gray!20] (\xC-0.6, 0.75) rectangle (\xC+0.6, 1.25);
+        \node at (\xC, 1.0) {$M$};
+        \filldraw (\xC, 0.75) circle (1pt) node[below] {$O$};
+
+        % --- Referencia horizontal x ---
+        \draw[->, thin] (-2.2,1.8) -- (-1.2,1.8) node[right] {$x$};
+
+        % --- Vertical de referencia desde O ---
+        \draw[dashed, gray] (\xC, 0.75) -- (\xC, 0.75-\ell-0.3);
+
+        % --- Varilla y masa pendular ---
+        \coordinate (P) at ({\xC+\ell*sin(\Theta)}, {0.75-\ell*cos(\Theta)});
+        \draw[thick] (\xC, 0.75) -- (P);
+        \filldraw[fill=gray!15, thick] (P) circle (3.5pt);
+        \node[right] at (P) {$m$};
+
+        % --- Angulo theta ---
+        \draw[->] (\xC, {0.75-0.6}) arc (-90:{-90+\Theta}:0.6);
+        \node at ({\xC}, {0.75-0.6}) [below] {};
+        \node at ({\xC+0.75*sin(\Theta/2+45)}, {0.75-0.75*cos(\Theta/2+45)}) {$\theta$};
+
+        % --- Etiqueta longitud ---
+        \node[left] at ({\xC+\ell/2*sin(\Theta)-0.1}, {0.75-\ell/2*cos(\Theta)}) {$\ell$};
+
+    \end{tikzpicture}
+    \caption{Péndulo de masa $m$ suspendido de un carro de masa $M$ que desliza sin fricción sobre un riel horizontal.}
+    \label{fig:c5_e01_p02_pendulo_carro}
+\end{figure}

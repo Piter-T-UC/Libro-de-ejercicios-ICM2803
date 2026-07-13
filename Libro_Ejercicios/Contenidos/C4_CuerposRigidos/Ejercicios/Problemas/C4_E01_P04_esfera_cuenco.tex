@@ -1,0 +1,52 @@
+\subsubsection{Esfera rodando dentro de un cuenco cilíndrico}
+
+Una esfera sólida homogénea de masa $m$ y radio $r$ rueda sin deslizar dentro de una superficie cilíndrica cóncava de radio $R$ (con $R > r$), como se muestra en la Figura \ref{fig:c4_e01_p04_esfera_cuenco}. Sea $\phi$ el ángulo que forma la línea que une el centro del cuenco $O$ con el centro de la esfera $G$, medido respecto a la vertical. La esfera se suelta desde el reposo con un ángulo pequeño $\phi_0$.
+
+\begin{enumerate}
+    \item Usando conservación de energía, obtenga la ecuación de movimiento para $\phi(t)$ en el caso de oscilaciones pequeñas.
+    \item Determine el período de oscilación y compárelo con el de un péndulo simple de longitud $R-r$.
+    \item Explique físicamente por qué el período difiere del de un péndulo simple de la misma longitud efectiva.
+\end{enumerate}
+
+\begin{figure}[!ht]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.8]
+        % --- Parámetros ---
+        \def\R{2.2}       % Radio del cuenco
+        \def\r{0.55}      % Radio de la esfera
+        \def\Phi{28}      % Ángulo phi respecto a la vertical
+
+        % --- Cuenco (arco cóncavo) ---
+        \draw[thick] (-60:\R) arc (-60:240:\R);
+        \coordinate (O) at (0,0);
+        \filldraw (O) circle (1pt) node[above] {$O$};
+
+        % --- Vertical de referencia ---
+        \draw[dashed, gray] (O) -- (0,-\R-0.3);
+
+        % --- Centro de la esfera G a distancia (R-r) de O ---
+        \coordinate (G) at ({(\R-\r)*sin(\Phi)}, {-(\R-\r)*cos(\Phi)});
+        \coordinate (Ccontacto) at ({\R*sin(\Phi)}, {-\R*cos(\Phi)});
+
+        % --- Esfera ---
+        \draw[thick, fill=gray!15] (G) circle (\r);
+        \filldraw (G) circle (1.2pt) node[above right] {$G$};
+        \filldraw (Ccontacto) circle (1pt) node[below right] {$C$};
+
+        % --- Linea O-G ---
+        \draw[dashed] (O) -- (G);
+
+        % --- Angulo phi ---
+        \draw[->] (0,-0.9) arc (-90:{-90+\Phi}:0.9);
+        \node at (-90+\Phi/2:1.1) {$\phi$};
+
+        % --- Vector gravedad ---
+        \draw[->, thick, myred] (G) -- ++(0,-0.9) node[below, color=myred] {$m\vec{g}$};
+
+        % --- Etiqueta radio esfera ---
+        \node[right] at ($(G)!0.5!(Ccontacto)$) {$r$};
+
+    \end{tikzpicture}
+    \caption{Esfera de radio $r$ rodando sin deslizar dentro de un cuenco cilíndrico de radio $R$.}
+    \label{fig:c4_e01_p04_esfera_cuenco}
+\end{figure}

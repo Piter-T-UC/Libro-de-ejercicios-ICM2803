@@ -1,0 +1,48 @@
+\subsubsection{Cilindro rodando sobre un plano inclinado}
+
+Un cilindro sólido homogéneo de masa $m$ y radio $R$ se suelta desde el reposo en la parte superior de un plano inclinado que forma un ángulo $\theta$ con la horizontal, como se muestra en la Figura \ref{fig:c4_e01_p01_cilindro_inclinado}. El coeficiente de roce estático entre el cilindro y el plano es $\mu_s$, suficiente para garantizar rodadura sin deslizar. Determine las siguientes cantidades:
+
+\begin{enumerate}
+    \item La aceleración del centro de masa del cilindro.
+    \item La fuerza de roce estático necesaria para mantener la rodadura sin deslizar.
+    \item El valor mínimo de $\mu_s$ para que no exista deslizamiento.
+\end{enumerate}
+
+\begin{figure}[!ht]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.6]
+        % --- Parámetros ---
+        \def\Theta{20}    % Ángulo del plano inclinado [grados]
+        \def\L{5}         % Longitud del plano
+        \def\R{0.6}       % Radio del cilindro
+
+        % --- Plano inclinado ---
+        \draw[thick] (0,0) -- ({\L*cos(\Theta)}, {\L*sin(\Theta)});
+        \draw[thick] (0,0) -- ({\L*cos(\Theta)}, 0) -- ({\L*cos(\Theta)}, {\L*sin(\Theta)});
+        \fill[pattern=north east lines, pattern color=gray!60] (0,0) -- ({\L*cos(\Theta)}, 0) -- ({\L*cos(\Theta)}, {\L*sin(\Theta)}) -- cycle;
+
+        % --- Ángulo del plano ---
+        \draw[->] (0.8,0) arc (0:\Theta:0.8);
+        \node at ({0.5*cos(\Theta/2)+0.15}, {0.5*sin(\Theta/2)}) {$\theta$};
+
+        % --- Cilindro en la posición inicial ---
+        \begin{scope}[shift={({0.75*\L*cos(\Theta) - \R*sin(\Theta)}, {0.75*\L*sin(\Theta) + \R*cos(\Theta)})}]
+            \draw[thick, fill=gray!15] (0,0) circle (\R);
+            \filldraw (0,0) circle (1.2pt) node[above] {$G$};
+            % Marca de rotacion
+            \draw[thick] (0,0) -- ({\R*cos(60)}, {\R*sin(60)});
+            % Radio hacia el punto de contacto
+            \draw[dashed] (0,0) -- ({-\R*sin(\Theta)}, {-\R*cos(\Theta)}) node[midway, right] {$R$};
+            \filldraw ({-\R*sin(\Theta)}, {-\R*cos(\Theta)}) circle (1pt) node[below left] {$C$};
+        \end{scope}
+
+        % --- Vector gravedad ---
+        \draw[->, thick, myred] ({0.75*\L*cos(\Theta) - \R*sin(\Theta)}, {0.75*\L*sin(\Theta) + \R*cos(\Theta)}) -- ++(0,-1) node[below, color=myred] {$m\vec{g}$};
+
+        % --- Dirección de rodadura ---
+        \draw[->, thick, azul] ({0.75*\L*cos(\Theta) - \R*sin(\Theta) + 0.9*\R*cos(\Theta)}, {0.75*\L*sin(\Theta) + \R*cos(\Theta) + 0.9*\R*sin(\Theta)}) -- ++({-0.7*sin(\Theta)},{-0.7*cos(\Theta)}) node[right, color=azul] {$\omega$};
+
+    \end{tikzpicture}
+    \caption{Cilindro sólido rodando sin deslizar sobre un plano inclinado en ángulo $\theta$.}
+    \label{fig:c4_e01_p01_cilindro_inclinado}
+\end{figure}

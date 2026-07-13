@@ -1,0 +1,48 @@
+\subsubsection{Péndulo físico: barra uniforme pivotada}
+
+Una barra delgada y uniforme de masa $m$ y longitud $L$ está articulada sin fricción en uno de sus extremos a un pivote fijo $O$, como se muestra en la Figura \ref{fig:c4_e01_p02_pendulo_fisico}. La barra se suelta desde el reposo con un ángulo inicial $\theta_0$ medido respecto a la vertical. Sea $\theta(t)$ el ángulo instantáneo de la barra respecto a la vertical.
+
+\begin{enumerate}
+    \item Obtenga la ecuación de movimiento para $\theta(t)$.
+    \item Para oscilaciones pequeñas ($\theta \ll 1$), determine el período de oscilación.
+    \item Determine las componentes de la fuerza de reacción en el pivote $O$ en función de $\theta$ y $\dot{\theta}$.
+\end{enumerate}
+
+\begin{figure}[!ht]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.8]
+        % --- Parámetros ---
+        \def\L{2.2}       % Longitud de la barra
+        \def\Theta{35}    % Ángulo respecto a la vertical
+
+        % --- Soporte fijo ---
+        \coordinate (O) at (0,0);
+        \draw[pattern=north east lines, pattern color=gray!60] (-0.3,0.15) rectangle (0.3,0.35);
+        \draw[thick] (-0.35,0.15) -- (0.35,0.15);
+        \filldraw (O) circle (1.5pt) node[left] {$O$};
+
+        % --- Vertical de referencia ---
+        \draw[dashed, gray] (O) -- (0,-\L-0.4);
+
+        % --- Barra en posicion desplazada ---
+        \coordinate (G) at ({\L/2*sin(\Theta)}, {-\L/2*cos(\Theta)});
+        \coordinate (Extremo) at ({\L*sin(\Theta)}, {-\L*cos(\Theta)});
+        \draw[line width=4pt, line cap=round, color=gray!30] (O) -- (Extremo);
+        \draw[line width=2pt, line cap=round] (O) -- (Extremo);
+        \filldraw (G) circle (1.5pt) node[right] {$G$};
+        \filldraw (Extremo) circle (1pt);
+
+        % --- Angulo theta ---
+        \draw[->] (0,-0.6) arc (-90:{-90+\Theta}:0.6);
+        \node at (-90+\Theta/2:0.8) {$\theta$};
+
+        % --- Vector gravedad en G ---
+        \draw[->, thick, myred] (G) -- ++(0,-0.8) node[below, color=myred] {$m\vec{g}$};
+
+        % --- Etiqueta de longitud ---
+        \node[left] at ({\L/4*sin(\Theta)}, {-\L/4*cos(\Theta)}) {$L$};
+
+    \end{tikzpicture}
+    \caption{Barra uniforme de longitud $L$ pivotada en $O$, oscilando como péndulo físico.}
+    \label{fig:c4_e01_p02_pendulo_fisico}
+\end{figure}

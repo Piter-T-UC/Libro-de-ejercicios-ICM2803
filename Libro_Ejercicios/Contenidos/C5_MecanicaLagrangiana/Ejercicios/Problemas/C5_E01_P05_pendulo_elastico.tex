@@ -1,0 +1,50 @@
+\subsubsection{Péndulo elástico}
+
+Una partícula de masa $m$ está unida a un punto fijo $O$ mediante un resorte ideal de constante elástica $k$ y largo natural $\ell_0$. El sistema puede oscilar libremente en un plano vertical, combinando estiramiento radial del resorte con oscilación angular tipo péndulo, como se muestra en la Figura \ref{fig:c5_e01_p05_pendulo_elastico}. Sean $r(t)$ la longitud instantánea del resorte y $\theta(t)$ el ángulo respecto a la vertical.
+
+\begin{enumerate}
+    \item Identifique los grados de libertad y las coordenadas generalizadas.
+    \item Construya el Lagrangiano del sistema.
+    \item Obtenga las dos ecuaciones de movimiento acopladas para $r(t)$ y $\theta(t)$.
+    \item Verifique que, si se impone la restricción $r(t) = \ell_0$ constante (resorte infinitamente rígido, $k\to\infty$), la ecuación para $\theta$ se reduce a la del péndulo simple.
+\end{enumerate}
+
+\begin{figure}[!ht]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.6]
+        % --- Parámetros ---
+        \def\r{2.6}       % Longitud instantanea del resorte
+        \def\Theta{25}    % Ángulo respecto a la vertical
+        \def\Nres{8}      % Numero de zigzags del resorte
+
+        % --- Soporte fijo ---
+        \coordinate (O) at (0,0);
+        \draw[pattern=north east lines, pattern color=gray!60] (-0.3,0.15) rectangle (0.3,0.35);
+        \draw[thick] (-0.35,0.15) -- (0.35,0.15);
+        \filldraw (O) circle (1.5pt) node[above] {$O$};
+
+        % --- Vertical de referencia ---
+        \draw[dashed, gray] (O) -- (0,-\r-0.4);
+
+        % --- Resorte en zigzag hasta la masa ---
+        \coordinate (P) at ({\r*sin(\Theta)}, {-\r*cos(\Theta)});
+        \draw[thick, decorate, decoration={zigzag, segment length=3.5mm, amplitude=1.5mm}] (O) -- (P);
+
+        % --- Masa ---
+        \filldraw[fill=gray!15, thick] (P) circle (3.5pt);
+        \node[right] at (P) {$m$};
+
+        % --- Angulo theta ---
+        \draw[->] (0,-0.8) arc (-90:{-90+\Theta}:0.8);
+        \node at (-90+\Theta/2:1.05) {$\theta$};
+
+        % --- Vector gravedad ---
+        \draw[->, thick, myred] (P) -- ++(0,-0.9) node[below, color=myred] {$m\vec{g}$};
+
+        % --- Etiqueta longitud r(t) ---
+        \node[left] at ({\r/2*sin(\Theta)-0.1}, {-\r/2*cos(\Theta)}) {$r(t)$};
+
+    \end{tikzpicture}
+    \caption{Péndulo elástico: partícula unida a un resorte de constante $k$ y largo natural $\ell_0$, con dos grados de libertad $r$ y $\theta$.}
+    \label{fig:c5_e01_p05_pendulo_elastico}
+\end{figure}
