@@ -1,0 +1,84 @@
+% =========================================================================
+% Solución: C1_E01_P05 - Movimiento en Espiral Logarítmica
+% =========================================================================
+
+\begin{sol}[Tema: Cinemática en Coordenadas Cilíndricas - Espiral Logarítmica]
+
+\subsubsection*{Pregunta 1: Velocidad en Coordenadas Cilíndricas}
+
+Dado que $\theta(t) = \omega_0 t$ (velocidad angular constante), tenemos $\dot{\theta} = \omega_0$ y $\ddot{\theta} = 0$.
+
+De la ecuación de la espiral $r(\theta) = r_0 e^{-k\theta}$, obtenemos $r(t) = r_0 e^{-k\omega_0 t}$.
+
+Derivando respecto al tiempo:
+$$\dot{r} = r_0 \cdot (-k\omega_0) e^{-k\omega_0 t} = -k\omega_0 \cdot r_0 e^{-k\omega_0 t} = -k\omega_0 \cdot r(t)$$
+
+La velocidad en coordenadas cilíndricas es:
+$$\vec{v} = \dot{r} \, \hat{e}_r + r\dot{\theta} \, \hat{e}_\theta$$
+
+Sustituyendo:
+\begin{equation}
+\boxed{\vec{v} = -k\omega_0 r(t) \, \hat{e}_r + r(t) \omega_0 \, \hat{e}_\theta = \omega_0 r(t) \left[ -k \, \hat{e}_r + \hat{e}_\theta \right]}
+\end{equation}
+
+\subsubsection*{Pregunta 2: Aceleración del Punto}
+
+La aceleración en coordenadas cilíndricas es:
+$$\vec{a} = (\ddot{r} - r\dot{\theta}^2) \hat{e}_r + (r\ddot{\theta} + 2\dot{r}\dot{\theta}) \hat{e}_\theta$$
+
+Calculamos las derivadas necesarias:
+\begin{itemize}
+    \item $\dot{r} = -k\omega_0 r(t)$
+    \item $\ddot{r} = -k\omega_0 \dot{r} = -k\omega_0 \cdot (-k\omega_0 r) = k^2 \omega_0^2 r(t)$
+    \item $\dot{\theta} = \omega_0$
+    \item $\ddot{\theta} = 0$
+\end{itemize}
+
+Componente radial:
+$$a_r = \ddot{r} - r\dot{\theta}^2 = k^2 \omega_0^2 r - r \omega_0^2 = (k^2 - 1) \omega_0^2 r$$
+
+Componente transversal:
+$$a_\theta = r \cdot 0 + 2 \cdot (-k\omega_0 r) \cdot \omega_0 = -2k\omega_0^2 r$$
+
+La aceleración total es:
+\begin{equation}
+\boxed{\vec{a} = (k^2 - 1) \omega_0^2 r(t) \, \hat{e}_r - 2k\omega_0^2 r(t) \, \hat{e}_\theta}
+\end{equation}
+
+o, factorizando:
+\begin{equation}
+\vec{a} = \omega_0^2 r(t) \left[ (k^2 - 1) \hat{e}_r - 2k \, \hat{e}_\theta \right]
+\end{equation}
+
+\paragraph{Análisis de la Aceleración}
+
+\begin{itemize}
+    \item Si $k < 1$: La componente radial apunta hacia afuera (positiva), aunque el punto se acerca al origen. Esto ocurre porque la velocidad radial disminuye en magnitud; el cambio de velocidad radial implica aceleración hacia afuera.
+    \item Si $k = 1$: La componente radial es cero; solo existe aceleración transversal (similar a movimiento circular uniforme de radio variable).
+    \item Si $k > 1$: La componente radial apunta hacia adentro, acelerando la convergencia.
+    \item La componente transversal $a_\theta = -2k\omega_0^2 r$ siempre apunta en dirección negativa (contraria a la velocidad angular), ralentizando la rotación.
+\end{itemize}
+
+\subsubsection*{Pregunta 3: Rapidez Exponencial Decreciente}
+
+La rapidez (magnitud de velocidad) es:
+$$v = |\vec{v}| = \sqrt{(\dot{r})^2 + (r\dot{\theta})^2} = \sqrt{k^2\omega_0^2 r^2 + r^2 \omega_0^2}$$
+
+$$v = \omega_0 r \sqrt{k^2 + 1} = \omega_0 \sqrt{k^2 + 1} \cdot r_0 e^{-k\omega_0 t}$$
+
+\begin{equation}
+\boxed{v(t) = v_0 e^{-k\omega_0 t}}
+\end{equation}
+
+donde $v_0 = \omega_0 r_0 \sqrt{k^2 + 1}$ es la rapidez inicial.
+
+\paragraph{Demostración}
+
+La rapidez disminuye exponencialmente con constante de tiempo $\tau = 1/(k\omega_0)$. Conforme $t \to \infty$:
+- $r(t) \to 0$ (el punto converge al origen)
+- $v(t) \to 0$ (la velocidad tiende a cero)
+- El punto completa infinitas revoluciones alrededor del origen en tiempo finito, pero su velocidad disminuye exponencialmente.
+
+Este comportamiento es típico de sistemas disipativos donde la energía cinética se reduce continuamente.
+
+\end{sol}

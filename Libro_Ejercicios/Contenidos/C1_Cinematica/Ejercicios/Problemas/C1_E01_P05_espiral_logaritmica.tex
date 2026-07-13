@@ -1,0 +1,94 @@
+% =========================================================================
+% Capítulo 1 - Tema 01: Cinemática en Coordenadas Cilíndricas
+% Problema 05: Movimiento en Espiral Logarítmica
+% =========================================================================
+% Archivo: C1_E01_P05_espiral_logaritmica.tex
+% Descripción: Punto que se desplaza siguiendo una trayectoria en espiral
+%              logarítmica (acercándose al origen)
+% =========================================================================
+
+\subsubsection{Movimiento en Espiral Logarítmica}
+
+Un punto $P$ sigue una trayectoria en espiral logarítmica descrita en coordenadas cilíndricas por:
+$$r(\theta) = r_0 e^{-k\theta}$$
+
+donde $r_0$ es el radio inicial, $k$ es una constante positiva de amortiguamiento, y $\theta$ es el ángulo azimutal. El punto se desplaza de modo que su velocidad angular es constante: $\dot{\theta} = \omega_0$.
+
+\begin{enumerate}
+    \item Expresar la velocidad del punto en coordenadas cilíndricas.
+    \item Calcular la aceleración del punto.
+    \item Demostrar que la rapidez (magnitud de velocidad) decrece exponencialmente con el tiempo.
+\end{enumerate}
+
+\begin{figure}[!ht]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.6]
+
+        % --- CONFIGURACIÓN DE PARÁMETROS ---
+        \def\ro{2.5}      % Radio inicial r0 [cm]
+        \def\k{0.15}      % Constante de amortiguamiento k
+        \def\w{1}         % Escala de la espiral
+
+        % --- SOPORTES Y ELEMENTOS FIJOS ---
+        % Origen
+        \coordinate (O) at (0,0);
+        \filldraw (O) circle (1.5pt) node[above left] {$O$};
+
+        % --- GEOMETRÍA PRINCIPAL ---
+        % Espiral logarítmica (dibujada como varios puntos conectados)
+        \draw[thick, azul]
+            plot[parametric, samples=100, domain=0:3*pi]
+            ({0.8*\ro*exp(-\k*\x/pi)*cos(\x r)}, {0.8*\ro*exp(-\k*\x/pi)*sin(\x r)});
+
+        % --- SISTEMAS DE COORDENADAS ---
+        % Ejes de referencia
+        \draw[->, thick] (O) -- (3, 0) node[right, font=\small] {$x$};
+        \draw[->, thick] (O) -- (0, 3) node[above, font=\small] {$y$};
+
+        % --- PUNTOS Y COORDENADAS ---
+        % Punto inicial en la espiral (t=0)
+        \coordinate (P0) at (0.8*\ro, 0);
+        \filldraw[fill=white, thick] (P0) circle (2.5pt);
+        \filldraw (P0) circle (1pt) node[right, font=\small] {$P(t=0)$};
+
+        % Punto en tiempo intermedio
+        \coordinate (Pm) at ({0.8*\ro*exp(-\k*pi/2)*cos(pi/2 r)}, {0.8*\ro*exp(-\k*pi/2)*sin(pi/2 r)});
+        \filldraw[fill=white, thick] (Pm) circle (2pt);
+        \filldraw (Pm) circle (1pt);
+
+        % Punto cerca del origen (t grande)
+        \coordinate (Pf) at ({0.8*\ro*exp(-\k*3*pi)*cos(3*pi r)}, {0.8*\ro*exp(-\k*3*pi)*sin(3*pi r)});
+        \filldraw[fill=white, thick] (Pf) circle (2pt);
+        \filldraw (Pf) circle (1pt) node[left, font=\small] {$P(t \to \infty)$};
+
+        % --- VECTORES Y FUERZAS ---
+        % Vector de velocidad en el punto inicial
+        % Velocidad radial (hacia adentro) + velocidad tangencial
+        \draw[->, thick, myred] (P0) -- ($(P0) + (-0.4, 0)$) node[below, font=\small, color=myred] {$\vec{v}_r$};
+        \draw[->, thick, orange] (P0) -- ($(P0) + (0, 0.5)$) node[above, font=\small, color=orange] {$\vec{v}_\theta$};
+
+        % Vector velocidad total (resultante)
+        \draw[->, thick, gris1] (P0) -- ($(P0) + (-0.4, 0.5)$) node[above right, font=\small, color=gris1] {$\vec{v}$};
+
+        % --- ANOTACIONES Y ETIQUETAS ---
+        % Ángulo theta en un punto
+        \draw[dashed, gray] (0, 0) -- (Pm);
+        \draw[->, dashed, gray] (0.5, 0) arc (0:90:0.5);
+        \node at (0.6, 0.4) [font=\small] {$\theta$};
+
+        % Radio en el punto inicial
+        \draw[<->, thin, gray] (0, -0.35) -- (P0) node[midway, below, font=\small] {$r_0$};
+
+        % Etiqueta
+        \node[font=\footnotesize] at (1.5, -2) {Espiral logarítmica: $r(\theta) = r_0 e^{-k\theta}$};
+
+    \end{tikzpicture}
+    \caption{Trayectoria en espiral logarítmica con velocidad descompuesta en componentes radial y transversal}
+    \label{fig:c1_e01_p05_espiral}
+\end{figure}
+
+\newpage
+
+\subsubsection*{Notas sobre este problema}
+
+La espiral logarítmica es una curva que aparece frecuentemente en fenómenos naturales (conchas de caracol, galaxias). En este problema, el punto se aproxima gradualmente al origen mientras gira alrededor de él. La constante $k$ controla cuán rápidamente converge a l origen. Este es un ejemplo importante de movimiento donde la trayectoria misma (la forma de la curva) es fija, pero el modo de recorrerla (velocidad y aceleración) depende de la cinemática específica prescrita ($\dot{\theta} = \omega_0$ constante).
