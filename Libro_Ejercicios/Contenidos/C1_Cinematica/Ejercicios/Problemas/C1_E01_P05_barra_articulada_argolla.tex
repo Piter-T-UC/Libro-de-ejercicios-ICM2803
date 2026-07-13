@@ -1,0 +1,71 @@
+\subsubsection{Barra articulada a argolla circular}
+
+Una barra (con espesor mayor que cero) de longitud $\ell$ está articulada en uno de sus extremos a una argolla, como se muestra en la Figura \ref{fig:barra_anillo}. La argolla se desliza a lo largo de una pista fija en forma de anillo circular de radio $R$. Sabiendo que el ángulo $\theta$ describe la posición de la argolla con respecto al centro del anillo y que el ángulo $\phi$ describe la orientación de la barra con respecto a la línea radial instantánea desde el centro del anillo hasta la argolla, determine las siguientes cantidades vistas por un observador fijo a la pista:
+
+\begin{enumerate}
+    \item Velocidad angular de la barra.
+    \item Velocidad y aceleración del extremo libre de la barra (punto $P$).
+\end{enumerate}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.8]
+        % --- Parámetros ---
+        \def\R{1.5}      % Radio del anillo
+        \def\L{1.8}      % Longitud de la barra l
+        \def\ThetaAng{40} % Ángulo theta
+        \def\PhiAng{35}   % Ángulo phi
+
+        % --- 1. Soportes del Anillo ---
+        \foreach \s in {1, -1}{
+            \begin{scope}[yshift=\s*\R cm]
+                \draw[pattern=north east lines, pattern color=gray!60] (-0.2, 0) rectangle (0.2, 0.15*\s);
+                \draw[thick] (-0.3, 0.15*\s) -- (0.3, 0.15*\s);
+                \draw[thick] (0,0) -- (0, 0.15*\s);
+            \end{scope}
+        }
+
+        % --- 2. Anillo Circular ---
+        \draw[thick, double distance=2pt] (0,0) circle (\R);
+        \coordinate (O) at (0,0);
+        \filldraw (O) circle (1.2pt) node[left] {$O$};
+
+        % --- 3. Argolla y Barra ---
+        % Posición de la argolla Q
+        \coordinate (Q) at ({-90+\ThetaAng}:\R);
+        % Posición del extremo P
+        \coordinate (P) at ($(Q) + ({-90+\ThetaAng+\PhiAng}:\L)$);
+
+        % Dibujo de la barra con grosor
+        \draw[line width=5pt, line cap=round, color=black] (Q) -- (P);
+        \draw[line width=4pt, line cap=round, color=gray!30] (Q) -- (P);
+        \node[below] at ($(Q)!0.5!(P)$) {$\ell$};
+
+        % --- 4. Líneas de Referencia ---
+        \draw[dashed, gray] (O) -- (0, -\R-0.4); % Vertical
+        \draw[dashed] (O) -- (Q);                % Radio OQ
+        \draw[dotted, thick] (Q) -- ($(O)!1.7!(Q)$); % Extensión radial
+        
+        % Flecha del radio R
+        \draw[<->] (O) -- (30:\R) node[midway, above] {$R$};
+
+        % --- 5. Ángulos ---
+        % Ángulo theta
+        \draw[->] (0, -0.7) arc (-90:{-90+\ThetaAng}:0.7);
+        \node at (-75:0.55) {$\theta$};
+
+        % Ángulo phi
+        \begin{scope}[shift={(Q)}]
+            \draw[->] ({-90+\ThetaAng}:0.5) arc ({-90+\ThetaAng}:{-90+\ThetaAng+\PhiAng}:0.5);
+            \node at ({-90+\ThetaAng+0.5*\PhiAng}:0.7) {$\phi$};
+        \end{scope}
+
+        % --- 6. Etiquetas de puntos ---
+        \filldraw[fill=white, thick] (Q) circle (2.5pt); % Argolla
+        \filldraw (Q) circle (1pt) node[below] {$Q$};
+        \filldraw (P) circle (1.2pt) node[right] {$P$};
+
+    \end{tikzpicture}
+    \caption{Barra de longitud $\ell$ articulada a una argolla $Q$ que se desplaza sobre una guía circular.}
+    \label{fig:barra_anillo}
+\end{figure}

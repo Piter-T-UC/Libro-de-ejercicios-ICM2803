@@ -1,0 +1,61 @@
+\subsubsection{Barra pelota}
+Un brazo de longitud \( l \) está articulado en uno de sus extremos al centro de un disco circular de radio \( r \), como se muestra en la Figura \ref{fig:rodadura_varilla}. El disco rueda sin deslizamiento a lo largo de una superficie horizontal fija. Usando la variable \( x \) para describir la posición del centro del disco y la variable \( \phi \) para describir la orientación del brazo con respecto a la vertical, determine los siguientes vectores según lo visto por un observador fijo al suelo:
+
+\begin{enumerate}
+    \item La velocidad y aceleración del centro del disco.
+    \item La velocidad y aceleración angular del disco
+    \item La velocidad y aceleración del extremo libre del brazo.
+\end{enumerate}
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.8]
+        % --- Parámetros Geométricos ---
+        \def\R{1.5}      % Radio del cilindro
+        \def\L{2.2}      % Longitud de la varilla l
+        \def\PhiAng{30}  % Ángulo phi respecto a la vertical
+
+        % --- 1. Suelo (Superficie de rodadura) ---
+        \draw[thick] (-2,0) -- (3.5,0);
+        \fill[pattern=north east lines, pattern color=gray!60] (-2, -0.2) rectangle (3.5, 0);
+
+        % --- 2. Cilindro ---
+        \coordinate (O) at (0, \R); % Centro O
+        \coordinate (Q) at (0, 0);  % Punto de contacto Q
+        
+        % Sombreado degradado para el cilindro
+        \shadedraw[inner color=gray!10, outer color=gray!70] (O) circle (\R);
+        \filldraw (O) circle (1.5pt) node[above left] {$O$};
+        \filldraw (Q) circle (1pt) node[above left, xshift=-2pt] {$Q$};
+
+        % --- 3. Ejes y Referencias ---
+        % Eje x desde el centro
+        \draw[->, thick] (O) -- (2.5, \R) node[below] {$x$};
+        % Línea vertical discontinua
+        \draw[dashed, gray] (O) -- (0, -0.5);
+        % Radio R
+        \draw[->, thick] (O) -- ({\R*cos(45)}, {\R+\R*sin(45)}) node[midway, above left] {$R$};
+
+        % --- 4. Varilla acoplada en O ---
+        % Punto P al final de la varilla
+        \coordinate (P) at ({\L*sin(\PhiAng)}, {\R - \L*cos(\PhiAng)});
+        
+        % Varilla con grosor (estilo 2D)
+        \draw[line width=6pt, line cap=round, color=black] (O) -- (P);
+        \draw[line width=5pt, line cap=round, color=gray!50!white] (O) -- (P);
+        \draw[thick] (O) -- (P);
+        \filldraw (P) circle (1pt) node[below right] {$P$};
+        \node[right, xshift=3pt] at ($(O)!0.5!(P)$) {$l$};
+
+        % --- 5. Ángulo Phi ---
+        \draw[->] (0, 0.5) arc (-90:{-90+\PhiAng}:0.8);
+        \node at (0.3, 0.4) {$\phi$};
+
+        % --- 6. Indicación "No desliza" ---
+        \coordinate (NoSlipPoint) at (-0.8, 0.2);
+        \node[left] at (-1, 0.6) {No desliza};
+        \draw[thin] (-1, 0.5) to[out=0, in=120] (-0.3, 0.05);
+
+    \end{tikzpicture}
+    \caption{Cilindro de radio $R$ rodando sin deslizar sobre una superficie horizontal. Una varilla de longitud $l$ está articulada en el centro $O$, formando un ángulo $\phi$ con la vertical.}
+    \label{fig:rodadura_varilla}
+\end{figure}

@@ -1,0 +1,57 @@
+\subsubsection{Sistema de doble varilla}
+Dos varillas rígidas de longitudes $l_1$ y $l_2$ están articuladas en serie como se muestra en la Figura \ref{fig:doble_varilla}. La varilla $OA$ está articulada en uno de sus extremos al punto fijo $O$, mientras que su otro extremo está articulado en el punto $A$, que es un extremo de la segunda varilla $AP$. El punto $P$ se encuentra en el extremo libre de la varilla $AP$. Sabiendo que $\theta$ es el ángulo entre la varilla $OA$ y la horizontal y que $\phi$ es el ángulo entre la varilla $AP$ y la prolongación de la varilla $OA$, determine:
+
+\begin{enumerate}
+    \item La velocidad y aceleración del punto $P$ vistas por un observador fijo a la varilla $OA$.
+    \item La velocidad y aceleración del punto $P$ vistas por un observador fijo al suelo.
+\end{enumerate}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.5]
+        % --- Parámetros Geométricos ---
+        \def\Lone{2.8}     % Longitud l1
+        \def\Ltwo{2.0}     % Longitud l2
+        \def\ThetaAng{25}  % Ángulo theta
+        \def\PhiAng{35}    % Ángulo phi relativo a OA
+
+        % --- 1. Soporte y Suelo en O ---
+        \coordinate (O) at (0,0);
+        \draw[thick] (-0.4,-0.4) -- (0.4,-0.4);
+        \fill[pattern=north east lines] (-0.4,-0.5) rectangle (0.4,-0.4);
+        \draw (O) -- (-0.2,-0.4);
+        \draw (O) -- (0.2,-0.4);
+        \filldraw[fill=white] (O) circle (2.5pt) node[left, xshift=-2pt] {$O$};
+
+        % --- 2. Varilla OA ---
+        \coordinate (A) at ({\ThetaAng}:\Lone);
+        % Dibujo de la varilla con estilo 2D
+        \draw[line width=5pt, color=gray!20, line cap=round] (O) -- (A);
+        \draw[thick] (O) -- (A);
+        \filldraw[fill=white] (A) circle (2pt) node[below right] {$A$};
+        \node[above left] at ($(O)!0.5!(A)$) {$l_1$};
+
+        % --- 3. Varilla AP ---
+        % El ángulo absoluto de AP es (Theta + Phi)
+        \coordinate (P) at ($(A) + ({\ThetaAng + \PhiAng}:\Ltwo)$);
+        \draw[line width=5pt, color=gray!20, line cap=round] (A) -- (P);
+        \draw[thick] (A) -- (P);
+        \filldraw (P) circle (1.5pt) node[above right] {$P$};
+        \node[above left] at ($(A)!0.5!(P)$) {$l_2$};
+
+        % --- 4. Ángulos y Referencias ---
+        % Ángulo theta
+        \draw[dashed] (O) -- (1.5,0);
+        \draw[->] (0.8,0) arc (0:\ThetaAng:0.8);
+        \node at (1.0, 0.2) {$\theta$};
+
+        % Ángulo phi (respecto a la prolongación de OA)
+        \coordinate (Prolong) at ($(A) + ({\ThetaAng}:1.2)$);
+        \draw[dashed] (A) -- (Prolong);
+        \draw[->] ($(A) + ({\ThetaAng}:0.7)$) arc (\ThetaAng:{\ThetaAng+\PhiAng}:0.7);
+        \node at ($(A) + ({\ThetaAng + 0.5*\PhiAng}:0.95)$) {$\phi$};
+
+    \end{tikzpicture}
+    \caption{Sistema de doble varilla articulada con longitudes $l_1$ y $l_2$, donde se definen los ángulos $\theta$ y $\phi$ para el análisis cinemático.}
+    \label{fig:doble_varilla}
+\end{figure}

@@ -1,0 +1,73 @@
+
+
+\subsubsection{Disco en barra rotatoria vertical}
+
+Un disco circular de radio $R$ está unido al extremo de una barra rígida de longitud $L$. La barra gira libremente con una velocidad angular constante $\dot{\phi}$ alrededor de un eje vertical que pasa por el punto $A$. A su vez, el disco puede girar respecto a su propio centro $O$ sobre un eje ortogonal a la barra. La posición de un punto $P$ ubicado en el borde del disco se describe mediante el ángulo $\theta$, medido desde una referencia fija en el disco como se muestra en la Figura \ref{fig:disco_barra_rotatoria}.
+
+Considerando que se conocen las magnitudes $\dot{\phi}$, $\theta$ y $\ddot{\theta}$, determine lo siguiente para un observador fijo al suelo:
+
+\begin{enumerate}
+    \item Defina los marcos de referencia y los sistemas de coordenadas adecuados para describir el movimiento compuesto del sistema.
+    \item Determine el vector posición del punto $P$ respecto al punto $A$.
+    \item Obtenga los vectores de velocidad angular y aceleración angular de la barra y del disco.
+    \item Calcule los vectores de velocidad y aceleración del punto $P$.
+\end{enumerate}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.5]
+        % --- Parámetros Geométricos ---
+        \def\L{3.5}      % Longitud de la barra
+        \def\R{1.2}      % Radio del disco
+        \def\thetaAng{40} % Ángulo theta de P
+
+        % --- Coordenadas principales ---
+        \coordinate (A) at (0,0);
+        \coordinate (O) at (\L,0);
+        \coordinate (P) at ($ (O) + ({90-\thetaAng}:\R) $);
+
+        % --- 1. Soporte y Eje en A ---
+        % Sombreado de la base
+        \fill[pattern=north east lines] (-0.4, 0.3) rectangle (-0.1, 0.7);
+        \fill[pattern=north west lines] (0.1, 0.3) rectangle (0.4, 0.7);
+        \fill[pattern=north east lines] (-0.4, -0.3) rectangle (-0.1, -0.7);
+        \fill[pattern=north west lines] (0.1, -0.3) rectangle (0.4, -0.7);
+        
+        \draw[thick] (-0.4, 0.3) -- (-0.1, 0.3) -- (-0.1, 0.7);
+        \draw[thick] (0.4, 0.3) -- (0.1, 0.3) -- (0.1, 0.7);
+        \draw[thick] (-0.4, -0.3) -- (-0.1, -0.3) -- (-0.1, -0.7);
+        \draw[thick] (0.4, -0.3) -- (0.1, -0.3) -- (0.1, -0.7);
+
+        % Eje vertical
+        \shadedraw[left color=gray!10, right color=gray!40, draw=black, rounded corners=2pt] (-0.1, 1.2) -- (0.1, 1.2)--(0.1,0.27)--(0.4,0.27)--(0.4,-0.27)--(0.1,-0.27)--(0.1, -1.2)--(-0.1, -1.2)--(-0.1,-0.27)--(-0.4,-0.27)--(-0.4,0.27)--(-0.1,0.27)--cycle;
+        \draw[dashed, thin] (0, 1.2) -- (0, -1.2);
+        \draw[->, thick] (-0.2, 0.9) arc (120:420:0.4 and 0.15);
+        \node[right] at (0.3, 1.0) {$\dot{\phi} = \text{cte}$};
+    % --- 3. El Disco (R) ---
+        \shadedraw[inner color=gray!5, outer color=gray!30, draw=black, thick] (O) circle (\R);
+        \draw[dashed] (O) -- ($(O) + (0, \R)$); % Línea vertical de referencia en disco
+        % --- 2. La Barra (L) ---
+        \shadedraw[left color=gray!10, right color=gray!40, draw=black, rounded corners=2pt] 
+            (-0.15, -0.12) rectangle (\L+0.1, 0.12);
+        
+        % Dimensión L
+        \draw[<->] (0, -0.8) -- (\L, -0.8) node[midway, fill=white] {$L$};
+        \draw[dotted] (0, -0.15) -- (0, -0.9);
+        \draw[dotted] (\L, -0.15) -- (\L, -0.9);
+
+       
+        
+        % Radio R y Ángulo Theta
+        \draw[->] (O) -- (P) node[midway, right, xshift=2pt] {$R$};
+        \draw[->] ($(O) + (0, 0.6)$) arc (90:{90-\thetaAng}:0.6);
+        \node at ($ (O) + (72:0.8) $) {$\theta$};
+
+        % --- 4. Puntos y Etiquetas ---
+        \filldraw (A) circle (1.5pt) node[below right, xshift=2pt] {$A$};
+        \filldraw (O) circle (1.5pt) node[right] {$O$};
+        \filldraw (P) circle (1.8pt) node[right] {$P$};
+
+    \end{tikzpicture}
+    \caption{Esquema del disco circular de radio $R$ montado sobre una barra rotatoria de longitud $L$.}
+    \label{fig:disco_barra_rotatoria}
+\end{figure}

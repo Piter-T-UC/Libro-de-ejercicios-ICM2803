@@ -1,0 +1,87 @@
+\subsubsection{hélice circular}
+
+Una partícula $P$ se desplaza siguiendo una trayectoria helicoidal sobre la superficie lateral de un cilindro vertical de radio $R$, como se muestra en la Figura \ref{fig:helice_3d}. La hélice mantiene un ángulo de inclinación constante $\phi$ respecto al plano horizontal. Utilizando coordenadas cilíndricas $(r, \theta, z)$, donde el eje $z$ coincide con el eje del cilindro, realice lo siguiente:
+
+\begin{enumerate}
+    \item Defina los marcos de referencia y los sistemas de coordenadas (fijos y móviles) adecuados para describir el movimiento tridimensional.
+    \item Determine el vector posición de la partícula $P$ respecto al origen $O$ situado en el centro de la base inferior.
+    \item Calcule los vectores de velocidad angular y aceleración angular asociados al movimiento de la partícula.
+    \item Determine la base intrínseca $\{\mathbf{e}_t, \mathbf{e}_n, \mathbf{e}_b\}$ y los vectores de velocidad y aceleración de $P$ respecto al suelo.
+\end{enumerate}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[>=Latex, x={(1cm,-0.2cm)}, y={(1cm,0.1cm)}, z={(0cm,1cm)}, scale=2]
+        % --- Parámetros Geométricos ---
+        \def\R{1.5}      % Radio
+        \def\H{3.0}      % Altura
+        \def\pitch{0.4}  % Paso de la hélice (proporcional a tan(phi))
+        \def\pAng{120}   % Ángulo theta para la posición de P
+
+        % --- 1. Ejes de Coordenadas ---
+        \draw[->, thin, gray] (0,0,0) -- (2.5,0,0) node[right] {$x$};
+        \draw[->, thin, gray] (0,0,0) -- (0,2.5,0) node[above right] {$y$};
+        \draw[->, thick] (0,0,0) -- (0,0,3.5) node[above] {$z$};
+        \node[below left] at (0,0,0) {$O$};
+
+        % --- 2. Cilindro (Estructura) ---
+        % Base inferior (parte trasera oculta)
+        \draw[dashed, gray] (\R,0,0) arc (0:180:\R);
+        % Base inferior (parte delantera)
+        \draw[thick] (\R,0,0) arc (0:-180:\R);
+        
+        % Líneas laterales
+        \draw[gray!50] (-\R,0,0) -- (-\R,0,\H);
+        \draw[gray!50] (\R,0,0) -- (\R,0,\H);
+
+        % Tapa superior (Elipse)
+        \draw[thick, fill=gray!5, fill opacity=0.3] (0,0,\H) circle [radius=\R];
+
+        % --- 3. Trayectoria Helicoidal ---
+        % Hélice trasera (punteada)
+        \draw[blue!50, dashed, domain=0:pi, samples=50, variable=\t] 
+            plot ({\R*cos(\t r)}, {\R*sin(\t r)}, {\pitch*\t});
+        \draw[blue!50, dashed, domain=2*pi:2.5*pi, samples=50, variable=\t] 
+            plot ({\R*cos(\t r)}, {\R*sin(\t r)}, {\pitch*\t});
+
+        % Hélice delantera (continua)
+        \draw[ultra thick, blue!80!black, domain=pi:2*pi, samples=50, variable=\t] 
+            plot ({\R*cos(\t r)}, {\R*sin(\t r)}, {\pitch*\t});
+        \draw[ultra thick, blue!80!black, domain=-0.5*pi:0, samples=50, variable=\t] 
+            plot ({\R*cos(\t r)}, {\R*sin(\t r)}, {\pitch*\t});
+
+        % --- 4. Partícula P y Parámetros ---
+        % Coordenadas de la partícula
+        \pgfmathsetmacro{\Px}{\R*cos(\pAng)}
+        \pgfmathsetmacro{\Py}{\R*sin(\pAng)}
+        \pgfmathsetmacro{\Pz}{\pitch*\pAng*pi/180}
+        
+        \coordinate (P) at (\Px, \Py, \Pz);
+        \coordinate (Pbase) at (\Px, \Py, 0);
+
+        % Líneas de proyección
+        \draw[dashed, thin] (0,0,0) -- (Pbase);
+        \draw[dashed, thin] (Pbase) -- (P);
+        \draw[dashed, thin] (P) -- (0,0,\Pz);
+
+        % Partícula
+        \filldraw[shading=ball, ball color=black] (P) circle (1.2pt) node[above right] {$P$};
+
+        % Radio R y Ángulo Theta
+        \draw[<->] (0,0,0) -- ({\R*cos(210)}, {\R*sin(210)}, 0) node[midway, below left] {$R$};
+        \draw[->] (0.5,0,0) arc (0:\pAng:0.5);
+        \node at (0.24, 0.32, 0) {$\theta$};
+
+        % Ángulo de inclinación Phi
+        \begin{scope}[shift={(1.5,0)}]
+            \draw[dashed] (0,0,0) -- (0, 1.2, 0);
+            \draw[->] (0, 0.4, 0) arc (20:90:0.4);
+            \node[right] at (0.4, 0, 0.3) {$\phi$};
+        \end{scope}
+
+
+    \end{tikzpicture}
+    
+    \caption{Análisis tridimensional de la cinemática de una partícula en trayectoria helicoidal.}
+    \label{fig:helice_3d}
+\end{figure}

@@ -1,0 +1,71 @@
+\subsubsection{Mecanismo articulado de dos barras}
+Considere el mecanismo articulado mostrado en la Figura \ref{fig:mecanismo_2_barras_refinado}, compuesto por dos barras rígidas unidas mediante juntas rotacionales. El extremo inferior de la primera barra está fijo en el punto $O$, anclado al suelo, y forma un ángulo $\theta$ con la horizontal. La segunda barra está unida a la primera mediante una articulación intermedia en $A$ y forma un ángulo relativo $\phi$ respecto a la prolongación de la primera barra.
+
+Sabiendo que las longitudes de las barras, los ángulos $\theta$ y $\phi$, así como sus derivadas temporales son conocidas.
+\begin{enumerate}
+    \item Defina los marcos de referencia y los sistemas de coordenadas adecuados para describir el movimiento del sistema desde la perspectiva de un observador fijo al suelo.
+    \item Determine el vector posición del punto $P$.
+    \item Obtenga las expresiones para los vectores de velocidad angular y aceleración angular de ambas barras respecto al suelo.
+    \item Calcule los vectores de velocidad y aceleración del punto $P$ respecto al suelo.
+\end{enumerate}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.6]
+        % --- Parámetros Geométricos ---
+        \def\Lone{2.6}      % Longitud barra 1
+        \def\Ltwo{2.1}      % Longitud barra 2
+        \def\ThetaAng{40}   % Ángulo theta
+        \def\PhiAng{115}    % Ángulo phi relativo
+        \def\BarThickness{0.075} % Grosor de las barras
+
+        % --- Coordenadas ---
+        \coordinate (O) at (0,0);
+        \coordinate (A) at (\ThetaAng:\Lone);
+        \coordinate (P) at ($(A) + ({\ThetaAng + \PhiAng}:\Ltwo)$);
+
+        % --- 1. Suelo y Soporte en O ---
+        \draw[thick] (-0.5,-0.4) -- (0.5,-0.4);
+        \fill[pattern=north east lines] (-0.5,-0.5) rectangle (0.5,-0.4);
+        \draw[thin] (O) -- (-0.2,-0.4);
+        \draw[thin] (O) -- (0.2,-0.4);
+        
+        % --- 2. Barra 1 (OA) ---
+        \begin{scope}[rotate=\ThetaAng]
+            \shadedraw[top color=gray!10, bottom color=gray!40, draw=black, rounded corners=2.5pt] 
+                (-2.5pt,-\BarThickness) rectangle ({\Lone + 0.1},\BarThickness);
+        \end{scope}
+        % Etiqueta l1 (Horizontal y arriba)
+        \node[above left, yshift=3pt] at ($(O)!0.5!(A)$) {$l_1$};
+        
+        % --- 3. Barra 2 (AP) ---
+        \begin{scope}[shift={(A)}, rotate={\ThetaAng + \PhiAng}]
+            \shadedraw[top color=gray!10, bottom color=gray!40, draw=black, rounded corners=2.5pt] 
+                (-0.1,-\BarThickness) rectangle (\Ltwo+0.1,\BarThickness);
+        \end{scope}
+        % Etiqueta l2 (Horizontal y arriba)
+        \node[above, yshift=3pt] at ($(A)!0.5!(P)$) {$l_2$};
+
+        % --- 4. Articulaciones (Gris oscuro) ---
+        \filldraw[fill=gray!80, draw=black] (O) circle (1.75pt);
+        \node[left, xshift=-4pt] at (O) {$O$};
+
+        \filldraw[fill=gray!80, draw=black] (A) circle (1.75pt);
+        \node[right, xshift=4pt, yshift=-2pt] at (A) {$A$};
+
+        \filldraw (P) circle (1.2pt) node[above left] {$P$};
+
+        % --- 5. Ángulos y Líneas de Referencia ---
+        \draw[dashed, thin] (O) -- (1.4,0);
+        \draw[->] (0.7,0) arc (0:\ThetaAng:0.7);
+        \node at (0.9, 0.25) {$\theta$};
+
+        \coordinate (Ext) at ($(A) + (\ThetaAng:1.1)$);
+        \draw[dashed, thin] (A) -- (Ext);
+        \draw[->] ($(A) + (\ThetaAng:0.6)$) arc (\ThetaAng:{\ThetaAng+\PhiAng}:0.6);
+        \node at ($(A) + ({\ThetaAng + 0.5*\PhiAng}:0.85)$) {$\phi$};
+
+    \end{tikzpicture}
+    \caption{Mecanismo de dos barras con etiquetas de longitud $l_1$ y $l_2$ en posición horizontal.}
+    \label{fig:mecanismo_2_barras_refinado}
+\end{figure}

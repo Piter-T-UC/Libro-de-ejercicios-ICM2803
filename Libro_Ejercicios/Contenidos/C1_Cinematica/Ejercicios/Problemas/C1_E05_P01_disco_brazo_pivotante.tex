@@ -1,0 +1,69 @@
+\subsubsection{Disco con brazo pivotante}
+
+Un disco de radio $R$ gira libremente en torno a su centro en un punto ubicado en el extremo de un brazo de longitud $L$, como se muestra en la figura. El mismo brazo pivotea libremente en su otro extremo en el punto $O$ hasta el eje vertical. Finalmente, el eje gira con velocidad angular constante $\Omega$ en relación con el suelo (marco de referencia inercial). Sabiendo que $\phi$ describe la ubicación de un punto $P$ en el borde del disco relativa a la dirección $OQ$ y que $\theta$ se forma entre el brazo y la dirección vertical hacia abajo, determine las siguientes cantidades según las ve un observador fijo al suelo:
+
+\begin{enumerate}
+    \item La velocidad angular del disco.
+    \item La velocidad y aceleración del punto $P$.
+\end{enumerate}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.5]
+        % --- Parámetros ---
+        \def\L{3.0}         % Longitud del brazo L
+        \def\Rdisk{1.2}     % Radio del disco R
+        \def\thetaang{40}   % Ángulo theta (brazo)
+        \def\phiang{55}     % Ángulo phi (punto P)
+        \def\ShaftW{0.4}    % Ancho del eje vertical
+
+        % --- 1. Eje Vertical (Soporte) ---
+        \fill[pattern=north east lines, pattern color=gray!50] (-\ShaftW-0.2, 0.5) rectangle (-\ShaftW, 2.5);
+        \fill[pattern=north east lines, pattern color=gray!50] (\ShaftW, 0.5) rectangle (\ShaftW+0.2, 2.5);
+        
+        \shadedraw[left color=gray!40, right color=gray!10] (-\ShaftW, 0.5) rectangle (\ShaftW, 2.5);
+        \draw[thick] (-\ShaftW, 0.5) -- (-\ShaftW, 2.5);
+        \draw[thick] (\ShaftW, 0.5) -- (\ShaftW, 2.5);
+
+        % --- 2. Pivote y Brazo ---
+        \coordinate (O) at (0, 1.5);
+        \coordinate (Q) at ({\L*sin(\thetaang)}, {1.5 - \L*cos(\thetaang)});
+        
+        % Línea vertical de referencia
+        \draw[dashed, gray] (O) -- (0, -1.5);
+        
+
+
+        % --- 3. Disco en el punto Q ---
+        \begin{scope}[shift={(Q)}]
+            % Cara del disco
+            \shadedraw[inner color=white, outer color=gray!20, thick] (0,0) circle (\Rdisk);
+            \filldraw (0,0) circle (1.5pt) node[below right] {$Q$};
+        % Brazo L
+        \draw[line width=5pt, line cap=round] (O) -- (Q);
+        \draw[line width=4pt, gray!30, line cap=round] (O) -- (Q);
+        \node[above right] at ($(O)!0.5!(Q)$) {$L$};
+        \filldraw (O) circle (1.5pt) node[left, xshift=-2pt] {$O$};            
+            % Punto P y radio R
+            \coordinate (P) at ({90-\thetaang-\phiang}:\Rdisk);
+            \draw[thick, ->] (0,0) -- (P) node[midway, below right] {$R$};
+            \filldraw (P) circle (1.5pt) node[above right] {$P$};
+            
+            % Ángulo phi (respecto a la dirección del brazo OQ)
+            \draw[dashed] (0,0) -- ({90-\thetaang}:1.6); % Dirección OQ extendida
+            \draw[->] ({90-\thetaang}:0.6) arc ({90-\thetaang}:{90-\thetaang-\phiang}:0.6);
+            \node at ({90-\thetaang-0.5*\phiang}:0.8) {$\phi$};
+        \end{scope}
+
+        % --- 4. Ángulo theta ---
+        \draw[->] (0, 0.7) arc (-90:{-90+\thetaang}:0.8);
+        \node at (0.2,0.9) {$\theta$};
+
+        % --- 5. Rotación Omega ---
+        \draw[->, ultra thick] (-0.5, 2.8) arc (160:-100:0.5 and 0.15);
+        \draw[thick] (0, 2.5) -- (0, 3.0);
+        \node[above] at (0, 3.0) {$\Omega$};
+
+    \end{tikzpicture}
+    \caption{Esquema 2D del sistema brazo-disco con rotación respecto al eje vertical.}
+\end{figure}

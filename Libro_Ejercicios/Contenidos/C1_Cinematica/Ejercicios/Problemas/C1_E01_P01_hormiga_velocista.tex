@@ -1,0 +1,67 @@
+\subsubsection{Hormiga velocista}
+En la figura \ref{fig:Hormiga}, se encuentra una hormiga (Punto $B$), la cual camina de manera radial, hacia afuera del disco a una velocidad constante $v_0$ desde el centro. Si el disco rota desde su centro $O$ con una velocidad angular de magnitud $\Omega$ relativa al suelo, determine:
+\begin{enumerate}
+    \item La posición con respecto al tiempo.
+    \item La velocidad con respecto al tiempo.
+    \item La aceleración con respecto al tiempo.
+\end{enumerate}
+
+\begin{figure}[!ht]
+    \centering
+\begin{tikzpicture}[>=Latex, scale=1.5]
+
+    % --- CONFIGURACIÓN DE DIMENSIONES ---
+    \def\R{3}      % Radio mayor de la elipse (ancho)
+    \def\r{0.8}    % Radio menor de la elipse (alto/perspectiva)
+    \def\h{0.15}   % Grosor del disco
+    \def\Hshaft{1.2} % Largo del eje
+
+    % 1. EJE CENTRAL (PARTE INFERIOR)
+    % Dibujamos el cilindro del eje debajo del disco
+    \fill[gray!60] (-0.4, -\h) rectangle (0.4, -\Hshaft);
+    \draw[thick] (-0.4, -\h) -- (-0.4, -\Hshaft);
+    \draw[thick] (0.4, -\h) -- (0.4, -\Hshaft);
+    \draw[thick, fill=gray!70] (0, -\Hshaft) ellipse (0.4 and 0.15);
+
+    % 2. GROSOR DEL DISCO (BORDE LATERAL)
+    % Se dibuja la mitad inferior de la elipse desplazada hacia abajo
+    \fill[gray!50] (\R, 0) arc (0:-180:\R\space and \r) -- (-\R, -\h) arc (-180:0:\R\space and \r) -- cycle;
+    \draw[thick] (\R, 0) arc (0:-180:\R\space and \r);
+    \draw[thick] (\R, -\h) arc (0:-180:\R\space and \r);
+    \draw[thick] (\R, 0) -- (\R, -\h);
+    \draw[thick] (-\R, 0) -- (-\R, -\h);
+
+    % 3. SUPERFICIE SUPERIOR DEL DISCO
+    \draw[thick, fill=gray!20] (0,0) ellipse [x radius=\R, y radius=\r];
+
+    % 4. PUNTOS Y VECTORES
+    % Punto O (Centro)
+    \coordinate (O) at (0,0);
+    \filldraw (O) circle (1.5pt) node[left, xshift=-2pt] {$O$};
+
+    % Punto B (Partícula) - Calculado para que parezca estar sobre la elipse
+    % Usamos coordenadas polares modificadas por la proporción de la elipse
+    \def\ang{20} % Ángulo de posición
+    \def\dist{2.0} % Distancia radial r
+    \coordinate (B) at ({\dist*cos(\ang)}, {\dist*sin(\ang)*(\r/\R)});
+
+    % Dibujo del grupo de puntos B
+    \filldraw (B) circle (1.5pt);
+
+    \node[below right] at (B) {$B$};
+
+    % Vector r (Posición)
+    \draw[->, thick] (O) -- (B) node[midway, above] {$r$};
+
+    % Vector v0 (Velocidad tangencial)
+    % El ángulo de v0 debe seguir la inclinación de la elipse (tangente)
+    \draw[->, very thick, blue] (B) -- ++({0.8*cos(\ang)}, {0.8*sin(\ang)*(\r/\R)}) node[below] {$v_0$};
+
+    % 5. INDICADOR DE ROTACIÓN OMEGA
+    \draw[->, thick] (-0.6, 0) arc (170:370:0.6 and 0.2);
+    \node[left] at (-0.7, -0) {$\Omega$};
+
+\end{tikzpicture}
+    \caption{Hormiga Velocista}
+    \label{fig:Hormiga}
+\end{figure}

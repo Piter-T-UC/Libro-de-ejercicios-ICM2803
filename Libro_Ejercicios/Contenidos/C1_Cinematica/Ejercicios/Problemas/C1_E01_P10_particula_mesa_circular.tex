@@ -1,0 +1,44 @@
+\subsubsection{Partícula en mesa circular}
+Una partícula, denotada como $P$, se desliza sobre una mesa circular como se muestra en la Figura \ref{fig:masa_circular}. La posición de la partícula se conoce en términos del radio $r$ y el ángulo $\theta$, donde $r$ se mide desde el centro de la mesa en el punto $O$ y $\theta$ se mide en relación con la dirección de $\overline{OQ}$, donde $Q$ es un punto en la circunferencia de la mesa. Sabiendo que la mesa rota con una velocidad angular constante $\Omega$, utilizando el "Teorema de Transporte", determine lo siguiente para un observador en un marco de referencia fijo:
+
+\begin{enumerate}
+    \item Los marcos de referencia y sistemas de coordenadas adecuados para describir el movimiento.
+    \item El vector posición de la partícula $P$ respecto al centro $O$.
+    \item Los vectores de velocidad y aceleración de la partícula $P$ respecto al suelo.
+\end{enumerate}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.8]
+        % --- Parámetros Geométricos ---
+        \def\R{1.8}          % Radio de la mesa
+        \def\rPos{1.1}        % Distancia radial de P
+        \def\angQ{30}         % Orientación de la línea de referencia Q
+        \def\thetaAng{40}     % Ángulo theta relativo a OQ
+
+        % --- 1. Mesa Circular ---
+        \shadedraw[inner color=white, outer color=gray!40, draw=black, thick] (0,0) circle (\R);
+        \filldraw (0,0) circle (1.5pt) node[below left] {$O$};
+
+        % --- 2. Referencia rotatoria en la mesa (OQ) ---
+        \coordinate (Q) at (\angQ:\R);
+        \draw[thick, dashed] (0,0) -- (Q) node[right] {$Q$};
+        
+        % --- 3. Posición de la partícula P ---
+        % El ángulo absoluto en el dibujo es angQ + thetaAng
+        \coordinate (P) at ({\angQ + \thetaAng}:\rPos);
+        \draw[->, thick] (0,0) -- (P) node[midway, left] {$r$};
+        \filldraw (P) circle (2pt) node[right, xshift=2pt] {$P$};
+
+        % --- 4. Representación del Ángulo Theta ---
+        \draw[->] (\angQ:0.7) arc (\angQ:{\angQ+\thetaAng}:0.7);
+        \node at ({\angQ + 0.5*\thetaAng}:0.9) {$\theta$};
+
+        % --- 5. Velocidad angular Omega de la mesa ---
+        \draw[->, thick] (220:0.4) arc (220:500:0.4);
+        \node[below] at (0, -0.45) {$\Omega$};
+
+    \end{tikzpicture}
+    \caption{Esquema de una partícula $P$ moviéndose sobre una mesa circular que rota con una velocidad angular constante $\Omega$.}
+    \label{fig:masa_circular}
+\end{figure}

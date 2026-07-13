@@ -1,0 +1,85 @@
+\subsubsection{Mecanismo de rotación tridimensional}
+Un sistema mecánico consiste en un eje vertical que gira con una velocidad angular $\omega_1$. Unido a este eje en el punto $O$, se encuentra un brazo de longitud $L$ que forma un ángulo $\beta$ con la vertical y gira sobre su propio eje con una velocidad angular $\omega_2$. En el extremo del brazo se sitúa un disco de radio $r$ que rota con una velocidad angular $\omega_3$ respecto al brazo, como se ilustra en la Figura \ref{fig:mecanismo_3d}. Utilizando el sistema de referencia indicado, determine:
+
+\begin{enumerate}
+    \item El vector velocidad angular total del disco respecto al suelo.
+    \item La velocidad y aceleración del punto $P$ situado en el borde del disco.
+    \item La aceleración del centro del disco $C$ y del punto inferior $D$.
+\end{enumerate}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.5]
+        % --- Configuración de Ejes y Referencias ---
+        \coordinate (O) at (0,0);
+        
+        % Línea de eje vertical (punteada)
+        \draw[dotted, thick] (0,1) -- (0,-4);
+        
+        % Ejes e_x y e_z (azules)
+
+
+        % --- Soporte Superior ---
+        \shadedraw[top color=gray!60, bottom color=gray!10] (-0.2,0) rectangle (0.2,1.2);
+        \draw[thick] (-0.2,0.5) -- (0.2,0.5);
+        
+        % Velocidad angular omega_1
+        \draw[->, thick] (0.3,0.9) arc (0:150:0.3 and 0.1);
+        \node at (0.5,1) {$\omega_1$};
+        
+        % Punto O
+        \filldraw (O) circle (2pt) node[above left] {$O$};
+
+        % --- El Brazo (Rod) ---
+        % Ángulo beta y longitud L
+        \def\betaAng{35} % Ángulo respecto a la vertical
+        \def\L{4.2}      % Longitud del brazo
+        
+        % Coordenada final del brazo (Punto C)
+        % Nota: 270 es abajo, sumamos betaAng para mover a la derecha
+        \coordinate (C) at ({\betaAng-90}:\L);
+        
+        % Dibujo del brazo cilíndrico
+        \begin{scope}[rotate around={\betaAng:(O)}]
+            \shadedraw[left color=gray!50, right color=gray!20, middle color=gray!5,line cap=round ] 
+                (-0.1,0) rectangle (0.1,-\L);
+            
+            % Velocidad angular omega_2
+            \draw[<-, thick] (0.3, -\L*0.5) arc (0:180:0.3 and 0.1);
+            \node at (0.6, -\L*0.5 + 0.2) {$\omega_2$};
+        \end{scope}
+
+        % Indicación de longitud L
+        \draw[<->] ($(O)+({180+\betaAng}:0.4)$) -- ($(C)+({180+\betaAng}:0.4)$);
+        \node[fill=white, inner sep=1pt] at ($(O)!0.5!(C) + ({180+\betaAng}:0.6)$) {$L$};
+
+        % Ángulo Beta
+        \draw[<->, thick] (0,-1.2) arc (270:{270+\betaAng}:1.2);
+        \node at (0.25,-1) {$\beta$};
+
+        % --- El Disco Terminal ---
+        \begin{scope}[shift=(C), rotate around={\betaAng:(0,0)}]
+            % Perfil del disco (rectángulo sombreado)
+            \shadedraw[top color=gray!10, bottom color=gray!40] (-0.6,-0.2) rectangle (0.6,0.2);
+            \draw[thick] (-0.6,-0.2) rectangle (0.6,0.2);
+            
+            % Puntos del disco
+            \filldraw (0,0) circle (1.2pt) node[below left] {$C$}; % Centro
+            \filldraw (0.6,0) circle (2pt) node[below right] {$P$}; % Extremo P
+            \node[below] at (0,-0.2) {$\mathcal{D}$}; % Punto D
+            
+            % Radio r
+            \draw[|-|] (0,0.4) -- (0.6,0.4) node[midway, above] {$r$};
+            \draw[dotted] (0.6,0.2) -- (0.9,0.2);
+            \draw[dotted] (0,0) -- (0.9,0);
+
+            % Velocidad angular omega_3
+            \draw[->, thick] (-0.4, -0.4) arc (-180:0
+            :0.6 and 0.2);
+            \node at (0.23,-0.5) {$\omega_3$};
+        \end{scope}
+
+    \end{tikzpicture}
+    \caption{Esquema de un mecanismo con tres rotaciones superpuestas: rotación del soporte ($\omega_1$), rotación axial del brazo ($\omega_2$) y rotación del disco terminal ($\omega_3$).}
+    \label{fig:mecanismo_3d}
+\end{figure}

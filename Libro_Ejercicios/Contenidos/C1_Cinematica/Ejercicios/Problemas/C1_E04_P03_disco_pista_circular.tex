@@ -1,0 +1,80 @@
+\subsubsection{Disco en pista circular}
+
+Un disco de radio $r$ rueda sin resbalar a lo largo del interior de una pista circular fija de radio $R$ (con $R > r$), como se muestra en la Figura \ref{fig:disco_pista}. El centro de la pista circular se indica con el punto $O$, mientras que el centro del disco se indica con el punto $P$. 
+
+El ángulo $\theta$ se mide desde la dirección fija vertical hacia abajo desde el centro de la pista (dirección $OA$), mientras que el ángulo $\phi$ se mide entre la dirección de la línea $OP$ y la dirección del radio $PQ$, siendo $Q$ un punto en el borde del disco. 
+
+Sabiendo que el punto $Q$ coincide con el punto $A$ (el punto más bajo de la pista) cuando $\theta$ y $\phi$ son cero, determine los siguientes vectores según lo visto por un observador fijo al suelo:
+
+\begin{enumerate}
+    \item La velocidad angular $\vec{\omega}$ y la aceleración angular $\vec{\alpha}$ del disco.
+    \item La velocidad $\vec{v}_Q$ y aceleración $\vec{a}_Q$ del punto $Q$.
+\end{enumerate}
+
+Exprese sus respuestas en términos del ángulo $\phi$ y sus derivadas temporales ($\dot{\phi}, \ddot{\phi}$).
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.8]
+        % --- Parámetros Geométricos ---
+        \def\R{2.2}      % Radio de la pista grande
+        \def\r{0.7}      % Radio del disco pequeño
+        \def\ThetaAng{35} % Ángulo theta de posición del centro P
+        \def\PhiAng{65}   % Ángulo phi de rotación del disco
+
+        % --- 1. Pista Circular (Superficie fija) ---
+        \coordinate (O) at (0,0);
+        \coordinate (A) at (0, -\R);
+        
+        % Dibujo de la pista con patrón de sombreado exterior
+
+        \fill[pattern=north east lines, pattern color=gray!80] (0,0) circle (\R+0.15) circle (\R);
+        \fill[color=white] (0,0) circle (\R) circle (\R);
+        \draw[thick] (O) circle (\R);
+
+        % --- 2. Centro del disco P ---
+        % El centro P se ubica en una trayectoria circular de radio (R-r)
+        \coordinate (P) at ({-90+\ThetaAng}:{\R-\r});
+        
+        % Líneas de referencia
+        \draw[dashed, gray] (O) -- (0, -\R-0.3); % Eje vertical fijo
+        \draw[dashed, gray] (O) -- (P);          % Línea OP
+        
+        % --- 3. Disco rodante ---
+        % Sombreado degradado para el disco
+        \shadedraw[inner color=gray!5!white, outer color=gray!40] (P) circle (\r);
+        \filldraw (P) circle (1.5pt) node[above left, xshift=2pt] {$P$};
+        \filldraw (O) circle (1.5pt) node[above] {$O$};
+        \node[below] at (A) {$A$};
+
+        % --- 4. Punto Q y ángulo Phi ---
+        % El ángulo de Q es relativo a la línea OP (que está a -90+Theta)
+        \coordinate (Q) at ($(P) + ({-90+\ThetaAng+\PhiAng}:\r)$);
+        \draw[thick] (P) -- (Q);
+        \filldraw (Q) circle (1.2pt) node[below right] {$Q$};
+        
+        % Etiqueta del radio r
+        \draw[<->, thin] (P) -- ++(160:\r) node[midway, above] {$r$};
+        % Etiqueta del radio R
+        \draw[<->, thin] (O) -- (30:\R) node[midway, above left] {$R$};
+
+        % --- 5. Ángulos ---
+        % Ángulo Theta (desde la vertical OA hasta OP)
+        \draw[->] (0, -0.6) arc (-90:{-90+\ThetaAng}:0.6);
+        \node at (-80:0.45) {$\theta$};
+        
+        % Ángulo Phi (desde la línea OP hasta PQ)
+        % Línea de referencia extendida de OP para marcar phi
+        \coordinate (RefPhi) at ($(P) + ({-90+\ThetaAng}:0.8)$);
+        \draw[dotted, thick] (P) -- (RefPhi);
+        \draw[->] ($(P) + ({-90+\ThetaAng}:0.4)$) arc ({-90+\ThetaAng}:{-90+\ThetaAng+\PhiAng}:0.4);
+        \node at ($(P) + ({-90+\ThetaAng+0.5*\PhiAng}:0.55)$) {$\phi$};
+
+        % --- 6. Indicación "No desliza" ---
+        \node[left] at ({-90+\ThetaAng}: \R+0.6) {No desliza};
+        \draw[thin, ->] ({-90+\ThetaAng-10}: \R+0.5) to[out=0, in=120] ({-90+\ThetaAng}: \R+0.05);
+
+    \end{tikzpicture}
+    \caption{Disco de radio $r$ rodando sin deslizar por el interior de una pista de radio $R$. El punto $A$ es la referencia vertical inferior.}
+    \label{fig:disco_pista}
+\end{figure}

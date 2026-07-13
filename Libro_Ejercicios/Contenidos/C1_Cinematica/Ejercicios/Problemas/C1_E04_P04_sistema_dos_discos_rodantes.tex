@@ -1,0 +1,81 @@
+\subsubsection{Sistema de dos discos rodantes}
+
+Un disco circular de radio $R$ rueda sin resbalar a lo largo de una superficie horizontal fija. Un segundo disco circular de radio $r$ rueda sin resbalar sobre el primer disco. Usando las variables $\theta$ y $\phi$ para describir el movimiento de los discos, determine las siguientes cantidades como las ve un observador en un marco de referencia inercial:
+
+\begin{enumerate}
+    \item Velocidad angular y aceleración angular de cada disco.
+    \item Velocidad y aceleración del centro de cada disco ($O$ y $C$).
+\end{enumerate}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[>=Stealth, scale=1.5]
+        % --- Parámetros Geométricos ---
+        \def\Rbig{2.0}    % Radio del disco inferior (R)
+        \def\Rsmall{1.0}  % Radio del disco superior (r)
+        \def\ThetaPos{30} % Ángulo de posición del centro C respecto a la vertical
+        \def\PhiPos{40}   % Ángulo interno phi del disco superior
+
+        % --- 1. Suelo Fijo ---
+        % Línea base
+        \draw[thick] (-3, 0) -- (4, 0);
+        % Patrón de sombreado para indicar superficie fija
+        \fill[pattern=north east lines, pattern color=gray!50] (-3, -0.3) rectangle (4, 0);
+
+        % --- 2. Disco Inferior (Centro O) ---
+        \coordinate (O) at (0, \Rbig);
+        % Sombreado radial para efecto 3D
+        \shadedraw[inner color=white, outer color=gray!40, thick] (O) circle (\Rbig);
+        \filldraw (O) circle (1.5pt) node[left, xshift=-2pt] {$O$};
+
+        % --- 3. Disco Superior (Centro C) ---
+        % Calculamos la posición de C basándonos en el ángulo ThetaPos
+        \coordinate (C) at ($(O) + ({90-\ThetaPos}:{\Rbig+\Rsmall})$);
+        \shadedraw[inner color=white, outer color=gray!40, thick] (C) circle (\Rsmall);
+        \filldraw (C) circle (1.5pt) node[above, yshift=2pt] {$C$};
+
+        % --- 4. Punto de Contacto P ---
+        \coordinate (P) at ($(O) + ({90-\ThetaPos}:\Rbig)$);
+        \filldraw (P) circle (1.2pt) node[right, xshift=3pt] {$P$};
+
+        % --- 5. Líneas de Referencia y Radios ---
+        % Línea vertical desde O
+        \draw[dashed, gray] (O) -- ++(0, {\Rbig+\Rsmall+1.0});
+        % Línea conectando centros OC
+        \draw[dashed, gray] (O) -- (C);
+        
+        % Etiqueta Radio R (disco inferior)
+        \draw[->, thin] (O) -- ++(-30:\Rbig) node[midway, below, scale=0.9] {$R$};
+        % Etiqueta Radio r (disco superior)
+        \draw[->, thin] (C) -- ++({90-\ThetaPos+50}:\Rsmall) node[midway, above right, scale=0.9] {$r$};
+
+        % --- 6. Ángulos ---
+        % Ángulo Theta (posición de C respecto a la vertical)
+        \draw[->, thick] ($(O)+(0, 1.5)$) arc (90:{90-\ThetaPos}:1.5);
+        \node at ($(O)+({90-0.5*\ThetaPos}:1.7)$) {$\phi$};
+
+        % Ángulo Phi (interno en el disco superior)
+        % Dibujamos una línea radial de referencia en el disco superior
+        \coordinate (CRef) at ($(C) + ({90-\ThetaPos-\PhiPos}:\Rsmall)$);
+        \draw[dashed, gray!80] (C) -- (CRef);
+        % Arco para phi desde la línea CP hasta CRef
+        %\draw[->] ($(C)!0.5!(P)$) arc ({90-\ThetaPos}:{90-\ThetaPos-\PhiPos}:0.5);
+        %\node at ($(C)+({90-\ThetaPos-0.5*\PhiPos}:0.7)$) {$ $};
+
+        % --- 7. Flechas de Sentido de Rotación (Decorativas) ---
+        % Disco inferior
+        \draw[<-, thick, bend right] ($(O)+(-0.6, \Rbig+0.5)$) to node[midway, above] {$\theta$} ($(O)+(-1.5, \Rbig)$);
+        % Disco superior
+        \draw[<-, thick, bend left] ($(C)+(\Rsmall+0.3, 0.3)$) to ($(C)+(\Rsmall+0.3, -0.3)$);
+
+        % --- 8. Indicación "No Slip" ---
+        \node[right] at (3, \Rbig) {Sin deslizamiento};
+        % Línea al contacto inferior
+        \draw[thin] (3, \Rbig) -- (0,0);
+        % Línea al contacto intermedio P
+        \draw[thin] (3, \Rbig) -- (P);
+
+    \end{tikzpicture}
+    \caption{Sistema de dos discos apilados rodando sin deslizamiento.}
+    \label{fig:dos_discos}
+\end{figure}

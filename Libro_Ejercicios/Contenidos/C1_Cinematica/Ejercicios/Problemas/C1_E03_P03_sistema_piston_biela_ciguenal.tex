@@ -1,0 +1,76 @@
+\subsubsection{Sistema pistón-biela-cigüeñal}
+
+El punto de unión $P$ entre un pistón y una biela de longitud $D$ se mueve a lo largo del eje horizontal $\vec{e}_x$ debido a que el cigüeñal (representado por un disco), de radio $R$ y centro en un punto fijo $O$, rota a una velocidad angular constante $\omega$. En el instante $t=0$, la biela se encuentra en posición horizontal ($\phi = 0$ y $x = R + D$). Realice lo siguiente:
+
+\begin{enumerate}
+    \item Identifique los marcos de referencia y defina los sistemas de coordenadas adecuados para describir el movimiento.
+    \item Encuentre una expresión para el vector posición $\vec{r}_P$ del pistón medido desde el punto $O$ en función del ángulo $\phi$.
+    \item Determine los vectores de velocidad angular y aceleración angular de la biela $AP$.
+    \item Calcule los vectores de velocidad y aceleración del pistón $P$.
+    \item Determine la distancia total (longitud de arco) recorrida por el pistón $P$ tras una vuelta completa del cigüeñal.
+\end{enumerate}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.6]
+        % --- Parámetros Geométricos ---
+        \def\R{1.2}      % Radio del cigüeñal
+        \def\D{3.5}      % Longitud de la biela
+        \def\phiAng{50}  % Ángulo de giro phi
+        \def\BarThick{0.06} % Grosor de las barras
+
+        % --- Coordenadas ---
+        \coordinate (O) at (0,0);
+        \coordinate (A) at (\phiAng:\R);
+        % Posición x del pistón calculada por trigonometría: R*cos(phi) + sqrt(D^2 - (R*sin(phi))^2)
+        \pgfmathsetmacro{\Px}{\R*cos(\phiAng) + sqrt(\D*\D - (\R*sin(\phiAng))^2)}
+        \coordinate (P) at (\Px, 0);
+
+        % --- 1. Cigüeñal (Disco y Eje) ---
+        \draw[dashed, thin] (O) circle (\R);
+        \draw[thick] (-0.2,0) -- (6.0,0); % Eje de guía x
+        
+        % Velocidad angular omega
+        \draw[->, thick] (0.5, 0.8) arc (40:140:0.6);
+        \node[below] at (0, 0.8) {$\omega$};
+
+        % --- 2. Barra OA (Cigüeñal) ---
+        \begin{scope}[rotate=\phiAng]
+            \shadedraw[inner color=white, outer color=gray!40, draw=black, rounded corners=2pt] 
+                (-0.1, -\BarThick) rectangle ({\R+0.1}, \BarThick);
+        \end{scope}
+        \node[above left] at ($(O)!0.5!(A)$) {$R$};
+
+        % --- 3. Barra AP (Biela) ---
+        % Ángulo de la biela con la horizontal (beta)
+        \pgfmathsetmacro{\betaAng}{asin(\R*sin(\phiAng)/\D)}
+        \begin{scope}[shift={(A)}, rotate=-\betaAng]
+            \shadedraw[inner color=white, outer color=gray!40, draw=black, rounded corners=2pt] 
+                (-0.1, -\BarThick) rectangle ({\D+0.1}, \BarThick);
+        \end{scope}
+        \node[above] at ($(A)!0.5!(P)$) {$D$};
+
+        % --- 4. El Pistón (P) ---
+        \shadedraw[top color=gray!10, bottom color=gray!80, draw=black, thick] 
+            ($ (P) + (-0.2, -0.15) $) rectangle ($ (P) + (0.2, 0.15) $);
+        
+        % --- 5. Articulaciones (Gris oscuro) ---
+        \filldraw[fill=gray!80, draw=black] (O) circle (1.8pt) node[below left] {$O$};
+        \filldraw[fill=gray!80, draw=black] (A) circle (1.8pt) node[above right] {$A$};
+        \filldraw[fill=gray!80, draw=black] (P) circle (1.2pt) node[above right, yshift=2pt] {$P$};
+
+        % --- 6. Cotas y Referencias ---
+        % Ángulo phi
+        \draw[dashed] (O) -- (1.5,0);
+        \draw[->] (0.7,0) arc (0:\phiAng:0.7);
+        \node at (0.9, 0.25) {$\phi$};
+
+        % Cota de distancia x
+        \draw[<->] (0,-0.4) -- (\Px,-0.4) node[midway, fill=white] {$x$};
+        \draw[dotted] (0,0) -- (0,-0.5);
+        \draw[dotted] (\Px,0) -- (\Px,-0.5);
+
+    \end{tikzpicture}
+        \caption{Esquema cinemático de un mecanismo de pistón accionado por un cigüeñal de radio $R$ y biela de longitud $D$.}
+    \label{fig:piston_biela}
+\end{figure}

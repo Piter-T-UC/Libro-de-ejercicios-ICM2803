@@ -1,0 +1,82 @@
+\subsubsection{Rueda de molino}
+
+Una barra de longitud \( L \) con una rueda de radio \( R \) unida a uno de sus extremos está rotando alrededor del eje vertical \( OA \) con una velocidad angular constante \( \Omega \) relativa a un marco de referencia fijo, como se muestra en la Figura~\ref{fig:rueda_brazo_final}. La rueda está vertical y rueda sin deslizamiento a lo largo de una superficie horizontal fija.\\
+
+Determine la velocidad angular y la aceleración angular de la rueda por un observador en un marco de referencia fijo.\\
+
+\begin{figure}[htbp]
+    \centering
+    % 1. Ajuste de Perspectiva (Ángulo de elevación y azimut)
+    \tdplotsetmaincoords{60}{130}
+
+    \begin{tikzpicture}[tdplot_main_coords, scale=1.5, >=Latex]
+
+        % --- Parámetros Ajustados (Proporciones más realistas) ---
+        \def\L{3.5}      % Longitud del brazo
+        \def\R{1}      % Radio del disco
+        \def\Hshaft{2.0} % Altura del eje central
+        \def\zO{1}     % Altura de conexión del brazo
+        \def\DiskThick{0.2} % Grosor del disco
+
+        % --- 1. Trayectoria Circular en el Suelo ---
+        \draw[dashed, gray, thin] (0,0,0) circle (\L);
+
+        % --- 2. Eje Central (Poste) ---
+        % Base y tapa para darle solidez
+        \def\Raxis{0.4} % Definimos el radio del poste para que sea consistente
+
+        % Cara inferior (Base)
+
+        % Cuerpo del cilindro (Paredes)
+        % Dibujamos un rectángulo que une los extremos laterales del círculo
+        \draw[fill=gray!30, draw=black,thick](\Raxis+0.1,-0.1,0) arc (-50:130:\Raxis)--++(0,0,\Hshaft)-- ++(0.87,-0.28,0.21)--cycle;
+            
+        % Cara superior (Tapa)
+        \draw[fill=gray!30, thick] (0,0,\Hshaft-0.15) circle (\Raxis);
+
+        % Línea de eje y punto O
+        \draw[dash dot, thin] (0,0,-0.5) -- (0,0,\Hshaft + 1.0);
+        \coordinate (O) at (0,0,\zO);
+
+        % --- 3. Brazo Rotatorio ---
+        \coordinate (B) at (\L, 0, \zO);
+        % Línea gruesa y sólida
+        \draw[line width=5pt] (O) -- (B) node[midway, above] {$L$};
+        \draw[line width=4pt, gray!70, line cap=round] (O) -- (B);
+
+        \filldraw (O) circle (1.5pt) node[left, xshift=-2pt,  yshift=2pt] {$O$};
+        % --- 4. Disco en el punto B (Mejorado) ---
+        % Rotamos el sistema local para dibujar el disco vertical
+        \tdplotsetrotatedcoords{0}{90}{0}
+        \begin{scope}[tdplot_rotated_coords, shift={(B)}]
+            % Círculo trasero (para dar profundidad)
+            \draw[fill=gray!60, thick] (0,0,-\DiskThick) circle (\R);
+            
+            % Borde del disco (conecta los círculos)
+            \draw[thick, gray!60] (0,\R,0) -- (0,\R,-\DiskThick);
+            \draw[thick, gray!60] (0,-\R,0) -- (0,-\R,-\DiskThick);
+
+            % Círculo frontal (cara principal)
+            \draw[fill=gray!30, thick] (0,0,0) circle (\R);
+            
+            % Eje del disco
+            \draw[fill=gray!80] (0,0,0) circle (0.15);
+
+            % Puntos y Etiquetas
+            \filldraw[black] (0,0,0) circle (1.5pt) node[above right] {$B$};
+            % Vector Radio R apuntando al suelo
+            \draw[->, thick] (0,0,0) -- (0,-\R,0) node[midway, above] {$R$};
+        \end{scope}
+
+        % --- 5. Indicador de Rotación Omega ---
+        \draw[->, very thick] (0,0,\Hshaft + 0.4) ++(120:0.6) arc (120:420:0.6);
+        \node[left] at (-0.6, 0, \Hshaft + 0.7) {$\Omega$};
+
+        % --- Hack para Centrado ---
+        % Puntos invisibles extremos para equilibrar la caja delimitadora
+        \path (\L+\R, 0, 0); \path (-\L-\R, 0, 0);
+
+    \end{tikzpicture}
+    \caption{Representación mejorada del sistema de rueda pivotante. El disco de radio $R$ rueda sobre una trayectoria circular de radio $L$, impulsado por el brazo que gira con velocidad $\Omega$ alrededor del eje vertical.}
+    \label{fig:rueda_brazo_final}
+\end{figure}

@@ -1,0 +1,89 @@
+\subsubsection{Péndulo esférico}
+
+Una partícula $P$ está suspendida de un extremo de una varilla rígida de longitud $L$. La posición se describe con ángulos esféricos $\theta$ y $\phi$ respecto a una base fija $\{E_x, E_y, E_z\}$, donde $E_z$ apunta hacia abajo.
+
+Se pide determinar para un observador fijo al suelo:
+\begin{enumerate}
+    \item Los marcos de referencia y sistemas de coordenadas.
+    \item El vector posición de la partícula $P$.
+    \item El vector velocidad angular de la varilla.
+    \item Los vectores de velocidad y aceleración de la partícula.
+\end{enumerate}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[
+        >=Latex, 
+        x={(1cm,0cm)}, 
+        y={(-0.4cm,-0.3cm)}, % Perspectiva ajustada para claridad
+        z={(0cm,-1cm)},      % Eje Z apuntando hacia abajo
+        scale=2.5
+    ]
+        % --- Parámetros ---
+        \def\L{2.0}       % Longitud varilla
+        \def\thetaAng{35} % Ángulo theta ( plano horizontal)
+        \def\phiAng{40}   % Ángulo phi (respecto a la vertical)
+        \def\arcRad{0.7}  % Radio para los arcos de ángulo
+
+        % --- Coordenadas ---
+        \coordinate (O) at (0,0,0);
+        
+        % Cálculo de P en coordenadas esféricas (Z hacia abajo)
+        \pgfmathsetmacro{\Px}{\L*sin(\phiAng)*cos(\thetaAng)}
+        \pgfmathsetmacro{\Py}{\L*sin(\phiAng)*sin(\thetaAng)}
+        \pgfmathsetmacro{\Pz}{\L*cos(\phiAng)}
+        \coordinate (P) at (\Px, \Py, \Pz);
+        \coordinate (Q) at (\Px, \Py, 0); % Proyección en plano XY
+
+        % --- 1. Soporte y Ejes ---
+       \begin{scope}[canvas is xy plane at z=0]
+            \fill[pattern=north east lines] (0,0) circle (0.15);
+            \draw[thick] (0,0) circle (0.15);
+        \end{scope}
+        \filldraw (O) circle (0.8pt) node[above left] {$O$};
+
+        % Ejes
+        \draw[->, thick] (O) -- (1.8,0,0) node[right] {$E_x$};
+        \draw[->, thick] (O) -- (0,1.8,0) node[left] {$E_y$};
+        \draw[->, thick, -{Latex[length=3mm]}] (O) -- (0,0,2.2) node[below] {$E_z$};
+
+        % --- 2. Proyecciones y Varilla ---
+        \draw[dashed, thin, gray!70] (O) -- (Q);
+        \draw[dashed, thin, gray!70] (Q) -- (P);
+        \draw[dashed, thin, gray!70] (P) -- (0,0,\Pz); % Proyección al eje Z
+
+        % Varilla y Partícula
+        \draw[line width=1.5pt, color=gray!70] (O) -- (P) node[midway, right, xshift=2pt] {$L$};
+        \filldraw[shading=ball, ball color=gray!40] (P) circle (3pt) node[right, xshift=4pt] {$P$};
+        \filldraw[gray] (Q) circle (1pt) node[right] {$Q$};
+
+        % --- 3. Ángulos (CORREGIDOS EN 3D) ---
+        
+        % Ángulo Theta (Plano XY, es más fácil)
+        \draw[->, thin] (\arcRad,0,0) arc (0:\thetaAng:\arcRad);
+        \node at ({(\arcRad+0.2)*cos(\thetaAng/2)}, {(\arcRad+0.2)*sin(\thetaAng/2)}, 0) {$\theta$};
+
+        % --- CORRECCIÓN DEL ÁNGULO PHI ---
+        % Calculamos 3 puntos en el espacio para dibujar el arco 3D correcto
+        % 1. Inicio sobre el eje Ez
+        \coordinate (PhiStart) at (0, 0, \arcRad);
+        % 2. Fin sobre la varilla OP (P escalado)
+        \coordinate (PhiEnd) at ($ (O)!{\arcRad/\L}!(P) $);
+        % 3. Un punto intermedio para la curvatura (aprox. a la mitad del ángulo)
+        \pgfmathsetmacro{\halfPhi}{\phiAng/2}
+        \coordinate (PhiMid) at (
+            {\arcRad*sin(\halfPhi)*cos(\thetaAng)},
+            {\arcRad*sin(\halfPhi)*sin(\thetaAng)},
+            {\arcRad*cos(\halfPhi)}
+        );
+
+        % Dibujamos la curva suave pasando por los 3 puntos 3D
+        \draw[->, thin] plot [smooth] coordinates {(PhiStart) (PhiMid) (PhiEnd)};
+        
+        % Etiqueta Phi posicionada cerca del punto medio
+        \node at ($(PhiMid) + (0,0,0.2)$) {$\phi$};
+
+    \end{tikzpicture}
+    \caption{Esquema del péndulo esférico con la representación correcta del ángulo $\phi$ en el espacio 3D.}
+    \label{fig:pendulo_esferico_corregido}
+\end{figure}

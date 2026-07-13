@@ -1,0 +1,48 @@
+\subsubsection{Collarín en brazo rotatorio}
+Un collarín se desliza libremente a lo largo de un brazo rígido, como se muestra en la Figura \ref{fig:collarin_brazo}. El brazo está articulado en uno de sus extremos a un punto $O$, el cual está fijo al suelo, y rota alrededor de una dirección que es ortogonal al plano de movimiento.
+
+Sabiendo que la posición del collarín está descrita por las variables $r$ y $\theta$, donde $r$ es el desplazamiento del collarín relativo al punto $O$ y $\theta$ es el ángulo de la barra medido con respecto a una dirección fija al suelo, determine lo siguiente para un observador fijo al suelo:
+
+\begin{enumerate}
+    \item El vector velocidad del collarín.
+    \item El vector aceleración del collarín.
+    \item La aceleración angular del collarín.
+\end{enumerate}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.5]
+        \def\ang{35} \def\rPos{3.0}
+        \coordinate (O) at (0,0);
+        \fill[pattern=north east lines] (-0.5,-0.5) rectangle (0.5,-0.4);
+        \draw[thick] (-0.5,-0.4) -- (0.5,-0.4);
+        \draw (O) -- (-0.25,-0.4);
+        \draw (O) -- (0.25,-0.4);
+        \filldraw[fill=white] (O) circle (2.5pt) node[above left] {$O$};
+        \coordinate (End) at (\ang:4.5);
+        \draw[line width=5pt, color=black,cap=round] (O) -- (End);
+        \draw[line width=4pt, color=gray!20,cap=round] (O) -- (End);
+        \draw[thick] (O) -- (End);
+        
+        % COLLARÍN CON DEGRADADO CORREGIDO
+        \coordinate (P) at (\ang:\rPos);
+        \node[
+            top color=gray!5, 
+            bottom color=gray!60, 
+            draw=black, 
+            thick, 
+            shape=rounded rectangle, 
+            minimum width=0.6cm, 
+            minimum height=0.35cm, 
+            rotate=\ang+90, 
+            inner sep=0pt
+        ] at (P) {};
+        \filldraw (P) circle (1.2pt) node[above right, yshift=5pt] {$P$};
+
+        \draw[dashed] (O) -- (2,0);
+        \draw[->] (1,0) arc (0:\ang:1) node[midway, right, xshift=2pt] {$\theta$};
+        \draw[<->] ($(O)+(90+\ang:0.4)$) -- ($(P)+(90+\ang:0.4)$) node[midway, above left] {$r$};
+    \end{tikzpicture}
+    \caption{Collarín deslizando sobre un brazo rotatorio.}
+    \label{fig:collarin_brazo}
+\end{figure}

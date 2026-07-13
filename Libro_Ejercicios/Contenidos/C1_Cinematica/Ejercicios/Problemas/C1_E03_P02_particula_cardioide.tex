@@ -1,0 +1,42 @@
+\subsubsection{Partícula en cardioide}
+Una partícula se mueve a lo largo de una trayectoria con forma de cardioide como se muestra en la Figura \ref{fig:cardioide}. La ecuación de la cardioide es
+\[ r = a(1 - \cos \theta) \]
+donde \( \theta \) es el ángulo medido desde la dirección horizontal fija. Suponiendo que \( \theta \in [0, \pi] \), determine las siguientes magnitudes relativas a un observador en un sistema de referencia fijo:
+
+\begin{enumerate}
+    \item El parámetro de longitud de arco \( s \) como función del ángulo \( \theta \).
+    \item La base intrínseca \( \{ \vec{e}_t, \vec{e}_n, \vec{e}_b \} \) y la curvatura de la trayectoria como función del ángulo \( \theta \).
+    \item La posición, velocidad y aceleración de la partícula en términos de la base intrínseca \( \{ \vec{e}_t, \vec{e}_n, \vec{e}_b \} \).
+\end{enumerate}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.8]
+        % --- Parámetros Geométricos ---
+        \def\a{1.2}      % Escala de la cardioide
+        \def\angP{100}    % Ángulo para posicionar el punto P
+
+        % --- 1. Trayectoria Cardioide con sombreado ---
+        \shadedraw[inner color=gray!5, outer color=gray!40, line width=0.8pt, domain=0:360, samples=200, smooth, variable=\t] 
+            plot ({\t}: {\a*(1-cos(\t))});
+
+        % --- 2. Ejes y Referencia ---
+        \coordinate (O) at (0,0);
+        \draw[thick] (O) -- (1.5,0); % Eje horizontal de referencia
+        \filldraw (O) circle (1.5pt) node[below left] {$O$};
+
+        % --- 3. Punto P y Vector Posición ---
+        % Cálculo de la posición de P en coordenadas polares
+        \coordinate (P) at ({\angP}: {\a*(1-cos(\angP))});
+        
+        \draw[->, thick] (O) -- (P) node[midway, left, yshift=2pt] {$r$};
+        \filldraw (P) circle (1.5pt) node[above left] {$P$};
+
+        % --- 4. Representación del Ángulo Theta ---
+        \draw[->] (0.5,0) arc (0:\angP:0.5);
+        \node at (0.25, 0.15) {$\theta$};
+
+    \end{tikzpicture}
+    \caption{Partícula moviéndose en una trayectoria con forma de cardioide definida por la ecuación $r = a(1 - \cos \theta)$.}
+    \label{fig:cardioide}
+\end{figure}

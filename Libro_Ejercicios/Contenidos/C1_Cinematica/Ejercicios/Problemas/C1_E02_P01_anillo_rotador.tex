@@ -1,0 +1,82 @@
+\subsubsection{Problema: Anillo rotador}
+Un anillo \( P \) se desliza a lo largo de un aro circular de radio \( r \) como indica la figura \ref{fig:anillo_deslizante}. El aro rota con una velocidad angular \( \Omega \) que apunta en la dirección vertical gracias a las uniones en \( A \) y \( B \), que en conjunto actúan como una conexión de revolución.
+
+Si el ángulo \( \phi \) describe la posición del anillo con respecto al centro \( O \) del aro circular, determine:
+
+\begin{enumerate}
+    
+    \item Marcos de referencia y Sistemas de coordenadas.
+    \item La posición del anillo \( P \).
+    \item La velocidad y aceleración angular del anillo \( P \).
+    \item La velocidad y aceleración del anillo \( P \) vistos por un observador fijo en \( O \).
+\end{enumerate}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1]
+        % --- Parámetros Geométricos ---
+        \pgfmathsetmacro{\Rout}{2.2} % Radio exterior del anillo
+        \pgfmathsetmacro{\Rin}{2.0}  % Radio interior del anillo
+        \pgfmathsetmacro{\Rmid}{(\Rin+\Rout)/2} % Radio medio (para P)
+        \def\ThetaAngle{50}             % Ángulo theta desde la vertical
+
+        \coordinate (O) at (0,0);
+
+        % --- 1. Eje Central y Centro ---
+        \draw[dash dot, thin] (0, -\Rout - 1.5) -- (0, \Rout + 1.8);
+        \filldraw (O) circle (1.5pt) node[left, xshift=-2pt] {$O$};
+
+        % --- 2. Anillo Circular ---
+        % Relleno gris entre dos círculos para dar grosor (even odd rule)
+        \draw[fill=gray!35, thick, even odd rule] (O) circle (\Rout) (O) circle (\Rin);
+
+        % --- 3. Soporte Superior A ---
+        \begin{scope}[shift={(0, \Rout)}]
+            % Pieza en T (móvil, unida al anillo)
+            \draw[fill=gray!50, thick] (-0.15, 0) rectangle (0.15, 0.3);
+            \draw[fill=gray!50, thick] (-0.4, 0.3) rectangle (0.4, 0.6);
+            % Guía Fija (C negra)
+            \draw[fill=black] (-0.6, 0.2) rectangle (0.6, 0.7);
+            \draw[fill=white, thick] (-0.42, 0.18) rectangle (0.42, 0.62);
+            % Techo fijo (rayado)
+            \draw[thick, pattern=north east lines] (-0.7, 0.7) rectangle (0.7, 1.0);
+            \draw[thick] (-0.7, 0.7) -- (0.7, 0.7);
+            \node[left] at (-0.6, 0.35) {$A$};
+        \end{scope}
+
+        % --- 4. Soporte Inferior B (Espejo de A) ---
+        \begin{scope}[shift={(0, -\Rout)}, rotate=180]
+            \draw[fill=gray!50, thick] (-0.15, 0) rectangle (0.15, 0.3);
+            \draw[fill=gray!50, thick] (-0.4, 0.3) rectangle (0.4, 0.6);
+            \draw[fill=black] (-0.6, 0.2) rectangle (0.6, 0.7);
+            \draw[fill=white, thick] (-0.42, 0.18) rectangle (0.42, 0.62);
+            \draw[thick, pattern=north east lines] (-0.7, 0.7) rectangle (0.7, 1.0);
+            \draw[thick] (-0.7, 0.7) -- (0.7, 0.7);
+            \node[left] at (0.6, 0.35) {$B$};
+        \end{scope}
+
+        % --- 5. Partícula P ---
+        % Posición calculada para estar en el medio del grosor del anillo
+        \coordinate (P) at ({90-\ThetaAngle}:\Rmid);
+        \begin{scope}[shift={(P)}, rotate={90-\ThetaAngle}]
+            \draw[fill=gray!40, thick, rounded corners=2pt] (-0.2, -0.12) rectangle (0.2, 0.12);
+            \node[above right, xshift=2pt] {$P$};
+        \end{scope}
+
+        % --- 6. Vectores y Ángulos ---
+        % Vector Posición r
+        \draw[->, thick] (O) -- (P) node[midway, right] {$r$};
+        % Ángulo Theta desde la vertical
+        \draw[->, thick] (0, 1.0) arc (90:{90-\ThetaAngle}:1.0);
+        \node at ({90-\ThetaAngle/2}:1.3) {$\theta$};
+
+        % Vector Rotación Omega (Superior)
+        \coordinate (TopAxis) at (0, \Rout + 1.3);
+        \draw[->, very thick] (TopAxis) -- ++(0, 0.8); 
+        \draw[->, thick] ($(TopAxis)+(-0.3,0.3)$) arc (170:370:0.4 and 0.15);
+        \node[left] at ($(TopAxis)+(-0.5, 0.4)$) {$\Omega$};
+
+    \end{tikzpicture}
+    \caption{Sistema mecánico compuesto por un anillo circular giratorio con soportes deslizantes en $A$ y $B$. La partícula $P$ se desplaza a lo largo del anillo con una posición definida por $r$ y $\theta$.}
+    \label{fig:anillo_deslizante}
+\end{figure}
