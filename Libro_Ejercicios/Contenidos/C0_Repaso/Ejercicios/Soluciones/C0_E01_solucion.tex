@@ -1,0 +1,155 @@
+\subsection{Álgebra Vectorial}
+
+% ---  1 ---
+\begin{sol}[{Operaciones con una base: 1}]
+\begin{multicols}{2} 
+\begin{enumerate}
+    \item $\vec{e}_1 \cdot \vec{e}_1 = \|\vec{e}_1\|^2 = 1$ (por ser base orto-normal).
+    \item $a\vec{e}_1 \cdot b\vec{e}_2 = ab(\vec{e}_1 \cdot \vec{e}_2) = ab(0) = 0$ (vectores perpendiculares).
+    \item $\vec{e}_2 \times \vec{e}_3 = \vec{e}_1$ (orden cíclico positivo).
+    \item $\vec{e}_3 \times \vec{e}_2 = -(\vec{e}_2 \times \vec{e}_3) = -\vec{e}_1$ (propiedad anticonmutativa).
+    \item $\vec{e}_1 \times \vec{e}_1 = \vec{0}$ (el producto cruz de un vector consigo mismo es nulo).
+    \item $\| a\vec{e}_2 + b\vec{e}_2 \| = \|(a+b)\vec{e}_2\| = |a+b| \cdot 1 = |a+b|$.
+    \item $(a\vec{e}_1 + b\vec{e}_2) \cdot \vec{e}_1 = a(\vec{e}_1 \cdot \vec{e}_1) + b(\vec{e}_2 \cdot \vec{e}_1) = a(1) + b(0) = a$.
+    \item $\| a\vec{e}_1 \times b\vec{e}_3 \| = \| ab(\vec{e}_1 \times \vec{e}_3) \| = \| ab(-\vec{e}_2) \| = |ab| \cdot 1 = |ab|$.
+    \item $\vec{e}_1 \cdot (\vec{e}_2 \times \vec{e}_3) = \vec{e}_1 \cdot \vec{e}_1 = 1$.
+    \item $(\vec{e}_1 \times \vec{e}_2) \cdot \vec{e}_3 = \vec{e}_3 \cdot \vec{e}_3 = 1$.
+    \item $\| a\vec{e}_1 - a\vec{e}_1 \| = \| \vec{0} \| = 0$.
+    \item $(a\vec{e}_1 + b\vec{e}_3) \cdot (c\vec{e}_2) = ac(\vec{e}_1 \cdot \vec{e}_2) + bc(\vec{e}_3 \cdot \vec{e}_2) = 0 + 0 = 0$.
+\end{enumerate}
+\end{multicols}
+\end{sol}
+\begin{sol}[{Operaciones con una base: 2}]
+      \begin{multicols}{2}
+            
+    \begin{enumerate}
+        
+    \item$\vec{e}_1\cdot\vec{e}_2=0$
+    %\item$a\vec{e}_1\cdot \vec{e}_3=$
+    \item$\vec{e}_2\cdot a\vec{e}_2= a$
+    \item$\vec{e}_3\times \vec{e}_1=\vec{e}_2$
+    %\item$\|a\vec{e}_3\times b\vec{e}_3\|=$
+    \item$\|a\vec{e}_1\times b\vec{e}_2\|=ab$
+    %\item$\vec{e}_1\cdot (\vec{e}_2+a\vec{e}_3)=$
+    \item$\vec{e}_1\cdot (\vec{e}_2+a\vec{e}_1 )=a$
+    %\item$(a\vec{e}_1+d\vec{e}_3)\cdot (b\vec{e}_2+c\vec{e}_3)=$
+    \item$\|(a\vec{e}_1+d\vec{e}_3)\times (b\vec{e}_2+c\vec{e}_3)\|=\sqrt{(ab)^2+(ac)^2+(db)^2}$
+        \end{enumerate}
+        \end{multicols}
+
+\end{sol}
+
+% ---  2 ---
+\begin{sol}[Transformación Cilíndrica-Cartesiana]
+    
+\begin{enumerate}
+    \item $\vec{e}_r \cdot \vec{e}_x = (\cos\theta\vec{e}_x + \sin\theta\vec{e}_y) \cdot \vec{e}_x = \cos\theta(1) + \sin\theta(0) = \cos\theta$.
+    \item $\vec{e}_r \cdot \vec{e}_y = (\cos\theta\vec{e}_x + \sin\theta\vec{e}_y) \cdot \vec{e}_y = \cos\theta(0) + \sin\theta(1) = \sin\theta$.
+    \item $\vec{e}_\theta \cdot \vec{e}_x = (-\sin\theta\vec{e}_x + \cos\theta\vec{e}_y) \cdot \vec{e}_x = -\sin\theta$.
+    \item $\vec{e}_\theta \cdot \vec{e}_y = (-\sin\theta\vec{e}_x + \cos\theta\vec{e}_y) \cdot \vec{e}_y = \cos\theta$.
+    \item $(\vec{e}_r \cdot \vec{e}_x)^2 + (\vec{e}_r \cdot \vec{e}_y)^2 = \cos^2\theta + \sin^2\theta = 1$.
+    \item $\vec{e}_x$Realizando la combinación lineal inversa, se obtiene $\vec{e}_x = \cos\theta\vec{e}_r - \sin\theta\vec{e}_\theta$.
+    \item $\vec{e}_y$Realizando la combinación lineal inversa, se obtiene $\vec{e}_y = \sin\theta\vec{e}_r + \cos\theta\vec{e}_\theta$.
+    \item $\vec{e}_z \times \vec{e}_r = \vec{e}_z \times (\cos\theta\vec{e}_x + \sin\theta\vec{e}_y) = \cos\theta\vec{e}_y - \sin\theta\vec{e}_x = \vec{e}_\theta$.
+    \item $\vec{e}_z \times \vec{e}_\theta = \vec{e}_z \times (-\sin\theta\vec{e}_x + \cos\theta\vec{e}_y) = \sin\theta\vec{e}_y - \cos\theta\vec{e}_x = -\vec{e}_r$.
+    \item $\vec{e}_r \times \vec{e}_\theta = \vec{e}_z$ (por ser base orto-normal derecha).
+    \item $\| \vec{e}_r \times \vec{e}_z \| = \| -\vec{e}_\theta \| = 1$.
+    \item $a\vec{e}_r \cdot b\vec{e}_\theta = ab(\vec{e}_r \cdot \vec{e}_\theta) = ab(0) = 0$.
+\end{enumerate}
+\end{sol}
+\begin{sol}[{Operaciones 2 Bases}]
+    \noindent a) exprese el vector $\vec{e}_z$ en la base $\mathcal{B}$\\
+En este caso uno puede analizar que ambos vectores son igual por ende el vector $\vec{e}_z=\vec{e}_z$\\
+b) exprese el vector $\vec{e}_x$ en la base $\mathcal{B}$\\
+Para este caso existen dos maneras de analizar esto una manera geométrica y una manera algebraica. Para este caso se demostraran de ambas maneras como se resuelve se recomienda trabajar geométrica ya que a lo largo del curso sera el alumno que defina las bases. pero cualquiera es útil.\\ 
+Geométrica
+%\input{Imagenes/TIKZ/CirculoPolar}
+\begin{center}
+    
+\begin{tikzpicture}
+    \Polaresrtz{\theta}{e}{e}{blue}{red}
+\end{tikzpicture}
+
+\end{center}
+
+
+
+Como se buscar el vector $\vec{e}_x$ en la base cilíndrica tenemos que proyectar el vector $\vec{e}_x$ en los 3 vectores de la base, vemos que $\vec{e}_z$ no esta en el plano que se esta trabajando por lo que no es necesario. Ahora al ver la imagen vemos la descomposición del vector
+$$\vec{e}_x=\cos(\theta)\vec{e}_r+\cos(90-\theta)(-\vec{e}_{\theta})=\cos(\theta)\vec{e}_r-\sin(\theta)\vec{e}_{\theta}$$
+c) exprese el vector $\vec{e}_y$ en la base $\mathcal{B}$ \\
+En este caso es igual al anterior, donde mediante trigonometría se puede llegar a la siguiente relación\\
+$$\vec{e}_y=\cos(90-\theta)\vec{e}_r+\cos(\theta)(\vec{e}_{\theta})=\sin(\theta)\vec{e}_r+\cos(\theta)\vec{e}_{\theta}$$
+
+Ahora que se analizo la manera geométrica (trigonométrica) Podemos pasar a la manera algebraica que a alguno le puede ayudar en algún momento. El vector que se busca "proyectado" en la otra base, se puede aplicar la formula de proyección.
+$$proy_{\vec{v}}\vec{u}=\dfrac{\vec{v}\cdot\vec{u}}{\|\vec{v}\|^2}\vec{v}$$
+La formula se lee como la proyección de $\vec{u}$ sobre el vector $\vec{v}$, lo bueno de trabajar con bases orto-normales es que la norma de todos los vectores es uno por ende el denominador de esa formula siempre sera 1, conociendo esto la manera de resolver el problema se transforma en 
+$$\vec{e}_x=\underbrace{(\vec{e}_x\cdot\vec{e}_r)}_{\cos(\theta)}\vec{e}_r+\underbrace{(\vec{e}_x\cdot\vec{e}_{\theta})}_{-\sin(\theta)}\vec{e}_{\theta}+\underbrace{(\vec{e}_x\cdot\vec{e}_z)}_{0}\vec{e}_z$$
+$$\vec{e}_y=\underbrace{(\vec{e}_y\cdot\vec{e}_r)}_{\sin(\theta)}\vec{e}_r+\underbrace{(\vec{e}_y\cdot\vec{e}_{\theta})}_{cos(\theta)}\vec{e}_{\theta}+\underbrace{(\vec{e}_y\cdot\vec{e}_z)}_{0}\vec{e}_z$$
+$$\vec{e}_z=\underbrace{(\vec{e}_z\cdot\vec{e}_r)}_{0}\vec{e}_r+\underbrace{(\vec{e}_z\cdot\vec{e}_{\theta})}_{0}\vec{e}_{\theta}+\underbrace{(\vec{e}_z\cdot\vec{e}_z)}_{1}\vec{e}_z$$
+
+
+\begin{multicols}{2}
+\begin{enumerate}[label=\alph*), start=4]
+    \item $\Vec{e}_z\times\Vec{e}_\theta=-\vec{e}_r$
+   % \item $a\Vec{e}_z\times b\Vec{e}_r=$
+    \item $a\Vec{e}_r\cdot b\Vec{e}_x=ab\cos\theta$
+    \item $l\Vec{e}_r\times(-mg\Vec{e}_y)=-lmg\cos(\theta)\vec{e}_z$
+    \item $\Vec{e}_z\cdot\Vec{e}_\theta=0$
+    \item $\|a\Vec{e}_y\times\Vec{e}_\theta+\Vec{e}_x\|=\sqrt{(a\sin \theta)^2+1^2}$
+   % \item $a\Vec{e}_x\times\Vec{e}_r=$
+   % \item $l\Vec{e}_r\times-mg\Vec{e}_y=$
+    
+\end{enumerate}
+\end{multicols}
+\end{sol}
+
+
+
+% ---  3 ---
+\begin{sol}[ { Productos Mixtos y Triples}]
+\begin{enumerate}
+    \item $(L\vec{e}_r) \times (F\vec{e}_\theta) = LF(\vec{e}_r \times \vec{e}_\theta) = LF\vec{e}_z$.
+    \item $\vec{e}_z \cdot (\vec{e}_r \times \vec{e}_\theta) = \vec{e}_z \cdot \vec{e}_z = 1$.
+    \item $(\dot{\theta}\vec{e}_z) \times (L\vec{e}_r) = L\dot{\theta}(\vec{e}_z \times \vec{e}_r) = L\dot{\theta}\vec{e}_\theta$.
+    \item $\vec{e}_r \cdot (a\vec{e}_x + b\vec{e}_y) = a(\vec{e}_r \cdot \vec{e}_x) + b(\vec{e}_r \cdot \vec{e}_y) = a\cos\theta + b\sin\theta$.
+    \item $(\vec{e}_r \times \vec{e}_z) \cdot \vec{e}_\theta = (-\vec{e}_\theta) \cdot \vec{e}_\theta = -1$.
+    \item $(\vec{e}_x + \vec{e}_r) \cdot \vec{e}_x = \vec{e}_x \cdot \vec{e}_x + \vec{e}_r \cdot \vec{e}_x = 1 + \cos\theta$.
+    \item $\| \vec{e}_x \times \vec{e}_r \| = \| \vec{e}_x \times (\cos\theta\vec{e}_x + \sin\theta\vec{e}_y) \| = \| \sin\theta\vec{e}_z \| = |\sin\theta|$.
+    \item $\vec{e}_z \cdot (\vec{e}_x \times \vec{e}_y) = \vec{e}_z \cdot \vec{e}_z = 1$.
+    \item $\vec{e}_r \cdot (\vec{e}_z \times \vec{e}_r) = \vec{e}_r \cdot \vec{e}_\theta = 0$.
+    \item $(\vec{e}_x \cdot \vec{e}_r) \vec{e}_x + (\vec{e}_y \cdot \vec{e}_r) \vec{e}_y = \cos\theta\vec{e}_x + \sin\theta\vec{e}_y = \vec{e}_r$.
+\end{enumerate}
+\end{sol}
+
+% ---  4 ---
+\begin{sol}[ Base Esférica]
+    
+
+\begin{enumerate}
+    \item $\vec{e}_\rho \cdot \vec{e}_z = (\sin\phi\cos\theta\vec{e}_x + \sin\phi\sin\theta\vec{e}_y + \cos\phi\vec{e}_z) \cdot \vec{e}_z = \cos\phi$.
+    \item $\vec{e}_\phi \cdot \vec{e}_z = (\cos\phi\cos\theta\vec{e}_x + \cos\phi\sin\theta\vec{e}_y - \sin\phi\vec{e}_z) \cdot \vec{e}_z = -\sin\phi$.
+    \item $\vec{e}_\theta \cdot \vec{e}_z = 0$ (el vector $\vec{e}_\theta$ está contenido en el plano $xy$).
+    \item $\vec{e}_\rho \cdot \vec{e}_\rho = 1$ (vector unitario).
+    \item $\vec{e}_\rho \times \vec{e}_\phi = \vec{e}_\theta$ (base orto-normal derecha).
+    \item $\vec{e}_\theta \times \vec{e}_\rho = \vec{e}_\phi$ (orden cíclico de la base).
+    \item $\vec{e}_z = (\vec{e}_z \cdot \vec{e}_\rho)\vec{e}_\rho + (\vec{e}_z \cdot \vec{e}_\phi)\vec{e}_\phi = \cos\phi\vec{e}_\rho - \sin\phi\vec{e}_\phi$.
+    \item $\vec{e}_\rho \cdot (\sin\phi\cos\theta\vec{e}_x + \sin\phi\sin\theta\vec{e}_y) = \sin^2\phi\cos^2\theta + \sin^2\phi\sin^2\theta = \sin^2\phi$.
+    \item $\| \vec{e}_\rho \times \vec{e}_z \| = \sin(\phi) \cdot 1 = \sin\phi$.
+    \item $(\vec{e}_\rho \cdot \vec{e}_x)^2 + (\vec{e}_\rho \cdot \vec{e}_y)^2 + (\vec{e}_\rho \cdot \vec{e}_z)^2 = \sin^2\phi\cos^2\theta + \sin^2\phi\sin^2\theta + \cos^2\phi = 1$.
+\end{enumerate}
+\end{sol}
+% ---  5 ---
+\begin{sol}[Identidades y Teorema del Transporte]
+\begin{enumerate}
+    \item $\vec{\omega} \times \vec{r} = (\omega\vec{e}_3) \times (r\vec{e}_1) = \omega r \vec{e}_2$.
+    \item $\vec{\omega} \times (\vec{\omega} \times \vec{r}) = \vec{\omega} \times (\omega r \vec{e}_2) = \omega^2 r (\vec{e}_3 \times \vec{e}_2) = -\omega^2 r \vec{e}_1$.
+    \item $\vec{r} \cdot (\vec{\omega} \times \vec{r}) = (r\vec{e}_1) \cdot (\omega r \vec{e}_2) = 0$.
+    \item $(\vec{\omega} \times \vec{r}) \cdot \vec{\omega} = (\omega r \vec{e}_2) \cdot (\omega\vec{e}_3) = 0$.
+    \item $\| \vec{\omega} \times \vec{r} \| = \| \omega r \vec{e}_2 \| = |\omega r|$.
+    \item $\vec{e}_1 \times (\vec{e}_1 \times \vec{e}_2) = \vec{e}_1 \times \vec{e}_3 = -\vec{e}_2$.
+    \item $(\vec{e}_1 + \vec{e}_2) \times (\vec{e}_1 - \vec{e}_2) = \vec{e}_1 \times \vec{0} - \vec{e}_1 \times \vec{e}_2 + \vec{e}_2 \times \vec{e}_1 - \vec{e}_2 \times \vec{e}_2 = -2\vec{e}_3$.
+    \item $\| \vec{e}_1 + \vec{e}_2 \| = \sqrt{(\vec{e}_1 + \vec{e}_2) \cdot (\vec{e}_1 + \vec{e}_2)} = \sqrt{1 + 1} = \sqrt{2}$.
+    \item $(\vec{e}_1 \cdot \vec{e}_2) + (\vec{e}_2 \cdot \vec{e}_3) + (\vec{e}_3 \cdot \vec{e}_1) = 0 + 0 + 0 = 0$.
+    \item $\vec{e}_1 \cdot (\vec{e}_2 \times \vec{e}_1) = \vec{e}_1 \cdot (-\vec{e}_3) = 0$.
+\end{enumerate}
+\end{sol}
