@@ -1,0 +1,67 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{pauta_tikz}[2026/01/03 Comandos de Dibujo TikZ]
+
+\RequirePackage{tikz}
+\RequirePackage{tikz-3dplot}
+
+% --- LIBRERÍAS TIKZ ---
+\usetikzlibrary{positioning, patterns, shapes.misc, calc}
+\usetikzlibrary{decorations.markings, decorations.pathmorphing}
+\usetikzlibrary{angles, quotes, arrows.meta, bending}
+
+\tikzset{>=latex} % Configuración global de flechas
+
+
+\tikzstyle{myarr}=[-{Latex[length=3,width=2,flex'=1]},thin]
+\tikzstyle{mydashed}=[dash pattern=on 2pt off 1pt]
+%mis colores
+\definecolor{azul}{RGB}{0,160,255}
+\definecolor{azul2}{RGB}{7,74,163}
+\definecolor{gris1}{RGB}{44, 62, 80}
+\definecolor{myred}{RGB}{191, 0, 0}
+
+\setcounter{tocdepth}{3}
+
+
+
+
+% --- MACROS DE DIBUJO ---
+
+\newcommand{\Polaresxyz}[5]{
+    \draw[thin] (0,0) circle (2.5);
+    \draw[#4, ultra thick, -{Latex}] (0,0) -- (1.6,0) node[below right] {$\vec{#2}_x$};
+    \draw[#4, ultra thick, -{Latex}] (0,0) -- (0,1.6) node[left] {$\vec{#2}_y$};
+    \draw[#5, ultra thick, -{Latex}] (0,0) -- (35:1.6) node[above] {$\vec{#3}_x$};
+    \draw[#5, ultra thick, -{Latex}] (0,0) -- (35+90:1.6) node[left] {$\vec{#3}_y$};
+    \draw[->] (0.9,0) arc (0:35:0.9) node[midway, right, xshift=2pt] {$#1$};
+    \fill (35:2) circle (1.5pt);
+    \draw (0,0) circle (0.15);
+    \node[below left, xshift=-2pt, yshift=-2pt] at (0,0) {\textcolor{#4}{$\vec{#2}_z$} = \textcolor{#5}{$\vec{#3}_z$}};
+    \fill (0,0) circle (1pt);
+}
+
+\newcommand{\Polaresrtz}[5]{
+    \draw[thin] (0,0) circle (2.5);
+    \draw[#4, ultra thick, -{Latex}] (0,0) -- (1.6,0) node[below right] {$\vec{#2}_x$};
+    \draw[#4, ultra thick, -{Latex}] (0,0) -- (0,1.6) node[left] {$\vec{#2}_y$};
+    \draw[#5, ultra thick, -{Latex}] (0,0) -- (35:1.6) node[above] {$\vec{#3}_r$};
+    \draw[#5, ultra thick, -{Latex}] (0,0) -- (35+90:1.6) node[left] {$\vec{#3}_\theta$};
+    \draw[->] (0.9,0) arc (0:35:0.9) node[midway, right, xshift=2pt] {$#1$};
+    \fill (35:2) circle (1.5pt);
+    \draw (0,0) circle (0.15);
+    \node[below left, xshift=-2pt, yshift=-2pt] at (0,0) {$\vec{#2}_z = \vec{#3}_z$};
+    \fill (0,0) circle (1pt);
+}
+
+\newcommand{\PolaresGen}[5]{
+    \draw[thin] (0,0) circle (2);
+    \draw[#4, ultra thick, -{Latex}] (0,0) -- (1.6,0) node[below right] {$\vec{#2}_x$};
+    \draw[#4, ultra thick, -{Latex}] (0,0) -- (0,1.6) node[left] {$\vec{#2}_y$};
+    \draw[#5, ultra thick, -{Latex}] (0,0) -- (35:1.6) node[above] {$\vec{#3}_r$};
+    \draw[#5, ultra thick, -{Latex}] (0,0) -- (35+90:1.6) node[left] {$\vec{#3}_\theta$};
+    \draw[->] (0.9,0) arc (0:35:0.9) node[midway, right, xshift=2pt] {$#1$};
+    \fill (35:1.8) circle (1.5pt);
+    \draw (0,0) circle (0.15);
+    \node[below left, xshift=-2pt, yshift=-2pt] at (0,0) {$\vec{#2}_z = \vec{#3}_z$};
+    \fill (0,0) circle (1pt);
+}

@@ -1,0 +1,176 @@
+\ProvidesPackage{pauta_base}[2026/01/03 Configuración Base y Comandos de Cinemática]
+
+% --- CONFIGURACIÓN DE TEXTO Y DOCUMENTO ---
+\RequirePackage[utf8]{inputenc}    
+\RequirePackage[T1]{fontenc}
+\RequirePackage[spanish, es-noquoting]{babel}
+\RequirePackage{lmodern}
+\renewcommand*{\familydefault}{\sfdefault} % Fuente Sans Serif
+\RequirePackage{geometry}
+\RequirePackage{setspace}
+\RequirePackage{parskip}         
+\RequirePackage[dvipsnames]{xcolor}
+\RequirePackage{multicol}
+\RequirePackage[colorlinks=true, linkcolor=black]{hyperref} 
+
+% --- MATEMÁTICAS Y SÍMBOLOS ---
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
+\RequirePackage{physics}
+\RequirePackage{tensor}
+\RequirePackage{leftidx}
+\RequirePackage{stackrel}
+\RequirePackage{cancel}
+\RequirePackage{textcomp}
+\RequirePackage[outline]{contour} 
+
+
+% --- FORMATO DE LISTAS ---
+\RequirePackage{enumitem}
+\setlist[enumerate,1]{label=\alph*)}
+
+
+
+
+% --- CONFIGURACIÓN DE TCOLORBOX ---
+\RequirePackage[most]{tcolorbox}
+\tcbuselibrary{skins, breakable, raster}
+
+% 1. Entorno Solución
+\newtcolorbox[auto counter, number within=section]{sol}[1][]{
+  colback=black!5!white,     
+  colframe=darkgray,   
+  enhanced,                 
+  enforce breakable,               
+  arc=2pt,
+  title={Solución \thetcbcounter}, 
+  list entry={Solución \thetcbcounter \ #1}, 
+  add to list={toc}{subsubsection}, 
+  before upper={
+    \setcounter{equation}{0}
+    \renewcommand{\theequation}{\thetcbcounter.\arabic{equation}}
+  },
+  title=#1                         
+}
+
+% 2. Entorno Cinemática (Independiente)
+\NewTColorBox[use counter from=sol]{cinematica}{ O{CadetBlue} m d"" !O{} }{
+  enhanced,
+  colframe=#1!75!black,
+  colback=#1!5!white,
+  fonttitle=\bfseries,
+  title={#2},
+  code={\IfValueT{#3}{\tcbset{watermark text={#3}}}},
+  #4
+}
+
+% 3. Entorno Fórmulas
+\newtcolorbox{form}[1][]{
+  colback=red!5!white,
+  colframe=red!75!black,
+  fonttitle=\bfseries,
+  coltitle=white,
+  title={Fórmulas},
+  enhanced, breakable,
+  before skip=10pt, after skip=10pt,
+  arc=2pt, #1
+}
+
+% 4. Entorno Marcos
+\newtcolorbox{marcos}[1][]{
+  colback=white,
+  colframe=gray!60!black,
+  colbacktitle=gray!15!white, 
+  arc=2pt,
+  fonttitle=\bfseries,
+  coltitle=black,
+  title={#1},
+  attach boxed title to top left={xshift=3mm, yshift=-3mm, yshifttext=-1mm},
+  boxed title style={
+    colframe=gray!60!black,
+    sharp corners,
+    boxrule=0.5pt,
+    arc=1pt,
+    bottom=0pt,
+    top=0pt,
+    left=2pt,
+    right=2pt
+  },
+  title={Marcos de referencia y sistemas de coordenadas},
+  enhanced, breakable,
+  arc=2pt,
+  before skip=10pt, after skip=10pt, #1
+}
+
+% 5. Entorno Cinemática Unificada (Contenedor)
+\newtcolorbox{cinematicaUnificada}[1]{
+  enhanced,
+  colback=white,
+  colframe=gray!60!black,
+  colbacktitle=gray!15!white, 
+  arc=2pt,
+  fonttitle=\bfseries,
+  coltitle=black,
+  title={#1},
+  attach boxed title to top left={xshift=3mm, yshift=-3mm, yshifttext=-1mm},
+  boxed title style={
+    colframe=gray!60!black,
+    sharp corners,
+    boxrule=0.5pt,
+    arc=1pt,
+    bottom=0pt,
+    top=0pt,
+    left=2pt,
+    right=2pt
+  },
+  top=4mm,
+  separator sign none,
+  enforce breakable
+}
+\newtcolorbox{cinetica}[1]{
+  enhanced,
+  enforce breakable, 
+  pad at break=2mm,
+  colback=white,
+  colframe=gray!60!black, 
+  colbacktitle=gray!15!white,
+  coltitle=black,
+  boxrule=0.6pt,
+  arc=2pt,
+  fonttitle=\small\bfseries\sffamily,
+  title={#1},
+  attach boxed title to top left={xshift=3mm, yshift=-3mm, yshifttext=-1mm},
+  boxed title style={
+    colframe=gray!60!black,
+    sharp corners,
+    boxrule=0.5pt,
+    arc=1pt,
+    bottom=0pt,
+    top=0pt,
+    left=2pt,
+    right=2pt
+  },
+  top=5mm,
+  bottom=2mm,
+  left=3mm,
+  right=3mm,
+  separator sign none,
+}
+
+% --- COMANDOS PERSONALIZADOS (MAT/CIN) ---
+\newcommand{\subtitulo}[1]{
+    \tcbline 
+    \nopagebreak
+    \vspace{3pt}
+    \begin{center} \textbf{\small --- #1 ---} \end{center}
+    \vspace{3pt}
+}
+
+\newcommand{\transport} [3] {\leftidx{^\mathcal{#2}}{\dfrac{d}{dt}#1}=\leftidx{^\mathcal{#3}}{\dfrac{d}{dt}#1}+\velang{#2}{#3} \times #1}
+\newcommand{\transporta} [3] {\leftidx{^\mathcal{#3}}{\dfrac{d}{dt}#1}+\velang{#2}{#3}\times #1}
+\newcommand{\der}[2]{\leftidx{^\mathcal{#2}}{\dfrac{d}{dt}#1}}
+\newcommand{\marc}[2]{\leftidx{^\mathcal{#2}}{#1}}
+\newcommand{\velang}[2]{\stackrel{\mathcal{#1} \to \mathcal{#2}}{\omega}}
+\newcommand{\accang}[2]{\stackrel{\mathcal{#1} \to \mathcal{#2}}{\alpha}}
+\newcommand{\transportad} [3] {\underbrace{\der{}{#2}\left(#1\right)}_{1}+\underbrace{\velang{#2}{#3}\times #1}_{2}}
+\newcommand{\transD} [5] {\der{}{#3}\underbrace{\left(#1\right)}_{#5}+\underbrace{#2}_{\velang{#3}{#4}}\times \underbrace{#1}_{#5}}

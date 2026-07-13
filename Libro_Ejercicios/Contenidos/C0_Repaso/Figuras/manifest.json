@@ -1,0 +1,18 @@
+{
+  "capitulo": "C0",
+  "nombre_capitulo": "Repaso - Álgebra Vectorial y Cálculo",
+  "figuras": [
+    {
+      "id": "C0_F01",
+      "archivo": "C0_F01_regla_mano_derecha.png",
+      "tipo": "png",
+      "descripcion": "Regla de la mano derecha para productos vectoriales",
+      "usado_en": [
+        "C0_E01_XX.tex"
+      ],
+      "escala": "1.0",
+      "ancho_cm": 8,
+      "alto_cm": 6
+    }
+  ]
+}

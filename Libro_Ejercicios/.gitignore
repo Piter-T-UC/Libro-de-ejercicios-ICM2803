@@ -1,0 +1,34 @@
+# Compilación LaTeX
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.toc
+*.pdf
+*.dvi
+*.ps
+
+# Directorios generados
+Build/
+*.auxlock
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Temporales
+*.tmp
+*.bak
+*~
+
+# Archivos del sistema
+Thumbs.db
+.directory

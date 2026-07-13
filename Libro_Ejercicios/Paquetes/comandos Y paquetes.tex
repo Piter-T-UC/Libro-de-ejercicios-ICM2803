@@ -1,0 +1,191 @@
+\usepackage{amsmath} % Para \dfrac
+\usepackage{tensor} % Para \leftidx
+\usepackage{tikz-3dplot}
+\usepackage{cancel}
+\usetikzlibrary{positioning}
+\usetikzlibrary{patterns}
+\usetikzlibrary{shapes.misc}
+\usepackage{enumitem}
+\setlist[enumerate,1]{label=\alph*)}
+\usepackage[most]{tcolorbox} % Carga la librería con todas sus funciones
+\newtcolorbox[auto counter, number within=section]{sol}[1][]{
+  colback=black!5!white,     
+  colframe=darkgray,   
+  enhanced,                 
+  breakable,                
+  arc=2pt,
+  % --- LÍNEAS PARA EL ÍNDICE ---
+  title={Solución \thetcbcounter}, 
+  list entry={Solución \thetcbcounter}, 
+  add to list={toc}{subsubsection}, 
+  % --- CORRECCIÓN DE ECUACIONES ---
+  before upper={
+    \setcounter{equation}{0}
+    \renewcommand{\theequation}{\thetcbcounter.\arabic{equation}} % <--- USAR \thetcbcounter
+  },
+  #1                         
+}                                    
+
+
+\NewTColorBox[use counter from=sol]{cinematica}{ O{CadetBlue} m d"" !O{} }{
+  enhanced,
+  colframe=#1!75!black,
+  colback=#1!5!white,
+  fonttitle=\bfseries,
+  title={#2},
+  % Usamos una condición segura para el watermark
+  code={\IfValueT{#3}{\tcbset{watermark text={#3}}}},
+  #4
+}
+
+\newtcolorbox{form}[1][]{
+  colback=red!5!white,      % Fondo rojo muy claro
+  colframe=red!75!black,    % Borde rojo oscuro/quemado
+  fonttitle=\bfseries,      
+  coltitle=white,           % Título en blanco para mejor contraste con el rojo
+  title={Fórmulas},         % Título por defecto
+  enhanced,                 
+  breakable,                                 % Bordes suaves
+  before skip=10pt,         
+  after skip=10pt,
+  arc=2pt,
+  #1                        
+}
+\newtcolorbox{marcos}[1][]{
+  colback=CadetBlue!5!white,       % Fondo azul muy tenue
+  colframe=CadetBlue!50!black,     % Borde azul marino oscuro
+  fonttitle=\bfseries,      
+  coltitle=white,             % Texto del título en blanco
+  title={Marcos de referencia y sistemas de coordenadas}, % Título por defecto
+  enhanced,                 
+  breakable,                
+  arc=2pt,                  
+  before skip=10pt,         
+  after skip=10pt,          
+  #1                        
+}
+
+\newtcolorbox{cinematicaUnificada}[1]{
+  enhanced,
+  colback=white,
+  colframe=gray!90!white,
+  arc=2pt,
+  fonttitle=\bfseries,
+  coltitle=black,
+  title={#1},
+  top=4mm,
+  separator sign none,
+  breakable% Quita los dos puntos del título si fuera necesario
+}
+
+% Comando para los subtítulos internos con línea
+\newcommand{\subtitulo}[1]{
+    \tcbline % Línea divisoria de tcolorbox
+    \nopagebreak
+    \vspace{3pt}
+    \begin{center}
+        \textbf{\small --- #1 ---}
+    \end{center}
+    \vspace{3pt}
+}
+
+
+% Definición del estilo "Solución"
+
+\usepackage{stackrel}
+\usepackage{textcomp}
+\newcommand{\transport} [3] {\leftidx{^\mathcal{#2}}{\dfrac{d}{dt}#1}=\leftidx{^\mathcal{#3}}{\dfrac{d}{dt}#1}+\velang{#2}{#3} \times #1}
+\newcommand{\transporta} [3] {\leftidx{^\mathcal{#3}}{\dfrac{d}{dt}#1}+\velang{#2}{#3}\times #1}
+\newcommand{\der}[2]{\leftidx{^\mathcal{#2}}{\dfrac{d}{dt}#1}}
+\newcommand{\marc}[2]{\leftidx{^\mathcal{#2}}{#1}}
+
+%velocidad y aceleracion angular
+\newcommand{\velang}[2]{\stackrel{\mathcal{#1} \to \mathcal{#2}}{\omega}}
+\newcommand{\accang}[2]{\stackrel{\mathcal{#1} \to \mathcal{#2}}{\alpha}}
+
+\newcommand{\transportad} [3] {\underbrace{\der{}{#2}\left(#1\right)}_{1}+\underbrace{\velang{#2}{#3}\times #1}_{2}}
+\newcommand{\transD} [5] {\der{}{#4}\underbrace{\left(#1\right)}_{#5}+\underbrace{#2}_{\velang{#3}{#4}}\times \underbrace{#1}_{#5}}
+
+%%Comando de tikz
+
+\newcommand{\Polaresxyz}[5]{
+    % Argumentos:
+    % #1: Ángulo 
+    % #2: Letra sistema 1
+    % #3: Letra sistema 2
+    % #4: Color sistema 1
+    % #5: Color sistema 2
+    
+
+    % 1. Círculo y Ejes principales (negro)
+    \draw[thin] (0,0) circle (2.5);
+
+    % 2. Vectores del Sistema Fijo (Azul)
+    \draw[#4, ultra thick, -{Latex}] (0,0) -- (1.6,0) node[below right] {$\vec{#2}_x$};
+    \draw[#4, ultra thick, -{Latex}] (0,0) -- (0,1.6) node[left] {$\vec{#2}_y$};
+
+    % 3. Vectores del Sistema Móvil (Verde)
+    \draw[#5, ultra thick, -{Latex}] (0,0) -- (35:1.6) node[above] {$\vec{#3}_x$};
+    \draw[#5, ultra thick, -{Latex}] (0,0) -- (35+90:1.6) node[left] {$\vec{#3}_y$};
+
+    % 4. Arco del ángulo y Punto B
+    \draw[->] (0.9,0) arc (0:35:0.9) node[midway, right, xshift=2pt] {$#1$};
+    \fill (35:2) circle (1.5pt);
+
+    % 5. Etiqueta Central y círculo pequeño
+    \draw (0,0) circle (0.15);
+    \node[below left, xshift=-2pt, yshift=-2pt] at (0,0) {\textcolor{#4}{$\vec{#2}_z$} = \textcolor{#5}{$\vec{#3}_z$}};
+    \fill (0,0) circle (1pt);
+}
+\newcommand{\Polaresrtz}[5]{
+    % Argumentos:
+    % #1: Ángulo 
+    % #2: Letra sistema 1
+    % #3: Letra sistema 2
+
+    % 1. Círculo y Ejes principales (negro)
+    \draw[thin] (0,0) circle (2.5);
+
+    % 2. Vectores del Sistema Fijo (Azul)
+    \draw[#4, ultra thick, -{Latex}] (0,0) -- (1.6,0) node[below right] {$\vec{#2}_x$};
+    \draw[#4, ultra thick, -{Latex}] (0,0) -- (0,1.6) node[left] {$\vec{#2}_y$};
+
+    % 3. Vectores del Sistema Móvil (Verde)
+    \draw[#5, ultra thick, -{Latex}] (0,0) -- (35:1.6) node[above] {$\vec{#3}_r$};
+    \draw[#5, ultra thick, -{Latex}] (0,0) -- (35+90:1.6) node[left] {$\vec{#3}_\theta$};
+
+    % 4. Arco del ángulo y Punto B
+    \draw[->] (0.9,0) arc (0:35:0.9) node[midway, right, xshift=2pt] {$#1$};
+    \fill (35:2) circle (1.5pt);
+
+    % 5. Etiqueta Central y círculo pequeño
+    \draw (0,0) circle (0.15);
+    \node[below left, xshift=-2pt, yshift=-2pt] at (0,0) {$\vec{#2}_z = \vec{#3}_z$};
+    \fill (0,0) circle (1pt);
+}
+\newcommand{\PolaresGen}[5]{
+    % Argumentos:
+    % #1: Ángulo 
+    % #2: Letra sistema 1
+    % #3: Letra sistema 2
+
+    % 1. Círculo y Ejes principales (negro)
+    \draw[thin] (0,0) circle (2);
+
+    % 2. Vectores del Sistema Fijo (Azul)
+    \draw[#4, ultra thick, -{Latex}] (0,0) -- (1.6,0) node[below right] {$\vec{#2}_x$};
+    \draw[#4, ultra thick, -{Latex}] (0,0) -- (0,1.6) node[left] {$\vec{#2}_y$};
+
+    % 3. Vectores del Sistema Móvil (Verde)
+    \draw[#5, ultra thick, -{Latex}] (0,0) -- (35:1.6) node[above] {$\vec{#3}_r$};
+    \draw[#5, ultra thick, -{Latex}] (0,0) -- (35+90:1.6) node[left] {$\vec{#3}_\theta$};
+
+    % 4. Arco del ángulo y Punto B
+    \draw[->] (0.9,0) arc (0:35:0.9) node[midway, right, xshift=2pt] {$#1$};
+    \fill (35:1.8) circle (1.5pt);
+
+    % 5. Etiqueta Central y círculo pequeño
+    \draw (0,0) circle (0.15);
+    \node[below left, xshift=-2pt, yshift=-2pt] at (0,0) {$\vec{#2}_z = \vec{#3}_z$};
+    \fill (0,0) circle (1pt);
+}

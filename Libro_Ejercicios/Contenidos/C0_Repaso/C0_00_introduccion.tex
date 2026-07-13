@@ -1,0 +1,156 @@
+% =========================================================================
+% Capítulo 0: Repaso
+% Álgebra Vectorial y Cálculo Vectorial
+% =========================================================================
+% Archivo: C0_00_introduccion.tex
+% Descripción: Conceptos fundamentales de vectores y cálculo necesarios
+%              para el curso de Dinámica de Sistemas Mecánicos
+% =========================================================================
+
+\setcounter{chapter}{-1}
+\chapter{Repaso}
+
+\section{Conceptos Fundamentales}
+
+\subsection*{Introducción}
+
+En este capítulo repasamos los conceptos esenciales del álgebra vectorial y cálculo vectorial que servirán como base para estudiar dinámica. Los sistemas mecánicos se describen naturalmente mediante vectores, y su evolución temporal se analiza con herramientas del cálculo.
+
+\begin{description}
+
+    \item[Base Orto-normal:] Es una base que tiene la cualidad que todos los vectores que la componen son ortogonales entre ellos (perpendiculares) y que la norma (longitud) de cada uno es unitaria ($\|\vec{e}\|=1$).
+
+    \item[Producto Punto:] También conocido como producto escalar, es muy utilizado para ver la proyección de vectores sobre otros. Si la base es orto-normal el producto punto es $\vec{e}_i\cdot\vec{e}_i=1$ y $\vec{e}_i\cdot\vec{e}_j=0$. Otra fórmula muy útil es $\vec{a}\cdot\vec{b}=\|\vec{a}\|\|\vec{b}\|\cos{(\theta)}$ donde $\theta$ es el ángulo entre ambos vectores.
+
+    \item[Producto Cruz:] También conocido como producto vectorial, que a partir de dos vectores genera un vector perpendicular a ellos (en $\mathbb{R}^3$) cumple la regla de la mano derecha. Se acostumbra a escribir las bases $\{\vec{e}_1,\vec{e}_2,\vec{e}_3\}$ de tal manera que cuando uno calcula el producto cruz de izquierda a derecha el producto cruz entre vectores consecutivos sea el siguiente positivo. Al igual que el producto punto existe otra manera de encontrar el valor del producto cruz: $\vec{a}\times\vec{b}=\|\vec{a}\|\|\vec{b}\|\sin{(\theta)}\vec{n}$ donde $\vec{n}$ es vector de norma 1 perpendicular a ambos.
+
+    \begin{figure}[!ht]
+        \centering
+        \includegraphics[width=0.15\linewidth]{Contenidos/C0_Repaso/Figuras/RMD1.png}
+        \caption{Regla de la mano derecha}
+        \label{fig:C0_F01_regla_mano_derecha}
+    \end{figure}
+
+    \item[Identidades Vectoriales:] Muy útiles para simplificar ecuaciones de movimiento. El producto triple escalar $\vec{a} \cdot (\vec{b} \times \vec{c})$ representa el volumen del paralelepípedo formado por los vectores. Otra identidad crucial es el doble producto vectorial: $\vec{a} \times (\vec{b} \times \vec{c}) = \vec{b}(\vec{a} \cdot \vec{c}) - \vec{c}(\vec{a} \cdot \vec{b})$.
+
+    \item[Matrices de Rotación:] En $\mathbb{R}^3$, permiten transformar las componentes de un vector entre sistemas de referencia con distinta orientación. Si el sistema $B$ rota respecto al sistema $A$ un ángulo $\theta$ sobre el eje $z$, la matriz de rotación es:
+    $$R_{A/B} = \begin{pmatrix} \cos\theta & -\sin\theta & 0 \\ \sin\theta & \cos\theta & 0 \\ 0 & 0 & 1 \end{pmatrix}$$
+    Propiedad fundamental: $R^{-1} = R^T$.
+
+    \item[Derivada:] Matemáticamente, es el límite de la razón de cambio de una función respecto a la variación de su variable independiente. Representa la pendiente de la recta tangente a la curva en un punto dado:
+    $$f'(x) = \lim_{h \to 0} \frac{f(x+h) - f(x)}{h}$$
+    En términos físicos, mide la tasa de variación instantánea de una magnitud.
+
+    \item[Regla de la Cadena:] Es una fórmula para derivar la composición de dos o más funciones. Si $y$ depende de $u$, y $u$ depende de $x$, entonces:
+    $$\frac{dy}{dx} = \frac{dy}{du} \cdot \frac{du}{dx}$$
+    Es fundamental en dinámica para derivar funciones que dependen implícitamente del tiempo.
+
+    \item[Integral Definida:] Se define como el límite de una suma de áreas de rectángulos (Suma de Riemann) bajo una curva en un intervalo $[a, b]$. Representa la acumulación neta de una cantidad:
+    $$\int_{a}^{b} f(x) \, dx = \lim_{n \to \infty} \sum_{i=1}^{n} f(x_i^*) \Delta x$$
+
+    \item[Teorema Fundamental del Cálculo:] Establece la conexión entre la derivación y la integración, indicando que son procesos inversos. Permite calcular integrales mediante la antiderivada $F(x)$:
+    $$\int_{a}^{b} f(x) \, dx = F(b) - F(a) \quad \text{donde } F'(x) = f(x)$$
+
+    \item[Gradiente ($\nabla$):] Es un operador vectorial que, aplicado a una función escalar $\phi$, genera un vector cuyas componentes son las derivadas parciales de la función. Indica la dirección de máximo crecimiento de la función:
+    $$\nabla \phi = \frac{\partial \phi}{\partial x}\hat{i} + \frac{\partial \phi}{\partial y}\hat{j} + \frac{\partial \phi}{\partial z}\hat{k}$$
+
+    \item[Divergencia ($\nabla \cdot$):] Mide la tendencia de un campo vectorial a originarse o converger en un punto determinado. Es un escalar que resulta del producto punto entre el operador nabla y un vector $\vec{A}$:
+    $$\text{div } \vec{A} = \nabla \cdot \vec{A}$$
+
+    \begin{figure}[!ht]
+        \centering
+        % --- DIVERGENCIA POSITIVA ---
+        \tikzset{>=latex}
+        \colorlet{veccol}{orange!90!black}
+        \colorlet{myblue}{blue!60!black}
+        \tikzstyle{vector}=[->,thick,veccol]
+        \def\Rad{1.4}
+        \def\rad{0.03}
+        \def\N{9}
+
+        \begin{tikzpicture}[baseline=(current bounding box.center)]
+            \fill[myblue] (0,0) circle (\rad);
+            \foreach \i [evaluate={\ang=\i*360/\N;}] in {1,...,\N}{
+                \draw[vector] (\ang:0.1*\Rad) --++ (\ang:\Rad);
+            }
+            \node at (0,-1.5*\Rad) {$\nabla\cdot\vec{v} > 0$};
+        \end{tikzpicture}
+        \hfill
+        % --- DIVERGENCIA NEGATIVA ---
+        \begin{tikzpicture}[baseline=(current bounding box.center)]
+            \fill[myblue] (0,0) circle (\rad);
+            \foreach \i [evaluate={\ang=\i*360/\N;}] in {1,...,\N}{
+                \draw[vector] (\ang:1.1*\Rad) -- (\ang:0.1*\Rad);
+            }
+            \node at (0,-1.5*\Rad) {$\nabla\cdot\vec{v} < 0$};
+        \end{tikzpicture}
+        \hfill
+        % --- DIVERGENCIA CERO ---
+        \begin{tikzpicture}[baseline=(current bounding box.center)]
+            \foreach \x in {-0.8, 0, 0.8} {
+                \foreach \y in {-0.8, 0, 0.8} {
+                    \draw[vector] (\x-0.2*\Rad, \y) -- (\x+0.5*\Rad, \y);
+                }
+            }
+            \node at (0,-1.5*\Rad) {$\nabla\cdot\vec{v} = 0$};
+        \end{tikzpicture}
+        \caption{Representación geométrica de la divergencia}
+        \label{fig:C0_F02_divergencia}
+    \end{figure}
+
+    \item[Rotor o Rotacional ($\nabla \times$):] Es un operador que mide la tendencia de un campo vectorial a rotar alrededor de un punto. El resultado es un vector:
+    $$\text{curl } \vec{A} = \nabla \times \vec{A}$$
+
+    \begin{figure}[!ht]
+        \centering
+        % --- ROTACIONAL POSITIVO ---
+        \tikzset{>=latex}
+        \colorlet{veccol}{orange!90!black}
+        \colorlet{myblue}{blue!60!black}
+        \tikzstyle{vector}=[->,thick,veccol]
+        \def\Rad{1.4}
+        \def\rad{0.03}
+        \def\N{9}
+
+        \begin{tikzpicture}[baseline=(current bounding box.center),scale=0.8]
+            \fill[myblue] (0,0) circle (\rad);
+            \foreach \i [evaluate={\ang=\i*360/\N;}] in {0,...,\N}{
+                \draw[vector] (\ang:\Rad) --++ (\ang+90:0.8*\Rad);
+            }
+            \node at (0,-1.5*\Rad) {$\nabla\times\vec{v} > 0$};
+        \end{tikzpicture}
+        \hfill
+        % --- ROTACIONAL NEGATIVO ---
+        \begin{tikzpicture}[baseline=(current bounding box.center),scale=0.8]
+            \fill[myblue] (0,0) circle (\rad);
+            \foreach \i [evaluate={\ang=\i*360/\N;}] in {0,...,\N}{
+                \draw[vector] (\ang:\Rad) --++ (\ang-90:0.8*\Rad);
+            }
+            \node at (0,-1.5*\Rad) {$\nabla\times\vec{v} < 0$};
+        \end{tikzpicture}
+        \hfill
+        % --- ROTACIONAL CERO ---
+        \begin{tikzpicture}[baseline=(current bounding box.center),scale=0.8]
+            \fill[myblue] (0,0) circle (\rad);
+            \foreach \i [evaluate={\ang=\i*360/\N;}] in {0,...,\N}{
+                \draw[vector] (\ang:0.2*\Rad) -- (\ang:1.2*\Rad);
+            }
+            \node at (0,-1.5*\Rad) {$\nabla\times\vec{v} = 0$};
+        \end{tikzpicture}
+        \caption{Rotacional representado mediante vectores tangenciales y radiales}
+        \label{fig:C0_F03_rotacional}
+    \end{figure}
+
+    \item[Teorema del Transporte:] Sea un vector $\vec{a}$ cualquiera. Su derivada temporal puede ser encontrada como $\transport{\vec{a}}{A}{B}$, donde $A$ y $B$ son marcos de referencia:
+    $$\left(\frac{d\vec{a}}{dt}\right)_{\mathcal{A}} = \left(\frac{d\vec{a}}{dt}\right)_{\mathcal{B}} + \vec{\omega}^{\mathcal{A} \to \mathcal{B}} \times \vec{a}$$
+
+    Este es un resultado fundamental que conecta las derivadas de un vector en dos sistemas de referencia en rotación relativa.
+
+\end{description}
+
+\newpage
+
+% Incluir secciones teóricas
+\input{Contenidos/C0_Repaso/C0_01_algebra_vectores.tex}
+\newpage
+\input{Contenidos/C0_Repaso/C0_02_calculo_vectorial.tex}

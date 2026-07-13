@@ -1,0 +1,113 @@
+% =========================================================================
+% Capítulo 5: Mecánica Lagrangiana - Formulación Alternativa de la Dinámica
+% =========================================================================
+% Archivo: C5_00_introduccion.tex
+% =========================================================================
+
+\chapter{Mecánica Lagrangiana}
+
+\section*{Introducción}
+
+La mecánica Lagrangiana es una formulación alternativa y elegante de la mecánica clásica. En lugar de trabajar directamente con fuerzas y aceleraciones (enfoque Newtoniano), utilizamos cantidades escalares como energías y trabajamos con \textbf{coordenadas generalizadas} y el \textbf{Lagrangiano}.
+
+\subsection*{Ventajas de la Mecánica Lagrangiana}
+
+\begin{enumerate}
+    \item \textbf{Manejo de Restricciones}: Incorpora automáticamente restricciones de movimiento.
+    \item \textbf{Coordenadas Generalizadas}: Usa solo grados de libertad independientes.
+    \item \textbf{Simetría}: Revela simetrías ocultas que conducen a cantidades conservadas.
+    \item \textbf{Extensibilidad}: Generaliza fácilmente a teoría de campos y mecánica cuántica.
+\end{enumerate}
+
+\section{Conceptos Fundamentales}
+
+\subsection*{Coordenadas Generalizadas}
+
+En lugar de usar $\{x, y, z\}$, describimos el sistema con $n$ coordenadas generalizadas $\{q_1, q_2, \ldots, q_n\}$, donde $n$ es el número de grados de libertad del sistema.
+
+Ejemplos:
+\begin{itemize}
+    \item Péndulo simple: 1 coordenada ($\theta$)
+    \item Péndulo doble: 2 coordenadas ($\theta_1, \theta_2$)
+    \item Cuerpo rígido en 3D: 6 coordenadas (3 de posición + 3 de rotación, o variantes)
+\end{itemize}
+
+\subsection*{El Lagrangiano}
+
+$$L = T - V$$
+
+donde $T$ es la energía cinética y $V$ es la energía potencial. La función $L$ es el \textbf{Lagrangiano} del sistema.
+
+\subsection*{Ecuación de Euler-Lagrange}
+
+Para cada coordenada generalizada $q_j$:
+
+$$\frac{d}{dt}\left(\frac{\partial L}{\partial \dot{q}_j}\right) - \frac{\partial L}{\partial q_j} = Q_j$$
+
+donde $Q_j$ son fuerzas generalizadas (asociadas a fuerzas no-conservativas o que no derivan de un potencial).
+
+\section{Cantidades Conservadas}
+
+\subsection*{Momento Canónico}
+
+$$p_j = \frac{\partial L}{\partial \dot{q}_j}$$
+
+Si $L$ no depende de $q_j$ (una \textbf{coordenada cíclica}), entonces $p_j$ es una cantidad conservada.
+
+\subsection*{Función Energía (Hamiltoniano)}
+
+$$H = \sum_j p_j \dot{q}_j - L$$
+
+Si el Lagrangiano no depende explícitamente del tiempo ($\partial L/\partial t = 0$), entonces $H$ es constante (energía total conservada).
+
+\section{Vínculos y Restricciones}
+
+\subsection*{Vínculos Holonómicos}
+
+Restricciones del tipo $f(q_1, q_2, \ldots, q_n, t) = 0$ que pueden expresarse como relaciones entre coordenadas.
+
+Ejemplo: Péndulo con cuerda de longitud fija: $x^2 + y^2 = L^2$
+
+\subsection*{Vínculos No-Holonómicos}
+
+Restricciones que no pueden integrarse para obtener relaciones entre coordenadas.
+
+Ejemplo: Rueda rodando sin deslizar.
+
+\section{Ventajas Prácticas}
+
+\begin{itemize}
+    \item \textbf{Menos Ecuaciones}: Solo $n$ ecuaciones para $n$ grados de libertad, en lugar de $3N$ para $N$ partículas.
+    \item \textbf{Ecuaciones más Simétricas}: La forma de la ecuación es la misma para cualquier elección de coordenadas.
+    \item \textbf{Simetrías Explícitas}: Las simetrías conducen directamente a leyes de conservación.
+\end{itemize}
+
+\section{Ejemplos Clásicos}
+
+\subsection*{Péndulo Simple}
+
+$L = \frac{1}{2}m\ell^2 \dot{\theta}^2 + mg\ell \cos\theta$
+
+Ecuación: $\ddot{\theta} + \frac{g}{\ell}\sin\theta = 0$
+
+\subsection*{Máquina de Atwood}
+
+Dos masas conectadas por una cuerda sobre una polea.
+
+\subsection*{Péndulo Doble}
+
+Sistema caótico con dinámica compleja.
+
+\section*{Objetivos del Capítulo}
+
+Al completar este capítulo, deberás:
+\begin{itemize}
+    \item Formular problemas dinámicos usando el Lagrangiano.
+    \item Identificar coordenadas generalizadas y grados de libertad.
+    \item Aplicar la ecuación de Euler-Lagrange.
+    \item Usar simetrías para encontrar cantidades conservadas.
+    \item Resolver sistemas con restricciones de movimiento.
+    \item Conectar resultados Lagrangianos con análisis Newtoniano.
+\end{itemize}
+
+\newpage

@@ -1,0 +1,99 @@
+% =========================================================================
+% Capítulo 4: Cuerpos Rígidos - Rotación y Movimiento Compuesto
+% =========================================================================
+% Archivo: C4_00_introduccion.tex
+% =========================================================================
+
+\chapter{Cuerpos Rígidos}
+
+\section*{Introducción}
+
+Un cuerpo rígido es un objeto sólido cuya distancia entre cualquier par de puntos permanece constante durante el movimiento. Este capítulo estudia cómo los cuerpos rígidos se comportan bajo fuerzas y torques, combinando traslación y rotación.
+
+\subsection*{Diferencias con Sistemas de Partículas}
+
+\begin{itemize}
+    \item Una distribución \textbf{continua} de masa en lugar de masas puntuales.
+    \item La \textbf{rotación} es un aspecto dinámico integral del movimiento.
+    \item El \textbf{momento de inercia} reemplaza a la masa en ecuaciones rotacionales.
+\end{itemize}
+
+\section{Propiedades Dinámicas de Cuerpos Rígidos}
+
+\subsection*{Momento de Inercia}
+
+El momento de inercia $I$ es una medida de la resistencia de un cuerpo a cambiar su rotación:
+
+$$I = \int r^2 \, dm$$
+
+donde $r$ es la distancia perpendicular del elemento de masa $dm$ al eje de rotación.
+
+Para un eje que no pasa por el centro de masa:
+$$I_{\text{eje}} = I_{\text{cm}} + Md^2 \quad \text{(Teorema de Ejes Paralelos)}$$
+
+\subsection*{Tensor de Inercia}
+
+Para rotaciones arbitrarias en 3D:
+
+$$\mathbf{I} = \begin{pmatrix} I_{xx} & -I_{xy} & -I_{xz} \\ -I_{xy} & I_{yy} & -I_{yz} \\ -I_{xz} & -I_{yz} & I_{zz} \end{pmatrix}$$
+
+\subsection*{Energía Cinética de Rotación}
+
+Para un cuerpo rotando con velocidad angular $\vec{\omega}$:
+
+$$T_{\text{rot}} = \frac{1}{2}\vec{\omega} \cdot \mathbf{I} \cdot \vec{\omega}$$
+
+\subsection*{Momento Angular de un Cuerpo Rígido}
+
+$$\vec{L} = \mathbf{I} \cdot \vec{\omega}$$
+
+\section{Ecuaciones de Movimiento}
+
+\subsection*{Movimiento de Traslación}
+
+$$M\vec{a}_{\text{cm}} = \sum \vec{F}_{\text{ext}}$$
+
+El centro de masa se mueve como si fuera una partícula de masa $M$ sometida a las fuerzas externas.
+
+\subsection*{Movimiento de Rotación}
+
+$$\frac{d\vec{L}}{dt} = \sum \vec{\tau}_{\text{ext}}$$
+
+o, para rotación alrededor de un eje fijo:
+
+$$I\alpha = \tau$$
+
+donde $\alpha$ es la aceleración angular y $\tau$ es el torque total.
+
+\subsection*{Rodadura sin Deslizar}
+
+Para un cuerpo que rueda sin deslizar sobre una superficie:
+
+$$v_{\text{cm}} = R\omega$$
+
+$$a_{\text{cm}} = R\alpha$$
+
+Esta restricción de movimiento relaciona traslación y rotación.
+
+\section{Ejemplos de Momentos de Inercia}
+
+\begin{itemize}
+    \item \textbf{Cilindro sólido}: $I = \frac{1}{2}MR^2$
+    \item \textbf{Cilindro hueco}: $I = MR^2$
+    \item \textbf{Esfera sólida}: $I = \frac{2}{5}MR^2$
+    \item \textbf{Barra respecto al centro}: $I = \frac{1}{12}ML^2$
+    \item \textbf{Barra respecto a un extremo}: $I = \frac{1}{3}ML^2$
+\end{itemize}
+
+\section*{Objetivos del Capítulo}
+
+Al completar este capítulo, deberás:
+\begin{itemize}
+    \item Calcular momentos de inercia para geometrías complejas.
+    \item Analizar movimiento combinado de traslación y rotación.
+    \item Resolver problemas de rodadura y pivoteo.
+    \item Aplicar conservación de momento angular.
+    \item Entender sistemas de cuerpos rígidos acoplados.
+\end{itemize}
+
+\newpage

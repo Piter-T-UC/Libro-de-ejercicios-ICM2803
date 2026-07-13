@@ -1,0 +1,99 @@
+% =========================================================================
+% Capítulo 2: Cinética 1 - Dinámica de Sistemas de Partículas (Parte 1)
+% =========================================================================
+% Archivo: C2_00_introduccion.tex
+% =========================================================================
+
+\chapter{Cinética 1: Dinámica de Sistemas de Partículas}
+
+\section*{Introducción}
+
+La cinética es el estudio de las causas del movimiento, es decir, cómo las fuerzas producen cambios en el movimiento de los cuerpos. En este capítulo comenzamos con sistemas de partículas discretas, analizando cómo el movimiento del sistema está gobernado por fuerzas externas e internas.
+
+\subsection*{Leyes de Newton}
+
+La base de la cinética clásica son las tres leyes de Newton:
+
+\begin{enumerate}
+    \item \textbf{Ley de Inercia}: Un cuerpo permanece en reposo o en movimiento uniforme hasta que una fuerza actúe sobre él.
+    \item \textbf{Ley de Fuerza}: $\vec{F} = m\vec{a}$ - La aceleración es proporcional a la fuerza neta e inversamente proporcional a la masa.
+    \item \textbf{Ley de Acción-Reacción}: Las fuerzas entre dos cuerpos son iguales y opuestas.
+\end{enumerate}
+
+\subsection*{Magnitudes Dinámicas Fundamentales}
+
+\begin{description}
+
+    \item[Momento Lineal:] $\vec{p} = m\vec{v}$ - Cuantifica la "cantidad de movimiento" de un cuerpo.
+
+    \item[Fuerza:] $\vec{F} = \frac{d\vec{p}}{dt}$ - Causa del cambio en el momento.
+
+    \item[Impulso:] $\vec{J} = \int \vec{F} \, dt$ - Cambio total en momento provocado por una fuerza en un intervalo de tiempo.
+
+    \item[Trabajo:] $W = \int \vec{F} \cdot d\vec{r}$ - Energía transferida por una fuerza.
+
+    \item[Energía Cinética:] $T = \frac{1}{2}m v^2$ - Energía asociada con el movimiento.
+
+    \item[Potencia:] $P = \vec{F} \cdot \vec{v}$ - Tasa de transferencia de energía.
+
+    \item[Momento Angular:] $\vec{L} = \vec{r} \times m\vec{v}$ - Cuantifica la "rotación" del movimiento alrededor de un punto.
+
+    \item[Torque:] $\vec{\tau} = \vec{r} \times \vec{F}$ - Causa del cambio en momento angular.
+
+\end{description}
+
+\section{Análisis de Sistemas de Partículas}
+
+Para un sistema de $N$ partículas con masas $m_i$, posiciones $\vec{r}_i$ y velocidades $\vec{v}_i$:
+
+\subsection*{Centro de Masa}
+
+$$\vec{r}_{cm} = \frac{\sum m_i \vec{r}_i}{\sum m_i} = \frac{1}{M}\sum m_i \vec{r}_i$$
+
+donde $M = \sum m_i$ es la masa total.
+
+\subsection*{Ecuación de Movimiento del Centro de Masa}
+
+$$M\vec{a}_{cm} = \sum \vec{F}_i^{\text{ext}}$$
+
+El centro de masa se mueve como si toda la masa estuviera concentrada en él y fuera sometida a la suma de todas las fuerzas externas.
+
+\subsection*{Momento Lineal Total}
+
+$$\vec{P} = \sum m_i \vec{v}_i = M\vec{v}_{cm}$$
+
+$$\frac{d\vec{P}}{dt} = \sum \vec{F}_i^{\text{ext}}$$
+
+\subsection*{Momento Angular Total}
+
+$$\vec{L} = \sum \vec{r}_i \times m_i\vec{v}_i$$
+
+$$\frac{d\vec{L}}{dt} = \sum \vec{\tau}_i^{\text{ext}} = \sum \vec{r}_i \times \vec{F}_i^{\text{ext}}$$
+
+\subsection*{Energía Cinética}
+
+$$T = \frac{1}{2}M v_{cm}^2 + \sum \frac{1}{2}m_i v_i^{\text{rel}2}$$
+
+La energía cinética total es la suma de la energía del centro de masa más la energía de movimiento relativo.
+
+\subsection*{Conservación}
+
+En ausencia de fuerzas externas o torques externos:
+\begin{itemize}
+    \item Se conserva el momento lineal total.
+    \item Se conserva el momento angular total.
+    \item Se conserva la energía (en sistemas aislados).
+\end{itemize}
+
+\section*{Objetivos del Capítulo}
+
+Al completar este capítulo, deberás:
+\begin{itemize}
+    \item Aplicar las leyes de Newton a sistemas de partículas.
+    \item Calcular momento lineal, momento angular y energía.
+    \item Usar conservación de momento y energía en problemas dinámicos.
+    \item Analizar colisiones y explosiones.
+    \item Entender el movimiento relativo y referencial.
+\end{itemize}
+
+\newpage

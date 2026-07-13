@@ -1,0 +1,82 @@
+% =========================================================================
+% Capítulo 1: Cinemática
+% =========================================================================
+% Archivo: C1_00_introduccion.tex
+% Descripción: Movimiento de puntos y sistemas de referencias
+% =========================================================================
+
+\chapter{Cinemática}
+
+\section*{Introducción}
+
+La cinemática es la rama de la mecánica que describe el movimiento sin considerar las causas que lo producen (fuerzas). En este capítulo estudiaremos cómo representar la posición, velocidad y aceleración de puntos materiales en diferentes sistemas de coordenadas.
+
+\subsection*{Sistemas de Coordenadas}
+
+El análisis cinemático depende críticamente de la elección del sistema de coordenadas. En este libro estudiaremos:
+
+\begin{enumerate}
+    \item \textbf{Coordenadas Cartesianas}: El sistema más simple e intuitivo.
+    \item \textbf{Coordenadas Cilíndricas}: Naturales para problemas con simetría axial.
+    \item \textbf{Coordenadas Esféricas}: Útiles para sistemas con simetría central.
+    \item \textbf{Coordenadas Intrínsecas}: Basadas en la geometría de la trayectoria.
+\end{enumerate}
+
+\subsection*{Marcos de Referencia}
+
+Un concepto fundamental es la distinción entre:
+\begin{description}
+    \item[Marcos Inerciales:] Sistemas de referencia en los que las leyes de Newton se cumplen sin términos de corrección.
+    \item[Marcos No-Inerciales:] Sistemas acelerados o en rotación donde aparecen fuerzas ficticias.
+\end{description}
+
+\subsection*{Derivadas en Marcos Móviles}
+
+El \textbf{Teorema del Transporte} permite relacionar las derivadas de un vector en dos marcos de referencia que rotan uno respecto al otro:
+
+$$\left(\frac{d\vec{a}}{dt}\right)_{\text{fijo}} = \left(\frac{d\vec{a}}{dt}\right)_{\text{móvil}} + \vec{\omega} \times \vec{a}$$
+
+donde $\vec{\omega}$ es la velocidad angular del marco móvil respecto al fijo.
+
+\section{Conceptos Clave de Cinemática}
+
+\begin{description}
+
+    \item[Posición:] Vector $\vec{r}(t)$ que especifica la ubicación de un punto.
+
+    \item[Velocidad:] Primera derivada de la posición,
+    $$\vec{v}(t) = \frac{d\vec{r}}{dt}$$
+    Representa la tasa de cambio de posición.
+
+    \item[Aceleración:] Segunda derivada de la posición (primera de la velocidad),
+    $$\vec{a}(t) = \frac{d\vec{v}}{dt} = \frac{d^2\vec{r}}{dt^2}$$
+    Representa la tasa de cambio de velocidad.
+
+    \item[Velocidad Angular:] Para marcos móviles, $\vec{\omega}$ describe la rotación.
+
+    \item[Aceleración Angular:] Primera derivada de la velocidad angular,
+    $$\vec{\alpha} = \frac{d\vec{\omega}}{dt}$$
+
+    \item[Velocidad Relativa:] En sistemas con dos marcos de referencia,
+    $$\vec{v}_{P/B} = \vec{v}_P - \vec{v}_B$$
+
+    \item[Composición de Velocidades:] Relaciona velocidades en marcos diferentes,
+    $$\vec{v}_{P/A} = \vec{v}_{P/B} + \vec{v}_{B/A}$$
+
+    \item[Restricciones:] Condiciones que relacionan las variables del sistema.
+    Ejemplos: movimiento en una curva, rodadura sin deslizar, etc.
+
+\end{description}
+
+\subsection*{Objetivos del Capítulo}
+
+Al completar este capítulo, deberás:
+\begin{itemize}
+    \item Usar competentemente los cuatro sistemas de coordenadas principales.
+    \item Calcular velocidad y aceleración en cada sistema.
+    \item Aplicar el Teorema del Transporte para marcos móviles.
+    \item Analizar movimientos complejos usando cambios de marco.
+    \item Resolver problemas con restricciones de movimiento.
+\end{itemize}
+
+\newpage

@@ -1,0 +1,94 @@
+\documentclass[10pt,a4paper]{book}
+
+\usepackage{Paquetes/Dinamica}
+\usepackage{Paquetes/TikzDina}
+
+\usepackage{pgfplots}
+
+\begin{document}
+
+\frontmatter
+
+
+  \begin{titlepage}
+  \newgeometry{left=2cm, right=1cm, top=2cm, bottom=2cm}
+  \begin{tikzpicture}[overlay]
+      \fill[gris1] (13.5,-30) rectangle (16,4); 
+        \node[
+              anchor=center,
+              font=\fontsize{80}{70}\selectfont,
+              text=white,
+              align=center
+            ] at (14.75,-20) {%
+              2\\
+              0\\
+              2\\
+              6%
+            };
+      
+  \end{tikzpicture}
+    \thispagestyle{empty}
+    % EARTH + CORIOLIS
+
+    {\Huge Libro de ejercicios y soluciones\\}
+    {\Huge \bfseries Dinámica de Sistemas Mecánicos\\}
+    {\Large \bfseries ICM2803}
+    
+\vspace{4cm}
+\contourlength{0.7pt}
+
+\input{Contenidos/Figuras/Tierra_Coriolis.tikz}
+    
+
+
+
+    
+    % Minipage para el año en vertical
+
+    \vfill
+
+
+    
+      Pedro Taboada\\
+      \today \\
+      \vspace{1cm}
+      
+      Versión 1.0
+
+
+
+  \end{titlepage}
+
+
+% — Índice automático —
+\tableofcontents
+
+
+% — Mainmatter: numeración arábiga para el contenido —
+\mainmatter
+
+% Capítulo 0: Repaso
+\input{Contenidos/C0_Repaso/C0_00_introduccion}
+\newpage
+
+% Capítulo 1: Cinemática
+\input{Contenidos/C1_Cinematica/C1_00_introduccion}
+\newpage
+
+% Capítulo 2: Cinética 1
+\input{Contenidos/C2_Cinetica1/C2_00_introduccion}
+\newpage
+
+% Capítulo 3: Cinética 2
+\input{Contenidos/C3_Cinetica2/C3_00_introduccion}
+\newpage
+
+% Capítulo 4: Cuerpos Rígidos
+\input{Contenidos/C4_CuerposRigidos/C4_00_introduccion}
+\newpage
+
+% Capítulo 5: Mecánica Lagrangiana
+\input{Contenidos/C5_MecanicaLagrangiana/C5_00_introduccion}
+
+
+\end{document}
