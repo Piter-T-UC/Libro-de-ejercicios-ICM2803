@@ -1,0 +1,72 @@
+\subsubsection{Sistema de correderas ortogonales acopladas}
+
+Una partícula de masa $m_A$ se desliza sin fricción a lo largo de una barra rígida vertical fija. Esta partícula está unida, a través de un brazo rígido y sin masa de longitud $l$, a una segunda partícula de masa $m_B$, la cual se desliza sin fricción a lo largo de una barra rígida horizontal fija. Suponiendo que $\theta$ es el ángulo formado entre la barra horizontal y el brazo, y que la gravedad actúa hacia abajo, realice lo siguiente:
+
+\begin{enumerate}
+    \item Defina los marcos de referencia y sistemas de coordenadas adecuados.
+    \item Analice la cinemática de las partículas $A$ y $B$, determinando sus vectores de posición y velocidad en función de $\theta$.
+    \item Analice la cinética del sistema para determinar la ecuación diferencial del movimiento en términos del ángulo $\theta$.
+\end{enumerate}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.5]
+        % --- Parámetros ---
+        \def\ang{40}      % Ángulo theta
+        \def\Lrod{3.5}    % Longitud de la barra l
+        \def\RailLen{4.0} % Longitud de los rieles
+
+        % Coordenadas
+        \coordinate (O) at (0,0);
+        % Posición de B (Horizontal)
+        \coordinate (B) at ({\Lrod*cos(\ang)}, 0);
+        % Posición de A (Vertical) - Nota: La barra baja, coordenada y negativa
+        \coordinate (A) at (0, {-\Lrod*sin(\ang)});
+
+        % --- 1. Rieles y Soportes ---
+        % Riel Horizontal
+        \draw[line width=4pt] (0, -\RailLen)--(0,0) -- (\RailLen, 0);
+        \draw[line width=3pt, gray!40] (0, -\RailLen)--(0,0) -- (\RailLen, 0);
+        \draw[] (0, -\RailLen)--(0,0) -- (\RailLen, 0);
+        % Soporte pared derecha
+        \fill[pattern=north east lines] (\RailLen, -0.2) rectangle (\RailLen+0.2, 0.2);
+        \draw[thick] (\RailLen, -0.2) -- (\RailLen, 0.2);
+
+        % Riel Vertical
+        %\draw[line width=3pt, gray!40] (0,0) -- (0, -\RailLen);
+        %\draw[thick] (0,0) -- (0, -\RailLen);
+        % Soporte suelo inferior
+        \fill[pattern=north east lines] (-0.2, -\RailLen) rectangle (0.2, -\RailLen-0.2);
+        \draw[thick] (-0.2, -\RailLen) -- (0.2, -\RailLen);
+        
+        % Esquina O
+        \node[below right, xshift=2pt] at (O) {$O$};
+
+        % --- 2. Brazo de conexión ---
+        \draw[line width=3pt] (A) -- (B) node[midway, above left] {$l$};
+        \draw[line width=2pt, gray!40] (A) -- (B);
+
+        % --- 3. Masas (Correderas) ---
+        % Masa B (Horizontal) - Dibujada como elipse achatada
+        \filldraw[fill=gray!20, draw=black, thick] (B) ellipse (0.2 and 0.2);
+        \node[above left, yshift=5pt] at (B) {$m_B$};
+        \node[below right, yshift=-5pt, font=\footnotesize] at (B) {$B$};
+
+        % Masa A (Vertical) - Dibujada como elipse achatada verticalmente
+        \filldraw[fill=gray!20, draw=black, thick] (A) ellipse (0.2 and 0.2);
+        \node[above left, xshift=-5pt] at (A) {$m_A$};
+        \node[below right, xshift=5pt, font=\footnotesize] at (A) {$A$};
+
+        % --- 4. Ángulo theta ---
+        % Arco desde la horizontal (izquierda de B) hacia la barra
+       % \draw[dashed, gray] (O) -- (B); 
+        \draw[->, thick] ($(B)+(-0.8,0)$) arc (180:{180+\ang}:0.8);
+        \node at ($(B)+(-1.1, -0.3)$) {$\theta$};
+
+        % --- 5. Gravedad ---
+        \draw[->, thick] (3, -2.0) -- (3, -3.0) node[midway, right] {$\mathbf{g}$};
+
+    \end{tikzpicture}
+    \caption{Sistema de dos partículas deslizantes conectadas por una barra rígida de longitud $l$.}
+    \label{fig:correderas_ortogonales}
+\end{figure}

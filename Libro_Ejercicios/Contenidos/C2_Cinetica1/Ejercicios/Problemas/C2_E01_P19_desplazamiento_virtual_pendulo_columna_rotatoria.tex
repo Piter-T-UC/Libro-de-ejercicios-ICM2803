@@ -1,0 +1,78 @@
+\subsubsection{Desplazamiento virtual en péndulo sobre columna rotatoria}
+
+Una masa $m$ (punto $P$) está suspendida mediante una varilla rígida de longitud $L_2$ desde el extremo de un brazo horizontal de longitud $L_1$. El brazo está unido rígidamente a una columna vertical que rota con una velocidad angular $\dot{\phi}$ alrededor del eje $Z$. El péndulo oscila en el plano vertical generado por la columna y el brazo, definido por el ángulo $\theta$ con la vertical. Considerando que la gravedad actúa hacia abajo, realice lo siguiente:
+
+\begin{enumerate}
+    \item Defina los vectores de posición del punto $P$ en un sistema de coordenadas inercial.
+    \item Determine el vector de velocidad del punto $P$.
+    \item Determine la expresión para el \textbf{desplazamiento virtual} $\delta \vec{r}_P$ del punto $P$ en términos de las coordenadas generalizadas y sus variaciones.
+\end{enumerate}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.4]
+        % --- Parámetros ---
+        \def\ColW{0.8}    % Ancho columna
+        \def\ColH{3.5}    % Alto columna
+        \def\Lone{2.8}    % Longitud L1
+        \def\Ltwo{2.2}    % Longitud L2
+        \def\angTheta{25} % Ángulo theta
+        
+        % Coordenadas
+        \coordinate (Base) at (0,0);
+        \coordinate (Top) at (0, \ColH);
+        \coordinate (ArmStart) at (0, \ColH-0.5);
+        \coordinate (ArmEnd) at (\Lone, \ColH-0.5);
+        \coordinate (Mass) at ($(ArmEnd) + ({sin(\angTheta)*\Ltwo}, {-cos(\angTheta)*\Ltwo})$);
+
+        % --- 1. Base y Columna ---
+        % Base soporte
+        \fill[pattern=north east lines] (-0.8, -0.2) rectangle (0.8, 0);
+        \draw[thick] (-0.8, 0) -- (0.8, 0);
+        %\draw[fill=gray!20] (0,0.1) ellipse (0.9 and 0.15); % Base de la columna visual
+
+        % Columna (Cilindro)
+        \fill[left color=gray!30, right color=gray!10, middle color=gray!5] (-\ColW/2,0) rectangle (\ColW/2, \ColH);
+        \draw[thick] (-\ColW/2, 0) rectangle (\ColW/2, \ColH);
+        
+        % Tapa columna (Elipse superior)
+        %\draw[fill=gray!20] (0, \ColH) ellipse (\ColW/2 and 0.15);
+        
+        % Eje Z
+        \draw[->, thick] (0, \ColH) -- (0, \ColH+1.0) node[right] {$Z$};
+
+        % --- 2. Brazo L1 ---
+        \draw[line width=4pt, gray!40] (0, \ColH-0.6) -- (0, \ColH-0.4) -- (\Lone, \ColH-0.4) -- (\Lone, \ColH-0.6) -- cycle;
+        \draw[thick] (0, \ColH-0.6) -- (\Lone, \ColH-0.6);
+        \draw[thick] (0, \ColH-0.4) -- (\Lone, \ColH-0.4);
+        \draw[thick] (\Lone, \ColH-0.6) -- (\Lone, \ColH-0.4);
+        
+        % Cota L1
+        \draw[|<->|] (0, \ColH-0.2) -- (\Lone, \ColH-0.2) node[midway, above] {$L_1$};
+
+        % --- 3. Péndulo L2 y Masa ---
+        \draw[thick] (ArmEnd) -- (Mass) node[midway, right] {$L_2$};
+        
+        % Masa P
+        \shadedraw[ball color=gray!30!white] (Mass) circle (0.25) node[] (Mass) {$m$};
+        \node[left, xshift=-8pt] at (Mass) {$P$};
+
+        % --- 4. Ángulos y Rotación ---
+        % Referencia Vertical en extremo del brazo
+        \draw[dashed] (ArmEnd) -- ($(ArmEnd) + (0, -2.0)$);
+        
+        % Ángulo Theta
+        \draw[->] ($(ArmEnd) + (0, -1.2)$) arc (270:{270+\angTheta}:1.2);
+        \node at ($(ArmEnd) + ({sin(\angTheta/2)*0.9}, {-cos(\angTheta/2)*0.9})$) [] {$\theta$};
+
+        % Rotación Phi
+        \draw[->, thick] (-0.8, 1.5) arc (180:360:0.8 and 0.3);
+        \node[right] at (0.8, 1.5) {$\dot{\phi}$};
+
+        % --- 5. Gravedad ---
+        \draw[->, thick] (2.5, 2.5) -- (2.5, 1.5) node[midway, right] {$g$};
+
+    \end{tikzpicture}
+    \caption{Sistema de péndulo suspendido de un brazo en rotación acimutal.}
+    \label{fig:pendulo_rotatorio}
+\end{figure}

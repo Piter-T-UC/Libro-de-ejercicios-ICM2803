@@ -1,0 +1,69 @@
+\subsubsection{Anillo en aro circular con resorte}
+
+Un anillo de masa $m$ se encuentra inserto en un aro circular vertical de radio $R$. El aro está soldado a una barra horizontal $OP$ de longitud $R$ que lo hace girar con una velocidad angular constante $\Omega_0$ respecto a un eje vertical que pasa por $O$. Un resorte ideal de constante elástica $k$ y longitud natural nula une, siguiendo la trayectoria del aro, al anillo con el punto $P$. Realice lo siguiente:
+
+\begin{enumerate}
+    \item Defina los marcos de referencia y los sistemas de coordenadas adecuados para describir el movimiento del anillo en el espacio.
+    \item Determine el vector posición del anillo respecto al punto fijo $O$ en términos del ángulo de elevación.
+    \item Obtenga los vectores de velocidad angular y aceleración angular del aro respecto al suelo.
+    \item Calcule los vectores de velocidad y aceleración del anillo vistos por un observador en el aro y por un observador fijo al suelo.
+\end{enumerate}
+
+\begin{figure}[htbp]
+    \centering
+\begin{tikzpicture}[scale=2]
+  % Radius
+  \def\R{1}
+
+  \coordinate (O) at (0,0);
+  \coordinate (A) at (0,\R);
+  \coordinate (P) at (\R,0);
+
+  % Circle
+  \draw[thick] (0,0) circle(\R);
+
+  % Axes / radius lines
+  \draw[dashed] (0,0) -- (0,\R);          % OA
+  \draw[dashed] (0,0) -- (\R,0);          % OP
+
+  % Points
+  \fill (0,0) circle (0.5pt) node[below left] {$O$};
+  \fill (0,\R) circle (1pt) node[above=5pt] {$P$};
+ 
+  \fill (\R,0) circle (0.5pt) node[below right] {$A$};
+  
+        \draw[->] (0.5, 0) arc (0:90:0.5) node[midway, right] {$\varphi$};
+
+  % Radius label
+  \node at (0.5,-0.1) {$R$};
+
+  % Spring along arc from A to P (quarter circle, clockwise)
+  \draw[decoration={coil, aspect=0.5, segment length=4pt, amplitude=2pt},
+        decorate, thick] 
+        (0,\R) arc[start angle=90, end angle=0, radius=\R];
+
+  % Label for spring constant
+  \node at (0.55,0.55) {$k$};
+
+  
+ \shadedraw[ball color=white] (0, \R) circle (3pt) node[font=\footnotesize] {$m$};
+  % Horizontal bar from P to O (thick)
+  \draw[line width=2pt] (\R,0) -- (2*\R,0);
+
+  % Gravity vector
+  \draw[->, thick] (1.5*\R,0.8) -- ++(0,-0.6);
+  \node[right] at (1.5*\R,0.5) {$\vec{g}$};
+
+
+ \draw[-,thick] (2,-1)--(2,1.5); 
+    \begin{scope}[shift={(2,1.5)}, rotate=0]
+    \draw[->,thick] 
+      plot[domain=-30:240,variable=\t,smooth,samples=100] 
+      ({0.6*cos(\t)}, {0.3*sin(\t)});
+    \node at (0,0.4) {$\Omega_0$};
+  \end{scope}
+
+\end{tikzpicture}
+    \caption{Sistema de anillo sobre aro circular giratorio con vínculo elástico.}
+    \label{fig:anillo_aro}
+\end{figure}

@@ -1,72 +1,75 @@
 % =========================================================================
-% Capítulo 3: Cinética 2 - Dinámica Avanzada de Sistemas de Partículas
+% Capítulo 3: Cinética - Sistema de Partículas
 % =========================================================================
 % Archivo: C3_00_introduccion.tex
 % =========================================================================
 
-\chapter{Cinética 2: Sistemas Avanzados y Cuerpos Deformables}
+\chapter{Cinética: Sistema de Partículas}
 
 \section*{Introducción}
 
-En este capítulo ampliamos el análisis dinámico a sistemas más complejos: sistemas con masa variable, sistemas continuos, y los efectos de fuerzas internas en la dinámica de sistemas extendidos.
+En este capítulo extendemos el análisis dinámico del Capítulo 2 a sistemas compuestos por \textbf{dos o más partículas} vinculadas entre sí mediante varillas rígidas, resortes o superficies de contacto: péndulos dobles, mancuernas deslizantes, carros con péndulos acoplados, y mecanismos similares. El objetivo es describir el movimiento del sistema completo, no solo el de una partícula aislada.
 
-\subsection*{Temas Principales}
+\section{Análisis de Sistemas de Partículas}
 
-\begin{enumerate}
-    \item \textbf{Sistemas de Masa Variable}: Casos como cohetes que expelen masa.
-    \item \textbf{Sistemas Continuos}: Tratamiento de distribuciones continuas de masa.
-    \item \textbf{Vibraciones}: Movimientos periódicos en sistemas acoplados.
-    \item \textbf{Interacciones Múltiples}: Sistemas con muchos cuerpos interactuando.
-\end{enumerate}
+Para un sistema de $N$ partículas con masas $m_i$, posiciones $\vec{r}_i$ y velocidades $\vec{v}_i$:
 
-\section{Ecuaciones de Movimiento Avanzadas}
+\subsection*{Centro de Masa}
 
-\subsection*{Sistemas de Masa Variable}
+$$\vec{r}_{cm} = \frac{\sum m_i \vec{r}_i}{\sum m_i} = \frac{1}{M}\sum m_i \vec{r}_i$$
 
-Para un sistema cuya masa cambia con el tiempo:
+donde $M = \sum m_i$ es la masa total.
 
-$$\frac{d(m\vec{v})}{dt} = \vec{F}_{\text{ext}} + \vec{v}_{\text{rel}} \frac{dm}{dt}$$
+\subsection*{Ecuación de Movimiento del Centro de Masa}
 
-donde $\vec{v}_{\text{rel}}$ es la velocidad relativa de la masa que se añade o se retira.
+$$M\vec{a}_{cm} = \sum \vec{F}_i^{\text{ext}}$$
 
-\subsection*{Energía en Sistemas Complejos}
+El centro de masa se mueve como si toda la masa estuviera concentrada en él y fuera sometida a la suma de todas las fuerzas externas. Las fuerzas internas (tensión en la varilla, fuerza del resorte entre partículas del sistema) se cancelan por pares acción-reacción y no afectan este movimiento.
 
-\begin{description}
-    \item[Energía Cinética Absoluta:] Suma de energías cinéticas de todas las partículas.
-    \item[Energía Potencial:] Asociada con fuerzas conservativas (gravitatoria, elástica, etc.).
-    \item[Disipación:] Trabajo realizado contra fuerzas disipativas (fricción, viscosidad).
-    \item[Trabajo Virtual:] Concepto clave en sistemas con restricciones.
-\end{description}
+\subsection*{Momento Lineal Total}
 
-\subsection*{Teorema de Trabajo-Energía}
+$$\vec{P} = \sum m_i \vec{v}_i = M\vec{v}_{cm}, \qquad \frac{d\vec{P}}{dt} = \sum \vec{F}_i^{\text{ext}}$$
 
-$$\Delta T = W_{\text{neto}} = W_{\text{ext}} + W_{\text{int}}$$
+\subsection*{Momento Angular Total}
 
-Para sistemas con restricciones, el trabajo de fuerzas internas es especialmente importante.
+$$\vec{L} = \sum \vec{r}_i \times m_i\vec{v}_i, \qquad \frac{d\vec{L}}{dt} = \sum \vec{\tau}_i^{\text{ext}}$$
 
-\section{Análisis de Vibraciones}
+\subsection*{Energía Cinética del Sistema}
 
-\subsection*{Oscilador Armónico Simple}
+$$T = \frac{1}{2}M v_{cm}^2 + \sum \frac{1}{2}m_i v_i^{\text{rel}\,2}$$
 
-$$\ddot{x} + \omega_0^2 x = 0$$
+La energía cinética total es la suma de la energía asociada al movimiento del centro de masa más la energía de movimiento relativo de cada partícula respecto a él.
 
-donde $\omega_0 = \sqrt{k/m}$ es la frecuencia natural.
+\subsection*{Conservación}
 
-\subsection*{Ecuación de Lagrange de Segunda Especie}
+En ausencia de fuerzas o torques externos netos:
+\begin{itemize}
+    \item Se conserva el momento lineal total.
+    \item Se conserva el momento angular total.
+    \item Si además todas las fuerzas internas son conservativas, se conserva la energía mecánica total.
+\end{itemize}
 
-$$\frac{d}{dt}\left(\frac{\partial L}{\partial \dot{q}_j}\right) - \frac{\partial L}{\partial q_j} = Q_j$$
+\section{Sistemas Vinculados y Trabajo Virtual}
 
-donde $L = T - V$ es el Lagrangiano, $q_j$ son coordenadas generalizadas y $Q_j$ son fuerzas generalizadas.
+Cuando dos partículas están unidas por una varilla rígida u otro vínculo geométrico, sus coordenadas no son independientes. El \textbf{principio de trabajo virtual} es especialmente útil en estos casos: para un desplazamiento virtual $\delta \vec{r}_i$ compatible con las restricciones,
+$$\sum_i \vec{F}_i \cdot \delta\vec{r}_i = 0 \quad \text{(sistema en equilibrio)}$$
+En sistemas dinámicos, esta idea se extiende reduciendo el problema a los grados de libertad realmente independientes del sistema, anticipando el enfoque que se formalizará con la mecánica Lagrangiana (Capítulo 5).
+
+\subsection*{Oscilaciones en Sistemas Acoplados}
+
+Varios de los sistemas de este capítulo (péndulos acoplados por resortes, mancuernas oscilantes) exhiben movimiento periódico. El caso más simple, el oscilador armónico de un grado de libertad,
+$$\ddot{x} + \omega_0^2 x = 0, \qquad \omega_0 = \sqrt{k/m}$$
+sirve de referencia para interpretar el comportamiento cualitativo de sistemas acoplados más complejos, donde aparecen múltiples frecuencias naturales (modos normales).
 
 \section*{Objetivos del Capítulo}
 
 Al completar este capítulo, deberás:
 \begin{itemize}
-    \item Analizar sistemas dinámicos complejos y acoplados.
-    \item Manejar sistemas de masa variable.
-    \item Entender la energía en sistemas disipativos.
-    \item Aplicar la ecuación de Lagrange.
-    \item Resolver problemas de oscilaciones y vibraciones.
+    \item Calcular el centro de masa, momento lineal y momento angular de un sistema de partículas.
+    \item Aplicar conservación de momento y energía a sistemas de dos o más cuerpos vinculados.
+    \item Analizar colisiones e impactos dentro de un sistema.
+    \item Usar el principio de trabajo virtual en sistemas con restricciones geométricas.
+    \item Reconocer el comportamiento oscilatorio en sistemas acoplados.
 \end{itemize}
 
 \newpage

@@ -1,0 +1,64 @@
+ \subsubsection{Partícula en un disco con rodadura}
+
+Un disco sin masa de radio $R$ rueda sin resbalar a una velocidad angular constante $\omega$ a lo largo de una superficie horizontal. Una partícula de masa $m$ se desliza en una ranura cortada a lo largo de una dirección radial del disco, la cual se encuentra llena de un fluido que genera fricción en el movimiento de la partícula, cuyo coeficiente de fricción es $\nu$. Unido a la partícula hay un resorte lineal con constante de resorte $K$, largo natural $r_0$ y punto de unión $O$, donde $O$ está ubicado en el centro del disco.
+
+\begin{enumerate}[label=(\alph*)]
+    \item Determine marcos de referencia y defina sistemas de coordenadas.
+    \item Realice un análisis cinético de las fuerzas que actúan sobre la partícula. Para esto, haga un diagrama de cuerpo libre de la partícula y especifique las fuerzas actuantes sobre ella.
+    \item Determine la ecuación diferencial de movimiento de la partícula en términos de la variable $r$ usando la Segunda Ley de Newton. ($\ddot{r}=f(r,\dot r,t)$)
+\end{enumerate}
+
+\begin{figure}[!ht]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.3]
+        
+        % --- CONFIGURACIÓN ---
+        \def\R{2.0}      % Radio del disco
+        \def\ang{40}    % Ángulo omega*t
+        \def\distP{1.2} % Distancia r de la partícula
+        
+        % Suelo (Hachurado)
+        \fill[pattern=north east lines] (-3, -\R-0.2) rectangle (3, -\R);
+        \draw[thick] (-3, -\R) -- (3, -\R);
+        \node[right] at (1.5, -\R+0.3) {Sin dezlizamiento};
+        
+        % Disco
+% Disco con sombreado radial para mayor realismo
+        \draw[thick, inner color=gray!5, outer color=gray!30] (0,0) circle (\R);
+        
+        % Opcional: un borde más marcado
+        \draw[thick] (0,0) circle (\R);
+        \draw[dashed] (0,0) -- (0, \R+0.5); % Eje vertical de referencia
+        
+        % Centro O
+        \filldraw (0,0) circle (1.5pt) node[left, xshift=-2pt] {$O$};
+        
+        % Ranura y Partícula
+        \begin{scope}[rotate={- \ang}] % Rotación horaria como en el dibujo
+            % Ranura (rectángulo estilizado)
+            \draw[fill=white] (0.3, -0.15) rectangle (\R-0.2, 0.15);
+            
+            % Resorte
+            \draw[decoration={coil,aspect=0.4, amplitude=3pt, segment length=4pt}, decorate] (0,0) -- (\distP, 0) node[midway,above right] {$K$};
+            
+            % Partícula
+            \filldraw (\distP, 0) circle (2.5pt);
+            
+            % Etiqueta r
+            \draw[<->] (0, -0.4) -- (\distP, -0.4) node[midway, below] {$r$};
+        \end{scope}
+        
+        % Radio R del disco
+        \draw[->] (0,0) -- (-135:\R) node[midway, left] {$R$};
+        
+        % Ángulo omega*t
+        \draw[->] (0, 1) arc (90:10-\ang:1);
+        \node at (25:1.3) {$\omega t$};
+        
+        % Vector Gravedad
+        \draw[->, thick] (2.5, 1.5) -- (2.5, 0.5) node[midway, left] {$\mathbf{g}$};
+
+    \end{tikzpicture}
+    \caption{Partícula dentro de círculo}
+    \label{fig:ParticulaDisco}
+\end{figure}

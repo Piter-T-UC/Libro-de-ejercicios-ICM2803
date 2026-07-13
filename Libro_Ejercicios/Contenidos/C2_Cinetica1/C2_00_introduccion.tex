@@ -1,14 +1,14 @@
 % =========================================================================
-% Capítulo 2: Cinética 1 - Dinámica de Sistemas de Partículas (Parte 1)
+% Capítulo 2: Cinética 1 - Dinámica de la Partícula
 % =========================================================================
 % Archivo: C2_00_introduccion.tex
 % =========================================================================
 
-\chapter{Cinética 1: Dinámica de Sistemas de Partículas}
+\chapter{Cinética 1: Dinámica de la Partícula}
 
 \section*{Introducción}
 
-La cinética es el estudio de las causas del movimiento, es decir, cómo las fuerzas producen cambios en el movimiento de los cuerpos. En este capítulo comenzamos con sistemas de partículas discretas, analizando cómo el movimiento del sistema está gobernado por fuerzas externas e internas.
+La cinética es el estudio de las causas del movimiento, es decir, cómo las fuerzas producen cambios en el movimiento de los cuerpos. En este capítulo estudiamos la dinámica de una \textbf{partícula individual}: cómo las fuerzas —incluyendo resortes, restricciones geométricas y efectos de marcos de referencia móviles— determinan su trayectoria.
 
 \subsection*{Leyes de Newton}
 
@@ -42,58 +42,39 @@ La base de la cinética clásica son las tres leyes de Newton:
 
 \end{description}
 
-\section{Análisis de Sistemas de Partículas}
+\section{Fuerzas Comunes en Problemas de Partícula}
 
-Para un sistema de $N$ partículas con masas $m_i$, posiciones $\vec{r}_i$ y velocidades $\vec{v}_i$:
+\subsection*{Fuerza Elástica (Resorte)}
 
-\subsection*{Centro de Masa}
+Para un resorte de constante $K$ y elongación $\delta$ respecto a su largo natural:
+$$\vec{F}_{\text{resorte}} = -K\delta \, \hat{e}_{\delta}$$
 
-$$\vec{r}_{cm} = \frac{\sum m_i \vec{r}_i}{\sum m_i} = \frac{1}{M}\sum m_i \vec{r}_i$$
+Su energía potencial asociada es:
+$$V_{\text{el}} = \frac{1}{2}K\delta^2$$
 
-donde $M = \sum m_i$ es la masa total.
+\subsection*{Restricciones y Fuerzas de Reacción}
 
-\subsection*{Ecuación de Movimiento del Centro de Masa}
+Cuando una partícula está obligada a moverse sobre una superficie, riel o tubo, aparece una fuerza de reacción (normal) que garantiza el cumplimiento de la restricción geométrica. Esta fuerza no realiza trabajo cuando es perpendicular al desplazamiento.
 
-$$M\vec{a}_{cm} = \sum \vec{F}_i^{\text{ext}}$$
+\subsection*{Marcos de Referencia No Inerciales}
 
-El centro de masa se mueve como si toda la masa estuviera concentrada en él y fuera sometida a la suma de todas las fuerzas externas.
+Muchos problemas de este capítulo involucran partículas sobre brazos, discos o arreglos que rotan. Al plantear las ecuaciones de movimiento en un marco que rota con velocidad angular $\vec{\omega}$, conviene expresar la aceleración usando el Teorema del Transporte (Capítulo 1) para obtener correctamente los términos centrípeto y de Coriolis.
 
-\subsection*{Momento Lineal Total}
+\subsection*{Teorema Trabajo-Energía}
 
-$$\vec{P} = \sum m_i \vec{v}_i = M\vec{v}_{cm}$$
+$$T_2 - T_1 = W_{1\to2} = \int_1^2 \vec{F} \cdot d\vec{r}$$
 
-$$\frac{d\vec{P}}{dt} = \sum \vec{F}_i^{\text{ext}}$$
-
-\subsection*{Momento Angular Total}
-
-$$\vec{L} = \sum \vec{r}_i \times m_i\vec{v}_i$$
-
-$$\frac{d\vec{L}}{dt} = \sum \vec{\tau}_i^{\text{ext}} = \sum \vec{r}_i \times \vec{F}_i^{\text{ext}}$$
-
-\subsection*{Energía Cinética}
-
-$$T = \frac{1}{2}M v_{cm}^2 + \sum \frac{1}{2}m_i v_i^{\text{rel}2}$$
-
-La energía cinética total es la suma de la energía del centro de masa más la energía de movimiento relativo.
-
-\subsection*{Conservación}
-
-En ausencia de fuerzas externas o torques externos:
-\begin{itemize}
-    \item Se conserva el momento lineal total.
-    \item Se conserva el momento angular total.
-    \item Se conserva la energía (en sistemas aislados).
-\end{itemize}
+Si todas las fuerzas son conservativas, $W_{1\to 2} = -(V_2 - V_1)$ y se conserva la energía mecánica $E = T + V$.
 
 \section*{Objetivos del Capítulo}
 
 Al completar este capítulo, deberás:
 \begin{itemize}
-    \item Aplicar las leyes de Newton a sistemas de partículas.
-    \item Calcular momento lineal, momento angular y energía.
-    \item Usar conservación de momento y energía en problemas dinámicos.
-    \item Analizar colisiones y explosiones.
-    \item Entender el movimiento relativo y referencial.
+    \item Aplicar la segunda ley de Newton a una partícula sujeta a restricciones geométricas.
+    \item Plantear ecuaciones de movimiento en marcos de referencia rotantes.
+    \item Usar el teorema trabajo-energía y la conservación de energía mecánica.
+    \item Calcular impulso, momento lineal y momento angular de una partícula.
+    \item Incorporar fuerzas elásticas (resortes) en el análisis dinámico.
 \end{itemize}
 
 \newpage

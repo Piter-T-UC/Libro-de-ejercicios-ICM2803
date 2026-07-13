@@ -1,0 +1,65 @@
+\subsubsection{Partícula en hélice circular}
+
+Una partícula de masa $m$ se mueve a lo largo de una hélice circular de radio $R$ y ángulo de inclinación constante $\phi$, como se muestra en la \textbf{Figura \ref{fig:helice_particula}}. La ecuación de la hélice en coordenadas cilíndricas se define como:
+\begin{equation}
+    z = R \theta \tan \phi
+\end{equation}
+Sabiendo que la gravedad actúa en dirección vertical hacia abajo, realice lo siguiente:
+
+\begin{enumerate}
+    \item Defina los marcos de referencia y sistemas de coordenadas adecuados.
+    \item Determine y analice la cinemática de la partícula, expresando su velocidad y aceleración en términos de $\theta$.
+    \item Determine y analice la cinética de la partícula para obtener la ecuación diferencial de movimiento en términos de $\theta$ utilizando el teorema de Trabajo y Energía.
+\end{enumerate}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.5]
+        % --- Parámetros ---
+        \def\R{1.2}      % Radio del cilindro
+        \def\H{2.3}      % Altura del cilindro
+        \def\phiang{15}  % Ángulo de inclinación
+
+        % --- 1. Dibujo del Cilindro ---
+        % Elipse inferior (fondo)
+        \draw[dashed, gray] (\R, 0) arc (0:180:{\R} and 0.4);
+        % Elipse superior
+        \draw[thick, fill=gray!10] (0, \H) ellipse ({\R} and 0.4);
+        % Paredes laterales
+        \draw[thick] (-\R, 0) -- (-\R, \H);
+        \draw[thick] (\R, 0) -- (\R, \H);
+        % Elipse inferior (frente)
+        \draw[thick] (-\R, 0) arc (180:360:{\R} and 0.4);
+
+        % --- 2. Hélice ---
+        \draw[thick, domain=0:7*pi, samples=100, smooth] 
+            plot ({\R*cos(\x r)}, {0.1*\x + 0.15*\R*sin(\x r)});
+        
+        % --- 3. Partícula y Vectores ---
+        % Posición de la partícula P (en un punto de la curva)
+        \coordinate (P) at ({\R*cos(2.3*pi r)}, {0.1*2.3*pi + 0.15*\R*sin(2.3*pi r)});
+        \coordinate (PProy) at ({2*\R*cos(2.44*pi r)}, { 2*0.15*\R*sin(2.44*pi r)});
+        \shadedraw[ball color=gray!30] (P) circle (4pt) node[] {$m$};
+        
+        % Referencias de radio y ángulos en la base
+        \coordinate (O) at (0,0);
+        \draw[dashed] (O) -- (\R, 0) node[midway, below] {$R$};
+        \draw[thick, ->] (O) -- (PProy);
+        \draw[->] (0.4, 0) arc (30:60:0.5) node[midway, right] {$\theta$};
+        \filldraw (O) circle (1pt) node[below] {$O$};
+
+        % --- 4. Ángulo de inclinación phi ---
+        \begin{scope}[shift={(0.25, 1.52)}, blue!30!black] 
+            \draw[dashed] (0, 0) -- (0.9, 0);          % Horizontal
+            \draw[thick] (0, 0) -- (\phiang:0.9);      % Pendiente (usando coordenadas polares)
+            \draw[-] (0.4, 0) arc (0:\phiang:0.4);    % Arco del ángulo
+            \node at (0.5*\phiang:0.8) {$\phi$};       % Etiqueta
+        \end{scope}
+
+        % --- 5. Gravedad ---
+        \draw[->, thick] (2.0, 2.5) -- (2.0, 1.8) node[midway, right] {$\mathbf{g}$};
+
+    \end{tikzpicture}
+    \caption{Esquema de una partícula de masa $m$ recorriendo una trayectoria helicoidal sobre un cilindro de radio $R$.}
+    \label{fig:helice_particula}
+\end{figure}

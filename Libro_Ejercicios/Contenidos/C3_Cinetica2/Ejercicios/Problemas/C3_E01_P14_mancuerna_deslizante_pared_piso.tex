@@ -1,0 +1,66 @@
+\subsubsection{Mancuerna deslizante en pared y piso}
+
+Una mancuerna está compuesta por dos partículas $A$ y $B$, cada una de masa $m$, unidas por una varilla rígida ideal (sin masa) de longitud $l$. El extremo superior $A$ de la mancuerna se desliza sin fricción a lo largo de una pared vertical fija, mientras que el extremo inferior $B$ se desliza sin fricción a lo largo de un piso horizontal. El ángulo $\theta$ se define entre la pared vertical y la varilla. El sistema se suelta desde el reposo en la posición vertical ($\theta=0$). Sabiendo que la gravedad actúa hacia abajo, realice lo siguiente:
+
+\begin{enumerate}
+    \item Defina los marcos de referencia y sistemas de coordenadas adecuados.
+    \item Analice la cinemática del sistema para expresar la posición, velocidad y aceleración de las partículas en función del ángulo $\theta$.
+    \item Analice la cinética del sistema para determinar la ecuación diferencial del movimiento (utilizando leyes de Newton y energía) y encuentre el ángulo $\theta$ en el cual la partícula $A$ pierde contacto con la pared vertical.
+\end{enumerate}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.5]
+        % --- Parámetros ---
+        \def\Lrod{3.5}    % Longitud de la barra l
+        \def\ang{35}      % Ángulo theta con la vertical
+        \def\wallH{3.5}   % Altura pared
+        \def\floorW{3.0}  % Ancho piso
+
+        % Coordenadas
+        \coordinate (O) at (0,0);
+        % Posiciones basadas en el ángulo theta con la vertical
+        % A está en el eje Y: y = L*cos(theta)
+        \coordinate (A) at (0, {\Lrod*cos(\ang)});
+        % B está en el eje X: x = L*sin(theta)
+        \coordinate (B) at ({\Lrod*sin(\ang)}, 0);
+
+        % --- 1. Pared y Piso ---
+        % Pared Vertical
+        \draw[thick] (0, 0) -- (0, \wallH);
+        \fill[pattern=north east lines] (-0.3, 0) rectangle (0, \wallH);
+        \node[below left] at (O) {$O$};
+
+        % Piso Horizontal
+        \draw[thick] (0, 0) -- (\floorW, 0);
+        \fill[pattern=north east lines] (0, -0.3) rectangle (\floorW, 0);
+
+        % --- 2. Barra ---
+        \draw[line width=3pt, gray!40] (A) -- (B);
+        \draw[thick] (A) -- (B) node[midway, above right] {$l$};
+
+        % --- 3. Masas ---
+        % Masa A
+        \shadedraw[ball color=gray!30] (A) circle (0.25);
+        \node[left, xshift=-5pt] at (A) {$A$};
+        \node[white, font=\footnotesize] at (A) {$m$};
+
+        % Masa B
+        \shadedraw[ball color=gray!30] (B) circle (0.25);
+        \node[below, yshift=-5pt] at (B) {$B$};
+        \node[white, font=\footnotesize] at (B) {$m$};
+
+        % --- 4. Ángulo Theta ---
+        \draw[dashed] (0, {\Lrod*cos(\ang)}) -- (0, {\Lrod*cos(\ang)-1.5}); % Referencia vertical desde A hacia abajo
+        % O mejor, el ángulo suele medirse desde la pared en O o desde la vertical en A.
+        % El dibujo original muestra el ángulo en la intersección de la barra con la vertical (pared).
+        \draw[->, thick] (0, {\Lrod*cos(\ang)-0.8}) arc (270:{270+\ang}:0.8);
+        \node at ({0.5*sin(\ang/2)}, {\Lrod*cos(\ang)-1.0}) {$\theta$};
+
+        % --- 5. Gravedad ---
+        \draw[->, thick] (2.0, 2.0) -- (2.0, 1.0) node[midway, right] {$\mathbf{g}$};
+
+    \end{tikzpicture}
+    \caption{Diagrama de cuerpo libre de una mancuerna deslizándose apoyada en una esquina.}
+    \label{fig:mancuerna_esquina}
+\end{figure}

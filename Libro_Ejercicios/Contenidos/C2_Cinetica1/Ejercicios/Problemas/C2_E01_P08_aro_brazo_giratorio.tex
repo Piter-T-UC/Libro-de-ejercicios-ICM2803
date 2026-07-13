@@ -1,0 +1,57 @@
+\subsubsection{Aro deslizante en brazo giratorio}
+
+Un aro de masa $m$ se desliza sin fricción a lo largo de un brazo rígido sin masa de longitud variable. El brazo está articulado en uno de sus extremos en el punto $O$, el cual se encuentra en un eje vertical que gira con una velocidad angular constante $\Omega$. Además, el aro está unido a un resorte lineal con constante de resorte $K$ y largo natural $r_0$ conectado al punto $O$. El brazo puede girar libremente en el plano vertical. Utilizando las coordenadas $r$ (distancia al origen) y $\theta$ (ángulo con la vertical), realice lo siguiente:
+
+\begin{enumerate}
+    \item Defina los marcos de referencia y sistemas de coordenadas adecuados.
+    \item Determine las expresiones para la energía cinética y potencial del sistema.
+    \item Utilizando el formalismo de Lagrange, determine el sistema de dos ecuaciones diferenciales de movimiento para las variables $r$ y $\theta$.
+\end{enumerate}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.5]
+        % --- Parámetros ---
+        \def\ang{35} % Ángulo theta
+        \def\rPos{2.2} % Posición r del aro
+
+        % --- 1. Eje de Rotación ---
+        \draw[dashed, thick] (0, 0.5) -- (0, -3.5);
+        \draw[->, thick] (-0.3, 0.4) arc (180:450:0.3 and 0.1);
+        \node[left] at (-0.3, 0.4) {$\Omega$};
+
+        % Soporte O
+        \fill[pattern=north east lines] (-0.3, 0) rectangle (0.3, 0.3);
+        \draw[thick] (-0.3, 0) -- (0.3, 0);
+        
+        % --- 2. El Brazo y el Ángulo ---
+        \begin{scope}[rotate=\ang]
+            % El brazo
+            \draw[line width=4pt, line cap=round] (0,0) -- (0, -3.2);
+            \draw[line width=2.5pt, gray!60, line cap=round] (0,0) -- (0, -3.2);
+            
+            % El resorte
+            \draw[decoration={aspect=0.3, segment length=3pt, amplitude=3.5pt, coil}, decorate] 
+                (0,0) -- (0, -\rPos);
+            \node[above right] at (0, -\rPos/2) {$K$};
+
+            % El Aro (Masa m)
+            \shadedraw[ball color=gray!30] (0, -\rPos) circle (0.1) node[font=\footnotesize] {$m$};
+            
+            % Cota r
+            \draw[|<->|] (0.4, 0) -- (0.4, -\rPos) node[midway, above right] {$r$};
+        \end{scope}
+
+        % --- 3. Ángulo Theta ---
+        \draw[dashed, gray] (0,0) -- (0, -1.5);
+        \draw[->] (0, -0.8) arc (270:{270+\ang}:0.8);
+        \node at (0.2, -1.0) {$\theta$};
+
+        % --- 4. Articulación y Gravedad ---
+        \filldraw[fill=gray!80] (0,0) circle (2pt) node[below left, xshift=-3pt] {$O$};
+        \draw[->, thick] (1.7, -0.5) -- (1.7, -1.2) node[right] {$\mathbf{g}$};
+
+    \end{tikzpicture}
+    \caption{Sistema de un aro deslizante sobre un brazo rígido en rotación con vínculo elástico.}
+    \label{fig:aro_brazo}
+\end{figure}

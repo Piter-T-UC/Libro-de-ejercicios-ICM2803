@@ -1,0 +1,87 @@
+\subsubsection{Barra giratoria en guía semicircular con resortes}
+
+Un alambre con forma de semicircunferencia de radio $R$ se encuentra fijo en el plano vertical. Sobre este alambre desliza el extremo $P$ de una barra rígida ideal de masa nula, la cual puede girar libremente alrededor de un eje fijo en el centro geométrico $O$. La barra sostiene dos partículas: una de masa $2m$ en el extremo $P$ y otra de masa $m$ en el extremo opuesto $Q$. La distancia entre $O$ y $P$ es $R$, mientras que la distancia entre $O$ y $Q$ es $d$. Además, la partícula $P$ está conectada a dos resortes idénticos de constante elástica $k$ y longitud natural $l_0$, los cuales siguen la curvatura del alambre y están anclados en los extremos de su diámetro horizontal. Considerando que la gravedad actúa hacia abajo y definiendo $\theta$ como el ángulo que forma el segmento $OP$ con la vertical ascendente, realice lo siguiente:
+
+\begin{enumerate}
+    \item Defina los marcos de referencia y sistemas de coordenadas adecuados.
+    \item Analice la cinemática del sistema para expresar la velocidad de las partículas $P$ y $Q$ en función del ángulo $\theta$.
+    \item Analice la cinética del sistema para determinar la ecuación diferencial del movimiento utilizando métodos de energía o fuerzas.
+\end{enumerate}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.5]
+        % --- Parámetros ---
+        \def\R{2.2}       % Radio del semicírculo (R)
+        \def\distd{1.4}   % Distancia d (OQ)
+        \def\ang{25}      % Ángulo theta (desviación de la vertical)
+        
+        % Coordenadas Clave
+        \coordinate (O) at (0,0);
+        % P en coordenadas polares (90 - theta)
+        \coordinate (P) at ({90-\ang}:\R);
+        % Q en coordenadas polares (90 - theta + 180) -> (270 - theta)
+        \coordinate (Q) at ({270-\ang}:\distd);
+        % Extremos del diámetro
+        \coordinate (BaseL) at (-\R, 0);
+        \coordinate (BaseR) at (\R, 0);
+
+        % --- 1. Soportes y Línea Base ---
+        \draw[dashed, gray] (BaseL) -- (BaseR);
+        
+        % Soportes en los extremos
+        \foreach \x in {-\R, \R} {
+            \fill[pattern=north east lines] (\x-0.2, -0.1) rectangle (\x+0.2, 0);
+            \draw[thick] (\x-0.2, 0) -- (\x+0.2, 0);
+        }
+
+        % --- 2. Resortes en la Guía (Arcos) ---
+        % Resorte Izquierdo (desde 180 hasta P)
+        \draw[decorate, decoration={coil, aspect=0.4, segment length=3pt, amplitude=2.5pt}] 
+            (BaseL) arc (180:{90-\ang}:\R);
+        % Resorte Derecho (desde 0 hasta P)
+        \draw[decorate, decoration={coil, aspect=0.4, segment length=3pt, amplitude=2.5pt}] 
+            (BaseR) arc (0:{90-\ang}:\R);
+            
+        % Línea guía del alambre (borde fino para definir la forma)
+        \draw[thin, gray] (\R,0) arc (0:180:\R);
+
+        % --- 3. Barra y Masas ---
+        \draw[line width=2pt, gray!50] (Q) -- (P);
+        \draw[thick] (Q) -- (P);
+
+        % Masa P (2m)
+        \shadedraw[ball color=gray!30] (P) circle (0.22) node[above right, xshift=5pt] {$P$};
+        \node[font=\footnotesize] at (P) {$2m$};
+
+        % Masa Q (m)
+        \shadedraw[ball color=gray!30] (Q) circle (0.18) node[below left, xshift =-5pt] {$Q$};
+        \node[font=\footnotesize] at (Q) {$m$};
+
+        % --- 4. Cotas y Referencias ---
+        % Centro O
+        \filldraw (O) circle (1.5pt) node[above right, font=\small, xshift=3pt] {$O$};
+        
+        % Eje Vertical de Referencia
+        \draw[dashed] (0, 0.5) -- (0, \R+0.3);
+        
+        % Ángulo theta
+        \draw[->] (0, 0.8) arc (90:{90-\ang}:0.8);
+        \node at (0.25, 1.0) {$\theta$};
+        
+        % Etiqueta R (Radio)
+        \draw[thin, ->] (O) -- (135:\R) node[midway, fill=white, inner sep=1pt] {$R$};
+        
+        % Etiqueta d
+        %\draw[thin, |-|] ($(O)!0.2!(90:\distd)$) -- ($(Q)!0.2!(90:\distd)$); 
+        % Ajuste manual de cota d para que sea paralela a la barra
+        \draw[thin, |<->|] ($(O)!0.15!({270-\ang+90}:1)$) -- ($(Q)!0.15!({270-\ang+90}:1)$) 
+            node[midway, below right] {$d$};
+
+        % Gravedad
+        \draw[->, thick] (1.3, 1.0) -- (1.3, 0.1) node[midway, right] {$\vec{g}$};
+
+    \end{tikzpicture}
+    \caption{Sistema de barra rotatoria con masas en los extremos y resortes sobre guía semicircular.}
+    \label{fig:barra_semicirculo_resortes}
+\end{figure}

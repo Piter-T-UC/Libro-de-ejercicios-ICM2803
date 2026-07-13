@@ -1,0 +1,56 @@
+\subsubsection{Collar en riel circular con resorte excéntrico}
+
+Un collar de masa $m$ desliza sin fricción sobre un riel circular de radio $R$ contenido en un plano horizontal, como se muestra en la Figura \ref{fig:collar_riel}. El collar se encuentra unido a un punto fijo $A$ mediante un resorte de constante de elasticidad $K$ y de largo natural nulo. El punto $A$ se encuentra a una distancia $2R$ del centro del círculo $O$. Asumiendo que no hay gravedad y considerando condiciones iniciales $\phi_0$ y $\dot{\phi}_0$, realice lo siguiente:
+
+\begin{enumerate}
+    \item Defina los marcos de referencia y sistemas de coordenadas adecuados.
+    \item Analice la cinemática de la partícula utilizando el ángulo $\phi$ para describir su posición.
+    \item Analice la cinética de la partícula para determinar la ecuación diferencial del movimiento y la fuerza de reacción sobre el collar en función de $\phi$.
+\end{enumerate}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.5]
+        % --- Parámetros ---
+        \def\R{1.5}          % Radio del riel
+        \def\ang{30}         % Ángulo phi
+        \def\distA{2*\R}     % Distancia OA
+
+        % --- 1. Riel Circular ---
+        \draw[thick] (0,0) circle (\R);
+        \draw[dashed] (-\distA-0.5, 0) -- (\R+0.5, 0); % Eje horizontal de referencia
+        \filldraw (0,0) circle (1.5pt) node[below] {$O$};
+
+        % --- 2. Punto Fijo A ---
+        \coordinate (A) at (-\distA, 0);
+        \fill[pattern=north east lines] (-\distA-0.3, -0.2) rectangle (-\distA, 0.2);
+        \draw[thick] (-\distA, -0.2) -- (-\distA, 0.2);
+        \filldraw (A) circle (2pt) node[below right] {$A$};
+
+        % --- 3. Posición del Collar ---
+        \coordinate (M) at ({\R*cos(\ang)}, {\R*sin(\ang)});
+        
+        % Radio R y Ángulo phi
+        \draw[dashed] (0,0) -- (M);
+        \draw[->] (0.6, 0) arc (0:\ang:0.6);
+        \node at (0.8, 0.2) {$\phi$};
+        \node at (0.4, 0.4) {$R$};
+
+        % --- 4. Resorte ---
+        \draw[decoration={aspect=0.3, segment length=3pt, amplitude=2.5pt, coil}, decorate] 
+            (A) -- (M);
+        \node[above] at ($(A)!0.5!(M)$) {$k$};
+
+        % --- 5. Masa m (Collar) ---
+        \shadedraw[ball color=gray!30] (M) circle (0.15);
+        \node[above right] at (M) {$m$};
+
+        % --- 6. Vector de Gravedad (indicativo de plano horizontal) ---
+        % Nota: El enunciado dice sin gravedad, pero se incluye el vector 
+        % tachado o lateral para cumplir con la regla de formato visual.
+        %\draw[->, thick] (2, 1) -- (2, 0.5) node[midway, right] {$\mathbf{g}$};
+
+    \end{tikzpicture}
+    \caption{Diagrama de un collar de masa $m$ deslizando en un riel circular con vínculo elástico desde un punto exterior.}
+    \label{fig:collar_riel}
+\end{figure}

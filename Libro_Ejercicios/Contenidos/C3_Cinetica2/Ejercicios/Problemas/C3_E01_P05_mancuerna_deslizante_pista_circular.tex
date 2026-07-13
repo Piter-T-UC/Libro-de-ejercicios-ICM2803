@@ -1,0 +1,80 @@
+\subsubsection{Mancuerna deslizante en pista circular}
+
+Una mancuerna está constituida por dos partículas $A$ y $B$, cada una de masa $m$, conectadas mediante una barra rígida sin masa de longitud $2l$. Los extremos de la mancuerna se deslizan sin fricción por el interior de una pista circular fija de radio $R$ en el plano vertical. Sea $\theta$ el ángulo que forma la vertical descendente con la línea que une el centro de la pista $O$ con el centro de la barra $C$. Considerando que la gravedad actúa hacia abajo, realice lo siguiente:
+
+\begin{enumerate}
+    \item Defina los marcos de referencia y sistemas de coordenadas adecuados.
+    \item Analice la cinemática del sistema, estableciendo la relación geométrica entre la distancia $a$ (distancia $OC$) y las constantes $R$ y $l$.
+    \item Analice la cinética del sistema para determinar la ecuación diferencial del movimiento en términos del ángulo $\theta$.
+\end{enumerate}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.5]
+        % --- Parámetros ---
+        \def\R{2.5}       % Radio de la pista
+        \def\halfL{1.5}   % Mitad de la longitud de la barra (l)
+        % Por Pitágoras, la distancia a = sqrt(R^2 - l^2). 
+        % Con R=2.5 y l=1.5 -> a = sqrt(6.25 - 2.25) = 2.0
+        \def\distA{2.0}   
+        \def\ang{30}      % Ángulo theta
+
+        % Coordenada Origen
+        \coordinate (O) at (0,0);
+
+        % --- 1. Pista Circular ---
+        % Pared exterior (hachurada)
+        \draw[thick] (O) circle (\R+0.2);
+        \begin{scope}
+            \clip (O) circle (\R+0.4);
+            \fill[pattern=north east lines, even odd rule] (O) circle (\R+0.2) circle (\R+0.4);
+        \end{scope}
+        \draw[thick] (O) circle (\R+0.2); % Redibujar borde
+
+        % --- 2. Elementos Rotados (Barra y Radio) ---
+        \begin{scope}[rotate=-\ang] % Rotación horaria theta
+            
+            % Línea OC (distancia a)
+            \draw[dashed] (O) -- (0, -\distA) node[midway, left] {$a$};
+            \coordinate (C) at (0, -\distA);
+
+            % Barra AB (Perpendicular a OC)
+            \draw[line width=4pt] (-\halfL, -\distA) -- (\halfL, -\distA);
+            \draw[line width=3pt, gray!40] (-\halfL, -\distA) -- (\halfL, -\distA);
+            \draw[thick] (-\halfL, -\distA) -- (\halfL, -\distA);
+
+            % Partículas
+            \coordinate (A) at (-\halfL, -\distA);
+            \coordinate (B) at (\halfL, -\distA);
+
+            \shadedraw[ball color=gray!30] (A) circle (0.2) node[right, xshift=5pt, yshift=5pt] {$A$};
+            \shadedraw[ball color=gray!30] (B) circle (0.2) node[right, xshift=5pt] {$B$};
+            \node[font=\footnotesize] at (A) {$m$}; % Opcional
+            \node[font=\footnotesize] at (B) {$m$};
+
+            % Radio R (hacia B)
+            \draw[->, thin] (O) -- (\R+0.2,0) node[midway, above right] {$R$};
+            
+            % Cota 2l
+            \draw[|<->|] ($(A)+(0,-0.3)$) -- ($(B)+(0,-0.3)$) node[midway, below] {$2l$};
+            \filldraw (C) circle (0.6pt) node[above right, xshift=2pt, font=\footnotesize] {$C$};
+        \end{scope}
+
+        % --- 3. Referencias y Ángulos ---
+        % Eje Vertical
+        \draw[dashed, gray] (O) -- (0, -2.5);
+        
+        % Ángulo theta
+        \draw[->] (0, -1.0) arc (-90:{-90-\ang}:1.0);
+        \node at (-0.3, -1.3) {$\theta$};
+
+        % Centro O
+        \filldraw (O) circle (1.5pt) node[above left] {$O$};
+
+        % Gravedad
+        \draw[->, thick] (3.0, 0) -- (3.0, -1.0) node[midway, right] {$\mathbf{g}$};
+
+    \end{tikzpicture}
+    \caption{Sistema de mancuerna deslizante dentro de una pista circular vertical.}
+    \label{fig:mancuerna_circular}
+\end{figure}

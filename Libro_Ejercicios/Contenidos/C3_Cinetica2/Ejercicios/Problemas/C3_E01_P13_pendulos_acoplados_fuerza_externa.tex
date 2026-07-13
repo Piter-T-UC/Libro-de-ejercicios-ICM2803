@@ -1,0 +1,80 @@
+\subsubsection{Péndulos acoplados con fuerza externa seguidora}
+
+Considere el sistema de péndulos acoplados mostrado en la Figura \ref{fig:pendulos_acoplados}. El sistema está compuesto por una barra de longitud $l_1$ articulada en un punto fijo, a cuyo extremo inferior se articulan dos barras de longitudes $l_2$ y $l_3$. Todas las barras son rígidas e ideales (sin masa). En los extremos libres de las barras $l_2$ y $l_3$ se encuentran masas puntuales de valor $m$. Una fuerza externa $F$ actúa sobre la masa de la derecha, manteniendo siempre un ángulo fijo $\gamma$ con respecto a la línea de la barra $l_2$. Sabiendo que $\phi$ es el ángulo de la primera barra con la vertical y $\psi$ es el ángulo comprendido entre las dos barras inferiores, realice lo siguiente:
+
+\begin{enumerate}
+    \item Identifique las restricciones holónomas y no holónomas del sistema.
+    \item Determine el número de grados de libertad.
+    \item Obtenga las ecuaciones diferenciales del movimiento para las coordenadas generalizadas $\phi$ y $\psi$.
+    \item Determine las fuerzas de restricción en las articulaciones.
+    \item Analice si el sistema es conservativo y justifique su respuesta.
+\end{enumerate}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.4]
+        % --- Parámetros ---
+        \def\angPhi{-25}   % Ángulo phi (barra superior)
+        \def\angPsi{80}   % Ángulo psi (apertura entre barras inferiores)
+        \def\Lone{2.0}    % Largo l1
+        \def\Ltwo{2}    % Largo l2
+        \def\Lthree{1.5}  % Largo l3
+        \def\angGamma{50} % Ángulo gamma de la fuerza
+
+        % Coordenadas
+        \coordinate (O) at (0,0); % Pivote superior
+        \coordinate (J) at ({-90-\angPhi}:\Lone); % Articulación intermedia
+        
+        % Ángulos absolutos de las barras inferiores (asumiendo simetría respecto a la extensión de l1 para el dibujo)
+        \def\angLeft{-90-\angPhi - \angPsi}
+        \def\angRight{-90-\angPhi}
+        
+        \coordinate (M_L) at ($(J) + (\angLeft:\Lthree)$); % Masa izquierda
+        \coordinate (M_R) at ($(J) + (\angRight:\Ltwo)$);  % Masa derecha
+
+        % --- 1. Techo y Pivote ---
+        \fill[pattern=north east lines] (-1, 0) rectangle (1, 0.2);
+        \draw[thick] (-1, 0) -- (1, 0);
+        \filldraw[white, draw=black] (O) circle (2pt);
+
+        % --- 2. Barras ---
+        % Barra l1
+        \draw[line width=1.2pt] (O) -- (J) node[midway, right] {$l_1$};
+        
+        % Barras l2 y l3
+        \draw[line width=1.2pt] (J) -- (M_L) node[midway, above left] {$l_3$};
+        \draw[line width=1.2pt] (J) -- (M_R) node[midway, above right] {$l_2$};
+
+        % Articulación J
+        \filldraw[black] (J) circle (2pt);
+                % --- 5. Fuerza F ---
+        % Línea de extensión de l2
+        \draw[dashed] (M_R) -- ($(M_R) + (\angRight:1.0)$);
+        % Vector Fuerza F (a un ángulo gamma respecto a la extensión)
+        \draw[->, thick] (M_R) -- ($(M_R) + ({\angRight-\angGamma}:1.2)$) node[right] {$F$};
+        % Arco gamma
+        \draw[->] ($(M_R) + (\angRight:0.6)$) arc (\angRight:{\angRight-\angGamma}:0.6);
+        \node at ($(M_R) + ({\angRight-\angGamma/2}:0.8)$) {$\gamma$};
+
+        % --- 3. Masas ---
+        \shadedraw (M_L) circle (6pt) node[] {$m$};
+        \shadedraw (M_R) circle (6pt) node[] {$m$};
+
+        % --- 4. Ángulos ---
+        % Referencia vertical para phi
+        \draw[dashed] (O) -- (0, -1.5);
+        \draw[->] (0, -0.8) arc (-90:{-90-\angPhi}:0.8) node[midway, below] {$\phi$};
+
+        % Referencia extensión l1 y ángulo psi
+        \draw[dashed, gray] (J) -- ($(J)!0.6!({-90-\angPhi}:4)$); % Extensión visual
+        \draw[<-] ($(J) + (\angLeft:0.7)$) arc (\angLeft:\angRight:0.7) node[midway, below] {$\psi$};
+
+
+
+        % --- 6. Gravedad ---
+        \draw[->, thick] (-1.5, -1.0) -- (-1.5, -2.0) node[midway, left] {$g$};
+
+    \end{tikzpicture}
+    \caption{Sistema de péndulos acoplados con fuerza no conservativa.}
+    \label{fig:pendulos_acoplados}
+\end{figure}

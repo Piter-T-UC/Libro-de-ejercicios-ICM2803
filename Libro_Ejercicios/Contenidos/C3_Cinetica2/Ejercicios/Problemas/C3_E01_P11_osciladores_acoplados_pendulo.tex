@@ -1,0 +1,90 @@
+\subsubsection{Sistema de osciladores acoplados con péndulo}
+
+Considere el sistema mecánico mostrado en la Figura \ref{fig:osciladores_pendulo}. El sistema consta de dos bloques de masas $m_1$ y $m_2$ que se deslizan sobre una superficie horizontal sin fricción. El bloque $m_1$ está conectado a una pared fija mediante un resorte de constante $k_1$ y al bloque $m_2$ mediante un resorte de constante $k_2$. Adicionalmente, una partícula de masa $m_3$ cuelga del bloque $m_2$ mediante una barra rígida sin masa de longitud $L$, formando un péndulo. Asumiendo que la gravedad actúa hacia abajo, realice lo siguiente:
+
+\begin{enumerate}
+    \item Defina los marcos de referencia y sistemas de coordenadas adecuados.
+    \item Analice la cinemática del sistema describiendo la posición y velocidad de cada masa en función de las coordenadas generalizadas $x_1$, $x_2$ y $\theta$.
+    \item Obtenga las ecuaciones diferenciales del movimiento para las coordenadas generalizadas $x_1$, $x_2$ y $\theta$ aplicando principios de momentum (cantidad de movimiento lineal y angular).
+\end{enumerate}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.4]
+        % --- Parámetros ---
+        \def\BlockW{1.4}  % Ancho bloque
+        \def\BlockH{1.0}  % Alto bloque
+        \def\WheelR{0.15} % Radio rueda
+        \def\SpringL{1.5} % Largo resorte visual
+        \def\PendL{2.0}   % Largo péndulo
+        \def\ang{30}      % Ángulo theta
+        
+        % Coordenadas base (Centros de los bloques)
+        \coordinate (Wall) at (0, 0.5*\BlockH + \WheelR);
+        \coordinate (M1) at (\SpringL + 0.5*\BlockW, 0.5*\BlockH + \WheelR);
+        \coordinate (M2) at (2*\SpringL + 1.5*\BlockW, 0.5*\BlockH + \WheelR);
+        \coordinate (Pivot) at ($(M2)+(0,-0.3)$);
+        \coordinate (M3) at ($(Pivot) + ({sin(\ang)*\PendL}, {-cos(\ang)*\PendL})$);
+
+        % --- 1. Suelo y Pared ---
+        % Pared
+        \draw[thick] (0, 0) -- (0, 2.0);
+        \fill[pattern=north east lines] (-0.3, 0) rectangle (0, 2.0);
+        
+        % Suelo
+        \draw[thick] (0, 0) -- (7.5, 0);
+        \fill[pattern=north east lines] (-0.3, -0.1) rectangle (7.5, 0);
+
+        % --- 2. Resortes ---
+        % Resorte k1
+        \draw[decoration={coil, aspect=0.4, segment length=4pt, amplitude=4pt, pre length=3pt, post length=3pt}, decorate] 
+            (0, 0.5*\BlockH + \WheelR) -- ($(M1) - (0.5*\BlockW, 0)$);
+        \node[above, yshift=5pt] at ($(Wall)!0.4!(M1)$) {$k_1$};
+
+        % Resorte k2
+        \draw[decoration={coil, aspect=0.4, segment length=4pt, amplitude=4pt, pre length=3pt, post length=3pt}, decorate] 
+            ($(M1) + (0.5*\BlockW, 0)$) -- ($(M2) - (0.5*\BlockW, 0)$);
+        \node[above, yshift=5pt] at ($(M1)!0.5!(M2)$) {$k_2$};
+
+        % --- 3. Bloques m1 y m2 ---
+        % Bloque 1
+        \draw[thick, fill=white] ($(M1) - (0.5*\BlockW, 0.5*\BlockH)$) rectangle ($(M1) + (0.5*\BlockW, 0.5*\BlockH)$);
+        \node at (M1) {$m_1$};
+        % Ruedas Bloque 1
+      
+        % Corrección posición ruedas:
+        \draw[fill=white] ($(M1) + (-0.3*\BlockW, -0.5*\BlockH)$) circle (\WheelR);
+        \draw[fill=white] ($(M1) + (0.3*\BlockW, -0.5*\BlockH)$) circle (\WheelR);
+
+        % Bloque 2
+        \draw[thick, fill=white] ($(M2) - (0.5*\BlockW, 0.5*\BlockH)$) rectangle ($(M2) + (0.5*\BlockW, 0.5*\BlockH)$);
+        \node at (M2) {$m_2$};
+        % Ruedas Bloque 2
+        \draw[fill=white] ($(M2) + (-0.3*\BlockW, -0.5*\BlockH)$) circle (\WheelR);
+        \draw[fill=white] ($(M2) + (0.3*\BlockW, -0.5*\BlockH)$) circle (\WheelR);
+
+        % --- 4. Péndulo m3 ---
+        \draw[line width=1.5pt] (Pivot) -- (M3); % Barra sin masa
+        \draw[double] (Pivot) -- (M3); 
+        \filldraw[fill=white] (Pivot) circle (2pt); % Pivote
+        \shadedraw[ball color=white] (M3) circle (0.25) node[] {$m_3$};
+
+        % --- 5. Coordenadas y Vectores ---
+        % Coordenada x1
+        \draw[->, thick] ($(Wall) + (0, 0.5*\BlockH)$) -- ++(0, 0.6) -- ($(M1)+(0, 0.5*\BlockH+0.6)$) node[midway, above] {$x_1$};
+        
+        % Coordenada x2
+        \draw[->, thick] ($(Wall) + (0, 0.5*\BlockH)$) -- ++(0, 0.2) -- ($(M2)+(0, 0.5*\BlockH+0.2)$) node[midway, above] {$x_2$};
+
+        % Ángulo theta
+        \draw[dashed] (Pivot) -- ++(0, -1.5);
+        \draw[->] ($(Pivot) + (0, -0.8)$) arc (-90:{-90+\ang}:0.8);
+        \node at ($(Pivot) + (0.3, -1.0)$) {$\theta$};
+
+        % Gravedad
+        \draw[->, thick] (6.5, 1.5) -- (6.5, 0.5) node[midway, right] {$g$};
+
+    \end{tikzpicture}
+    \caption{Sistema de masas acopladas por resortes con un péndulo suspendido.}
+    \label{fig:osciladores_pendulo}
+\end{figure}

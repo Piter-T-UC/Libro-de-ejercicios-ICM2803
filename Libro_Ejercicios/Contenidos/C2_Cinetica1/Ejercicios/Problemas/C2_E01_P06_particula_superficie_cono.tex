@@ -1,0 +1,56 @@
+\subsubsection{Partícula en superficie de un cono}
+
+Una partícula $P$ de masa $m$ se mueve sin roce sobre la superficie exterior de un cono de ángulo $\phi = \pi/4$. El sistema se encuentra en el espacio profundo (sin gravedad). La partícula comienza su movimiento a una distancia $r_0$ del vértice, con una velocidad inicial perpendicular al eje $\vec{e}_z$ y una velocidad angular $\dot{\theta}(t_0) = \omega_0$. Además de la fuerza normal, existe una fuerza de atracción central ejercida por el eje $\vec{e}_z$ sobre la partícula:
+\[ \vec{f} = -\frac{B}{\rho^2} \vec{e}_\rho \]
+donde $B$ es una constante conocida y $\rho$ es la coordenada radial cilíndrica. Considerando el origen en el vértice del cono, realice lo siguiente:
+
+\begin{enumerate}
+    \item Defina los marcos de referencia y sistemas de coordenadas (esféricas y cilíndricas) adecuados.
+    \item Encuentre la velocidad angular $\dot{\theta}$ de $P$ en función de la coordenada esférica $r$.
+    \item Determine si la fuerza $\vec{f}$ es o no conservativa.
+    \item Escriba la energía mecánica total en términos de $\dot{r}$ y $r$.
+    \item Analice si existen soluciones donde la coordenada $r$ esté acotada entre dos valores, $r_{min}$ y $r_{max}$.
+\end{enumerate}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.5]
+        % --- Parámetros ---
+        \def\Rbase{2}
+        \def\Hcone{2}
+        \def\ang{45} % pi/4
+
+        % --- 1. Dibujo del Cono ---
+        % Elipse de la base (atrás)
+        \draw[dashed, gray] (\Rbase, 0) arc (0:180:{\Rbase} and 0.6);
+        % Superficie lateral
+        \draw[thick] (-\Rbase, 0) -- (0, \Hcone) -- (\Rbase, 0);
+        % Elipse de la base (adelante)
+        \draw[thick] (-\Rbase, 0) arc (180:360:{\Rbase} and 0.6);
+
+        % --- 2. Ejes y Ángulo ---
+        \draw[->, dashed] (0, \Hcone) -- (0, -0.5) node[below] {$\vec{e}_z$};
+        \draw[dashed] (0, \Hcone) -- +(0.8, -0.8);
+        \draw[thin] (0, \Hcone-0.4) arc (270:315:0.4);
+        \node at (0.2, \Hcone-0.6) {$\frac{\pi}{4}$};
+
+        % --- 3. Partícula y Vectores ---
+        % Posición de la partícula P
+        \coordinate (V) at (0, \Hcone); % Vértice
+        \coordinate (P) at (1.2, {\Hcone - 1.2}); % Punto en la superficie
+        
+        \filldraw[shading=ball, ball color=black] (P) circle (2.5pt) node[right, xshift=3pt] {$P$};
+        
+        % Vector e_r (A lo largo del cono)
+        \draw[->, thick] (P) -- +(135:-0.8) node[right] {$\vec{e}_r$};
+        % Vector e_phi (Perpendicular a la superficie)
+        \draw[->, thick] (P) -- +(45:0.8) node[right] {$\vec{e}_\phi$};
+        
+        % Líneas auxiliares para rho
+        \draw[dashed, gray] (P) -- (0, {\Hcone - 1.2});
+        \node[above] at (0.6, {\Hcone - 1.2}) {$\rho$};
+
+    \end{tikzpicture}
+    \caption{Partícula $P$ en movimiento sobre la superficie de un cono bajo una fuerza central atractiva.}
+    \label{fig:cono_particula}
+\end{figure}

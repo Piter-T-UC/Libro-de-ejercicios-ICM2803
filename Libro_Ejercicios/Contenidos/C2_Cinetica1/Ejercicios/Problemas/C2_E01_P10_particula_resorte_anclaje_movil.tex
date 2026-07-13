@@ -1,0 +1,71 @@
+\subsubsection{Partícula en resorte con anclaje móvil}
+
+Una partícula de masa $m$ está unida a un resorte lineal con constante elástica $k$ y longitud natural $r_0$ El otro extremo del resorte está conectado a una abrazadera sin masa que se desliza sobre una guía horizontal sin fricción, cuyo desplazamiento $x(t)$ respecto a un origen fijo es conocido. Sabiendo que la gravedad actúa hacia abajo, se requiere analizar el comportamiento dinámico del sistema mostrado en la Figura \ref{fig:particula_resorte_movil}.
+
+\begin{enumerate}
+    \item Defina los marcos de referencia y sistemas de coordenadas adecuados.
+    \item Determine y analice la cinemática de la partícula utilizando las variables $r$ y $\theta$.
+    \item Determine y analice la cinética de la partícula para obtener las ecuaciones diferenciales de movimiento.
+\end{enumerate}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.5]
+        % --- Parámetros de diseño ---
+        \def\rL{3.0}      % Longitud del dibujo para r
+        \def\ang{35}     % Ángulo theta
+        \def\guideW{3.5}  % Ancho de la guía
+        
+        % --- Coordenadas ---
+        \coordinate (Origin) at (-2, 0);       % Referencia fija
+        \coordinate (O) at (0.5, 0);           % Posición de la abrazadera
+        \coordinate (P) at ($(O) + ({\rL*sin(\ang)}, {-\rL*cos(\ang)})$); % Partícula
+        
+        % --- 1. Guía horizontal y soportes ---
+        \draw[line width=3pt, black] (-\guideW, 0) -- (\guideW, 0);
+        \draw[line width=2.5pt, gray!40] (-\guideW, 0) -- (\guideW, 0);
+        % Soporte Izquierdo
+        \fill[pattern=north east lines] (-\guideW-0.3, -0.4) rectangle (-\guideW, 0.4);
+        \draw[thick] (-\guideW, -0.4) -- (-\guideW, 0.4);
+        % Soporte Derecho
+        \fill[pattern=north east lines] (\guideW, -0.4) rectangle (\guideW+0.3, 0.4);
+        \draw[thick] (\guideW, -0.4) -- (\guideW, 0.4);
+
+        % --- 2. Abrazadera O ---
+        \shadedraw[ball color=gray!10, draw=black] (O) ellipse (0.15 and 0.15);
+        \node[below left, xshift=-2pt] at (O) {$O$};
+        \draw[black] (O) circle (0.15);
+
+        % --- 3. Desplazamiento x(t) ---
+        \draw[dashed, thin] (Origin) -- (Origin);
+        \draw[dashed, thin] (Origin) -- ++(0, 0.8);
+        \draw[dashed, thin] (O) -- ++(0, 0.8);
+        \draw[|->, thick] ($(Origin)+(0,0.6)$) -- ($(O)+(0,0.6)$) node[midway, above] {$x(t)$};
+
+        % --- 4. Resorte y Coordenadas ---
+        % Línea de referencia vertical
+        \draw[dashed, gray] (O) -- ++(0, -3.5);
+        
+        % Resorte
+        \draw[decoration={aspect=0.4, segment length=3mm, amplitude=3mm, coil}, decorate, thick] (O) -- (P);
+        \node[left, xshift=-8pt] at ($(O)!0.5!(P)$) {$k$};
+
+        % Ángulo theta
+        \draw[->] (0.5, -0.8) arc (270:{270+\ang}:0.8);
+        \node at (0.7, -1.0) {$\theta$};
+
+        % Vector r (distancia)
+        \draw[|<->|, thin] ($(O)+(0.4, 0.2)$) -- ($(P)+(0.4, 0.2)$) node[midway, above right] {$r$};
+
+        % --- 5. Partícula P ---
+        \shadedraw[ball color=gray!30] (P) circle (0.2);
+        \node at (P) {$m$};
+        \node[right, xshift=10pt] at (P) {$P$};
+
+        % --- 6. Vector de gravedad ---
+        \draw[->, thick] (-2.5, -1.5) -- (-2.5, -2.5) node[midway, left] {$\mathbf{g}$};
+
+    \end{tikzpicture}
+    \caption{Esquema de una partícula $m$ acoplada a un resorte con soporte móvil $x(t)$.}
+    \label{fig:particula_resorte_movil}
+\end{figure}

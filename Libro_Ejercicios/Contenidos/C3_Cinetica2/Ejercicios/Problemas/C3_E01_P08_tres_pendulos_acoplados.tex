@@ -1,0 +1,67 @@
+\subsubsection{Tres péndulos acoplados simétricamente}
+
+Tres péndulos simples, todos de longitud $l$, están dispuestos simétricamente suspendidos de un techo horizontal fijo. La masa central, de valor $2m$, está conectada a las masas exteriores, cada una de valor $m$, mediante resortes ideales de constante elástica $k$. El sistema vibra exclusivamente en el plano vertical de la figura. Considerando que la gravedad actúa hacia abajo y asumiendo pequeñas oscilaciones, realice lo siguiente:
+
+\begin{enumerate}
+    \item Defina los marcos de referencia y las coordenadas generalizadas para describir el movimiento de las tres masas.
+    \item Determine las matrices de inercia (masa) y de rigidez del sistema para obtener las ecuaciones de movimiento en forma matricial.
+    \item Calcule las frecuencias naturales (modos normales) y los vectores propios correspondientes que describen los desplazamientos relativos de los péndulos.
+\end{enumerate}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.3]
+        % --- Parámetros ---
+        \def\PendL{2.5}   % Longitud l
+        \def\Sep{2.2}     % Separación horizontal entre péndulos
+        
+        % Coordenadas de los pivotes
+        \coordinate (P1) at (-\Sep, 0);
+        \coordinate (P2) at (0, 0);
+        \coordinate (P3) at (\Sep, 0);
+        
+        % Coordenadas de las masas (Posición de equilibrio)
+        \coordinate (M1) at (-\Sep, -\PendL);
+        \coordinate (M2) at (0, -\PendL);
+        \coordinate (M3) at (\Sep, -\PendL);
+
+        % --- 1. Techo ---
+        \fill[pattern=north east lines] (-\Sep-1, 0) rectangle (\Sep+1, 0.2);
+        \draw[thick] (-\Sep-1, 0) -- (\Sep+1, 0);
+
+        % --- 2. Varillas de los péndulos ---
+        \draw[thick] (P1) -- (M1) node[midway, left] {$l$};
+        \draw[thick] (P2) -- (M2) node[midway, left] {$l$};
+        \draw[thick] (P3) -- (M3) node[midway, right] {$l$};
+
+        % --- 3. Resortes ---
+        % Resorte izquierdo (entre M1 y M2)
+        \draw[decoration={coil, aspect=0.4, segment length=4pt, amplitude=3pt, pre length=3pt, post length=3pt}, decorate] 
+            (M1) -- (M2);
+        \node[above, yshift=3pt] at ($(M1)!0.5!(M2)$) {$k$};
+
+        % Resorte derecho (entre M2 y M3)
+        \draw[decoration={coil, aspect=0.4, segment length=4pt, amplitude=3pt, pre length=3pt, post length=3pt}, decorate] 
+            (M2) -- (M3);
+        \node[above, yshift=3pt] at ($(M2)!0.5!(M3)$) {$k$};
+
+        % --- 4. Masas ---
+        % Masa 1 (m)
+        \filldraw (P1) circle (1.5pt);
+        \shadedraw[ball color=gray!30] (M1) circle (0.2) node[] {$m$};
+        
+        % Masa 2 (2m) - Un poco más grande
+        \filldraw (P2) circle (1.5pt);
+        \shadedraw[ball color=gray!30] (M2) circle (0.25) node[] {$2m$};
+        
+        % Masa 3 (m)
+        \filldraw (P3) circle (1.5pt);
+        \shadedraw[ball color=gray!30] (M3) circle (0.2) node[] {$m$};
+
+        % --- 5. Gravedad ---
+        \draw[->, thick] (\Sep+0.8, -0.5) -- (\Sep+0.8, -1.5) node[midway, right] {$\mathbf{g}$};
+
+    \end{tikzpicture}
+    \caption{Sistema de tres péndulos acoplados mediante resortes lineales.}
+    \label{fig:tres_pendulos_acoplados}
+\end{figure}

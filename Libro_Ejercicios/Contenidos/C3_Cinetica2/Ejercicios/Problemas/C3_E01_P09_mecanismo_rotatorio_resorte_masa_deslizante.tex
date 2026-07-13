@@ -1,0 +1,87 @@
+\subsubsection{Mecanismo rotatorio con resorte y masa deslizante}
+
+Un mecanismo articulado rota alrededor de un eje vertical con una velocidad angular constante $\Omega$. El sistema está compuesto por un disco pequeño $B$ y un collarín deslizante $C$, ambos de masa $m$. Los eslabones rígidos $AB$ y $BC$ tienen longitud $L$ y masa despreciable. El collarín $C$ desliza sobre el eje vertical y está conectado al punto fijo $A$ mediante un resorte lineal de constante de rigidez $k$ y longitud natural $2l$. El resorte se encuentra enrollado alrededor del eje. Sabiendo que $\theta$ es el ángulo que forman los eslabones con la vertical y que la gravedad actúa hacia abajo, realice lo siguiente:
+
+\begin{enumerate}
+    \item Defina los marcos de referencia y sistemas de coordenadas adecuados (fijo y rotatorio).
+    \item Analice la cinemática del sistema para determinar las expresiones de energía cinética y potencial en función del ángulo $\theta$.
+    \item Determine los dos posibles valores de equilibrio constante para $\theta$ en el rango $0 \le \theta < \pi/2$ y analice la estabilidad de dichas posiciones en función de la rigidez $k$ y la velocidad $\Omega$.
+\end{enumerate}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.4]
+        % --- Parámetros ---
+        \def\Llink{2.5}   % Longitud L de los eslabones
+        \def\ang{35}      % Ángulo theta
+        \def\Wslider{0.6} % Ancho del collarín
+        \def\Hslider{0.4} % Alto del collarín
+        
+        % Coordenadas
+        \coordinate (A) at (0,0); % Punto fijo inferior
+        % Geometría: Triángulo isósceles. Altura total h = 2*L*cos(theta)
+        \coordinate (C) at (0, {2*\Llink*cos(\ang)}); % Posición del collarín
+        \coordinate (B) at ({\Llink*sin(\ang)}, {\Llink*cos(\ang)}); % Posición de la masa B
+        \coordinate (TopSupport) at (0, {2*\Llink*cos(\ang) + 1.0});
+
+        % --- 1. Eje y Soportes ---
+        % Indicador de Rotación Omega
+        \draw[->, thick] (0.3, {2*\Llink*cos(\ang) + 0.6}) arc (0:255:0.3 and 0.1);
+        \node[right] at (0.3, {2*\Llink*cos(\ang) + 0.4}) {$\Omega$};
+        % Eje Vertical
+        \draw[line width=6pt] (0, -0.5) -- (0, {2*\Llink*cos(\ang) + 1.2});
+        \draw[line width=5pt, gray!20] (0, -0.5) -- (0,{2*\Llink*cos(\ang) + 1.2});
+        \draw[thick] (0, -0.5) -- (0, {2*\Llink*cos(\ang) + 1.2});
+
+        % Soporte Inferior
+        \fill[pattern=north east lines] (-0.5, -0.5) rectangle (0.5, -0.3);
+        \draw[thick] (-0.5, -0.3) -- (0.5, -0.3);
+
+        % Soporte Superior
+        \fill[pattern=north east lines] (-0.5, {2*\Llink*cos(\ang) + 1.0}) rectangle (0.5, {2*\Llink*cos(\ang) + 1.2});
+        \draw[thick] (-0.5, {2*\Llink*cos(\ang) + 1.0}) -- (0.5, {2*\Llink*cos(\ang) + 1.0});
+
+
+        % --- 2. Resorte (alrededor del eje entre A y C) ---
+        \draw[decoration={coil, aspect=0.5, segment length=5pt, amplitude=4pt, pre length=5pt, post length=5pt}, decorate, gray!80, thick] 
+            (A) -- (C);
+        \node[left, xshift=-5pt] at (0, {\Llink*cos(\ang)}) {$k$};
+
+        % --- 3. Eslabones y Masas ---
+        % Eslabón AB
+        \draw[line width=4pt] (A) -- (B);
+        \draw[line width=3pt, gray!40] (A) -- (B);
+        \draw[thick] (A) -- (B) node[midway, below right] {$L$};
+        
+        % Eslabón CB
+        \draw[line width=4pt] (C) -- (B);
+        \draw[line width=3pt, gray!40] (C) -- (B);
+        \draw[thick] (C) -- (B) node[midway, above right] {$L$};
+
+        % Collarín C
+        \shadedraw[color=gray!20, draw=black] ($(C)+(-\Wslider/2, -\Hslider/2)$) rectangle ($(C)+(\Wslider/2, \Hslider/2)$);
+        \node[above left, xshift=-5pt, yshift=7pt] at (C) {$C$};
+        %\filldraw (C) circle (1.5pt); % Pivote en C
+        \node at (C) {$m$};
+
+        % Punto fijo A
+        \filldraw (A) circle (1.5pt) node[left, xshift=-5pt] {$A$};
+
+        % Masa B (Disco)
+        \shadedraw[ball color=gray!30] (B) circle (0.25) node[right, xshift=5pt] {$B$};
+        %\filldraw (B) circle (1.5pt);
+        \node[] at (B) {$m$};
+
+        % --- 4. Ángulos theta ---
+        % Ángulo en A
+        \draw[thin] (0, 0.6) arc (90:{90-\ang}:0.6);
+        \node at (0.2, 0.8) {$\theta$};
+        
+        % Ángulo en C
+        \draw[thin] (0, {2*\Llink*cos(\ang)-0.6}) arc (270:{270+\ang}:0.6);
+        \node at (0.2, {2*\Llink*cos(\ang)-0.8}) {$\theta$};
+
+    \end{tikzpicture}
+    \caption{Mecanismo rotatorio con control elástico y masa centrífuga.}
+    \label{fig:gobernador_centrifugo}
+\end{figure}

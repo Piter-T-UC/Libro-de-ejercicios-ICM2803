@@ -1,0 +1,50 @@
+\subsubsection{Impacto inelástico en péndulo acoplado a carro}
+
+Una partícula $A$ de masa $m/2$ se desplaza con una velocidad inicial $v_0$ hacia la derecha e impacta a una partícula $B$ de masa $m/2$, inicialmente en reposo. La partícula $B$ está conectada a un carro $C$ de masa $m$ mediante una barra rígida sin masa de longitud $l$. El carro se desliza sobre una superficie horizontal sin fricción. Sabiendo que la colisión es perfectamente inelástica, realice lo siguiente:
+
+\begin{enumerate}
+    \item Defina los marcos de referencia y sistemas de coordenadas adecuados.
+    \item Analice la cinemática del sistema para determinar la velocidad de cada partícula y la velocidad del centro de masa inmediatamente después del impacto.
+    \item Determine el máximo ángulo $\theta$ que alcanza la barra después de la colisión utilizando principios de conservación.
+\end{enumerate}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.4]
+        % --- Parámetros ---
+        \def\Lbar{2.0}
+        \def\Wcar{2.2}
+        \def\Hcar{0.6}
+
+        % --- Suelo ---
+        \fill[pattern=north east lines] (-3, -0.2) rectangle (3, 0);
+        \draw[thick] (-3, 0) -- (3, 0);
+        \draw[thin] (-1.0, 0.4) -- (-0.6, 0.1);
+
+        % --- Carro C ---
+        \draw[thick, fill=gray!10] (-\Wcar/2, 0.1) rectangle (\Wcar/2, \Hcar+0.1);
+        \node at (0.7, \Hcar/2+0.1) {$C$};
+        
+        \coordinate (O) at (0, \Hcar-0.1);
+        \filldraw (O) circle (1.5pt) node[left, xshift=-2pt] {$O$};
+
+        % --- Barra y Partícula B ---
+        \draw[line width = 4pt] (O) -- (0, \Hcar-0.1-\Lbar);
+        \draw[line width = 3pt, gray!80, line cap = round] (O) -- (0, \Hcar-0.1-\Lbar);
+        \shadedraw[ball color=gray!30] (0, \Hcar-0.1-\Lbar) circle (0.18) node[right, xshift=5pt] {$B$};
+        \node[left] at (0, \Hcar-0.1-\Lbar/2) {$l$};
+        \filldraw (O) circle (0.6pt);
+        
+        % --- Partícula A ---
+        \coordinate (A) at (-2.0, \Hcar-0.1-\Lbar);
+        \shadedraw[ball color=gray!30] (A) circle (0.18) node[left, xshift=-5pt] {$A$};
+        \draw[->, thick] (A) -- ++(0.7, 0) node[midway, above] {$\mathbf{v}_0$};
+        \node[above left, font=\small] at (-0.8, 0.8) {Sin Fricción};
+
+        % --- Gravedad ---
+        \draw[->, thick] (2.2, 1.2) -- (2.2, 0.4) node[midway, right] {$\mathbf{g}$};
+
+    \end{tikzpicture}
+    \caption{Sistema de impacto inelástico entre una partícula proyectil y un péndulo montado sobre un carro móvil.}
+    \label{fig:impacto_carro_pendulo}
+\end{figure}

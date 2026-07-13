@@ -1,0 +1,61 @@
+\subsubsection{Partícula con resorte en brazo giratorio}
+
+Una partícula de masa $m$ está unida a un resorte lineal con constante elástica $K$ y longitud natural $r_0$. El otro extremo del resorte está conectado, en el punto $P$, al extremo libre de un brazo rígido sin masa de longitud $l$. El brazo está articulado en su otro extremo $O$ y gira en una trayectoria circular con una rapidez angular constante $\omega$. Sabiendo que la gravedad actúa hacia abajo y definiendo $r$ como la longitud del resorte y $\theta$ como el ángulo de la partícula respecto a la vertical, realice lo siguiente:
+
+\begin{enumerate}
+    \item Defina los marcos de referencia y sistemas de coordenadas adecuados.
+    \item Analice la cinemática de la partícula determinando sus vectores de posición y velocidad en función de las coordenadas generalizadas.
+    \item Analice la cinética del sistema para determinar las ecuaciones diferenciales del movimiento.
+\end{enumerate}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.5]
+        % --- Parámetros ---
+        \def\ang{-40}      % Ángulo de inclinación (omega*t y theta coinciden en el dibujo)
+        \def\Lbar{2.0}     % Longitud del brazo l
+        \def\Lspring{1.5}  % Longitud del resorte r
+
+        % Coordenadas
+        \coordinate (O) at (0,0);
+        \coordinate (P) at (\ang:\Lbar);
+        \coordinate (M) at (\ang+15:{\Lbar+\Lspring});
+
+        % --- 1. Soporte y Pivote ---
+        \fill[pattern=north east lines] (-0.5, 0) rectangle (0.5, 0.2);
+        \draw[thick] (-0.5, 0) -- (0.5, 0);
+        \filldraw[gray] (O) circle (2pt);
+        \node[below left, xshift=-3pt] at (O) {$O$};
+
+        % --- 2. Brazo Giratorio ---
+        \draw[line width=3pt, gray!40,line cap=round] (O) -- (P);
+        \draw[thick,line cap=round ] (O) -- (P) node[midway, above right] {$l$};
+        \filldraw (P) circle (0.5pt) node[below left, yshift=5pt] {$P$};
+        \filldraw (O) circle (0.5pt);
+
+        % --- 3. Resorte y Masa ---
+        \draw[decoration={coil, aspect=0.4, segment length=3pt, amplitude=3pt, pre length=3pt, post length=3pt}, decorate, thick] (P) -- (M);
+        \node at ($(P)!0.5!(M)$) [below left=2pt] {$K$};
+        
+        \shadedraw[ball color=white] (M) circle (3.5pt) node[] {$m$};
+
+        % --- 4. Cotas y Referencias ---
+        % Referencia Vertical
+        \draw[dashed, gray] (O) -- (0, -2.0);
+        \draw[dashed, gray] (P) -- ++ (0, -2.0);
+        
+        % Ángulo omega*t (Referido al brazo)
+        \draw[->, thick] (0, -0.8) arc (-90:\ang:0.8);
+        \node at ({(\ang-90)/2}:1.1) {$\omega t$};
+
+        % Ángulo theta (Referido a la masa - dibujado un poco más abajo)
+        \draw[->, thick] (P)++(0,-1.6) arc (-90:\ang+30:1.6) node[midway, above] {$\theta$};
+
+        % Cota r (Longitud del resorte)
+        % Calculamos puntos desplazados para la cota paralela
+        \draw[thin, |<->|] ($(P)+(\ang+90:0.4)$) -- ($(M)+(\ang+90:0.4)$) node[midway, above right] {$r$};
+
+    \end{tikzpicture}
+    \caption{Sistema de partícula unida a un resorte acoplado a un brazo en rotación forzada.}
+    \label{fig:resorte_brazo_giratorio}
+\end{figure}

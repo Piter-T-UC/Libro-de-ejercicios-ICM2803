@@ -1,0 +1,72 @@
+\subsubsection{Partícula en pista parabólica rotatoria}
+
+Una partícula de masa $m$ se desliza sin fricción a lo largo de una pista en forma de parábola como se muestra en la \textbf{Figura \ref{fig:parabola_rotatoria}}. La ecuación que describe la geometría de la pista está dada por:
+\[ y = \frac{r^2}{2a} \]
+donde $a$ es una constante, $r$ es la distancia radial desde el eje vertical de simetría (punto $O$ al punto $B$), y $y$ es la distancia vertical desde el origen $O$ al punto $Q$. 
+
+La partícula está unida a un resorte lineal de constante elástica $k$ y longitud natural $\ell_0$. El resorte se mantiene siempre alineado horizontalmente, conectando la partícula con un punto de unión libre de deslizarse a lo largo del eje vertical que pasa por el centro de la parábola. El sistema completo rota con una velocidad angular constante $\Omega$ alrededor de la dirección vertical. Considerando que la gravedad $\mathbf{g}$ actúa verticalmente hacia abajo, realice lo siguiente:
+
+\begin{enumerate}
+    \item Defina los marcos de referencia y sistemas de coordenadas adecuados para describir el movimiento en términos de la variable $r$.
+    \item Analice la cinemática de la partícula, determinando el momento lineal y el momento angular respecto al origen.
+    \item Analice la cinética de la partícula y determine la ecuación diferencial del movimiento en términos de la variable $r$.
+\end{enumerate}
+
+\begin{figure}[htbp]
+    \centering
+\begin{tikzpicture}[scale=1.2]
+  % Axes
+  \draw[->] (-3,0) -- (3,0) node[right] {$x$};
+  \draw[-] (0,0) -- (0,4) ;
+
+  % Origin
+  \node[below left] at (0,0) {$O$};
+
+  % Parabola
+  \draw[domain=-2.5:2.5,smooth,variable=\x,thick] 
+    plot ({\x},{0.5*\x*\x});
+
+  % Dashed guides to Q
+  \node[below, right] at (2,-0.15) {$B$};
+    \filldraw[black] (2,0) circle (1.5pt);
+  \draw[dashed] (0,0) -- (0,2) node[left] {$Q$};
+    \filldraw[black] (0,2) circle (1.5pt);
+
+  % Spring from Q to m
+  \draw[decorate,decoration={coil,aspect=0.3, segment length=3mm, amplitude=2pt}, thick]
+    (0,2) --node[midway,above] {$k$} (2,2);
+
+  % Mass at end of spring
+  \filldraw[fill=gray!30,draw=black] (2,2) circle (2pt);
+  \node[right] at (2,2) {$m$};
+
+  % Vertical arrow from parabola to mass: y
+  \draw[->,thick] (2,0) -- (2,1.9);
+  \node[right] at (2,1.2) {$y$};
+
+  % Gravity arrow g
+  \draw[->,thick] (3,4) -- (3,3);
+  \node[right] at (3,3.5) {$\mathbf{g}$};
+
+  \begin{scope}[shift={(0,3.5)}, rotate=0]
+    \draw[->,thick] 
+      plot[domain=-30:240,variable=\t,smooth,samples=100] 
+      ({0.6*cos(\t)}, {0.3*sin(\t)});
+    \node at (-0.8,0.4) {$\Omega$};
+  \end{scope}
+    % Axis stub and triangle tip
+  \draw[thick] (0,3.5) -- (0,4.2);
+  \draw[fill=black] (0,4.2) -- (-2pt,3.9) -- (2pt,3.9) -- cycle;
+
+  %FLECHA r
+  
+
+\draw[-,dashed] (0,0)--(0,-0.5);
+\draw[-,thick] (0,-0.5) -- node[midway, above] {$r$} (2,-0.5);
+\draw (0,-0.4) -- (0,-0.6);
+\draw (2,-0.4) -- (2,-0.6);
+
+\end{tikzpicture}
+    \caption{Diagrama de una partícula de masa $m$ en una pista parabólica rotatoria con vínculo elástico horizontal.}
+    \label{fig:parabola_rotatoria}
+\end{figure}

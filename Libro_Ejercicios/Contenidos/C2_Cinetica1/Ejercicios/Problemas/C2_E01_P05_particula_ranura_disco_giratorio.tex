@@ -1,0 +1,78 @@
+\subsubsection{Partícula en ranura de disco giratorio}
+
+Una partícula de masa $m$ se desliza dentro de una ranura recta en un disco rígido sin masa. La ranura está llena de un fluido que genera fricción en el movimiento de la partícula, cuyo coeficiente de fricción es $\nu$. El disco gira en el plano vertical con velocidad angular constante $\Omega$ en torno a un eje que pasa por el punto $O$, como se muestra en la Figura \ref{fig:disco_ranura}. Además, la ranura es ortogonal al diámetro del disco que contiene el punto $O$. Unido a la partícula hay un resorte lineal con constante de resorte $K$ y largo natural $\ell_0$. 
+
+Utilizando el análisis de mecánica racional, realice lo siguiente:
+
+\begin{enumerate}
+    \item Defina los marcos de referencia y sistemas de coordenadas (fijo y móvil).
+    \item Determine el vector posición, velocidad y aceleración de la partícula respecto al suelo.
+    \item Identifique todas las fuerzas que actúan sobre la partícula (incluyendo la fuerza de fricción viscosa $\vec{F}_v = -\nu \vec{v}_{rel}$).
+    \item Determine la ecuación diferencial de movimiento de la partícula en términos de la variable $x$.
+\end{enumerate}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.8]
+        % --- Parámetros ---
+        \def\ang{40}      % Ángulo Omega*t
+        \def\distA{2}   % Distancia 'a' desde O al centro de la ranura
+        \def\xPos{0.4}    % Posición x de la partícula respecto al centro
+        \def\Rdisk{2.0}   % Radio visual del disco
+
+        % --- Coordenadas ---
+        \coordinate (O) at (0,0);
+        % Dirección del diámetro (a lo largo de 'a')
+        \coordinate (M) at ({\distA*sin(\ang)}, {-\distA*cos(\ang)});
+        
+        
+        % --- 2. Soporte en O ---
+        \begin{scope}
+            \clip (-0.8,0.4) rectangle (0.4,-0.4);
+            \fill[pattern=north east lines] (-0.3,0.1) rectangle (0.3,0.3);
+            \filldraw[color=gray] (0.2,0.1) arc (0:-180:0.2)--cycle;
+            \draw[] (0.2,0.1) arc (0:-180:0.2)--cycle;
+            \draw (-0.3,0.1) -- (0.3,0.1);
+            
+        \end{scope}
+        % --- 1. Disco ---
+        \shadedraw[inner color=white, outer color=gray!20, draw=black, thick] (M) circle (\Rdisk);
+        \filldraw (O) circle (1.5pt) node[below left] {$O$};
+        
+        % --- 3. Líneas de referencia ---
+        \draw[dashed, gray] (O) -- (0,-2.2);
+        \draw[thick] (O) -- (M) node[midway, above right] {$a$};
+        
+        % Ángulo Omega*t
+        \draw[->] (0,-0.6) arc (270:{270+\ang}:0.6);
+        \node at (0.2, -0.8) {$\Omega t$};
+
+        % --- 4. Ranura y Partícula ---
+        % Rotamos para dibujar la ranura perpendicular a OM
+        \begin{scope}[shift={(M)}, rotate={\ang}]
+            % Ranura (rectángulo)
+            \draw[thick, fill=white] (-1, -0.2) rectangle (1, 0.2);
+            
+            % Eje x
+            \draw[|->, thin] (0, -0.4) -- (0.8, -0.4) node[right] {$x$};
+            \draw[|-|, thin] (-1, -0.4) --(0, -0.4) node[midway, below right] {$\ell_0$};
+            
+
+            % Resorte (desde Q a P)
+            \draw[decoration={coil, segment length=4pt, amplitude=3pt}, decorate] 
+                (-1, 0) -- (\xPos, 0) node[midway, right] {$K$};
+            \filldraw (-1,0) circle (1pt) node[below] {$Q$};
+            
+            % Partícula P
+            \shadedraw[ball color=gray!20] (\xPos, 0) circle (4pt) node[above right, xshift=2pt] {$P$};
+            \node[font=\footnotesize] at (\xPos, 0) {$m$};
+
+        \end{scope}
+
+        % --- 5. Gravedad ---
+        \draw[->, thick] (3.5, -0.5) -- (3.5, -1.3) node[midway, right] {$\vec{g}$};
+
+    \end{tikzpicture}
+    \caption{Esquema de una partícula con fricción viscosa y resorte en un disco rotatorio.}
+    \label{fig:disco_ranura}
+\end{figure}

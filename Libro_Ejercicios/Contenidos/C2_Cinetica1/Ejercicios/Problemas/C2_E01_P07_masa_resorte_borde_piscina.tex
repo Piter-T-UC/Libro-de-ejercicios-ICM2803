@@ -1,0 +1,62 @@
+\subsubsection{Masa y resorte en el borde de una piscina}
+
+Considere un sistema compuesto por un resorte y una masa que se encuentran al borde de una piscina muy profunda, como se indica en la Figura \ref{fig:piscina}. El resorte es de largo natural $\ell_0$ y constante elástica $k$. A éste se fija una pared móvil de masa despreciable. El sistema se prepara de tal modo que la partícula puntual de masa $m$ se coloca junto a esta pared en su posición de compresión máxima, es decir en $x = -\ell_0$, y se suelta desde el reposo.
+
+\begin{enumerate}
+    \item ¿Cuál es la condición que asegura que la masa $m$ se moverá desde $x = -\ell_0$?
+    \item Encuentre el valor máximo de $\mu_d$ que permita a la masa llegar al borde de la piscina ($x = 0$) con velocidad no nula. Entregue el valor de esta velocidad.
+    \item Una vez que entra a la piscina ($x > 0$), la masa experimenta una fuerza de roce viscoso lineal de constante $\gamma$. Suponga que no hay fuerza de empuje. Determine el alcance máximo y su velocidad límite.
+\end{enumerate}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.5]
+        % --- Parámetros ---
+        \def\Lzero{1.8} % Longitud L0
+        
+        % --- 1. El Suelo y la Piscina ---
+        % Suelo (izquierda)
+        \fill[gray!20] (-2.5, -2) rectangle (0, 0);
+        \draw[thick] (-2.5, 0) -- (0, 0);
+        \draw[pattern=north east lines, pattern color=gray!50] (-2.5, -2) rectangle (0, 0);
+        
+        % Piscina (derecha)
+        \fill[blue!5] (0, -2) rectangle (2.5, 0);
+        \draw[blue!40] (0, 0) -- (2.5, 0);
+        % Líneas de agua
+        \foreach \y in {-0.3, -0.7, -1.1, -1.5} {
+            \draw[blue!30, thin] ({0.2-0.1*rand}, \y) -- ({2.3+0.1*rand}, \y);
+        }
+        \node[blue] at (0.5, -1) {$\gamma$};
+
+        % --- 2. Ejes de Coordenadas ---
+        \draw[->, thick] (-2.5, 0) -- (2.5, 0) node[right] {$x$};
+        \draw[->, thick] (0, 0) -- (0, 1.2) node[above] {$y$};
+
+        % --- 3. El Mecanismo (Muelle y Masa) ---
+        % Pared fija
+        \fill[gray!60] (-2.5, 0) rectangle (-2.2, 0.5);
+        \draw[thick] (-2.2, 0) -- (-2.2, 0.5);
+        
+        % Resorte
+        \draw[decoration={aspect=0.3, segment length=3pt, amplitude=3pt, coil}, decorate] 
+            (-2.2, 0.25) -- (-\Lzero+0.2, 0.25);
+        
+        % Masa P
+        \shadedraw[ball color=gray!80] (-\Lzero+0.2, 0.25) circle (7pt);
+        \filldraw (-\Lzero+0.2, 0.25) circle (1pt); % centro
+        
+        % Cota L0
+        \draw[|<->|] (-2.2, 0.7) -- (0, 0.7) node[midway, fill=white] {$\ell_0$};
+
+        % --- 4. Traectoria de caída ---
+        \draw[dashed, ->, gray] (0,0.15) parabola (1.8, -2);
+
+        % --- 5. Etiquetas de coeficientes ---
+        \node at (-1, -0.3) {$\mu_e, \mu_d$};
+        \draw[->, thick] (1.2, 0.8) -- (1.2, 0.3) node[right] {$\mathbf{g}$};
+
+    \end{tikzpicture}
+    \caption{Sistema masa-resorte en el borde de una piscina con rozamiento seco y viscoso.}
+    \label{fig:piscina}
+\end{figure}

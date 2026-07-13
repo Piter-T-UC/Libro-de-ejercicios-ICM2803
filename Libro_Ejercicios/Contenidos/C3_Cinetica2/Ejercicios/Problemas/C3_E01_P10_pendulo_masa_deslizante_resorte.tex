@@ -1,0 +1,62 @@
+\subsubsection{Péndulo con masa deslizante y resorte}
+
+Una partícula de masa $m_1$ está unida al extremo de una barra rígida ideal sin masa de longitud $L$, la cual está articulada en el punto $O$ y puede rotar libremente en el plano vertical. Una segunda masa $m_2$ (cuenta o collarín) puede deslizarse libremente a lo largo de la barra lisa. Esta masa $m_2$ está conectada al pivote $O$ mediante un resorte lineal de constante elástica $k$ y longitud natural $L_0$. Sabiendo que la gravedad actúa hacia abajo, realice lo siguiente:
+
+\begin{enumerate}
+    \item Defina un conjunto completo e independiente de coordenadas generalizadas para describir la configuración del sistema.
+    \item Analice la cinemática del sistema determinando los vectores de posición y velocidad de ambas masas.
+    \item Derive las ecuaciones diferenciales del movimiento aplicando principios de momentum (cantidad de movimiento y momento angular).
+\end{enumerate}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.4]
+        % --- Parámetros ---
+        \def\ang{-50}      % Ángulo de la barra
+        \def\Lrod{3.5}     % Longitud L
+        \def\Rbead{1.8}    % Posición de m2
+        
+        % Coordenada Origen
+        \coordinate (O) at (0,0);
+
+        % --- 1. Techo y Pivote ---
+        \fill[pattern=north east lines] (-1.0, 0) rectangle (1.5, 0.3);
+        \draw[thick] (-1.0, 0) -- (1.5, 0);
+        
+        % Pivote O
+        \filldraw[thick] (O) circle (3pt);
+        \node[below left, yshift=3pt] at (O) {$O$};
+
+        % --- 2. Barra y Resorte ---
+        % Barra L
+        \draw[line width=5pt] (O) -- (\ang:\Lrod);
+        \draw[line width=4pt, gray!30, line cap=round] (O) -- (\ang:\Lrod);
+        \draw[thick] (O) -- (\ang:\Lrod);
+        \filldraw[thick] (O) circle (0.5pt);
+
+        % Resorte (Desde O hasta m2)
+        % Usamos una decoración coil sobre la barra
+        \draw[decoration={coil, aspect=0.4, segment length=5pt, amplitude=5pt, pre length=1pt, post length=0pt}, decorate, black] 
+            (O) -- (\ang:\Rbead);
+        \node[above right, xshift=4pt] at (\ang:{\Rbead/2}) {$k$};
+
+        % --- 3. Masas ---
+        % Masa m2 (Cuenta deslizante)
+        \coordinate (M2) at (\ang:\Rbead);
+        \shadedraw[ball color=gray!30] (M2) circle (0.35) node[] {$m_2$};
+
+        % Masa m1 (Extremo)
+        \coordinate (M1) at (\ang:\Lrod);
+        \shadedraw[ball color=gray!30] (M1) circle (0.25) node[] {$m_1$};
+
+        % --- 4. Cotas y Gravedad ---
+        % Cota L (Longitud total)
+        \draw[|<->|] ($(O) + (\ang-90:0.5)$) -- ($(M1) + (\ang-90:0.5)$) node[midway, below left] {$L$};
+
+        % Vector Gravedad
+        \draw[->, thick] (2.0, -1.0) -- (2.0, -2.0) node[midway, right] {$g$};
+
+    \end{tikzpicture}
+    \caption{Sistema de péndulo compuesto con una masa deslizante sujeta a un resorte.}
+    \label{fig:pendulo_masa_deslizante}
+\end{figure}

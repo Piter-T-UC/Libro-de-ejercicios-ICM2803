@@ -1,0 +1,50 @@
+\subsubsection{Abrazadera en varilla horizontal}
+
+Una abrazadera de masa $m$ se desliza sin fricción a lo largo de una varilla rígida, horizontal, fija y sin masa, como se muestra en la Figura \ref{fig:abrazadera}. La abrazadera está unida a un resorte lineal con constante elástica $k$ y longitud natural $l_0$. Sabiendo que $q(t)$ representa el desplazamiento prescrito del punto de anclaje del resorte, y que $x$ es el desplazamiento de la abrazadera relativo al resorte, y asumiendo que no hay gravedad, analice la ecuación diferencial de movimiento suponiendo que la fuerza del resorte es conservativa y no conservativa y use:
+\begin{enumerate}
+    \item La segunda ley de Newton.
+    \item El teorema trabajo--energía para un cuerpo rígido.
+\end{enumerate}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.5]
+        % --- Varilla con bordes redondeados ---
+        \draw[line width=5pt] (-2.5,0) -- (2.5,0);
+        \draw[line width=4pt, gray!30] (-2.5,0) -- (2.5,0);
+        \draw[thick] (-2.5,0) -- (2.5,0);
+        
+        % Paredes laterales
+        \fill[pattern=north east lines] (-2.7,-0.4) rectangle (-2.5,0.4);
+        \draw[thick] (-2.5,-0.4) -- (-2.5,0.4);
+        \fill[pattern=north east lines] (2.5, -0.4) rectangle (2.7,0.4);
+        \draw[thick] (2.5,-0.4) -- (2.5,0.4);
+
+        % Abrazadera Q (Punto de anclaje móvil)
+        \coordinate (Q) at (-1,0);
+        \shadedraw[ball color=white!90] (Q) circle (0.15);
+        \node[below, yshift=-4pt, font=\small] at (Q) {$Q$};
+        
+        % Resorte K
+        \draw[decoration={aspect=0.4, segment length=3pt, amplitude=3pt, coil}, decorate, thick] 
+            (-1,0) -- (1,0);
+        \draw[fill=black] (-1,0) circle (1pt);
+        \node[above, yshift=6pt, font=\small] at (0,0) {$K$};
+
+        % Abrazadera P (Partícula de masa m)
+        \coordinate (P) at (1,0);
+        \shadedraw[ball color=gray!30] (P) circle (0.15) node[font=\footnotesize] {$m$};
+        \node[below, yshift=-4pt, font=\small] at (1,0) {$P$};
+
+        % Vectores de posición y desplazamiento
+        \draw[|->, thick] (-2.5, 0.7) -- (-1, 0.7) node[midway, above, font=\small] {$q(t)$};
+        \draw[gray, thin] (-1, 0.5) -- (-1, 0.9);
+        
+        \draw[|->, thick] (-2.5, -0.7) -- (1, -0.7) node[midway, below, font=\small] {$x$};
+        \draw[gray, thin] (1, -0.5) -- (1, -0.9);
+
+    \end{tikzpicture}
+    \caption{Sistema de abrazadera $P$ con anclaje móvil $Q$ y vínculo elástico lineal.}
+    \label{fig:abrazadera}
+\end{figure}
+
