@@ -8,7 +8,7 @@
 
 \section*{Introducción}
 
-La cinética es el estudio de las causas del movimiento, es decir, cómo las fuerzas producen cambios en el movimiento de los cuerpos. En este capítulo estudiamos la dinámica de una \textbf{partícula individual}: cómo las fuerzas —incluyendo resortes, restricciones geométricas y efectos de marcos de referencia móviles— determinan su trayectoria.
+La cinética es el estudio de las causas del movimiento, es decir, cómo las fuerzas producen cambios en el movimiento de los cuerpos. En este capítulo estudiamos la dinámica de una \textbf{partícula individual}: cómo las fuerzas —incluyendo resortes, restricciones geométricas y efectos de marcos de referencia móviles— determinan su trayectoria. La herramienta gráfica fundamental será el \textbf{diagrama de cuerpo libre} (DCL): aislar la partícula y representar todas las fuerzas que actúan sobre ella, como ilustra la Figura \ref{fig:c2_intro_dcl_particula}, para luego aplicar la segunda ley de Newton usando la cinemática del Capítulo 1.
 
 \subsection*{Leyes de Newton}
 
@@ -19,6 +19,54 @@ La base de la cinética clásica son las tres leyes de Newton:
     \item \textbf{Ley de Fuerza}: $\vec{F} = m\vec{a}$ - La aceleración es proporcional a la fuerza neta e inversamente proporcional a la masa.
     \item \textbf{Ley de Acción-Reacción}: Las fuerzas entre dos cuerpos son iguales y opuestas.
 \end{enumerate}
+
+% Figura: situación física y diagrama de cuerpo libre
+\begin{figure}[!ht]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.5]
+
+        % --- CONFIGURACIÓN DE PARÁMETROS ---
+        \def\beta{25}    % Inclinación del plano [deg]
+        \def\Lp{3.2}     % Largo del plano [u]
+        \def\sB{1.7}     % Posición del bloque sobre el plano [u]
+
+        % --- SOPORTES Y ELEMENTOS FIJOS ---
+        \begin{scope}[rotate=\beta]
+            \draw[thick, gris1] (0,0) -- (\Lp,0);
+            \fill[pattern=north east lines, pattern color=gris1!60] (0,-0.15) rectangle (\Lp,0);
+        \end{scope}
+        \draw[thick, gris1] (0,0) -- (\Lp*0.95,0);
+        \draw[->] (1.5,0) arc (0:\beta:1.5) node[midway, right] {$\beta$};
+
+        % --- GEOMETRÍA PRINCIPAL ---
+        % Bloque (partícula) sobre el plano
+        \begin{scope}[rotate=\beta, shift={(\sB,0)}]
+            \draw[fill=gris1!15, thick] (-0.3,0) rectangle (0.3,0.45);
+            \fill[gris1] (0,0.225) circle (1.2pt);
+            \node[above, yshift=6pt] at (0,0.45) {$m$};
+            % Velocidad (sube por el plano)
+            \draw[->, very thick, azul] (0.35,0.6) -- ++(0.8,0) node[right] {$\vec{v}$};
+        \end{scope}
+
+        % --- VECTORES Y FUERZAS (DCL a la derecha) ---
+        \begin{scope}[shift={(5.6,1.0)}]
+            \coordinate (P) at (0,0);
+            % Normal (perpendicular al plano)
+            \draw[->, very thick, myred] (P) -- (\beta+90:1.1) node[above] {$\vec{N}$};
+            % Peso
+            \draw[->, very thick, myred] (P) -- (0,-1.2) node[below] {$m\vec{g}$};
+            % Roce (opuesto al movimiento, plano abajo)
+            \draw[->, very thick, myred] (P) -- (\beta+180:0.9) node[left] {$\vec{f}_r$};
+            % Partícula
+            \shadedraw[ball color=gris1!30, draw=gris1] (P) circle (3.5pt);
+            \node[below right, yshift=-2pt] at (P) {$P$};
+            \node[gris1, below] at (0,-1.7) {DCL};
+        \end{scope}
+
+    \end{tikzpicture}
+    \caption{Partícula sobre un plano inclinado y su diagrama de cuerpo libre}
+    \label{fig:c2_intro_dcl_particula}
+\end{figure}
 
 \subsection*{Magnitudes Dinámicas Fundamentales}
 

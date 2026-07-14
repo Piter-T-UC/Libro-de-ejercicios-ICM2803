@@ -1,8 +1,17 @@
-﻿{
-    "descripcion":  "Dinámicaade sistemas de partículas - Parte 1",
-    "capitulo":  "C2",
-    "nombre_capitulo":  "Cinética 1",
-    "figuras":  [
-
-                ]
+{
+    "descripcion": "Dinámicaade sistemas de partículas - Parte 1",
+    "capitulo": "C2",
+    "nombre_capitulo": "Cinética 1",
+    "figuras": [
+        {
+            "id": "C2_F01",
+            "archivo": "(inline en C2_00_introduccion.tex)",
+            "tipo": "tikz",
+            "descripcion": "Partícula sobre un plano inclinado y su diagrama de cuerpo libre",
+            "usado_en": [
+                "C2_00_introduccion.tex"
+            ],
+            "label": "fig:c2_intro_dcl_particula"
+        }
+    ]
 }

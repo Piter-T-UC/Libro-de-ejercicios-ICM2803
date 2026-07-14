@@ -18,7 +18,56 @@ Para un sistema de $N$ partículas con masas $m_i$, posiciones $\vec{r}_i$ y vel
 
 $$\vec{r}_{cm} = \frac{\sum m_i \vec{r}_i}{\sum m_i} = \frac{1}{M}\sum m_i \vec{r}_i$$
 
-donde $M = \sum m_i$ es la masa total.
+donde $M = \sum m_i$ es la masa total. La Figura \ref{fig:c3_intro_centro_de_masa} muestra un sistema de tres partículas: las fuerzas internas aparecen en pares acción-reacción y se cancelan al sumar sobre el sistema, mientras que las fuerzas externas determinan el movimiento del centro de masa.
+
+% Figura: sistema de partículas y centro de masa
+\begin{figure}[!ht]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.5]
+
+        % --- CONFIGURACIÓN DE PARÁMETROS ---
+        \def\rma{2.6}   % Distancia a m1 [u]
+        \def\rmb{3.1}   % Distancia a m2 [u]
+        \def\rmc{1.9}   % Distancia a m3 [u]
+
+        % --- SISTEMAS DE COORDENADAS ---
+        \coordinate (O) at (0,0);
+        \draw[->, thick, gris1] (O) -- (0.9,0) node[below right] {$x$};
+        \draw[->, thick, gris1] (O) -- (0,0.9) node[left] {$y$};
+        \node[below left] at (O) {$O$};
+
+        % --- PUNTOS Y COORDENADAS ---
+        \coordinate (M1) at (35:\rma);
+        \coordinate (M2) at (62:\rmb);
+        \coordinate (M3) at (15:\rmc);
+        % Centro de masa (promedio ponderado aproximado)
+        \coordinate (CM) at ($0.4*(M1) + 0.35*(M2) + 0.25*(M3)$);
+
+        % --- VECTORES Y FUERZAS ---
+        % Vectores posición
+        \draw[->, thick, azul] (O) -- (M1) node[midway, below right] {$\vec{r}_1$};
+        \draw[->, thick, azul] (O) -- (M2) node[midway, above left] {$\vec{r}_2$};
+        \draw[->, thick, azul] (O) -- (M3) node[midway, below] {$\vec{r}_3$};
+        \draw[->, very thick, azul2] (O) -- (CM) node[pos=0.75, above left] {$\vec{r}_{cm}$};
+        % Par interno acción-reacción entre m1 y m2
+        \draw[->, very thick, myred, mydashed] (M1) -- ($(M1)!0.35!(M2)$) node[midway, right] {$\vec{f}_{12}$};
+        \draw[->, very thick, myred, mydashed] (M2) -- ($(M2)!0.35!(M1)$) node[midway, left] {$\vec{f}_{21}$};
+        % Fuerza externa sobre m3
+        \draw[->, very thick, myred] (M3) -- ++(-20:1.0) node[right] {$\vec{F}^{\,\text{ext}}$};
+
+        % --- ANOTACIONES Y ETIQUETAS ---
+        \shadedraw[ball color=gris1!30, draw=gris1] (M1) circle (3.2pt);
+        \node[above right] at (M1) {$m_1$};
+        \shadedraw[ball color=gris1!30, draw=gris1] (M2) circle (3.8pt);
+        \node[above right] at (M2) {$m_2$};
+        \shadedraw[ball color=gris1!30, draw=gris1] (M3) circle (2.8pt);
+        \node[above right] at (M3) {$m_3$};
+        \node[fill=azul2, circle, inner sep=1.3pt, label={below right:$cm$}] at (CM) {};
+
+    \end{tikzpicture}
+    \caption{Sistema de tres partículas: posiciones, centro de masa y fuerzas}
+    \label{fig:c3_intro_centro_de_masa}
+\end{figure}
 
 \subsection*{Ecuación de Movimiento del Centro de Masa}
 

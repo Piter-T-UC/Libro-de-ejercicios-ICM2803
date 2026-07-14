@@ -9,7 +9,7 @@
 
 \section*{Introducción}
 
-La cinemática es la rama de la mecánica que describe el movimiento sin considerar las causas que lo producen (fuerzas). En este capítulo estudiaremos cómo representar la posición, velocidad y aceleración de puntos materiales en diferentes sistemas de coordenadas.
+La cinemática es la rama de la mecánica que describe el movimiento sin considerar las causas que lo producen (fuerzas). En este capítulo estudiaremos cómo representar la posición, velocidad y aceleración de puntos materiales en diferentes sistemas de coordenadas, y cómo derivar vectores expresados en marcos de referencia que se mueven o rotan entre sí. La herramienta central será el Teorema del Transporte, que usaremos de manera sistemática en todos los problemas del libro.
 
 \subsection*{Sistemas de Coordenadas}
 
@@ -21,6 +21,10 @@ El análisis cinemático depende críticamente de la elección del sistema de co
     \item \textbf{Coordenadas Esféricas}: Útiles para sistemas con simetría central.
     \item \textbf{Coordenadas Intrínsecas}: Basadas en la geometría de la trayectoria.
 \end{enumerate}
+
+La Figura \ref{fig:c1_intro_coordenadas_esfericas} muestra el sistema de coordenadas esféricas con sus vectores unitarios $\{\hat{e}_r, \hat{e}_\theta, \hat{e}_\phi\}$, que junto con las coordenadas cilíndricas será uno de los sistemas más usados en los problemas de este capítulo.
+
+\input{Contenidos/C1_Cinematica/Figuras/Coordenadas_esfericas.tikz}
 
 \subsection*{Marcos de Referencia}
 
@@ -34,9 +38,9 @@ Un concepto fundamental es la distinción entre:
 
 El \textbf{Teorema del Transporte} permite relacionar las derivadas de un vector en dos marcos de referencia que rotan uno respecto al otro:
 
-$$\left(\frac{d\vec{a}}{dt}\right)_{\text{fijo}} = \left(\frac{d\vec{a}}{dt}\right)_{\text{móvil}} + \vec{\omega} \times \vec{a}$$
+\[\transport{\vec{a}}{A}{B}\]
 
-donde $\vec{\omega}$ es la velocidad angular del marco móvil respecto al fijo.
+donde $\mathcal{A}$ es el marco fijo (inercial), $\mathcal{B}$ es el marco móvil y $\velang{A}{B}$ es la velocidad angular del marco $\mathcal{B}$ respecto al marco $\mathcal{A}$. Esta es la misma notación que usaremos en las soluciones de los problemas.
 
 \section{Conceptos Clave de Cinemática}
 
@@ -68,7 +72,7 @@ donde $\vec{\omega}$ es la velocidad angular del marco móvil respecto al fijo.
 
 \end{description}
 
-\subsection*{Objetivos del Capítulo}
+\section*{Objetivos del Capítulo}
 
 Al completar este capítulo, deberás:
 \begin{itemize}

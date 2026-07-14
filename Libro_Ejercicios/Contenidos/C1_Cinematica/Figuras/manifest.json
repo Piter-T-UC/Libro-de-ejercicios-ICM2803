@@ -1,8 +1,27 @@
-﻿{
+{
     "descripcion":  "Movimiento de puntos y sistemas de coordenadas",
     "capitulo":  "C1",
     "nombre_capitulo":  "Cinemática",
     "figuras":  [
-
-                ]
+        {
+            "id": "C1_F01",
+            "archivo": "Coordenadas_esfericas.tikz.tex",
+            "tipo": "tikz",
+            "descripcion": "Coordenadas esféricas y sus vectores unitarios en el punto P",
+            "usado_en": [
+                "C1_00_introduccion.tex"
+            ],
+            "label": "fig:c1_intro_coordenadas_esfericas"
+        },
+        {
+            "id": "C1_F02",
+            "archivo": "(inline en C1_E01_P02_movimiento_coordenadas_cilindricas.tex)",
+            "tipo": "tikz",
+            "descripcion": "Vista superior de la espiral logarítmica con vectores unitarios cilíndricos",
+            "usado_en": [
+                "C1_E01_P02_movimiento_coordenadas_cilindricas.tex"
+            ],
+            "label": "fig:c1_e01_p02_espiral_cilindricas"
+        }
+    ]
 }

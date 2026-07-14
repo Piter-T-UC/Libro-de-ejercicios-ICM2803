@@ -10,11 +10,11 @@
 \setcounter{chapter}{-1}
 \chapter{Repaso}
 
-\section{Conceptos Fundamentales}
+\section*{Introducción}
 
-\subsection*{Introducción}
+En este capítulo repasamos los conceptos esenciales del álgebra vectorial y del cálculo vectorial que servirán como base para estudiar dinámica. Los sistemas mecánicos se describen naturalmente mediante vectores: la posición, la velocidad, las fuerzas y los momentos son todos magnitudes vectoriales, y su evolución temporal se analiza con las herramientas del cálculo. Dominar estas operaciones —productos entre vectores, cambios de base, derivación e integración— es el requisito para que, en los capítulos siguientes, el esfuerzo se concentre en la física del problema y no en la manipulación matemática.
 
-En este capítulo repasamos los conceptos esenciales del álgebra vectorial y cálculo vectorial que servirán como base para estudiar dinámica. Los sistemas mecánicos se describen naturalmente mediante vectores, y su evolución temporal se analiza con herramientas del cálculo.
+\subsection*{Conceptos Fundamentales}
 
 \begin{description}
 
@@ -59,17 +59,14 @@ En este capítulo repasamos los conceptos esenciales del álgebra vectorial y c�
 
     \begin{figure}[!ht]
         \centering
-        % --- DIVERGENCIA POSITIVA ---
-        \tikzset{>=latex}
-        \colorlet{veccol}{orange!90!black}
-        \colorlet{myblue}{blue!60!black}
-        \tikzstyle{vector}=[->,thick,veccol]
-        \def\Rad{1.4}
-        \def\rad{0.03}
-        \def\N{9}
+        % --- CONFIGURACIÓN DE PARÁMETROS ---
+        \def\Rad{1.4}  % Radio del campo [u]
+        \def\rad{0.03} % Radio del punto fuente [u]
+        \def\N{9}      % Número de vectores
 
-        \begin{tikzpicture}[baseline=(current bounding box.center)]
-            \fill[myblue] (0,0) circle (\rad);
+        % --- DIVERGENCIA POSITIVA ---
+        \begin{tikzpicture}[baseline=(current bounding box.center), vector/.style={->, thick, azul}]
+            \fill[gris1] (0,0) circle (\rad);
             \foreach \i [evaluate={\ang=\i*360/\N;}] in {1,...,\N}{
                 \draw[vector] (\ang:0.1*\Rad) --++ (\ang:\Rad);
             }
@@ -77,8 +74,8 @@ En este capítulo repasamos los conceptos esenciales del álgebra vectorial y c�
         \end{tikzpicture}
         \hfill
         % --- DIVERGENCIA NEGATIVA ---
-        \begin{tikzpicture}[baseline=(current bounding box.center)]
-            \fill[myblue] (0,0) circle (\rad);
+        \begin{tikzpicture}[baseline=(current bounding box.center), vector/.style={->, thick, azul}]
+            \fill[gris1] (0,0) circle (\rad);
             \foreach \i [evaluate={\ang=\i*360/\N;}] in {1,...,\N}{
                 \draw[vector] (\ang:1.1*\Rad) -- (\ang:0.1*\Rad);
             }
@@ -86,7 +83,7 @@ En este capítulo repasamos los conceptos esenciales del álgebra vectorial y c�
         \end{tikzpicture}
         \hfill
         % --- DIVERGENCIA CERO ---
-        \begin{tikzpicture}[baseline=(current bounding box.center)]
+        \begin{tikzpicture}[baseline=(current bounding box.center), vector/.style={->, thick, azul}]
             \foreach \x in {-0.8, 0, 0.8} {
                 \foreach \y in {-0.8, 0, 0.8} {
                     \draw[vector] (\x-0.2*\Rad, \y) -- (\x+0.5*\Rad, \y);
@@ -103,17 +100,14 @@ En este capítulo repasamos los conceptos esenciales del álgebra vectorial y c�
 
     \begin{figure}[!ht]
         \centering
-        % --- ROTACIONAL POSITIVO ---
-        \tikzset{>=latex}
-        \colorlet{veccol}{orange!90!black}
-        \colorlet{myblue}{blue!60!black}
-        \tikzstyle{vector}=[->,thick,veccol]
-        \def\Rad{1.4}
-        \def\rad{0.03}
-        \def\N{9}
+        % --- CONFIGURACIÓN DE PARÁMETROS ---
+        \def\Rad{1.4}  % Radio del campo [u]
+        \def\rad{0.03} % Radio del punto central [u]
+        \def\N{9}      % Número de vectores
 
-        \begin{tikzpicture}[baseline=(current bounding box.center),scale=0.8]
-            \fill[myblue] (0,0) circle (\rad);
+        % --- ROTACIONAL POSITIVO ---
+        \begin{tikzpicture}[baseline=(current bounding box.center), scale=0.8, vector/.style={->, thick, azul}]
+            \fill[gris1] (0,0) circle (\rad);
             \foreach \i [evaluate={\ang=\i*360/\N;}] in {0,...,\N}{
                 \draw[vector] (\ang:\Rad) --++ (\ang+90:0.8*\Rad);
             }
@@ -121,8 +115,8 @@ En este capítulo repasamos los conceptos esenciales del álgebra vectorial y c�
         \end{tikzpicture}
         \hfill
         % --- ROTACIONAL NEGATIVO ---
-        \begin{tikzpicture}[baseline=(current bounding box.center),scale=0.8]
-            \fill[myblue] (0,0) circle (\rad);
+        \begin{tikzpicture}[baseline=(current bounding box.center), scale=0.8, vector/.style={->, thick, azul}]
+            \fill[gris1] (0,0) circle (\rad);
             \foreach \i [evaluate={\ang=\i*360/\N;}] in {0,...,\N}{
                 \draw[vector] (\ang:\Rad) --++ (\ang-90:0.8*\Rad);
             }
@@ -130,8 +124,8 @@ En este capítulo repasamos los conceptos esenciales del álgebra vectorial y c�
         \end{tikzpicture}
         \hfill
         % --- ROTACIONAL CERO ---
-        \begin{tikzpicture}[baseline=(current bounding box.center),scale=0.8]
-            \fill[myblue] (0,0) circle (\rad);
+        \begin{tikzpicture}[baseline=(current bounding box.center), scale=0.8, vector/.style={->, thick, azul}]
+            \fill[gris1] (0,0) circle (\rad);
             \foreach \i [evaluate={\ang=\i*360/\N;}] in {0,...,\N}{
                 \draw[vector] (\ang:0.2*\Rad) -- (\ang:1.2*\Rad);
             }
@@ -147,6 +141,17 @@ En este capítulo repasamos los conceptos esenciales del álgebra vectorial y c�
     Este es un resultado fundamental que conecta las derivadas de un vector en dos sistemas de referencia en rotación relativa.
 
 \end{description}
+
+\section*{Objetivos del Capítulo}
+
+Al completar este capítulo, deberás:
+\begin{itemize}
+    \item Operar con vectores en bases ortonormales: productos punto, cruz y mixtos.
+    \item Transformar componentes de un vector entre sistemas de coordenadas (cartesianas, cilíndricas y esféricas) mediante matrices de rotación.
+    \item Derivar e integrar funciones escalares y vectoriales, aplicando la regla de la cadena.
+    \item Interpretar geométricamente el gradiente, la divergencia y el rotacional.
+    \item Aplicar el Teorema del Transporte para derivar vectores expresados en marcos de referencia en rotación.
+\end{itemize}
 
 \newpage
 

@@ -2,7 +2,7 @@
 
 Se observa una partícula en movimiento con respecto a un sistema de referencia inercial. La trayectoria está dada por las siguientes funciones:
 \[ r = Ae^{k\theta}, \quad z = hr \]
-donde $r, \theta$ y $z$ son coordenadas cilíndricas, siendo $A, k$ y $h$ valores escalares constantes y mayores que cero. Suponiendo que su rapidez es constante ($v_0$) y conocida:
+donde $r, \theta$ y $z$ son coordenadas cilíndricas, siendo $A, k$ y $h$ valores escalares constantes y mayores que cero, como se muestra en la Figura \ref{fig:c1_e01_p02_espiral_cilindricas}. Suponiendo que su rapidez es constante ($v_0$) y conocida:
 
 \begin{enumerate}
     \item Calcule la velocidad $\vec{v}$ de la partícula en función de $\theta, A, k, h$ y $v_0$.
@@ -10,4 +10,50 @@ donde $r, \theta$ y $z$ son coordenadas cilíndricas, siendo $A, k$ y $h$ valore
     \item Pruebe que $\vec{a} \perp \vec{v}$.
     \item Encuentre una expresión para $\theta(t)$.
 \end{enumerate}
+
+% Figura principal
+\begin{figure}[!ht]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.5]
+
+        % --- CONFIGURACIÓN DE PARÁMETROS ---
+        \def\A{0.15}      % Constante A de la espiral [u]
+        \def\k{0.22}      % Constante k (crecimiento) [-]
+        \def\thP{560}     % Ángulo del punto P [deg] (una vuelta y media)
+        \def\thPmod{200}  % Azimut equivalente de P [deg]
+
+        % --- SISTEMAS DE COORDENADAS ---
+        \draw[->, thick, gris1] (-2.2,0) -- (2.4,0) node[below right] {$x$};
+        \draw[->, thick, gris1] (0,-1.8) -- (0,2.2) node[left] {$y$};
+
+        % --- GEOMETRÍA PRINCIPAL ---
+        % Espiral logarítmica r = A e^{k theta} (vista superior)
+        \draw[thick, gris1, domain=0:720, samples=300, smooth, variable=\t]
+            plot ({\t}:{\A*exp(\k*\t/57.29578)});
+
+        % --- PUNTOS Y COORDENADAS ---
+        \pgfmathsetmacro{\rP}{\A*exp(\k*\thP/57.29578)}
+        \coordinate (O) at (0,0);
+        \coordinate (P) at (\thP:\rP);
+        \draw[mydashed, gris1!60] (O) -- (P);
+
+        % --- VECTORES Y FUERZAS ---
+        % Vectores unitarios cilíndricos en P
+        \draw[->, very thick, myred] (P) -- ++(\thP:0.55) node[above left] {$\hat{e}_r$};
+        \draw[->, very thick, myred] (P) -- ++(\thP+90:0.55) node[below left] {$\hat{e}_\theta$};
+        % Velocidad (tangente a la espiral, rapidez constante v0)
+        \pgfmathsetmacro{\alphat}{atan(1/\k)}
+        \draw[->, very thick, azul] (P) -- ++(\thP+\alphat:0.9) node[below] {$\vec{v}$};
+
+        % --- ANOTACIONES Y ETIQUETAS ---
+        \fill[gris1] (P) circle (1.2pt) node[above right, xshift=1pt] {$P$};
+        \node[below left] at (O) {$O$};
+        \draw[->] (0.35,0) arc (0:\thPmod:0.35);
+        \node at ({\thPmod/2}:0.55) {$\theta$};
+        \node[gris1] at (1.6,-1.4) {$r = Ae^{k\theta}$};
+
+    \end{tikzpicture}
+    \caption{Vista superior de la espiral $r=Ae^{k\theta}$; la altura crece como $z=hr$}
+    \label{fig:c1_e01_p02_espiral_cilindricas}
+\end{figure}
 

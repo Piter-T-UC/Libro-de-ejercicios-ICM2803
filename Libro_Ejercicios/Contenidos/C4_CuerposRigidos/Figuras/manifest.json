@@ -1,8 +1,17 @@
-﻿{
-    "descripcion":  "Rotación y movimiento de cuerpos rígidos",
-    "capitulo":  "C4",
-    "nombre_capitulo":  "Cuerpos Rígidos",
-    "figuras":  [
-
-                ]
+{
+    "descripcion": "Rotación y movimiento de cuerpos rígidos",
+    "capitulo": "C4",
+    "nombre_capitulo": "Cuerpos Rígidos",
+    "figuras": [
+        {
+            "id": "C4_F01",
+            "archivo": "(inline en C4_00_introduccion.tex)",
+            "tipo": "tikz",
+            "descripcion": "Rodadura sin deslizar: campo de velocidades del disco",
+            "usado_en": [
+                "C4_00_introduccion.tex"
+            ],
+            "label": "fig:c4_intro_rodadura"
+        }
+    ]
 }

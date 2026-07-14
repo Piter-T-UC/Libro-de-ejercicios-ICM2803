@@ -1,8 +1,17 @@
-﻿{
-    "descripcion":  "Dinámica de sistemas de partículas - Parte 2",
-    "capitulo":  "C3",
-    "nombre_capitulo":  "Cinética 2",
-    "figuras":  [
-
-                ]
+{
+    "descripcion": "Dinámica de sistemas de partículas - Parte 2",
+    "capitulo": "C3",
+    "nombre_capitulo": "Cinética 2",
+    "figuras": [
+        {
+            "id": "C3_F01",
+            "archivo": "(inline en C3_00_introduccion.tex)",
+            "tipo": "tikz",
+            "descripcion": "Sistema de tres partículas: posiciones, centro de masa y fuerzas",
+            "usado_en": [
+                "C3_00_introduccion.tex"
+            ],
+            "label": "fig:c3_intro_centro_de_masa"
+        }
+    ]
 }

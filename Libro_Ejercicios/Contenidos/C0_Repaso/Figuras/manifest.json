@@ -4,15 +4,35 @@
   "figuras": [
     {
       "id": "C0_F01",
-      "archivo": "C0_F01_regla_mano_derecha.png",
+      "archivo": "RMD1.png",
       "tipo": "png",
       "descripcion": "Regla de la mano derecha para productos vectoriales",
       "usado_en": [
-        "C0_E01_XX.tex"
+        "C0_00_introduccion.tex"
       ],
       "escala": "1.0",
       "ancho_cm": 8,
       "alto_cm": 6
+    },
+    {
+      "id": "C0_F02",
+      "archivo": "(inline en C0_00_introduccion.tex)",
+      "tipo": "tikz",
+      "descripcion": "Representación geométrica de la divergencia (3 paneles)",
+      "usado_en": [
+        "C0_00_introduccion.tex"
+      ],
+      "label": "fig:C0_F02_divergencia"
+    },
+    {
+      "id": "C0_F03",
+      "archivo": "(inline en C0_00_introduccion.tex)",
+      "tipo": "tikz",
+      "descripcion": "Rotacional representado mediante vectores tangenciales y radiales (3 paneles)",
+      "usado_en": [
+        "C0_00_introduccion.tex"
+      ],
+      "label": "fig:C0_F03_rotacional"
     }
   ]
 }

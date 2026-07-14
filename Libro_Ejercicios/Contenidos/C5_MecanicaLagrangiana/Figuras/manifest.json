@@ -1,8 +1,17 @@
-﻿{
-    "descripcion":  "Formulación Lagrangiana de la mecánica clásica",
-    "capitulo":  "C5",
-    "nombre_capitulo":  "Mecánica Lagrangiana",
-    "figuras":  [
-
-                ]
+{
+    "descripcion": "Formulación Lagrangiana de la mecánica clásica",
+    "capitulo": "C5",
+    "nombre_capitulo": "Mecánica Lagrangiana",
+    "figuras": [
+        {
+            "id": "C5_F01",
+            "archivo": "(inline en C5_00_introduccion.tex)",
+            "tipo": "tikz",
+            "descripcion": "Coordenadas generalizadas del péndulo sobre un carro con resorte",
+            "usado_en": [
+                "C5_00_introduccion.tex"
+            ],
+            "label": "fig:c5_intro_coordenadas_generalizadas"
+        }
+    ]
 }

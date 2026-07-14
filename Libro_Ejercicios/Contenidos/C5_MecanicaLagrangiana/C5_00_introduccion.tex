@@ -8,7 +8,7 @@
 
 \section*{Introducción}
 
-La mecánica Lagrangiana es una formulación alternativa y elegante de la mecánica clásica. En lugar de trabajar directamente con fuerzas y aceleraciones (enfoque Newtoniano), utilizamos cantidades escalares como energías y trabajamos con \textbf{coordenadas generalizadas} y el \textbf{Lagrangiano}.
+La mecánica Lagrangiana es una formulación alternativa y elegante de la mecánica clásica. En lugar de trabajar directamente con fuerzas y aceleraciones (enfoque Newtoniano), utilizamos cantidades escalares como energías y trabajamos con \textbf{coordenadas generalizadas} y el \textbf{Lagrangiano}. Este enfoque culmina el arco del curso: las restricciones que en los capítulos anteriores exigían calcular fuerzas de reacción desaparecen del planteamiento, y las ecuaciones de movimiento se obtienen por derivación sistemática de una única función escalar.
 
 \subsection*{Ventajas de la Mecánica Lagrangiana}
 
@@ -23,7 +23,62 @@ La mecánica Lagrangiana es una formulación alternativa y elegante de la mecán
 
 \subsection*{Coordenadas Generalizadas}
 
-En lugar de usar $\{x, y, z\}$, describimos el sistema con $n$ coordenadas generalizadas $\{q_1, q_2, \ldots, q_n\}$, donde $n$ es el número de grados de libertad del sistema.
+En lugar de usar $\{x, y, z\}$, describimos el sistema con $n$ coordenadas generalizadas $\{q_1, q_2, \ldots, q_n\}$, donde $n$ es el número de grados de libertad del sistema. La Figura \ref{fig:c5_intro_coordenadas_generalizadas} ilustra el ejemplo clásico del péndulo montado sobre un carro: aunque las dos masas viven en el plano (cuatro coordenadas cartesianas), las restricciones reducen el sistema a solo dos grados de libertad, $q_1 = x$ y $q_2 = \theta$.
+
+% Figura: coordenadas generalizadas (péndulo sobre carro)
+\begin{figure}[!ht]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.5]
+
+        % --- CONFIGURACIÓN DE PARÁMETROS ---
+        \def\xC{2.6}      % Posición del carro [u]
+        \def\Wc{1.2}      % Ancho del carro [u]
+        \def\Hc{0.6}      % Alto del carro [u]
+        \def\Lp{1.5}      % Largo del péndulo [u]
+        \def\thp{30}      % Ángulo del péndulo [deg]
+
+        % --- SOPORTES Y ELEMENTOS FIJOS ---
+        % Suelo
+        \draw[thick, gris1] (0,0) -- (5.4,0);
+        \fill[pattern=north east lines, pattern color=gris1!60] (0,-0.15) rectangle (5.4,0);
+        % Pared izquierda
+        \draw[thick, gris1] (0,0) -- (0,1.2);
+        \fill[pattern=north east lines, pattern color=gris1!60] (-0.15,0) rectangle (0,1.2);
+
+        % --- GEOMETRÍA PRINCIPAL ---
+        % Resorte pared-carro
+        \draw[thick, decorate, decoration={coil, segment length=4pt, amplitude=3pt, pre length=4pt, post length=4pt}]
+            (0,0.55) -- (\xC-\Wc/2,0.55) node[midway, above, yshift=3pt] {$k$};
+        % Carro
+        \draw[fill=gris1!15, thick] (\xC-\Wc/2,0.25) rectangle (\xC+\Wc/2,0.25+\Hc);
+        \node at (\xC,0.25+\Hc/2) {$M$};
+        \draw[fill=gris1!40] (\xC-\Wc/4,0.15) circle (0.12);
+        \draw[fill=gris1!40] (\xC+\Wc/4,0.15) circle (0.12);
+        % Péndulo colgando del carro
+        \coordinate (Piv) at (\xC,0.25);
+        \coordinate (Mp) at ($(Piv) + (270+\thp:\Lp)$);
+        \draw[thick] (Piv) -- (Mp) node[midway, right, xshift=2pt] {$L$};
+        \shadedraw[ball color=gris1!30, draw=gris1] (Mp) circle (4pt);
+        \node[right, xshift=3pt] at (Mp) {$m$};
+
+        % --- VECTORES Y FUERZAS ---
+        \draw[->, very thick, myred] (Mp) -- ++(0,-0.8) node[below] {$m\vec{g}$};
+
+        % --- ANOTACIONES Y ETIQUETAS ---
+        % Coordenada generalizada x
+        \draw[mydashed, gris1!60] (\xC,0.25+\Hc) -- (\xC,1.5);
+        \draw[<->, thick, azul] (0,1.35) -- (\xC,1.35) node[midway, above] {$x$};
+        % Coordenada generalizada theta
+        \draw[mydashed, gris1!60] (Piv) -- ++(0,-1.1);
+        \draw[->, thick, azul] ($(Piv)+(270:0.8)$) arc (270:270+\thp:0.8);
+        \node[azul] at ($(Piv)+(270+\thp/2:1.0)$) {$\theta$};
+        % Grados de libertad
+        \node[gris1] at (4.3,1.6) {2 grados de libertad: $q_1 = x$, $q_2 = \theta$};
+
+    \end{tikzpicture}
+    \caption{Coordenadas generalizadas del péndulo sobre un carro con resorte}
+    \label{fig:c5_intro_coordenadas_generalizadas}
+\end{figure}
 
 Ejemplos:
 \begin{itemize}

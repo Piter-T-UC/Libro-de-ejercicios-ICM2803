@@ -8,7 +8,7 @@
 
 \section*{Introducción}
 
-Un cuerpo rígido es un objeto sólido cuya distancia entre cualquier par de puntos permanece constante durante el movimiento. Este capítulo estudia cómo los cuerpos rígidos se comportan bajo fuerzas y torques, combinando traslación y rotación.
+Un cuerpo rígido es un objeto sólido cuya distancia entre cualquier par de puntos permanece constante durante el movimiento. Puede pensarse como el límite continuo de un sistema de partículas (Capítulo 3) en el que las restricciones internas congelan las distancias relativas: de los infinitos grados de libertad sobreviven solo seis —tres de traslación y tres de rotación—. Este capítulo estudia cómo los cuerpos rígidos se comportan bajo fuerzas y torques, combinando traslación del centro de masa y rotación en torno a él.
 
 \subsection*{Diferencias con Sistemas de Partículas}
 
@@ -73,7 +73,45 @@ $$v_{\text{cm}} = R\omega$$
 
 $$a_{\text{cm}} = R\alpha$$
 
-Esta restricción de movimiento relaciona traslación y rotación.
+Esta restricción de movimiento relaciona traslación y rotación. Como muestra la Figura \ref{fig:c4_intro_rodadura}, el punto de contacto $C$ tiene velocidad instantánea nula, el centro $G$ se mueve con $v_{cm}=R\omega$ y el punto más alto del disco con $2R\omega$: el campo de velocidades del cuerpo rígido equivale a una rotación pura en torno a $C$.
+
+% Figura: rodadura sin deslizar
+\begin{figure}[!ht]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.5]
+
+        % --- CONFIGURACIÓN DE PARÁMETROS ---
+        \def\R{1.0}     % Radio del disco [u]
+        \def\Ls{5.0}    % Largo del suelo [u]
+
+        % --- SOPORTES Y ELEMENTOS FIJOS ---
+        \draw[thick, gris1] (-\Ls/2,0) -- (\Ls/2,0);
+        \fill[pattern=north east lines, pattern color=gris1!60] (-\Ls/2,-0.15) rectangle (\Ls/2,0);
+
+        % --- GEOMETRÍA PRINCIPAL ---
+        \draw[thick, fill=gris1!10] (0,\R) circle (\R);
+        \coordinate (G) at (0,\R);
+        \coordinate (C) at (0,0);
+        \coordinate (T) at (0,2*\R);
+        \draw[mydashed, gris1!60] (C) -- (T);
+
+        % --- VECTORES Y FUERZAS ---
+        % Campo de velocidades (rotación pura en torno a C)
+        \draw[->, very thick, azul] (G) -- ++(1.0,0) node[right] {$v_{cm}=R\omega$};
+        \draw[->, very thick, azul] (T) -- ++(2.0,0) node[right] {$2R\omega$};
+        % Velocidad angular
+        \draw[->, very thick, azul2] (0.55,\R+0.35) arc (60:-40:0.55) node[midway, right] {$\omega$};
+
+        % --- ANOTACIONES Y ETIQUETAS ---
+        \fill[gris1] (G) circle (1.3pt);
+        \node[below left] at (G) {$G$};
+        \fill[myred] (C) circle (1.5pt);
+        \node[below right, myred] at (C) {$C$ \ ($\vec{v}_C=\vec{0}$)};
+
+    \end{tikzpicture}
+    \caption{Rodadura sin deslizar: campo de velocidades del disco}
+    \label{fig:c4_intro_rodadura}
+\end{figure}
 
 \section{Ejemplos de Momentos de Inercia}
 

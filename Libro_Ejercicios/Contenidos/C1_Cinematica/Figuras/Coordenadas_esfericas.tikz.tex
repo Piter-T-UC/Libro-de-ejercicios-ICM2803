@@ -1,53 +1,59 @@
-%Drawing
+% =========================================================================
+% Figura: Sistema de coordenadas esféricas
+% =========================================================================
+% Archivo: Coordenadas_esfericas.tikz.tex
+% Usada en: C1_00_introduccion.tex
+% Convención del libro: theta = ángulo azimutal (plano xy), phi = ángulo polar
+% =========================================================================
 
-	
-\tdplotsetmaincoords{70}{110}
-%
-\pgfmathsetmacro{\thetavec}{48.17}
-\pgfmathsetmacro{\phivec}{63.5}
-%
 \begin{figure}[!ht]
     \centering
+    \tdplotsetmaincoords{70}{110}
+    \begin{tikzpicture}[tdplot_main_coords, >=Latex,
+                        ejes/.style={->, thick, gris1},
+                        univec/.style={->, very thick, azul},
+                        posvec/.style={->, very thick, myred}]
 
-	\begin{tikzpicture}[tdplot_main_coords][!ht]
+        % --- CONFIGURACIÓN DE PARÁMETROS ---
+        \pgfmathsetmacro{\phivec}{48.17}   % Ángulo polar [deg]
+        \pgfmathsetmacro{\thetavec}{63.5}  % Ángulo azimutal [deg]
+        \def\rlen{6}                       % Largo del vector posición [u]
 
-		%Axis
-		\draw[axis] (0,0,0) -- (6.5,0,0) node [pos=1.1] {$x$};
-		\draw[axis] (0,0,0) -- (0,6,0) node [pos=1.05] {$y$};
-		\draw[axis] (0,0,0) -- (0,0,5.5)  node [pos=1.05] {$z$};   
-		
-		%Unit Vectors
-%		\tdplotsetcoord{p}{1}{90}{\phivec}
-%    	\draw[univec] (2,4,0) -- ($(p)+(2,4,0)$) node [pos=1.35] {$\vu*{\varpi}$};
-		\tdplotsetcoord{P'}{7}{\thetavec}{\phivec}
-    	\draw[univec] (0,0,0) -- (P') node [pos=1.05] {$\vec {e}_{r}$};
-    	\tdplotsetcoord{P''}{1}{90}{90+\phivec}
-    	\draw[univec] (2,4,0) -- ($(P'') + (2,4,0)$) node [pos=1.3] {$\Vec{e}_{\theta}$};
-    	\tdplotsetcoord{P'''}{1}{90+\thetavec}{\phivec}
-    	\draw[univec] (2,4,4) -- ($(P''') + (2,4,4)$) node [pos=1.3] {$\Vec{e}_{\phi}$};
-		
-	*	%Vectors
-		\tdplotsetcoord{P}{6}{\thetavec}{\phivec}
-		\draw[vec] (0,0,0) -- (P) node [midway, above] {$r$};
-		\draw[thick] (0,0,0) -- (2,4,0);
-		
-		%Help Lines
-		\draw[dashed] (2,4,4) -- (2,4,0);
-		\draw[dashed] (2,0,0) -- (2,4,0) node [pos=-0.1] {$x$};
-		\draw[dashed] (0,4,0) -- (2,4,0) node [pos=-0.3] {$y$};
-		\draw[dashed] (0,0,4) -- (2,4,4) node [pos=-0.1] {$z$};
-		\draw[dashed, tdplot_main_coords] (4.47,0,0) arc (0:90:4.47);
-		
-		%Point
-		\node[fill=black, circle, inner sep=0.8pt] at (2,4,4) {};
-		
-		%Angles
-		\tdplotdrawarc{(0,0,0)}{0.7}{0}{\phivec}{below}{$\theta$}
-		 
-	    \tdplotsetthetaplanecoords{\phivec}
-	    \tdplotdrawarc[tdplot_rotated_coords]{(0,0,0)}{0.5}{0}{\thetavec}{}{}
-	    \node at (0,0.25,0.67) {$\phi$};
-		
-	\end{tikzpicture}
-\end{figure}	
-	
+        % --- SISTEMAS DE COORDENADAS ---
+        \draw[ejes] (0,0,0) -- (6.5,0,0) node[pos=1.1] {$x$};
+        \draw[ejes] (0,0,0) -- (0,6,0) node[pos=1.05] {$y$};
+        \draw[ejes] (0,0,0) -- (0,0,5.5) node[pos=1.05] {$z$};
+
+        % --- PUNTOS Y COORDENADAS ---
+        \tdplotsetcoord{P}{\rlen}{\phivec}{\thetavec}
+
+        % --- VECTORES Y FUERZAS ---
+        % Vector posición
+        \draw[posvec] (0,0,0) -- (P) node[midway, above left] {$\vec{r}$};
+        % Vectores unitarios en el punto P
+        \tdplotsetcoord{Er}{7}{\phivec}{\thetavec}
+        \draw[univec] (0,0,0) -- (Er) node[pos=1.05] {$\hat{e}_r$};
+        \tdplotsetcoord{Et}{1}{90}{90+\thetavec}
+        \draw[univec] (Pxy) -- ($(Et) + (Pxy)$) node[pos=1.3] {$\hat{e}_\theta$};
+        \tdplotsetcoord{Ep}{1}{90+\phivec}{\thetavec}
+        \draw[univec] (P) -- ($(Ep) + (P)$) node[pos=1.3] {$\hat{e}_\phi$};
+
+        % --- ANOTACIONES Y ETIQUETAS ---
+        % Líneas de ayuda (proyecciones)
+        \draw[thick] (0,0,0) -- (Pxy);
+        \draw[mydashed, gris1!60] (P) -- (Pxy);
+        \draw[mydashed, gris1!60] (Px) -- (Pxy) node[pos=-0.15] {$x$};
+        \draw[mydashed, gris1!60] (Py) -- (Pxy) node[pos=-0.3] {$y$};
+        \draw[mydashed, gris1!60] (Pz) -- (P) node[pos=-0.15] {$z$};
+        % Punto P
+        \node[fill=gris1, circle, inner sep=0.9pt, label={above right:$P$}] at (P) {};
+        % Ángulos
+        \tdplotdrawarc{(0,0,0)}{0.7}{0}{\thetavec}{below}{$\theta$}
+        \tdplotsetthetaplanecoords{\thetavec}
+        \tdplotdrawarc[tdplot_rotated_coords]{(0,0,0)}{0.5}{0}{\phivec}{}{}
+        \node at (0,0.25,0.67) {$\phi$};
+
+    \end{tikzpicture}
+    \caption{Coordenadas esféricas y sus vectores unitarios en el punto $P$}
+    \label{fig:c1_intro_coordenadas_esfericas}
+\end{figure}
