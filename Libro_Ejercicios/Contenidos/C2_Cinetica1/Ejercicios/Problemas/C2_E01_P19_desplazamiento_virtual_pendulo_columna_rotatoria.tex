@@ -29,20 +29,20 @@ Una masa $m$ (punto $P$) está suspendida mediante una varilla rígida de longit
         % Base soporte
         \fill[pattern=north east lines] (-0.8, -0.2) rectangle (0.8, 0);
         \draw[thick] (-0.8, 0) -- (0.8, 0);
-        %\draw[fill=gray!20] (0,0.1) ellipse (0.9 and 0.15); % Base de la columna visual
+        %\draw[fill=gris1!20] (0,0.1) ellipse (0.9 and 0.15); % Base de la columna visual
 
         % Columna (Cilindro)
-        \fill[left color=gray!30, right color=gray!10, middle color=gray!5] (-\ColW/2,0) rectangle (\ColW/2, \ColH);
+        \fill[left color=gris1!30, right color=gris1!10, middle color=gris1!5] (-\ColW/2,0) rectangle (\ColW/2, \ColH);
         \draw[thick] (-\ColW/2, 0) rectangle (\ColW/2, \ColH);
         
         % Tapa columna (Elipse superior)
-        %\draw[fill=gray!20] (0, \ColH) ellipse (\ColW/2 and 0.15);
+        %\draw[fill=gris1!20] (0, \ColH) ellipse (\ColW/2 and 0.15);
         
         % Eje Z
         \draw[->, thick] (0, \ColH) -- (0, \ColH+1.0) node[right] {$Z$};
 
         % --- 2. Brazo L1 ---
-        \draw[line width=4pt, gray!40] (0, \ColH-0.6) -- (0, \ColH-0.4) -- (\Lone, \ColH-0.4) -- (\Lone, \ColH-0.6) -- cycle;
+        \draw[line width=4pt, gris1!40] (0, \ColH-0.6) -- (0, \ColH-0.4) -- (\Lone, \ColH-0.4) -- (\Lone, \ColH-0.6) -- cycle;
         \draw[thick] (0, \ColH-0.6) -- (\Lone, \ColH-0.6);
         \draw[thick] (0, \ColH-0.4) -- (\Lone, \ColH-0.4);
         \draw[thick] (\Lone, \ColH-0.6) -- (\Lone, \ColH-0.4);
@@ -54,7 +54,7 @@ Una masa $m$ (punto $P$) está suspendida mediante una varilla rígida de longit
         \draw[thick] (ArmEnd) -- (Mass) node[midway, right] {$L_2$};
         
         % Masa P
-        \shadedraw[ball color=gray!30!white] (Mass) circle (0.25) node[] (Mass) {$m$};
+        \shadedraw[ball color=gris1!30] (Mass) circle (0.25) node[] (Mass) {$m$};
         \node[left, xshift=-8pt] at (Mass) {$P$};
 
         % --- 4. Ángulos y Rotación ---
@@ -66,11 +66,11 @@ Una masa $m$ (punto $P$) está suspendida mediante una varilla rígida de longit
         \node at ($(ArmEnd) + ({sin(\angTheta/2)*0.9}, {-cos(\angTheta/2)*0.9})$) [] {$\theta$};
 
         % Rotación Phi
-        \draw[->, thick] (-0.8, 1.5) arc (180:360:0.8 and 0.3);
-        \node[right] at (0.8, 1.5) {$\dot{\phi}$};
+        \draw[->, thick, azul] (-0.8, 1.5) arc (180:360:0.8 and 0.3);
+        \node[right, azul] at (0.8, 1.5) {$\dot{\phi}$};
 
         % --- 5. Gravedad ---
-        \draw[->, thick] (2.5, 2.5) -- (2.5, 1.5) node[midway, right] {$g$};
+        \draw[->, thick, myred] (2.5, 2.5) -- (2.5, 1.5) node[midway, right] {$g$};
 
     \end{tikzpicture}
     \caption{Sistema de péndulo suspendido de un brazo en rotación acimutal.}

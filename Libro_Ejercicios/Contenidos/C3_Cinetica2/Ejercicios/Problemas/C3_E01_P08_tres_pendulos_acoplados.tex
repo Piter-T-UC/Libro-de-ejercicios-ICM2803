@@ -48,18 +48,18 @@ Tres péndulos simples, todos de longitud $l$, están dispuestos simétricamente
         % --- 4. Masas ---
         % Masa 1 (m)
         \filldraw (P1) circle (1.5pt);
-        \shadedraw[ball color=gray!30] (M1) circle (0.2) node[] {$m$};
+        \shadedraw[ball color=gris1!30] (M1) circle (0.2) node[] {$m$};
         
         % Masa 2 (2m) - Un poco más grande
         \filldraw (P2) circle (1.5pt);
-        \shadedraw[ball color=gray!30] (M2) circle (0.25) node[] {$2m$};
+        \shadedraw[ball color=gris1!30] (M2) circle (0.25) node[] {$2m$};
         
         % Masa 3 (m)
         \filldraw (P3) circle (1.5pt);
-        \shadedraw[ball color=gray!30] (M3) circle (0.2) node[] {$m$};
+        \shadedraw[ball color=gris1!30] (M3) circle (0.2) node[] {$m$};
 
         % --- 5. Gravedad ---
-        \draw[->, thick] (\Sep+0.8, -0.5) -- (\Sep+0.8, -1.5) node[midway, right] {$\mathbf{g}$};
+        \draw[->, thick, myred] (\Sep+0.8, -0.5) -- (\Sep+0.8, -1.5) node[midway, right] {$\mathbf{g}$};
 
     \end{tikzpicture}
     \caption{Sistema de tres péndulos acoplados mediante resortes lineales.}

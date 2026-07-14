@@ -26,11 +26,11 @@ Un mecanismo articulado rota alrededor de un eje vertical con una velocidad angu
 
         % --- 1. Eje y Soportes ---
         % Indicador de Rotación Omega
-        \draw[->, thick] (0.3, {2*\Llink*cos(\ang) + 0.6}) arc (0:255:0.3 and 0.1);
-        \node[right] at (0.3, {2*\Llink*cos(\ang) + 0.4}) {$\Omega$};
+        \draw[->, thick, azul] (0.3, {2*\Llink*cos(\ang) + 0.6}) arc (0:255:0.3 and 0.1);
+        \node[right, azul] at (0.3, {2*\Llink*cos(\ang) + 0.4}) {$\Omega$};
         % Eje Vertical
         \draw[line width=6pt] (0, -0.5) -- (0, {2*\Llink*cos(\ang) + 1.2});
-        \draw[line width=5pt, gray!20] (0, -0.5) -- (0,{2*\Llink*cos(\ang) + 1.2});
+        \draw[line width=5pt, gris1!20] (0, -0.5) -- (0,{2*\Llink*cos(\ang) + 1.2});
         \draw[thick] (0, -0.5) -- (0, {2*\Llink*cos(\ang) + 1.2});
 
         % Soporte Inferior
@@ -43,23 +43,23 @@ Un mecanismo articulado rota alrededor de un eje vertical con una velocidad angu
 
 
         % --- 2. Resorte (alrededor del eje entre A y C) ---
-        \draw[decoration={coil, aspect=0.5, segment length=5pt, amplitude=4pt, pre length=5pt, post length=5pt}, decorate, gray!80, thick] 
+        \draw[decoration={coil, aspect=0.5, segment length=5pt, amplitude=4pt, pre length=5pt, post length=5pt}, decorate, gris1!60, thick] 
             (A) -- (C);
         \node[left, xshift=-5pt] at (0, {\Llink*cos(\ang)}) {$k$};
 
         % --- 3. Eslabones y Masas ---
         % Eslabón AB
         \draw[line width=4pt] (A) -- (B);
-        \draw[line width=3pt, gray!40] (A) -- (B);
+        \draw[line width=3pt, gris1!40] (A) -- (B);
         \draw[thick] (A) -- (B) node[midway, below right] {$L$};
         
         % Eslabón CB
         \draw[line width=4pt] (C) -- (B);
-        \draw[line width=3pt, gray!40] (C) -- (B);
+        \draw[line width=3pt, gris1!40] (C) -- (B);
         \draw[thick] (C) -- (B) node[midway, above right] {$L$};
 
         % Collarín C
-        \shadedraw[color=gray!20, draw=black] ($(C)+(-\Wslider/2, -\Hslider/2)$) rectangle ($(C)+(\Wslider/2, \Hslider/2)$);
+        \shadedraw[color=gris1!20, draw=black] ($(C)+(-\Wslider/2, -\Hslider/2)$) rectangle ($(C)+(\Wslider/2, \Hslider/2)$);
         \node[above left, xshift=-5pt, yshift=7pt] at (C) {$C$};
         %\filldraw (C) circle (1.5pt); % Pivote en C
         \node at (C) {$m$};
@@ -68,7 +68,7 @@ Un mecanismo articulado rota alrededor de un eje vertical con una velocidad angu
         \filldraw (A) circle (1.5pt) node[left, xshift=-5pt] {$A$};
 
         % Masa B (Disco)
-        \shadedraw[ball color=gray!30] (B) circle (0.25) node[right, xshift=5pt] {$B$};
+        \shadedraw[ball color=gris1!30] (B) circle (0.25) node[right, xshift=5pt] {$B$};
         %\filldraw (B) circle (1.5pt);
         \node[] at (B) {$m$};
 

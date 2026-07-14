@@ -19,7 +19,7 @@ Una mancuerna de masa $2m$ y largo $2a$, compuesta por dos partículas de masa $
         % --- Soporte Fijo O ---
         \fill[pattern=north east lines] (-0.5, 0.1) rectangle (0.5, 0.4);
         \draw[thick] (-0.5, 0.1) -- (0.5, 0.1);
-        \draw[thick, fill=gray!20] (-0.2,0.1) arc (0:180:-0.2) -- cycle;
+        \draw[thick, fill=gris1!20] (-0.2,0.1) arc (0:180:-0.2) -- cycle;
         
         \coordinate (O) at (0,0);
         \filldraw (O) circle (2pt) node[left, xshift=-5pt] {$O$};
@@ -29,7 +29,7 @@ Una mancuerna de masa $2m$ y largo $2a$, compuesta por dos partículas de masa $
             % Barra principal l
             \draw[line width=4pt] (0,0) -- (0, -\Lbar);
             \draw[line width=4pt] (-\Aarm, -\Lbar) -- (\Aarm, -\Lbar);
-            \draw[line width=3pt, gray!40, line cap=round] (0,0) -- (0, -\Lbar);
+            \draw[line width=3pt, gris1!40, line cap=round] (0,0) -- (0, -\Lbar);
             \filldraw (O) circle (0.6pt);
             %\node[left] at (0, -\Lbar/2) {$l$};
             
@@ -37,14 +37,14 @@ Una mancuerna de masa $2m$ y largo $2a$, compuesta por dos partículas de masa $
             \node[below left] at (P) {$P$};
 
             % Travesaño de la mancuerna (2a)
-            \draw[line width=3pt, gray!40] (-\Aarm, -\Lbar) -- (\Aarm, -\Lbar);
+            \draw[line width=3pt, gris1!40] (-\Aarm, -\Lbar) -- (\Aarm, -\Lbar);
             \draw[thick] (0,0) -- (0, -\Lbar);
             \draw[thick] (-\Aarm, -\Lbar) -- (\Aarm, -\Lbar);
             \filldraw (P) circle (0.6pt);
             
             % Masas m
-            \shadedraw[ball color=gray!30] (-\Aarm, -\Lbar) circle (0.2) node[font=\footnotesize] {$m$};
-            \shadedraw[ball color=gray!30] (\Aarm, -\Lbar) circle (0.2) node[font=\footnotesize] {$m$};
+            \shadedraw[ball color=gris1!30] (-\Aarm, -\Lbar) circle (0.2) node[font=\footnotesize] {$m$};
+            \shadedraw[ball color=gris1!30] (\Aarm, -\Lbar) circle (0.2) node[font=\footnotesize] {$m$};
             
             % Cota 2a
             \draw[|<->|] (-\Aarm, -\Lbar-0.5) -- (\Aarm, -\Lbar-0.5) node[midway, below] {$2a$};
@@ -55,14 +55,14 @@ Una mancuerna de masa $2m$ y largo $2a$, compuesta por dos partículas de masa $
 
         % --- Referencias ---
         % Línea vertical de referencia
-        \draw[dashed, gray] (O) -- (0, -2.5);
+        \draw[dashed, gris1!60] (O) -- (0, -2.5);
         
         % Ángulo theta
         \draw[->] (0, -1.0) arc (-90:{-90-\ang}:1.0);
         \node at (-0.3, -1.3) {$\theta$};
 
         % Vector Gravedad
-        \draw[->, thick] (1.5, -0.5) -- (1.5, -1.5) node[midway, right] {$\mathbf{g}$};
+        \draw[->, thick, myred] (1.5, -0.5) -- (1.5, -1.5) node[midway, right] {$\mathbf{g}$};
 
     \end{tikzpicture}
     \caption{Esquema de una mancuerna rígida en rotación suspendida de un punto fijo $O$.}

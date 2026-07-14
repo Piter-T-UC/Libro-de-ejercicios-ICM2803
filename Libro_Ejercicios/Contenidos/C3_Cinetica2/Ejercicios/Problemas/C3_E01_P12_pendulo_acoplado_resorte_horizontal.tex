@@ -30,7 +30,7 @@ Se considera un sistema compuesto por un carro de masa $M$ que se desplaza sin f
         \node[above] at ({(-1.5 + \xCar-\wCar/2)/2}, \hCar/2 + 0.1) {$k$};
 
         % --- 3. CARRO (Masa M) ---
-        \draw[fill=gray!10, thick] (\xCar-\wCar/2, 0.1) rectangle (\xCar+\wCar/2, \hCar+0.1);
+        \draw[fill=gris1!10, thick] (\xCar-\wCar/2, 0.1) rectangle (\xCar+\wCar/2, \hCar+0.1);
         \draw[fill=black] (\xCar-0.3, 0.1) circle (0.1);
         \draw[fill=black] (\xCar+0.3, 0.1) circle (0.1);
         \node[left] at (\xCar, \hCar/2+0.1) {$M$};
@@ -41,14 +41,14 @@ Se considera un sistema compuesto por un carro de masa $M$ que se desplaza sin f
         \begin{scope}[shift={(O)}, rotate=\ang]
             \draw[ultra thick] (0,0) -- (0, -\L);
             \draw[line width=2.5pt,line cap= round] (0,0) -- (0, -\L);
-            \draw[line width=1.5pt, gray,line cap= round] (0,0) -- (0, -\L);
-            \shadedraw[ball color=gray!30] (0, -\L) circle (0.25) node[] {$m$};
+            \draw[line width=1.5pt, gris1!60,line cap= round] (0,0) -- (0, -\L);
+            \shadedraw[ball color=gris1!30] (0, -\L) circle (0.25) node[] {$m$};
             \node[right] at (0,-\L/2) {$L$};
         \end{scope}
 
         % --- 5. REFERENCIAS Y ÁNGULOS ---
         % Eje vertical de referencia
-        \draw[dashed, gray] (O) -- (\xCar, -\L-0.5);
+        \draw[dashed, gris1!60] (O) -- (\xCar, -\L-0.5);
         % Ángulo theta
         \draw[->] (\xCar, {\hCar/2+0.1-0.8}) arc (270:{270+\ang}:0.8);
         \node at (\xCar+0.3, {\hCar/2+0.1-1.0}) {$\theta$};
@@ -58,7 +58,7 @@ Se considera un sistema compuesto por un carro de masa $M$ que se desplaza sin f
         \draw[|->, thick] (0, 1.0) -- (\xCar, 1.0) node[midway, above] {$x(t)$};
 
         % Vector Gravedad
-        \draw[->, thick] (3.5, 1.5) -- (3.5, 0.8) node[below] {$\mathbf{g}$};
+        \draw[->, thick, myred] (3.5, 1.5) -- (3.5, 0.8) node[below] {$\mathbf{g}$};
 
     \end{tikzpicture}
     \caption{Diagrama de un péndulo de masa $m$ acoplado a un soporte móvil de masa $M$ con restricción elástica.}

@@ -30,7 +30,7 @@ Una partícula de masa $m_1$ está unida al extremo de una barra rígida ideal s
         % --- 2. Barra y Resorte ---
         % Barra L
         \draw[line width=5pt] (O) -- (\ang:\Lrod);
-        \draw[line width=4pt, gray!30, line cap=round] (O) -- (\ang:\Lrod);
+        \draw[line width=4pt, gris1!30, line cap=round] (O) -- (\ang:\Lrod);
         \draw[thick] (O) -- (\ang:\Lrod);
         \filldraw[thick] (O) circle (0.5pt);
 
@@ -43,18 +43,18 @@ Una partícula de masa $m_1$ está unida al extremo de una barra rígida ideal s
         % --- 3. Masas ---
         % Masa m2 (Cuenta deslizante)
         \coordinate (M2) at (\ang:\Rbead);
-        \shadedraw[ball color=gray!30] (M2) circle (0.35) node[] {$m_2$};
+        \shadedraw[ball color=gris1!30] (M2) circle (0.35) node[] {$m_2$};
 
         % Masa m1 (Extremo)
         \coordinate (M1) at (\ang:\Lrod);
-        \shadedraw[ball color=gray!30] (M1) circle (0.25) node[] {$m_1$};
+        \shadedraw[ball color=gris1!30] (M1) circle (0.25) node[] {$m_1$};
 
         % --- 4. Cotas y Gravedad ---
         % Cota L (Longitud total)
         \draw[|<->|] ($(O) + (\ang-90:0.5)$) -- ($(M1) + (\ang-90:0.5)$) node[midway, below left] {$L$};
 
         % Vector Gravedad
-        \draw[->, thick] (2.0, -1.0) -- (2.0, -2.0) node[midway, right] {$g$};
+        \draw[->, thick, myred] (2.0, -1.0) -- (2.0, -2.0) node[midway, right] {$g$};
 
     \end{tikzpicture}
     \caption{Sistema de péndulo compuesto con una masa deslizante sujeta a un resorte.}

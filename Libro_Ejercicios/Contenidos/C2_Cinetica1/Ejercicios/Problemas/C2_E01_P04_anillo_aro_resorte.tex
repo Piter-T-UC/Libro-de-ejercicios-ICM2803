@@ -11,7 +11,7 @@ Un anillo de masa $m$ se encuentra inserto en un aro circular vertical de radio 
 
 \begin{figure}[!ht]
     \centering
-\begin{tikzpicture}[scale=2]
+\begin{tikzpicture}[>=Latex, scale=2]
   % Radius
   \def\R{1}
 
@@ -51,16 +51,16 @@ Un anillo de masa $m$ se encuentra inserto en un aro circular vertical de radio 
   \draw[line width=2pt] (\R,0) -- (2*\R,0);
 
   % Gravity vector
-  \draw[->, thick] (1.5*\R,0.8) -- ++(0,-0.6);
-  \node[right] at (1.5*\R,0.5) {$\vec{g}$};
+  \draw[->, thick, myred] (1.5*\R,0.8) -- ++(0,-0.6);
+  \node[right, myred] at (1.5*\R,0.5) {$\vec{g}$};
 
 
  \draw[-,thick] (2,-1)--(2,1.5); 
     \begin{scope}[shift={(2,1.5)}, rotate=0]
-    \draw[->,thick] 
+    \draw[->,thick, azul] 
       plot[domain=-30:240,variable=\t,smooth,samples=100] 
       ({0.6*cos(\t)}, {0.3*sin(\t)});
-    \node at (0,0.4) {$\Omega_0$};
+    \node[azul] at (0,0.4) {$\Omega_0$};
   \end{scope}
 
 \end{tikzpicture}

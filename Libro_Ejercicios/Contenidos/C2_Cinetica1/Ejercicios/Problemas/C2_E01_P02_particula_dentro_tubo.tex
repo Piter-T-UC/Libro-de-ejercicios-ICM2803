@@ -20,7 +20,7 @@ Una partícula de masa $m$ se desliza dentro de un tubo como se muestra en la Fi
         % Base fija O (Suelo pequeño hachurado)
         \fill[pattern=north east lines] (-0.5, -0.2) rectangle (0.5, 0);
         \draw (-0.5, 0) -- (0.5, 0);
-        \shadedraw[top color=gray, bottom color=gray!25, draw=gray!60] (0.4,0) arc (0:180:0.4) -- cycle;
+        \shadedraw[top color=gris1!60, bottom color=gris1!25, draw=gris1!60] (0.4,0) arc (0:180:0.4) -- cycle;
 
         % TUBO CON SOMBREADO CILÍNDRICO
         \begin{scope}[rotate=\ang,shift={(0.2,0.2)}]
@@ -28,7 +28,7 @@ Una partícula de masa $m$ se desliza dentro de un tubo como se muestra en la Fi
             % Cuerpo del tubo
         % Cuerpo del tubo CON EXTREMO REDONDEADO
             % 1. Relleno con degradado (seguimos el contorno)
-            \fill[top color=gray!50, middle color=gray!10, bottom color=gray!50] (0, 0.15) arc (90:270:0.15) -- (\Ltubo, -0.15) -- (\Ltubo, 0.15)-- cycle;
+            \fill[top color=gris1!50, middle color=gris1!10, bottom color=gris1!50] (0, 0.15) arc (90:270:0.15) -- (\Ltubo, -0.15) -- (\Ltubo, 0.15)-- cycle;
 
             % 2. Bordes gruesos
             \draw[thick] (0, 0.15) -- (\Ltubo, 0.15);     % Línea superior
@@ -51,11 +51,11 @@ Una partícula de masa $m$ se desliza dentro de un tubo como se muestra en la Fi
         \filldraw (0,0) circle (2pt) node[left, xshift=-3pt, yshift=5pt] {$O$};
 
         % Indicador de velocidad angular Omega
-        \draw[->, thick] (0.8, 0.2) arc (0:{\ang}:0.8);
-        \node at (20:1.1) {$\Omega$};
+        \draw[->, thick, azul] (0.8, 0.2) arc (0:{\ang}:0.8);
+        \node[azul] at (20:1.1) {$\Omega$};
         
         % Referencia horizontal
-        \draw[dashed, gray] (0,0.2) -- (1.5, 0.2);
+        \draw[dashed, gris1!60] (0,0.2) -- (1.5, 0.2);
 
     \end{tikzpicture}
     \caption{Partícula en tubo.}

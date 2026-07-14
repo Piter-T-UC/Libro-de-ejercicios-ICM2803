@@ -16,18 +16,18 @@ Considere un sistema compuesto por un resorte y una masa que se encuentran al bo
         
         % --- 1. El Suelo y la Piscina ---
         % Suelo (izquierda)
-        \fill[gray!20] (-2.5, -2) rectangle (0, 0);
+        \fill[gris1!20] (-2.5, -2) rectangle (0, 0);
         \draw[thick] (-2.5, 0) -- (0, 0);
-        \draw[pattern=north east lines, pattern color=gray!50] (-2.5, -2) rectangle (0, 0);
+        \draw[pattern=north east lines, pattern color=gris1!50] (-2.5, -2) rectangle (0, 0);
         
         % Piscina (derecha)
-        \fill[blue!5] (0, -2) rectangle (2.5, 0);
-        \draw[blue!40] (0, 0) -- (2.5, 0);
+        \fill[azul!8] (0, -2) rectangle (2.5, 0);
+        \draw[azul!50] (0, 0) -- (2.5, 0);
         % Líneas de agua
         \foreach \y in {-0.3, -0.7, -1.1, -1.5} {
-            \draw[blue!30, thin] ({0.2-0.1*rand}, \y) -- ({2.3+0.1*rand}, \y);
+            \draw[azul!30, thin] ({0.2-0.1*rand}, \y) -- ({2.3+0.1*rand}, \y);
         }
-        \node[blue] at (0.5, -1) {$\gamma$};
+        \node[azul] at (0.5, -1) {$\gamma$};
 
         % --- 2. Ejes de Coordenadas ---
         \draw[->, thick] (-2.5, 0) -- (2.5, 0) node[right] {$x$};
@@ -35,7 +35,7 @@ Considere un sistema compuesto por un resorte y una masa que se encuentran al bo
 
         % --- 3. El Mecanismo (Muelle y Masa) ---
         % Pared fija
-        \fill[gray!60] (-2.5, 0) rectangle (-2.2, 0.5);
+        \fill[gris1!60] (-2.5, 0) rectangle (-2.2, 0.5);
         \draw[thick] (-2.2, 0) -- (-2.2, 0.5);
         
         % Resorte
@@ -43,18 +43,18 @@ Considere un sistema compuesto por un resorte y una masa que se encuentran al bo
             (-2.2, 0.25) -- (-\Lzero+0.2, 0.25);
         
         % Masa P
-        \shadedraw[ball color=gray!80] (-\Lzero+0.2, 0.25) circle (7pt);
+        \shadedraw[ball color=gris1!60] (-\Lzero+0.2, 0.25) circle (7pt);
         \filldraw (-\Lzero+0.2, 0.25) circle (1pt); % centro
         
         % Cota L0
         \draw[|<->|] (-2.2, 0.7) -- (0, 0.7) node[midway, fill=white] {$\ell_0$};
 
         % --- 4. Traectoria de caída ---
-        \draw[dashed, ->, gray] (0,0.15) parabola (1.8, -2);
+        \draw[dashed, ->, gris1!60] (0,0.15) parabola (1.8, -2);
 
         % --- 5. Etiquetas de coeficientes ---
         \node at (-1, -0.3) {$\mu_e, \mu_d$};
-        \draw[->, thick] (1.2, 0.8) -- (1.2, 0.3) node[right] {$\mathbf{g}$};
+        \draw[->, thick, myred] (1.2, 0.8) -- (1.2, 0.3) node[right] {$\mathbf{g}$};
 
     \end{tikzpicture}
     \caption{Sistema masa-resorte en el borde de una piscina con rozamiento seco y viscoso.}

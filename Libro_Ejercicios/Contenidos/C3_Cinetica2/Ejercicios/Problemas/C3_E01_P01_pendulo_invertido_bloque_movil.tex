@@ -22,7 +22,7 @@ Un bloque de masa $M$ se desplaza sin fricción a lo largo de una superficie hor
         \draw[thick] (-2.5, 0) -- (4, 0);
 
         % --- Bloque M ---
-        \draw[thick, fill=gray!40] (0, 0.2) rectangle (\Wblock, \Hblock+0.2);
+        \draw[thick, fill=gris1!40] (0, 0.2) rectangle (\Wblock, \Hblock+0.2);
         \node at (\Wblock/2, \Hblock/2+0.2) {$M$};
         
         % Ruedas
@@ -31,31 +31,31 @@ Un bloque de masa $M$ se desplaza sin fricción a lo largo de una superficie hor
 
         % Punto O (Bisagra)
         \coordinate (O) at (\Wblock/2, \Hblock+0.2);
-        \filldraw[fill=gray!20] (O) circle (2pt) node[above left, xshift=-2pt] {$O$};
+        \filldraw[fill=gris1!20] (O) circle (2pt) node[above left, xshift=-2pt] {$O$};
 
         % --- Barra y Partícula m ---
         \begin{scope}[shift={(O)}, rotate=-\ang]
             \draw[line width=4pt, line cap=round] (0,0) -- (0, \Lbar) node[midway, right] {$l$};
-            \draw[line width=3pt, gray, line cap=round] (0,0) -- (0, \Lbar);
-            \shadedraw[ball color=gray!30] (0, \Lbar) circle (0.2) node[above right=2pt] {$P$} node[font=\footnotesize] {$m$};
+            \draw[line width=3pt, gris1!60, line cap=round] (0,0) -- (0, \Lbar);
+            \shadedraw[ball color=gris1!30] (0, \Lbar) circle (0.2) node[above right=2pt] {$P$} node[font=\footnotesize] {$m$};
             \coordinate (P) at (0, \Lbar);
         \end{scope}
         \filldraw[] (O) circle (0.6pt);
 
         % --- Fuerzas y Referencias ---
         % Fuerza F
-        \draw[->, ultra thick] (-1, \Hblock/2+0.2) -- (0, \Hblock/2+0.2) node[midway, above left, xshift=-5pt] {$\mathbf{F}$};
+        \draw[->, ultra thick, myred] (-1, \Hblock/2+0.2) -- (0, \Hblock/2+0.2) node[midway, above left, xshift=-5pt] {$\mathbf{F}$};
 
         % Eje x de referencia
         \draw[|->, thick] (\Wblock/2, \Hblock+2) -- (\Wblock/2 + 1, \Hblock+2) node[midway, above] {$x$};
         
         % Ángulo theta
-        \draw[dashed, gray] (O) -- (\Wblock/2, \Hblock+1.5);
+        \draw[dashed, gris1!60] (O) -- (\Wblock/2, \Hblock+1.5);
         \draw[->] (\Wblock/2, \Hblock+1.0) arc (90:{90-\ang}:0.8);
         \node at (\Wblock/2+0.3, \Hblock+1.3) {$\theta$};
 
         % Vector Gravedad
-        \draw[->, thick] (-1.5, 2.5) -- (-1.5, 1.5) node[midway, left] {$\mathbf{g}$};
+        \draw[->, thick, myred] (-1.5, 2.5) -- (-1.5, 1.5) node[midway, left] {$\mathbf{g}$};
 
     \end{tikzpicture}
     \caption{Diagrama de una partícula de masa $m$ acoplada a un bloque de masa $M$ con movimiento horizontal y rotación libre.}

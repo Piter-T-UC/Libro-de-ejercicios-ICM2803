@@ -51,7 +51,7 @@ Considere el sistema de péndulos acoplados mostrado en la Figura \ref{fig:pendu
         % Línea de extensión de l2
         \draw[dashed] (M_R) -- ($(M_R) + (\angRight:1.0)$);
         % Vector Fuerza F (a un ángulo gamma respecto a la extensión)
-        \draw[->, thick] (M_R) -- ($(M_R) + ({\angRight-\angGamma}:1.2)$) node[right] {$F$};
+        \draw[->, thick, myred] (M_R) -- ($(M_R) + ({\angRight-\angGamma}:1.2)$) node[right] {$F$};
         % Arco gamma
         \draw[->] ($(M_R) + (\angRight:0.6)$) arc (\angRight:{\angRight-\angGamma}:0.6);
         \node at ($(M_R) + ({\angRight-\angGamma/2}:0.8)$) {$\gamma$};
@@ -66,13 +66,13 @@ Considere el sistema de péndulos acoplados mostrado en la Figura \ref{fig:pendu
         \draw[->] (0, -0.8) arc (-90:{-90-\angPhi}:0.8) node[midway, below] {$\phi$};
 
         % Referencia extensión l1 y ángulo psi
-        \draw[dashed, gray] (J) -- ($(J)!0.6!({-90-\angPhi}:4)$); % Extensión visual
+        \draw[dashed, gris1!60] (J) -- ($(J)!0.6!({-90-\angPhi}:4)$); % Extensión visual
         \draw[<-] ($(J) + (\angLeft:0.7)$) arc (\angLeft:\angRight:0.7) node[midway, below] {$\psi$};
 
 
 
         % --- 6. Gravedad ---
-        \draw[->, thick] (-1.5, -1.0) -- (-1.5, -2.0) node[midway, left] {$g$};
+        \draw[->, thick, myred] (-1.5, -1.0) -- (-1.5, -2.0) node[midway, left] {$g$};
 
     \end{tikzpicture}
     \caption{Sistema de péndulos acoplados con fuerza no conservativa.}

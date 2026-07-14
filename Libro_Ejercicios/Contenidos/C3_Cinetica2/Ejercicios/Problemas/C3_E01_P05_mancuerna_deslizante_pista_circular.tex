@@ -40,15 +40,15 @@ Una mancuerna está constituida por dos partículas $A$ y $B$, cada una de masa 
 
             % Barra AB (Perpendicular a OC)
             \draw[line width=4pt] (-\halfL, -\distA) -- (\halfL, -\distA);
-            \draw[line width=3pt, gray!40] (-\halfL, -\distA) -- (\halfL, -\distA);
+            \draw[line width=3pt, gris1!40] (-\halfL, -\distA) -- (\halfL, -\distA);
             \draw[thick] (-\halfL, -\distA) -- (\halfL, -\distA);
 
             % Partículas
             \coordinate (A) at (-\halfL, -\distA);
             \coordinate (B) at (\halfL, -\distA);
 
-            \shadedraw[ball color=gray!30] (A) circle (0.2) node[right, xshift=5pt, yshift=5pt] {$A$};
-            \shadedraw[ball color=gray!30] (B) circle (0.2) node[right, xshift=5pt] {$B$};
+            \shadedraw[ball color=gris1!30] (A) circle (0.2) node[right, xshift=5pt, yshift=5pt] {$A$};
+            \shadedraw[ball color=gris1!30] (B) circle (0.2) node[right, xshift=5pt] {$B$};
             \node[font=\footnotesize] at (A) {$m$}; % Opcional
             \node[font=\footnotesize] at (B) {$m$};
 
@@ -62,7 +62,7 @@ Una mancuerna está constituida por dos partículas $A$ y $B$, cada una de masa 
 
         % --- 3. Referencias y Ángulos ---
         % Eje Vertical
-        \draw[dashed, gray] (O) -- (0, -2.5);
+        \draw[dashed, gris1!60] (O) -- (0, -2.5);
         
         % Ángulo theta
         \draw[->] (0, -1.0) arc (-90:{-90-\ang}:1.0);
@@ -72,7 +72,7 @@ Una mancuerna está constituida por dos partículas $A$ y $B$, cada una de masa 
         \filldraw (O) circle (1.5pt) node[above left] {$O$};
 
         % Gravedad
-        \draw[->, thick] (3.0, 0) -- (3.0, -1.0) node[midway, right] {$\mathbf{g}$};
+        \draw[->, thick, myred] (3.0, 0) -- (3.0, -1.0) node[midway, right] {$\mathbf{g}$};
 
     \end{tikzpicture}
     \caption{Sistema de mancuerna deslizante dentro de una pista circular vertical.}

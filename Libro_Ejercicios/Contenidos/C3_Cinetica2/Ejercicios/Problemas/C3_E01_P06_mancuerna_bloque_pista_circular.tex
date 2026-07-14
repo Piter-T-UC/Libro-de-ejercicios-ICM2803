@@ -27,14 +27,14 @@ Una mancuerna constituida por dos partículas $A$ y $B$, de masa $m$ cada una, s
 
         % --- 2. Bloque M ---
         % El bloque es un rectángulo con un agujero circular
-        \fill[gray!5, even odd rule] 
+        \fill[gris1!5, even odd rule] 
             (-\BlockSize, -\BlockSize) rectangle (\BlockSize, \BlockSize)
             (0,0) circle (\R);
         \draw[thick] (-\BlockSize, -\BlockSize) rectangle (\BlockSize, \BlockSize);
         \draw[thick] (0,0) circle (\R);
         
         % Hachurado en el borde interior de la pista (estilo técnico)
-        \path[pattern=north east lines, pattern color=gray!80, even odd rule] (0,0) circle (\R+0.2) circle (\R+0.4);
+        \path[pattern=north east lines, pattern color=gris1!60, even odd rule] (0,0) circle (\R+0.2) circle (\R+0.4);
         \filldraw[white, draw= black] (0,0) circle (\R+0.2);
         
         % Etiqueta del Bloque
@@ -48,20 +48,20 @@ Una mancuerna constituida por dos partículas $A$ y $B$, de masa $m$ cada una, s
             \filldraw (C) circle (1pt) node[below left, font=\footnotesize] {$C$};
 
             % Barra AB (Perpendicular a OC)
-            \draw[line width=3pt, gray!40] (-\halfL, -\distA) -- (\halfL, -\distA);
+            \draw[line width=3pt, gris1!40] (-\halfL, -\distA) -- (\halfL, -\distA);
             \draw[thick] (-\halfL, -\distA) -- (\halfL, -\distA);
 
             % Partículas
             \coordinate (A) at (-\halfL, -\distA);
             \coordinate (B) at (\halfL, -\distA);
 
-            \shadedraw[ball color=gray!40] (A) circle (0.2) node[above right, xshift=5pt] {$A$};
-            \shadedraw[ball color=gray!40] (B) circle (0.2) node[above right, xshift=5pt] {$B$};
+            \shadedraw[ball color=gris1!40] (A) circle (0.2) node[above right, xshift=5pt] {$A$};
+            \shadedraw[ball color=gris1!40] (B) circle (0.2) node[above right, xshift=5pt] {$B$};
             \node[ font=\footnotesize] at (A) {$m$};
             \node[ font=\footnotesize] at (B) {$m$};
 
             % Radio R (hacia B, auxiliar para mostrar geometría)
-            \draw[->, thin, gray] (O) -- (0,\R+0.2) node[midway,below right, black] {$R$};
+            \draw[->, thin, gris1!60] (O) -- (0,\R+0.2) node[midway,below right, black] {$R$};
             
             % Cota 2l
             \draw[|<->|] ($(A)+(0,-0.3)$) -- ($(B)+(0,-0.3)$) node[midway, below] {$2l$};
@@ -72,7 +72,7 @@ Una mancuerna constituida por dos partículas $A$ y $B$, de masa $m$ cada una, s
         \filldraw (O) circle (1.5pt) node[above left] {$O$};
         
         % Línea vertical referencia para theta
-        \draw[dashed, gray] (O) -- (0, -2.0);
+        \draw[dashed, gris1!60] (O) -- (0, -2.0);
         \draw[->] (0, -0.8) arc (-90:{-90-\ang}:0.8);
         \node at (-0.2, -1.1) {$\theta$};
 
@@ -80,7 +80,7 @@ Una mancuerna constituida por dos partículas $A$ y $B$, de masa $m$ cada una, s
         \draw[|->, thick] (0.5, -\BlockSize-0.5) -- (1.5, -\BlockSize-0.5) node[midway, above] {$x$};
         
         % Gravedad
-        \draw[->, thick] (3.5, 0.5) -- (3.5, -0.5) node[midway, right] {$\mathbf{g}$};
+        \draw[->, thick, myred] (3.5, 0.5) -- (3.5, -0.5) node[midway, right] {$\mathbf{g}$};
 
     \end{tikzpicture}
     \caption{Sistema de mancuerna deslizante dentro de un bloque móvil con cavidad circular.}

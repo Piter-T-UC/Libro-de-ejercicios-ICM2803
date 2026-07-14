@@ -22,7 +22,7 @@ Una partícula $A$ de masa $m/2$ se desplaza con una velocidad inicial $v_0$ hac
         \draw[thin] (-1.0, 0.4) -- (-0.6, 0.1);
 
         % --- Carro C ---
-        \draw[thick, fill=gray!10] (-\Wcar/2, 0.1) rectangle (\Wcar/2, \Hcar+0.1);
+        \draw[thick, fill=gris1!10] (-\Wcar/2, 0.1) rectangle (\Wcar/2, \Hcar+0.1);
         \node at (0.7, \Hcar/2+0.1) {$C$};
         
         \coordinate (O) at (0, \Hcar-0.1);
@@ -30,19 +30,19 @@ Una partícula $A$ de masa $m/2$ se desplaza con una velocidad inicial $v_0$ hac
 
         % --- Barra y Partícula B ---
         \draw[line width = 4pt] (O) -- (0, \Hcar-0.1-\Lbar);
-        \draw[line width = 3pt, gray!80, line cap = round] (O) -- (0, \Hcar-0.1-\Lbar);
-        \shadedraw[ball color=gray!30] (0, \Hcar-0.1-\Lbar) circle (0.18) node[right, xshift=5pt] {$B$};
+        \draw[line width = 3pt, gris1!60, line cap = round] (O) -- (0, \Hcar-0.1-\Lbar);
+        \shadedraw[ball color=gris1!30] (0, \Hcar-0.1-\Lbar) circle (0.18) node[right, xshift=5pt] {$B$};
         \node[left] at (0, \Hcar-0.1-\Lbar/2) {$l$};
         \filldraw (O) circle (0.6pt);
         
         % --- Partícula A ---
         \coordinate (A) at (-2.0, \Hcar-0.1-\Lbar);
-        \shadedraw[ball color=gray!30] (A) circle (0.18) node[left, xshift=-5pt] {$A$};
-        \draw[->, thick] (A) -- ++(0.7, 0) node[midway, above] {$\mathbf{v}_0$};
+        \shadedraw[ball color=gris1!30] (A) circle (0.18) node[left, xshift=-5pt] {$A$};
+        \draw[->, thick, azul] (A) -- ++(0.7, 0) node[midway, above] {$\mathbf{v}_0$};
         \node[above left, font=\small] at (-0.8, 0.8) {Sin Fricción};
 
         % --- Gravedad ---
-        \draw[->, thick] (2.2, 1.2) -- (2.2, 0.4) node[midway, right] {$\mathbf{g}$};
+        \draw[->, thick, myred] (2.2, 1.2) -- (2.2, 0.4) node[midway, right] {$\mathbf{g}$};
 
     \end{tikzpicture}
     \caption{Sistema de impacto inelástico entre una partícula proyectil y un péndulo montado sobre un carro móvil.}

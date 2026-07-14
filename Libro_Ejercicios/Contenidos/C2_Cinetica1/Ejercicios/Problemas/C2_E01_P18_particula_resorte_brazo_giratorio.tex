@@ -24,11 +24,11 @@ Una partícula de masa $m$ está unida a un resorte lineal con constante elásti
         % --- 1. Soporte y Pivote ---
         \fill[pattern=north east lines] (-0.5, 0) rectangle (0.5, 0.2);
         \draw[thick] (-0.5, 0) -- (0.5, 0);
-        \filldraw[gray] (O) circle (2pt);
+        \filldraw[gris1!60] (O) circle (2pt);
         \node[below left, xshift=-3pt] at (O) {$O$};
 
         % --- 2. Brazo Giratorio ---
-        \draw[line width=3pt, gray!40,line cap=round] (O) -- (P);
+        \draw[line width=3pt, gris1!40,line cap=round] (O) -- (P);
         \draw[thick,line cap=round ] (O) -- (P) node[midway, above right] {$l$};
         \filldraw (P) circle (0.5pt) node[below left, yshift=5pt] {$P$};
         \filldraw (O) circle (0.5pt);
@@ -41,8 +41,8 @@ Una partícula de masa $m$ está unida a un resorte lineal con constante elásti
 
         % --- 4. Cotas y Referencias ---
         % Referencia Vertical
-        \draw[dashed, gray] (O) -- (0, -2.0);
-        \draw[dashed, gray] (P) -- ++ (0, -2.0);
+        \draw[dashed, gris1!60] (O) -- (0, -2.0);
+        \draw[dashed, gris1!60] (P) -- ++ (0, -2.0);
         
         % Ángulo omega*t (Referido al brazo)
         \draw[->, thick] (0, -0.8) arc (-90:\ang:0.8);

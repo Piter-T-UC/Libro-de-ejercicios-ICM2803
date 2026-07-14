@@ -21,13 +21,13 @@ Una abrazadera de masa $m$ se desliza sin fricción a lo largo de una varilla r�
         \begin{scope}[shift={(0,\L)}]
             \fill[pattern=north east lines] (-0.4,0) rectangle (0.4,0.2);
             \draw[thick] (-0.4,0) -- (0.4,0);
-            %\filldraw[fill=gray!20] (0,0.1) arc (90:270:0.15) -- (0,-0.15) arc (-90:90:0.15);
+            %\filldraw[fill=gris1!20] (0,0.1) arc (90:270:0.15) -- (0,-0.15) arc (-90:90:0.15);
             \filldraw (0,0) circle (1.5pt) node[below left, xshift=1pt] {$O$};
         \end{scope}
 
         % --- 2. Varilla Horizontal ---
         \draw[line width=7.4pt, black] (-\Wvarilla, 0) -- (\Wvarilla, 0);
-        \draw[line width=6pt, gray!30] (-\Wvarilla, 0) -- (\Wvarilla, 0);
+        \draw[line width=6pt, gris1!30] (-\Wvarilla, 0) -- (\Wvarilla, 0);
         % Paredes laterales de la varilla
         \fill[pattern=north east lines] (-\Wvarilla-0.2, -0.4) rectangle (-\Wvarilla, 0.4);
         \draw[thick] (-\Wvarilla, -0.4) -- (-\Wvarilla, 0.4);
@@ -46,11 +46,11 @@ Una abrazadera de masa $m$ se desliza sin fricción a lo largo de una varilla r�
         \node[right, xshift=5pt] at (\xpos/2, \L/2) {$K$};
 
         % --- 5. Abrazadera (Masa m) ---
-        \shadedraw[ball color=gray!30] (\xpos, 0) ellipse (0.15 and 0.15);
+        \shadedraw[ball color=gris1!30] (\xpos, 0) ellipse (0.15 and 0.15);
         \node[above right, yshift=2pt] at (\xpos, 0) {$m$};
 
         % --- 6. Vector Gravedad (Ausencia indicada) ---
-        %\draw[->, thick] (2.2, 1.8) -- (2.2, 1.2) node[midway, right] {$\mathbf{g} = 0$};
+        %\draw[->, thick, myred] (2.2, 1.8) -- (2.2, 1.2) node[midway, right] {$\mathbf{g} = 0$};
 
     \end{tikzpicture}
     \caption{Sistema de una abrazadera de masa $m$ bajo la acción de un resorte lineal en una guía horizontal.}

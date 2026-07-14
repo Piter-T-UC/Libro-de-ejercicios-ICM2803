@@ -26,14 +26,14 @@ Una partícula de masa $m_A$ se desliza sin fricción a lo largo de una barra r�
         % --- 1. Rieles y Soportes ---
         % Riel Horizontal
         \draw[line width=4pt] (0, -\RailLen)--(0,0) -- (\RailLen, 0);
-        \draw[line width=3pt, gray!40] (0, -\RailLen)--(0,0) -- (\RailLen, 0);
+        \draw[line width=3pt, gris1!40] (0, -\RailLen)--(0,0) -- (\RailLen, 0);
         \draw[] (0, -\RailLen)--(0,0) -- (\RailLen, 0);
         % Soporte pared derecha
         \fill[pattern=north east lines] (\RailLen, -0.2) rectangle (\RailLen+0.2, 0.2);
         \draw[thick] (\RailLen, -0.2) -- (\RailLen, 0.2);
 
         % Riel Vertical
-        %\draw[line width=3pt, gray!40] (0,0) -- (0, -\RailLen);
+        %\draw[line width=3pt, gris1!40] (0,0) -- (0, -\RailLen);
         %\draw[thick] (0,0) -- (0, -\RailLen);
         % Soporte suelo inferior
         \fill[pattern=north east lines] (-0.2, -\RailLen) rectangle (0.2, -\RailLen-0.2);
@@ -44,27 +44,27 @@ Una partícula de masa $m_A$ se desliza sin fricción a lo largo de una barra r�
 
         % --- 2. Brazo de conexión ---
         \draw[line width=3pt] (A) -- (B) node[midway, above left] {$l$};
-        \draw[line width=2pt, gray!40] (A) -- (B);
+        \draw[line width=2pt, gris1!40] (A) -- (B);
 
         % --- 3. Masas (Correderas) ---
         % Masa B (Horizontal) - Dibujada como elipse achatada
-        \filldraw[fill=gray!20, draw=black, thick] (B) ellipse (0.2 and 0.2);
+        \filldraw[fill=gris1!20, draw=black, thick] (B) ellipse (0.2 and 0.2);
         \node[above left, yshift=5pt] at (B) {$m_B$};
         \node[below right, yshift=-5pt, font=\footnotesize] at (B) {$B$};
 
         % Masa A (Vertical) - Dibujada como elipse achatada verticalmente
-        \filldraw[fill=gray!20, draw=black, thick] (A) ellipse (0.2 and 0.2);
+        \filldraw[fill=gris1!20, draw=black, thick] (A) ellipse (0.2 and 0.2);
         \node[above left, xshift=-5pt] at (A) {$m_A$};
         \node[below right, xshift=5pt, font=\footnotesize] at (A) {$A$};
 
         % --- 4. Ángulo theta ---
         % Arco desde la horizontal (izquierda de B) hacia la barra
-       % \draw[dashed, gray] (O) -- (B); 
+       % \draw[dashed, gris1!60] (O) -- (B); 
         \draw[->, thick] ($(B)+(-0.8,0)$) arc (180:{180+\ang}:0.8);
         \node at ($(B)+(-1.1, -0.3)$) {$\theta$};
 
         % --- 5. Gravedad ---
-        \draw[->, thick] (3, -2.0) -- (3, -3.0) node[midway, right] {$\mathbf{g}$};
+        \draw[->, thick, myred] (3, -2.0) -- (3, -3.0) node[midway, right] {$\mathbf{g}$};
 
     \end{tikzpicture}
     \caption{Sistema de dos partículas deslizantes conectadas por una barra rígida de longitud $l$.}

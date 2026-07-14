@@ -20,11 +20,11 @@ Un disco sin masa de radio $R$ rueda sin resbalar a una velocidad angular consta
         % Suelo (Hachurado)
         \fill[pattern=north east lines] (-3, -\R-0.2) rectangle (3, -\R);
         \draw[thick] (-3, -\R) -- (3, -\R);
-        \node[right] at (1.5, -\R+0.3) {Sin dezlizamiento};
+        \node[right] at (1.5, -\R+0.3) {Sin deslizamiento};
         
         % Disco
 % Disco con sombreado radial para mayor realismo
-        \draw[thick, inner color=gray!5, outer color=gray!30] (0,0) circle (\R);
+        \draw[thick, inner color=gris1!5, outer color=gris1!30] (0,0) circle (\R);
         
         % Opcional: un borde más marcado
         \draw[thick] (0,0) circle (\R);
@@ -56,7 +56,7 @@ Un disco sin masa de radio $R$ rueda sin resbalar a una velocidad angular consta
         \node at (25:1.3) {$\omega t$};
         
         % Vector Gravedad
-        \draw[->, thick] (2.5, 1.5) -- (2.5, 0.5) node[midway, left] {$\mathbf{g}$};
+        \draw[->, thick, myred] (2.5, 1.5) -- (2.5, 0.5) node[midway, left] {$\mathbf{g}$};
 
     \end{tikzpicture}
     \caption{Partícula dentro de círculo}

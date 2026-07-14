@@ -26,10 +26,10 @@ Una partícula $A$ de masa $m$ se une a un extremo de una cuerda de longitud $R$
             % Superficie inclinada (Trayectoria elíptica por perspectiva)
          
                 \draw[very thick] (0.7,0.3)--(1.75,0.75);
-                \shadedraw[ball color=gray!30] (0.7,0.3) circle (2.5pt) node[above left] {$A$};
+                \shadedraw[ball color=gris1!30] (0.7,0.3) circle (2.5pt) node[above left] {$A$};
                 \filldraw[black] (1.75,0.75) circle (1pt);
             % Vector Gravedad
-            \draw[->, thick] (-0.3, 1.2) -- (-0.3, 0.4) node[midway, left] {$\mathbf{g}$};
+            \draw[->, thick, myred] (-0.3, 1.2) -- (-0.3, 0.4) node[midway, left] {$\mathbf{g}$};
         \end{tikzpicture}
         \vfill
         \small (a) Vista lateral de la cuña.
@@ -44,14 +44,14 @@ Una partícula $A$ de masa $m$ se une a un extremo de una cuerda de longitud $R$
             
             % Trayectoria circular real
             \draw[dashed, thick] (0,0) circle (\R);
-            \draw[gray!50] (-\R-0.3, 0) -- (\R+0.3, 0); % Línea horizontal del plano
+            \draw[gris1!50] (-\R-0.3, 0) -- (\R+0.3, 0); % Línea horizontal del plano
             
             % Centro y Partícula
             \coordinate (O) at (0,0);
             \coordinate (A) at (\angT:\R);
             \filldraw (O) circle (1.5pt);
             \draw[thick] (O) -- (A) node[midway, below left] {$R$};
-            \shadedraw[ball color=gray!30] (A) circle (3.5pt) node[above left] {$m$};
+            \shadedraw[ball color=gris1!30] (A) circle (3.5pt) node[above left] {$m$};
             
             % Punto B (Cénit)
             \filldraw (0, \R) circle (1.5pt) node[above] {$B$};

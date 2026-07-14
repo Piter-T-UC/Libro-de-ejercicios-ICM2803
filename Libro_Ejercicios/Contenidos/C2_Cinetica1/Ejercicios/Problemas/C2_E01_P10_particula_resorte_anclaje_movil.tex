@@ -23,7 +23,7 @@ Una partícula de masa $m$ está unida a un resorte lineal con constante elásti
         
         % --- 1. Guía horizontal y soportes ---
         \draw[line width=3pt, black] (-\guideW, 0) -- (\guideW, 0);
-        \draw[line width=2.5pt, gray!40] (-\guideW, 0) -- (\guideW, 0);
+        \draw[line width=2.5pt, gris1!40] (-\guideW, 0) -- (\guideW, 0);
         % Soporte Izquierdo
         \fill[pattern=north east lines] (-\guideW-0.3, -0.4) rectangle (-\guideW, 0.4);
         \draw[thick] (-\guideW, -0.4) -- (-\guideW, 0.4);
@@ -32,7 +32,7 @@ Una partícula de masa $m$ está unida a un resorte lineal con constante elásti
         \draw[thick] (\guideW, -0.4) -- (\guideW, 0.4);
 
         % --- 2. Abrazadera O ---
-        \shadedraw[ball color=gray!10, draw=black] (O) ellipse (0.15 and 0.15);
+        \shadedraw[ball color=gris1!10, draw=black] (O) ellipse (0.15 and 0.15);
         \node[below left, xshift=-2pt] at (O) {$O$};
         \draw[black] (O) circle (0.15);
 
@@ -44,7 +44,7 @@ Una partícula de masa $m$ está unida a un resorte lineal con constante elásti
 
         % --- 4. Resorte y Coordenadas ---
         % Línea de referencia vertical
-        \draw[dashed, gray] (O) -- ++(0, -3.5);
+        \draw[dashed, gris1!60] (O) -- ++(0, -3.5);
         
         % Resorte
         \draw[decoration={aspect=0.4, segment length=3mm, amplitude=3mm, coil}, decorate, thick] (O) -- (P);
@@ -58,12 +58,12 @@ Una partícula de masa $m$ está unida a un resorte lineal con constante elásti
         \draw[|<->|, thin] ($(O)+(0.4, 0.2)$) -- ($(P)+(0.4, 0.2)$) node[midway, above right] {$r$};
 
         % --- 5. Partícula P ---
-        \shadedraw[ball color=gray!30] (P) circle (0.2);
+        \shadedraw[ball color=gris1!30] (P) circle (0.2);
         \node at (P) {$m$};
         \node[right, xshift=10pt] at (P) {$P$};
 
         % --- 6. Vector de gravedad ---
-        \draw[->, thick] (-2.5, -1.5) -- (-2.5, -2.5) node[midway, left] {$\mathbf{g}$};
+        \draw[->, thick, myred] (-2.5, -1.5) -- (-2.5, -2.5) node[midway, left] {$\mathbf{g}$};
 
     \end{tikzpicture}
     \caption{Esquema de una partícula $m$ acoplada a un resorte con soporte móvil $x(t)$.}

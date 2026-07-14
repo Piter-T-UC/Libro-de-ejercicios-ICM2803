@@ -36,17 +36,17 @@ Una mancuerna está compuesta por dos partículas $A$ y $B$, cada una de masa $m
         \fill[pattern=north east lines] (0, -0.3) rectangle (\floorW, 0);
 
         % --- 2. Barra ---
-        \draw[line width=3pt, gray!40] (A) -- (B);
+        \draw[line width=3pt, gris1!40] (A) -- (B);
         \draw[thick] (A) -- (B) node[midway, above right] {$l$};
 
         % --- 3. Masas ---
         % Masa A
-        \shadedraw[ball color=gray!30] (A) circle (0.25);
+        \shadedraw[ball color=gris1!30] (A) circle (0.25);
         \node[left, xshift=-5pt] at (A) {$A$};
         \node[white, font=\footnotesize] at (A) {$m$};
 
         % Masa B
-        \shadedraw[ball color=gray!30] (B) circle (0.25);
+        \shadedraw[ball color=gris1!30] (B) circle (0.25);
         \node[below, yshift=-5pt] at (B) {$B$};
         \node[white, font=\footnotesize] at (B) {$m$};
 
@@ -58,7 +58,7 @@ Una mancuerna está compuesta por dos partículas $A$ y $B$, cada una de masa $m
         \node at ({0.5*sin(\ang/2)}, {\Lrod*cos(\ang)-1.0}) {$\theta$};
 
         % --- 5. Gravedad ---
-        \draw[->, thick] (2.0, 2.0) -- (2.0, 1.0) node[midway, right] {$\mathbf{g}$};
+        \draw[->, thick, myred] (2.0, 2.0) -- (2.0, 1.0) node[midway, right] {$\mathbf{g}$};
 
     \end{tikzpicture}
     \caption{Diagrama de cuerpo libre de una mancuerna deslizándose apoyada en una esquina.}
