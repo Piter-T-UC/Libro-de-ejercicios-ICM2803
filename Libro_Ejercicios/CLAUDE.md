@@ -16,6 +16,7 @@ Contenidos/
 ├── C3_Cinetica2/           # Chapter 3: Kinetics Part 2
 ├── C4_CuerposRigidos/      # Chapter 4: Rigid Bodies
 ├── C5_MecanicaLagrangiana/ # Chapter 5: Lagrangian Mechanics
+├── C6_Soluciones/          # Chapter 6: Solutions (consolidated, one section per chapter)
 └── Figuras/                # Global figures (e.g., title page graphics)
 
 Paquetes/                   # LaTeX packages and styling
@@ -31,9 +32,20 @@ Build/                      # Compiled PDF and temporary files (generated)
 Every chapter `CN_[Name]/` contains:
 - `CN_00_introduccion.tex` - Introduction with key concepts and objectives
 - `CN_0X_tema.tex` - Theoretical sections (if needed)
+- `Ejercicios/CN_E0Y_problemas.tex` - Theme aggregator (`\input`s the problem files)
 - `Ejercicios/Problemas/` - Individual exercise files
-- `Ejercicios/Soluciones/` - Solution files
+- `Ejercicios/Soluciones/` - Solution files (physically live here, but their `\input`
+  wiring is centralized in the C6 Soluciones chapter — see below)
 - `Figuras/` - Chapter-specific figures (manifest.json + images)
+
+### Solutions Chapter (C6)
+
+All worked solutions are consolidated into **`C6_Soluciones/`**, a dedicated chapter at the
+end of the book, with **one `\section` per source chapter** (Cinemática, Cinética partícula,
+Cinética sistemas, Cuerpo Rígido, Lagrangiana). The solution `.tex` files themselves stay in
+each chapter's `Ejercicios/Soluciones/` folder; only the `\input` wiring lives in
+`C6_Soluciones/C6_soluciones.tex`. The per-theme aggregators (`CN_E0Y_problemas.tex`) therefore
+wire **problems only** — do NOT re-add inline "Soluciones" subsections to them.
 
 ## Building & Compilation
 
@@ -149,14 +161,24 @@ Contenidos/CX_[Name]/Ejercicios/Problemas/CX_E[YY]_P[ZZ]_titulo.tex
 
 ### Step 4: Create Solution
 ```
-Contenidos/CX_[Name]/Ejercicios/Soluciones/CX_E[YY]_solucion.tex
+Contenidos/CX_[Name]/Ejercicios/Soluciones/CX_E[YY]_P[ZZ]_solucion.tex
 ```
 ```latex
-\begin{sol}[Tema: Nombre del Tema]
-\subsubsection*{Problema ZZ: Título}
+\begin{sol}[Título descriptivo del problema]
+\subsubsection*{Pregunta 1: ...}
 [Step-by-step solution]
 \end{sol}
 ```
+Then wire it into the matching chapter section of
+`Contenidos/C6_Soluciones/C6_soluciones.tex` (with a `\clearpage` after it), NOT into the
+per-theme `CN_E0Y_problemas.tex` aggregator. The `sol` environment (defined in `Dinamica.sty`)
+is a numbered `tcolorbox` that takes the title as an optional argument.
+
+**TikZ, not raster:** all figures — in both problems and solutions — must be native TikZ.
+Do not use `\includegraphics`; if a source has a raster image, redraw it as a `tikzpicture`
+in the house style. Note that Spanish `babel` makes `"` an active character, so the
+`\pic [..., "$\theta$", ...] {angle=...}` quotes syntax breaks — draw angle arcs with
+`\draw ... arc (...)` + a `\node` label instead.
 
 ### Step 5: Update Figure Manifest
 Edit `Contenidos/CX_[Name]/Figuras/manifest.json` to register any new figures with metadata.
@@ -186,12 +208,15 @@ The book maintains a specific visual identity (intentionally preserved):
 
 ## Git Workflow
 
-### Initial Setup (after first push to GitHub)
-```bash
-git remote add origin https://github.com/[USERNAME]/Libro_Ejercicios.git
-git branch -M main
-git push -u origin main
-```
+### Remote & repo root
+The project is already pushed to GitHub:
+`https://github.com/Piter-T-UC/Libro-de-ejercicios-ICM2803.git` (remote `origin`, branch `main`).
+
+**Important:** the git repository root is the **parent** directory `E:/Claude`, not the book
+folder `E:/Claude/Libro_Ejercicios`. Git commands therefore see paths prefixed with
+`Libro_Ejercicios/`, and sibling folders (`MecaPy/`, `PDF-MD/`) are also inside the repo. When
+committing book changes, stage explicit `Libro_Ejercicios/...` paths so unrelated sibling
+changes are not swept in.
 
 ### Adding Exercises
 ```bash
@@ -222,14 +247,17 @@ Detailed explanation if needed.
 
 | Capítulo | Tema | Status | Ejercicios |
 |----------|------|--------|-----------|
-| C0 | Repaso (Álgebra & Cálculo) | Partial | 12 (ref. to old structure) |
-| C1 | Cinemática | Partial | 19+ (existing, needs migration) |
-| C2 | Cinética 1 | Partial | 19 existing |
-| C3 | Cinética 2 | Partial | 15 existing |
-| C4 | Cuerpos Rígidos | Framework | Ready for exercises |
-| C5 | Mecánica Lagrangiana | Framework | Ready for exercises |
+| C0 | Repaso (Álgebra & Cálculo) | Migrated | 12 (not yet wired into main.tex) |
+| C1 | Cinemática | Migrated | ~30 across 5 temas |
+| C2 | Cinética 1 (Partícula) | Migrated | 20 (P01–P20) |
+| C3 | Cinética 2 (Sistema) | Migrated | 14 (P01–P14) |
+| C4 | Cuerpo Rígido | Populated | 10 (P01–P10) |
+| C5 | Mecánica Lagrangiana | Populated | 8 (P01–P08) |
+| C6 | Soluciones | Active | Consolidated solutions, 1 section/chapter |
 
-**Current Focus**: Migrate existing exercises from old naming (`Capitulo X: Name/`) to new structure (`CX_Name/`) while maintaining content integrity.
+**Solutions coverage**: Full worked solutions currently exist for C4 (P01–P10) and
+C5 (P01–P08); partial for C1 (P13, P14) and C2 (P20 + a model solution). C3 has none yet.
+All of these are wired through the C6 chapter.
 
 ## Key Files to Know
 
@@ -262,13 +290,15 @@ Remember to update:
 2. Any `\input{}` statements that reference it
 3. The `manifest.json` in the chapter's `Figuras/` directory
 
-## Next Steps (Post-Initial Setup)
+## Next Steps
 
-1. **Migrate Exercises**: Move files from old structure to new structure while updating nomenclature
-2. **Standardize Chapter Includes**: Update `main.tex` to include exercise sections once migration is complete
-3. **Add C4 & C5 Exercises**: Populate Rigid Bodies and Lagrangian Mechanics with problems
-4. **Push to GitHub**: Initialize remote repository and push all commits
+1. **Wire C0 into main.tex**: C0 Repaso has exercises/solutions on disk but is not yet included.
+2. **Expand solution coverage**: author solutions for C1 (beyond P13/P14), C2 and C3, and add
+   their `\input` wiring to the matching section of `C6_Soluciones/C6_soluciones.tex`.
+3. **Grow C4/C5**: continue adding rigid-body and Lagrangian problems as new `P[ZZ]` entries.
+4. **Keep C6 in sync**: every new solution file must be wired into its chapter section in C6.
 
 ---
 
-**Last Updated**: 2026-07-12 (Initial setup by Claude Code)
+**Last Updated**: 2026-07-14 (Added C6 Soluciones chapter; imported non-duplicate Ayudantías
+exercises into C2/C4/C5; consolidated all solution wiring into C6)
