@@ -1,0 +1,64 @@
+\subsubsection{Carro con cilindro rodante acoplado por un resorte}
+
+Un carro de masa $m$ se desliza sin fricción sobre una superficie horizontal, accionado por
+una fuerza horizontal $f_1(t)$, como se muestra en la Figura \ref{fig:c4_e01_p08_carro_cilindro}.
+Sobre el carro, un cilindro uniforme de masa $m$ y radio $r$ rueda sin resbalar y está ligado
+elásticamente por un resorte de constante $k$ y longitud natural $\ell_0$ a la pared del carro.
+Las coordenadas $x_1$ y $x_2$ describen, respectivamente, la posición del carro respecto al
+suelo y el largo del resorte (posición del cilindro relativa al carro). La gravedad actúa hacia
+abajo.
+
+\begin{enumerate}
+    \item Demuestre que el momento de inercia del cilindro respecto a su eje es
+          $I_{zz}=\tfrac12 mr^2$.
+    \item Determine las ecuaciones de movimiento del sistema ($\ddot{x}_1$ y $\ddot{x}_2$).
+\end{enumerate}
+
+\begin{figure}[!ht]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.2]
+
+        % --- PARAMETROS ---
+        \def\r{0.8}      % Radio del cilindro
+
+        % --- SUELO ---
+        \draw[thick] (-2.2,0) -- (6.2,0);
+
+        % --- RUEDAS DEL CARRO (rodillos) ---
+        \foreach \x in {-1.5,-1.0,-0.5,0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5} {
+            \draw (\x,0.12) circle (0.12);
+        }
+
+        % --- CARRO EN L ---
+        \draw[thick, fill=gray!15] (-1.7,0.24) rectangle (5.4,0.5);      % base
+        \draw[thick, fill=gray!15] (-1.7,0.5) rectangle (-1.35,2.6);     % pared
+        \node at (-1.52,1.0) {$m$};
+
+        % --- CILINDRO ---
+        \coordinate (C) at (3.2,{0.5+\r});
+        \draw[thick, fill=gray!25] (C) circle (\r);
+        \filldraw (C) circle (1pt);
+        \draw (C) -- ++(35:\r) node[midway, above left=-3pt] {$r$};
+        \node at (3.2,0.9) {$m$};
+
+        % --- RESORTE pared -> centro cilindro ---
+        \draw[thick, decoration={coil, aspect=0.5, segment length=5pt, amplitude=4pt, pre length=4pt, post length=4pt}, decorate]
+            (-1.35,{0.5+\r}) -- (C);
+        \node at (0.9,{0.5+\r+0.35}) {$k$};
+
+        % --- FUERZA f1 ---
+        \draw[->, very thick] (-2.6,1.4) -- (-1.72,1.4) node[midway, above] {$f_1(t)$};
+
+        % --- COORDENADAS ---
+        \draw[->] (-1.35,2.35) -- (-0.2,2.35) node[right] {$x_1$};
+        \draw[->] (C) ++(0,0.95) -- ++(0.9,0) node[right] {$x_2$};
+        \draw[dashed, gray] (C) -- ++(0,1.05);
+
+        % --- ANOTACION rodadura ---
+        \node[font=\small] at (5.0,0.95) {rueda sin resbalar};
+        \draw (4.55,0.78) -- (3.85,0.53);
+
+    \end{tikzpicture}
+    \caption{Cilindro de masa $m$ que rueda sin resbalar sobre un carro de masa $m$, ligado a su pared por un resorte.}
+    \label{fig:c4_e01_p08_carro_cilindro}
+\end{figure}

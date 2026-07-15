@@ -1,0 +1,73 @@
+\begin{sol}[Péndulo doble de dos varillas rígidas]
+
+\subsubsection*{Pregunta 1: Grados de libertad}
+
+El sistema tiene dos cuerpos rígidos que se mueven en el plano vertical, articulados en
+serie. Cada articulación introduce un grado de libertad rotacional, de modo que el sistema
+posee \textbf{dos grados de libertad}, descritos por las coordenadas generalizadas
+$\{\theta_1,\theta_2\}$ medidas respecto a la vertical descendente.
+
+\subsubsection*{Pregunta 2: Posiciones y velocidades}
+
+Con origen en $O$, eje $x$ horizontal y eje $y$ vertical hacia arriba, el extremo inferior
+de la primera barra (punto $A$) y los centros de masa $G_1,G_2$ son:
+$$\vec{r}_{G_1} = \tfrac{\ell_1}{2}\big(\sin\theta_1,\,-\cos\theta_1\big),\qquad
+\vec{r}_{A} = \ell_1\big(\sin\theta_1,\,-\cos\theta_1\big),$$
+$$\vec{r}_{G_2} = \Big(\ell_1\sin\theta_1 + \tfrac{\ell_2}{2}\sin\theta_2,\;
+-\ell_1\cos\theta_1 - \tfrac{\ell_2}{2}\cos\theta_2\Big).$$
+
+Derivando respecto al tiempo se obtienen los cuadrados de las rapideces de los centros de
+masa:
+$$v_{G_1}^2 = \left(\tfrac{\ell_1}{2}\right)^2\dot\theta_1^2,\qquad
+v_{G_2}^2 = \ell_1^2\dot\theta_1^2 + \tfrac{\ell_2^2}{4}\dot\theta_2^2
++ \ell_1\ell_2\cos(\theta_1-\theta_2)\,\dot\theta_1\dot\theta_2.$$
+Las velocidades angulares de las barras son $\omega_1=\dot\theta_1$ y $\omega_2=\dot\theta_2$.
+
+\subsubsection*{Pregunta 3: Lagrangiano}
+
+La energía cinética de cada barra combina traslación de su centro de masa y rotación
+baricéntrica ($I_i=\tfrac{1}{12}m_i\ell_i^2$):
+$$T_1 = \tfrac12 m_1 v_{G_1}^2 + \tfrac12 I_1\dot\theta_1^2 = \tfrac16 m_1\ell_1^2\dot\theta_1^2,$$
+$$T_2 = \tfrac12 m_2 v_{G_2}^2 + \tfrac12 I_2\dot\theta_2^2
+= \tfrac12 m_2\ell_1^2\dot\theta_1^2 + \tfrac16 m_2\ell_2^2\dot\theta_2^2
++ \tfrac12 m_2\ell_1\ell_2\cos(\theta_1-\theta_2)\,\dot\theta_1\dot\theta_2.$$
+Sumando y agrupando:
+$$T = \tfrac12\left(\tfrac13 m_1 + m_2\right)\ell_1^2\,\dot\theta_1^2
++ \tfrac12\cdot\tfrac13 m_2\ell_2^2\,\dot\theta_2^2
++ \tfrac12 m_2\ell_1\ell_2\cos(\theta_1-\theta_2)\,\dot\theta_1\dot\theta_2.$$
+
+La energía potencial gravitatoria (nivel de referencia en $O$) es
+$$V = -\left(\tfrac12 m_1 + m_2\right)g\ell_1\cos\theta_1 - \tfrac12 m_2 g\ell_2\cos\theta_2.$$
+
+Por lo tanto, el Lagrangiano $\mathcal{L}=T-V$ es
+$$\boxed{\begin{aligned}
+\mathcal{L} ={}& \tfrac12\left(\tfrac13 m_1 + m_2\right)\ell_1^2\dot\theta_1^2
++ \tfrac16 m_2\ell_2^2\dot\theta_2^2
++ \tfrac12 m_2\ell_1\ell_2\cos(\theta_1-\theta_2)\dot\theta_1\dot\theta_2 \\
+&+ \left(\tfrac12 m_1 + m_2\right)g\ell_1\cos\theta_1 + \tfrac12 m_2 g\ell_2\cos\theta_2
+\end{aligned}}$$
+
+\subsubsection*{Pregunta 4: Ecuaciones de movimiento}
+
+Aplicando $\dfrac{d}{dt}\!\left(\dfrac{\partial\mathcal{L}}{\partial\dot\theta_i}\right)
+-\dfrac{\partial\mathcal{L}}{\partial\theta_i}=0$ y simplificando los términos de
+Coriolis, se obtienen las dos ecuaciones acopladas:
+$$\boxed{\begin{aligned}
+&\left(\tfrac13 m_1 + m_2\right)\ell_1^2\,\ddot\theta_1
++ \tfrac12 m_2\ell_1\ell_2\cos(\theta_1-\theta_2)\,\ddot\theta_2 \\
+&\quad + \tfrac12 m_2\ell_1\ell_2\sin(\theta_1-\theta_2)\,\dot\theta_2^2
++ \left(\tfrac12 m_1 + m_2\right)g\ell_1\sin\theta_1 = 0
+\end{aligned}}$$
+$$\boxed{\begin{aligned}
+&\tfrac13 m_2\ell_2^2\,\ddot\theta_2
++ \tfrac12 m_2\ell_1\ell_2\cos(\theta_1-\theta_2)\,\ddot\theta_1 \\
+&\quad - \tfrac12 m_2\ell_1\ell_2\sin(\theta_1-\theta_2)\,\dot\theta_1^2
++ \tfrac12 m_2 g\ell_2\sin\theta_2 = 0
+\end{aligned}}$$
+
+Para oscilaciones pequeñas ($\theta_i\ll1$, $\cos\approx1$, $\sin\approx\theta$ y términos
+cuadráticos en velocidad despreciables) el sistema se linealiza a la forma
+$\mathbf{M}\ddot{\boldsymbol\theta}+\mathbf{K}\boldsymbol\theta=0$, cuyos autovalores
+proporcionan los modos normales de vibración del péndulo doble.
+
+\end{sol}

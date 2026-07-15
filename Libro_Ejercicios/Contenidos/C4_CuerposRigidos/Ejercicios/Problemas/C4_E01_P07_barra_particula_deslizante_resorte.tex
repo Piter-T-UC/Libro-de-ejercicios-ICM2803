@@ -1,0 +1,66 @@
+\subsubsection{Barra pivotada con partícula deslizante y resorte}
+
+Una partícula de masa $m$ se desliza sin fricción a lo largo de una barra homogénea de masa
+$M$ y longitud $L$, la cual pivota libremente en torno a una bisagra fija en el punto $O$,
+como se muestra en la Figura \ref{fig:c4_e01_p07_barra_particula}. La partícula está unida al
+pivote $O$ mediante un resorte lineal de constante elástica $K$ y longitud natural $r_0$. La
+distancia $r$ describe la posición de la partícula respecto a $O$, el ángulo $\theta$ describe
+la orientación de la barra respecto a la vertical descendente, y la gravedad actúa hacia abajo.
+
+\begin{enumerate}
+    \item Demuestre que el momento de inercia de la barra respecto al eje de giro en $O$ es
+          $I_{zz}=\tfrac13 ML^2$.
+    \item Determine las ecuaciones diferenciales de movimiento del sistema
+          ($\ddot{\theta}$ y $\ddot{r}$).
+\end{enumerate}
+
+\begin{figure}[!ht]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.4]
+
+        % --- PARAMETROS ---
+        \def\ang{35}     % Angulo de la barra respecto a la vertical
+        \def\Lbar{3.6}   % Largo de la barra
+        \def\rm{2.4}     % Distancia O a particula
+
+        % --- SOPORTE FIJO (techo) ---
+        \fill[pattern=north east lines] (-0.9,0) rectangle (0.4,0.18);
+        \draw[thick] (-0.9,0) -- (0.4,0);
+
+        % --- PIVOTE O ---
+        \coordinate (O) at (0,0);
+
+        % --- DIRECCION DE LA BARRA ---
+        \coordinate (End) at ({\Lbar*sin(\ang)}, {-\Lbar*cos(\ang)});
+        \coordinate (Pm)  at ({\rm*sin(\ang)},  {-\rm*cos(\ang)});
+
+        % --- BARRA (cuerpo rigido) ---
+        \draw[line width=5pt, line cap=round, gray!55] (O) -- (End);
+        \node[below right] at (End) {$M,\,L$};
+
+        % --- RESORTE de O a la particula ---
+        \draw[thick, decoration={coil, aspect=0.5, segment length=4pt, amplitude=3.2pt, pre length=3pt, post length=3pt}, decorate] (O) -- (Pm);
+        \node at ({0.55*sin(\ang)-0.35},{-0.55*cos(\ang)}) {$K$};
+
+        % --- PARTICULA m ---
+        \filldraw[fill=gris1!30, thick] (Pm) circle (3.2pt);
+        \node[below left=1pt] at (Pm) {$m$};
+
+        % --- PIVOTE ---
+        \filldraw (O) circle (1.6pt) node[above left=-1pt] {$O$};
+
+        % --- VERTICAL DE REFERENCIA Y ANGULO ---
+        \draw[dashed] (O) -- (0,-2.4);
+        \draw[->] (0,-1.2) arc (-90:{-90+\ang}:1.2);
+        \node at ({-90+\ang/2}:1.45) {$\theta$};
+
+        % --- COTA r (paralela a la barra) ---
+        \draw[<->] ($(O)+({0.42*cos(\ang)},{0.42*sin(\ang)})$) -- ($(End)+({0.42*cos(\ang)},{0.42*sin(\ang)})$) node[midway, above right] {$r$};
+
+        % --- GRAVEDAD ---
+        \draw[->, thick] (2.3,-0.2) -- (2.3,-1.0) node[right, midway] {$\mathbf{g}$};
+
+    \end{tikzpicture}
+    \caption{Barra homogénea $M,L$ pivotada en $O$ con una partícula $m$ que desliza sobre ella, ligada a $O$ por un resorte.}
+    \label{fig:c4_e01_p07_barra_particula}
+\end{figure}

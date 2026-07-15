@@ -1,0 +1,66 @@
+\subsubsection{Partícula atada a una cuerda sobre un plano inclinado}
+
+Una partícula $A$ de masa $m$ está unida a un extremo de una cuerda ideal de longitud $R$,
+cuyo otro extremo se fija a un punto del plano. La partícula describe una circunferencia de
+radio $R$ contenida en un plano inclinado un ángulo $\phi$ respecto a la horizontal, como se
+muestra en la Figura \ref{fig:c2_e01_p20_cuna}. El ángulo $\theta$ mide la posición angular
+de la partícula sobre la circunferencia, medido desde el punto más alto $B$. Existe un
+coeficiente de fricción deslizante $\mu_c$ entre $A$ y la superficie inclinada, la gravedad
+actúa verticalmente hacia abajo, y la partícula pasa por el punto $B$ con rapidez $v_0$
+tangente a la circunferencia.
+
+\begin{enumerate}
+    \item Defina marcos de referencia y sistemas de coordenadas apropiados.
+    \item Determine la ecuación diferencial que gobierna el ángulo $\theta$.
+    \item Calcule la rapidez $v_0$ mínima en $B$ necesaria para dar exactamente una vuelta
+          completa.
+\end{enumerate}
+
+\begin{figure}[!ht]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.1]
+
+        % --- VISTA EN PLANTA (plano inclinado en perspectiva) ---
+        % --- PARAMETROS ---
+        \def\Rx{2.6}   % semieje mayor (perspectiva)
+        \def\Ry{1.1}   % semieje menor (perspectiva)
+        \def\ang{125}  % angulo theta de A
+
+        % Contorno del plano inclinado (paralelogramo)
+        \draw[thick] (-3.4,-1.7) -- (3.4,-1.7) -- (4.2,1.7) -- (-2.6,1.7) -- cycle;
+
+        % Circunferencia (trayectoria) en perspectiva
+        \draw[dashed] (0,0) ellipse ({\Rx} and {\Ry});
+
+        % Centro y punto B (mas alto)
+        \coordinate (O) at (0,0);
+        \coordinate (B) at (0,\Ry);
+        \coordinate (A) at ({\Rx*cos(\ang)},{\Ry*sin(\ang)});
+        \filldraw (O) circle (1pt);
+        \filldraw (B) circle (1.5pt) node[above] {$B$};
+        \filldraw (A) circle (1.5pt) node[left] {$A\;(m)$};
+
+        % Cuerda y referencia
+        \draw[thick] (O) -- (A) node[midway, below] {$R$};
+        \draw[dashed] (O) -- (B);
+
+        % Angulo theta
+        \draw[->] (0,0.7) arc (90:\ang:0.7);
+        \node at (155:1.05) {$\theta$};
+
+        % --- VISTA LATERAL (cuña) ---
+        \begin{scope}[shift={(7.2,-1.2)}]
+            \draw[thick] (0,0) -- (3.2,0) -- (3.2,1.7) -- cycle;
+            \draw[->] (0.55,0) arc (0:28:0.55);
+            \node at (0.95,0.18) {$\phi$};
+            \filldraw (1.5,0.8) circle (1.2pt);
+            \filldraw (2.1,1.12) circle (1.2pt) node[above left=-1pt] {$B$};
+            \node at (1.55,1.15) {$R$};
+            \draw[->, thick] (-0.4,1.6) -- (-0.4,0.8) node[midway,left] {$g$};
+            \node[font=\small] at (1.6,-0.45) {vista lateral};
+        \end{scope}
+
+    \end{tikzpicture}
+    \caption{Partícula $A$ que recorre una circunferencia de radio $R$ sobre un plano inclinado un ángulo $\phi$; vista en planta y vista lateral.}
+    \label{fig:c2_e01_p20_cuna}
+\end{figure}

@@ -1,0 +1,70 @@
+\subsubsection{Roca esférica empujada por una topadora cuesta arriba}
+
+Una topadora empuja una roca de masa $m$ con una fuerza conocida $\mathbf{P}$ cuesta arriba
+por una ladera inclinada un ángulo constante $\beta$, como se muestra en la Figura
+\ref{fig:c4_e01_p09_topadora}. La roca se modela como una esfera uniforme de masa $m$ y radio
+$r$. Se sabe que la roca rueda sin deslizar sobre la ladera, que el coeficiente de fricción
+dinámica de Coulomb entre la hoja de la topadora y la roca es $\mu$, que la fuerza
+$\mathbf{P}$ es paralela a la pendiente y pasa por el centro de la roca, y que la gravedad
+actúa verticalmente hacia abajo.
+
+\begin{enumerate}
+    \item Determine la ecuación diferencial de movimiento de la roca en términos del
+          desplazamiento $x$ a lo largo de la pendiente.
+\end{enumerate}
+
+\textbf{Pista:} el momento de inercia de una esfera maciza uniforme respecto a un eje por su
+centro es $I=\tfrac25 mr^2$.
+
+\begin{figure}[!ht]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.1]
+
+        % --- PARAMETROS ---
+        \def\B{28}       % Angulo de la ladera
+        \def\r{0.7}      % Radio de la roca
+
+        % --- SUELO HORIZONTAL ---
+        \draw[thick] (-0.3,0) -- (7.5,0);
+
+        % --- LADERA (rotada) ---
+        \begin{scope}[rotate=\B]
+            % superficie inclinada
+            \draw[thick] (0,0) -- (7.2,0);
+            \foreach \x in {0.3,0.7,...,7.0} { \draw (\x,0) -- ++(-0.18,-0.18); }
+
+            % roca (esfera)
+            \coordinate (O) at (3.4,\r);
+            \draw[thick, fill=gray!20] (O) circle (\r);
+            \filldraw (O) circle (1pt) node[above right=-1pt] {$O$};
+            \draw (O) -- ++(-40:\r) node[midway, below left=-3pt] {$r$};
+
+            % hoja de la topadora (placa) del lado cuesta abajo
+            \draw[line width=2.5pt, gris1] ({3.4-\r-0.05},-0.05) -- ({3.4-\r-0.05},{2*\r});
+            \node[gris1] at ({3.4-\r-0.6},{1.5*\r}) {topadora};
+
+            % fuerza P paralela a la pendiente por el centro
+            \draw[->, very thick, myred] ($(O)+(-1.6,0)$) -- ($(O)+(-0.75,0)$) node[midway, above] {$\mathbf{P}$};
+
+            % coordenada x a lo largo de la pendiente
+            \draw[->] (4.6,-0.9) -- (5.6,-0.9) node[right] {$x$};
+
+            % contacto sin deslizar
+            \node[font=\small] at (5.2,0.5) {no desliza};
+            \draw (4.9,0.35) -- (3.9,0.02);
+
+            % friccion en la hoja
+            \node[font=\small] at (2.0,{2.2*\r}) {fricción $\mu$};
+        \end{scope}
+
+        % --- ANGULO BETA ---
+        \draw[->] (1.6,0) arc (0:\B:1.6);
+        \node at ({\B/2}:1.85) {$\beta$};
+
+        % --- GRAVEDAD ---
+        \draw[->, thick] (7.0,2.2) -- (7.0,1.4) node[right, midway] {$\mathbf{g}$};
+
+    \end{tikzpicture}
+    \caption{Roca esférica ($m,r$) empujada con fuerza $\mathbf{P}$ paralela a una ladera de inclinación $\beta$; rueda sin deslizar sobre la ladera.}
+    \label{fig:c4_e01_p09_topadora}
+\end{figure}

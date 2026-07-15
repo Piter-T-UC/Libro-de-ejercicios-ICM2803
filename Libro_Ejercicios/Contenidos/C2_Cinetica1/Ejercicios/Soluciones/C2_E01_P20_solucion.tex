@@ -1,0 +1,45 @@
+\begin{sol}[Partícula atada a una cuerda sobre un plano inclinado]
+
+\subsubsection*{Pregunta 1: Marcos de referencia}
+
+Se usa un marco inercial $\mathcal{N}$ fijo al plano inclinado, con base cartesiana
+$\{\vec{e}_x,\vec{e}_y,\vec{e}_z\}$ (con $\vec{e}_z$ normal al plano), y un marco polar
+$\mathcal{A}$ girando con la cuerda, con base $\{\vec{e}_r,\vec{e}_\theta,\vec{e}_z\}$. La
+gravedad, proyectada sobre el plano inclinado, tiene una componente $g\sin\phi$ contenida en
+el plano (dirigida pendiente abajo) y una componente $g\cos\phi$ normal al plano.
+
+\subsubsection*{Pregunta 2: Ecuación diferencial}
+
+\textbf{Cinemática.} Con $\vec{r}_A = R\,\vec{e}_r$ y $R$ constante:
+$$\vec{v}_A = R\dot\theta\,\vec{e}_\theta,\qquad
+\vec{a}_A = -R\dot\theta^2\,\vec{e}_r + R\ddot\theta\,\vec{e}_\theta.$$
+
+\textbf{Fuerzas sobre $A$.} Peso (componente en el plano $mg\sin\phi$ y normal $mg\cos\phi$),
+normal $\vec{N}=N\vec{e}_z$, tensión $\vec{T}=-T\vec{e}_r$ y fricción deslizante opuesta a la
+velocidad, $\vec{f}_r = -\mu_c N\,\dfrac{\dot\theta}{|\dot\theta|}\vec{e}_\theta$.
+
+\textbf{Dirección normal.} No hay aceleración fuera del plano:
+$$N - mg\cos\phi = 0 \;\Longrightarrow\; N = mg\cos\phi.$$
+
+\textbf{Dirección tangencial ($\vec{e}_\theta$).} La componente del peso en el plano, en la
+dirección $\vec{e}_\theta$, es $mg\sin\phi\sin\theta$. La segunda ley de Newton da:
+$$m R\ddot\theta = mg\sin\phi\sin\theta - \mu_c N\,\frac{\dot\theta}{|\dot\theta|}.$$
+Sustituyendo $N=mg\cos\phi$:
+$$\boxed{\;\ddot\theta = \frac{g\sin\phi}{R}\sin\theta - \frac{\mu_c g\cos\phi}{R}\,\frac{\dot\theta}{|\dot\theta|}\;}$$
+
+\subsubsection*{Pregunta 3: Rapidez $v_0$ para una vuelta}
+
+Se aplica el teorema de trabajo y energía a lo largo de una vuelta completa
+($\theta:0\to2\pi$). El peso es una fuerza conservativa: sobre una trayectoria cerrada su
+trabajo neto es nulo, pues la partícula retorna a la misma altura. La fricción, de magnitud
+constante $\mu_c N=\mu_c mg\cos\phi$, actúa siempre opuesta al movimiento y disipa energía a
+lo largo del arco recorrido $2\pi R$:
+$$W_{\text{fric}} = -\mu_c mg\cos\phi\,(2\pi R).$$
+
+Para que la partícula complete \emph{exactamente} una vuelta, su energía cinética final debe
+anularse. Con $E_i=\tfrac12 m v_0^2$ y $E_f=0$:
+$$0 - \tfrac12 m v_0^2 = -\mu_c mg\cos\phi\,(2\pi R),$$
+de donde
+$$\boxed{\;v_0 = 2\sqrt{\pi\,\mu_c\,g\,R\cos\phi}\;}$$
+
+\end{sol}
