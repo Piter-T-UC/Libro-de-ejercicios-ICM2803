@@ -1,0 +1,32 @@
+\begin{sol}[Balanceo estático y dinámico de un eje rotatorio]
+
+Se ubican las masas respecto al centro geométrico del eje (origen sobre el eje de rotación
+$x$), con posiciones en el plano transversal:
+$$\vec{r}_e=(-b,\;e,\;0),\qquad \vec{r}_1=(-a,\;-c,\;0),\qquad \vec{r}_2=(a,\;c,\;0).$$
+
+\subsubsection*{Pregunta 1: Balanceo estático}
+
+El balanceo estático exige que el centro de masa se encuentre sobre el eje de giro, es decir
+$\bar{y}=0$. De lo contrario el centro de masa giraría describiendo una circunferencia,
+generando una fuerza centrífuga neta. Por tanto:
+$$\sum m_i y_i = 0 \;\Longrightarrow\; m_e e - m_1 c + m_2 c = 0. \qquad (1)$$
+
+\subsubsection*{Pregunta 2: Balanceo dinámico}
+
+Aunque el centro de masa esté sobre el eje, un producto de inercia no nulo genera un momento
+que oscila con la rotación y produce reacciones dinámicas en los descansos. Se exige entonces
+$I_{xy}=0$ (y $I_{xz}=0$ se cumple automáticamente pues $z=0$):
+$$I_{xy} = \sum m_i x_i y_i = -m_e b e + m_1 a c + m_2 a c = 0. \qquad (2)$$
+
+\subsubsection*{Pregunta 3: Masas correctoras}
+
+Reescribiendo (1) y (2):
+$$-m_1 c + m_2 c = -m_e e,\qquad m_1 a c + m_2 a c = m_e b e.$$
+Resolviendo el sistema:
+$$\boxed{\;m_1 = \frac{m_e\,e\,(b+a)}{2ac}\;}\qquad
+\boxed{\;m_2 = \frac{m_e\,e\,(b-a)}{2ac}\;}$$
+
+Con estos valores el eje queda balanceado estática y dinámicamente, anulando las reacciones
+dinámicas en $A$ y $B$.
+
+\end{sol}

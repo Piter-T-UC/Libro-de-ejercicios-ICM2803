@@ -1,0 +1,62 @@
+\subsubsection{Péndulo doble de dos varillas rígidas}
+
+Un péndulo doble oscila libremente en un plano vertical bajo un campo gravitatorio
+constante $g$. Está formado por dos barras delgadas y homogéneas de masas $m_1,m_2$ y
+longitudes $\ell_1,\ell_2$, respectivamente, como se muestra en la Figura
+\ref{fig:c5_e01_p06_pendulo_doble}. La primera barra está articulada por uno de sus
+extremos a un pivote fijo sin fricción en el origen $O$; la segunda barra se acopla de
+forma libre al extremo inferior de la primera. El movimiento se describe con las
+coordenadas generalizadas $\{\theta_1,\theta_2\}$, medidas respecto a la vertical
+descendente. Considere los momentos de inercia baricéntricos $I_i=\tfrac{1}{12}m_i\ell_i^2$.
+
+\begin{enumerate}
+    \item Identifique los grados de libertad y las coordenadas generalizadas.
+    \item Determine las posiciones y velocidades de los centros de masa de ambas barras.
+    \item Construya el Lagrangiano $\mathcal{L}=T-V$ del sistema.
+    \item Deduzca las dos ecuaciones de movimiento acopladas usando las ecuaciones de
+          Euler-Lagrange.
+\end{enumerate}
+
+\begin{figure}[!ht]
+    \centering
+    \begin{tikzpicture}[>=Latex, thick, scale=1.2]
+
+        % --- SOPORTE FIJO SUPERIOR ---
+        \fill[gray!40] (-0.6,0) rectangle (0.6,0.15);
+        \draw (-0.6,0) -- (0.6,0);
+
+        % --- COORDENADAS PRINCIPALES ---
+        \coordinate (O) at (0,0);                            % Pivote fijo
+        \coordinate (V1) at (0,-1.5);                        % Referencia vertical 1
+        \coordinate (A) at (270-60:2.5);                     % Extremo barra 1
+        \coordinate (G1) at (270-60:1.25);                   % Centro de masa barra 1
+        \coordinate (V2) at ($(A) + (0,-1.5)$);              % Referencia vertical 2
+        \coordinate (B) at ($(A) + (270-30:2.2)$);           % Extremo barra 2
+        \coordinate (G2) at ($(A) + (270-30:1.1)$);          % Centro de masa barra 2
+
+        % --- LINEAS DE REFERENCIA VERTICALES ---
+        \draw[dashed, gray] (O) -- (0,-3.2);
+        \draw[dashed, gray] (A) -- ($(A) + (0,-2.2)$);
+
+        % --- BARRAS DELGADAS (CUERPO RIGIDO) ---
+        \draw[line width=3.5pt, line cap=round, gris1!70!black] (O) -- (A);
+        \draw[line width=3.5pt, line cap=round, gris1!70!black] (A) -- (B);
+
+        % --- ARTICULACIONES ---
+        \fill[black] (O) circle (0.08) node[above left] {$O$};
+        \fill[black] (A) circle (0.08);
+
+        % --- CENTROS DE MASA ---
+        \fill[myred] (G1) circle (0.07) node[right=2pt, black] {$G_1\,(m_1,\ell_1,I_1)$};
+        \fill[myred] (G2) circle (0.07) node[left=2pt, black] {$G_2\,(m_2,\ell_2,I_2)$};
+
+        % --- ANGULOS ---
+        \draw[->] (O)+(270:0.9) arc (270:210:0.9);
+        \node at ($(O)+(238:1.2)$) {$\theta_1$};
+        \draw[->] (A)+(270:0.9) arc (270:240:0.9);
+        \node at ($(A)+(252:1.25)$) {$\theta_2$};
+
+    \end{tikzpicture}
+    \caption{Péndulo doble de dos barras homogéneas articuladas en serie.}
+    \label{fig:c5_e01_p06_pendulo_doble}
+\end{figure}

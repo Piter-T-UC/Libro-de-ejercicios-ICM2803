@@ -1,0 +1,69 @@
+\subsubsection{Balanceo estático y dinámico de un eje rotatorio}
+
+Un eje delgado gira a alta velocidad angular $\omega_0$. Por un defecto de construcción,
+queda con una masa excéntrica $m_e$ en la posición indicada en la Figura
+\ref{fig:c4_e01_p10_balanceo}. Se desea determinar los valores de las masas correctoras
+$m_1$ y $m_2$ que eliminan las reacciones dinámicas en los descansos $A$ y $B$, dejando el
+eje balanceado tanto estática como dinámicamente.
+
+\begin{enumerate}
+    \item Plantee la condición de balanceo estático (centro de masa sobre el eje de giro).
+    \item Plantee la condición de balanceo dinámico (anulación de los productos de inercia).
+    \item Determine $m_1$ y $m_2$ en función de $m_e$ y de las dimensiones geométricas.
+\end{enumerate}
+
+\begin{figure}[!ht]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.1]
+
+        % --- EJE PRINCIPAL ---
+        \draw[thick] (-4.5, -0.1) rectangle (4.5, 0.1);
+
+        % --- SISTEMA DE COORDENADAS ---
+        \draw[->, thick] (4.5, 0) -- (5.5, 0) node[below] {$x$};
+        \draw[->, thick] (0, 0.1) -- (0, 3) node[left] {$y$};
+        \draw[thick] (0, -0.1) -- (0, -1.8);
+
+        % --- DESCANSOS A y B ---
+        \draw[thick] (-4, -0.1) -- (-4.2, -0.4) -- (-3.8, -0.4) -- cycle;
+        \node at (-4,-0.65) {$A$};
+        \draw[thick] (4, -0.1) -- (3.8, -0.4) -- (4.2, -0.4) -- cycle;
+        \node at (4,-0.65) {$B$};
+
+        % --- MASA EXCENTRICA m_e ---
+        \draw[thick] (-3, 0.1) -- (-3, 1.2);
+        \draw[thick, fill=white] (-3, 1.35) circle (0.15);
+        \fill (-3, 1.35) circle (1pt);
+        \node[above=2pt] at (-3, 1.5) {$m_e$};
+
+        % --- MASA m_1 ---
+        \draw[thick] (-1.5, -0.1) -- (-1.5, -2);
+        \draw[thick, fill=white] (-1.5, -2.2) circle (0.2);
+        \fill (-1.5, -2.2) circle (1pt);
+        \node[below left=2pt] at (-1.5, -2.2) {$m_1$};
+
+        % --- MASA m_2 ---
+        \draw[thick] (1.5, 0.1) -- (1.5, 2.5);
+        \draw[thick, fill=white] (1.5, 2.7) circle (0.2);
+        \fill (1.5, 2.7) circle (1pt);
+        \node[above=2pt] at (1.5, 2.9) {$m_2$};
+
+        % --- COTAS ---
+        \draw (-3, 1.35) -- (-3.7, 1.35);
+        \draw[<->] (-3.5, 0.1) -- (-3.5, 1.35) node[midway, left] {$e$};
+        \draw[<->] (-3, 0.5) -- (0, 0.5) node[midway, above] {$b$};
+        \draw (-1.5, -2.2) -- (-0.6, -2.2);
+        \draw[<->] (-0.8, -0.1) -- (-0.8, -2.2) node[midway, right] {$c$};
+        \draw (1.5, 2.7) -- (2.4, 2.7);
+        \draw[<->] (2.2, 0.1) -- (2.2, 2.7) node[midway, right] {$c$};
+        \draw (-1.5, -2.4) -- (-1.5, -3.2);
+        \draw (1.5, -0.1) -- (1.5, -3.2);
+        \draw[<->] (-1.5, -3) -- (1.5, -3) node[midway, above] {$2a$};
+        \draw (-4, -0.4) -- (-4, -4);
+        \draw (4, -0.4) -- (4, -4);
+        \draw[<->] (-4, -3.7) -- (4, -3.7) node[midway, above] {$\ell$};
+
+    \end{tikzpicture}
+    \caption{Eje rotatorio con masa excéntrica $m_e$ y masas correctoras $m_1,m_2$ para el balanceo.}
+    \label{fig:c4_e01_p10_balanceo}
+\end{figure}

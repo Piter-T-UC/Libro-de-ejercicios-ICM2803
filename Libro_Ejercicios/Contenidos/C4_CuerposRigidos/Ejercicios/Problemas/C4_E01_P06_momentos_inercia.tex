@@ -1,0 +1,31 @@
+\subsubsection{Momentos de inercia de figuras 2D y tensor de inercia 3D}
+
+El cálculo de momentos y productos de inercia es la base del análisis dinámico de cuerpos
+rígidos. En este ejercicio se pide obtener, por integración directa, las propiedades de
+inercia de varios cuerpos homogéneos.
+
+\begin{enumerate}
+    \item \textbf{Figuras 2D} (densidad constante, masa $M$). Determine el momento de inercia
+          respecto al eje perpendicular al plano que pasa por el centro de masa para:
+          \begin{itemize}
+              \item una circunferencia (aro delgado) de radio $R$;
+              \item un disco (círculo lleno) de radio $R$;
+              \item una barra delgada de largo $L$.
+          \end{itemize}
+    \item \textbf{Tensor de inercia 3D} (densidad constante). Determine el tensor de inercia
+          respecto al centro de masa para:
+          \begin{itemize}
+              \item un cascarón esférico de radio $R$ y masa $M$;
+              \item un paralelepípedo de dimensiones $L\times H\times W$ y masa $M$.
+          \end{itemize}
+\end{enumerate}
+
+Recuerde que el tensor de inercia se define como
+\[
+\mathbf{I} =
+\begin{bmatrix}
+\displaystyle\int_V \rho(y^2 + z^2)\, dV & \displaystyle -\int_V \rho\, x y\, dV & \displaystyle -\int_V \rho\, x z\, dV \\[4pt]
+\displaystyle -\int_V \rho\, x y\, dV & \displaystyle\int_V \rho(x^2 + z^2)\, dV & \displaystyle -\int_V \rho\, y z\, dV \\[4pt]
+\displaystyle -\int_V \rho\, x z\, dV & \displaystyle -\int_V \rho\, y z\, dV & \displaystyle\int_V \rho(x^2 + y^2)\, dV
+\end{bmatrix}.
+\]
