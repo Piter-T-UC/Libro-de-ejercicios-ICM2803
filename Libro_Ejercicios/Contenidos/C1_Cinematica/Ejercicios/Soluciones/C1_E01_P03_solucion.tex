@@ -1,0 +1,213 @@
+\begin{tcolorbox}[title=Solucion,breakable]
+Para poder definir los marcos de referencia tenemos que pensar y analizar los distintos cuerpo que esta compuesto y en como estos se comportan. Tambien le asociamos un sistema de coordenadas a cada uno, lo que significa que si uno gira el otro tambien gira de la misma manera.
+\begin{itemize}
+    \item $\mathcal{N}$ Inercial (Suelo) $\longrightarrow\{\vec{E}_x;\vec{E}_y;\vec{E}_z\}$
+    \item $\mathcal{A}$ Barra $OA$ $\longrightarrow\{\vec{e}_x;\vec{e}_y;\vec{e}_z\}$
+    \item $\mathcal{B}$ Barra $AP$ $\longrightarrow\{\vec{u}_r;\vec{u}_\phi;\vec{u}_z\}$
+   
+\end{itemize}
+
+
+\begin{center}
+    
+    \begin{tikzpicture}[>=Latex, scale=2]
+        % --- Parámetros Geométricos ---
+        \def\Lone{2.6}      % Longitud barra 1
+        \def\Ltwo{2.1}      % Longitud barra 2
+        \def\ThetaAng{40}   % Ángulo theta
+        \def\PhiAng{115}    % Ángulo phi relativo
+        \def\BarThickness{0.075} % Grosor de las barras
+
+        % --- Coordenadas ---
+        \coordinate (O) at (0,0);
+        \coordinate (A) at (\ThetaAng:\Lone);
+        \coordinate (P) at ($(A) + ({\ThetaAng + \PhiAng}:\Ltwo)$);
+
+        % --- 1. Suelo y Soporte en O ---
+        \draw[thick] (-0.5,-0.4) -- (0.5,-0.4);
+        \fill[pattern=north east lines] (-0.5,-0.5) rectangle (0.5,-0.4);
+        \draw[thin] (O) -- (-0.2,-0.4);
+        \draw[thin] (O) -- (0.2,-0.4);
+        \draw[<->, black,thick] (1,0) node[below right] {$\vec{E}_x$} -- (0,0) -- (0,1) node[above] {$\vec{E}_y$};
+        % --- 2. Barra 1 (OA) ---
+        \begin{scope}[rotate=\ThetaAng]
+            \shadedraw[top color=gray!10, bottom color=gray!40, draw=black, rounded corners=2.5pt] 
+                (-2.5pt,-\BarThickness) rectangle ({\Lone + 0.1},\BarThickness);
+                \draw[<->, blue,thick] (1,0) node[below right] {$\vec{e}_x$} -- (0,0) -- (0,1) node[above] {$\vec{e}_y$};
+        \end{scope}
+        % Etiqueta l1 (Horizontal y arriba)
+        \node[above left, yshift=3pt] at ($(O)!0.5!(A)$) {$l_1$};
+        
+        % --- 3. Barra 2 (AP) ---
+        \begin{scope}[shift={(A)}, rotate={\ThetaAng + \PhiAng}]
+            \shadedraw[top color=gray!10, bottom color=gray!40, draw=black, rounded corners=2.5pt] 
+                (-0.1,-\BarThickness) rectangle (\Ltwo+0.1,\BarThickness);
+                \draw[<->, red,thick] (1,0) node[below left] {$\vec{u}_r$} -- (0,0) -- (0,1) node[below] {$\vec{u}_\phi$};
+        \end{scope}
+        % Etiqueta l2 (Horizontal y arriba)
+        \node[above, yshift=3pt] at ($(A)!0.5!(P)$) {$l_2$};
+
+        % --- 4. Articulaciones (Gris oscuro) ---
+        \filldraw[fill=gray!80, draw=black] (O) circle (1.75pt);
+        \node[left, xshift=-4pt] at (O) {$O$};
+        \filldraw[fill=white, draw=black] (3,0) circle (4pt);
+        \filldraw[fill=black, draw=black] (3,0) circle (0.75pt);
+        \node[right, xshift=4pt] at (3,0) {$\vec{E}_z=\vec{e}_z=\vec{u}_z$};
+
+        \filldraw[fill=gray!80, draw=black] (A) circle (1.75pt);
+        \node[right, xshift=4pt, yshift=-2pt] at (A) {$A$};
+
+        \filldraw (P) circle (1.2pt) node[above left] {$P$};
+
+        % --- 5. Ángulos y Líneas de Referencia ---
+        \draw[dashed, thin] (O) -- (1.4,0);
+        \draw[->] (0.7,0) arc (0:\ThetaAng:0.7);
+        \node at (0.9, 0.25) {$\theta$};
+
+        \coordinate (Ext) at ($(A) + (\ThetaAng:1.1)$);
+        \draw[dashed, thin] (A) -- (Ext);
+        \draw[->] ($(A) + (\ThetaAng:0.6)$) arc (\ThetaAng:{\ThetaAng+\PhiAng}:0.6);
+        \node at ($(A) + ({\ThetaAng + 0.5*\PhiAng}:0.85)$) {$\phi$};
+
+    \end{tikzpicture}
+\end{center}
+El análisis cinemático, tiene en consideración el movimiento de la partícula, solo el movimiento no las causas, ni nada externo por ende primero tenemos que definir los vectores que nos ayudaran a analizar.
+
+        
+\textbf{Posición y Velocidades Angulares}\\
+        Siempre que nosotros queremos definir la posición lo que nos importa es que sepamos que el punto del cual la definimos es un punto el cual no se mueve, osea velocidad $\vec{0}$, dado que asi no nos generara problemas en un futuro
+        \begin{equation}
+            \vec{r}_P=l_1\vec{e}_x+l_2\vec{u}_r 
+        \end{equation}
+        Y para el caso de las velocidades angulares de los marcos de referencia se pueden obtener mediante la regla de la mano derecha y ver en que dirección gira (basicamente se ve el eje con el que gira y saber la razon a la que lo hace, la cual esta relacionado con el angulo). Con esto se llega a lo siguiente
+        
+        \begin{itemize}
+            \item $\velang{N}{A}=\dot \theta\vec{e}_z$
+            \item $\velang{A}{B}=\dot \phi\vec{e}_z$
+        \end{itemize}
+Estos vectores se leen de la siguiente manera, $\velang{N}{A}$ corresponde a la velocidad del marco de referencia $\mathcal{A}$ respecto al marco $\mathcal{N}$, esto es por en angulo $\theta$, pero como verán también obtuvimos el de $\mathcal{B}$ aunque si revisan esto es respecto al marco $\mathcal{A}$ (esto es porque la orientacion de la barra depende de $\theta$ si ven si cambio el angulo $\theta$ pero mantengo $\phi$ la barra igual manera gira, muy distinto seria si defino el angulo $\phi$ desde la horizontal o vertical, ahi no giraria, si les cuesta visualizarlo pueden agregar el angulo y generar un nuevo angulo que si sea respecto a la horizontal)
+    \begin{center}
+    
+    \begin{tikzpicture}[>=Latex, scale=2]
+        % --- Parámetros Geométricos ---
+        \def\Lone{2.6}      % Longitud barra 1
+        \def\Ltwo{2.1}      % Longitud barra 2
+        \def\ThetaAng{40}   % Ángulo theta
+        \def\PhiAng{115}    % Ángulo phi relativo
+        \def\BarThickness{0.075} % Grosor de las barras
+
+        % --- Coordenadas ---
+        \coordinate (O) at (0,0);
+        \coordinate (A) at (\ThetaAng:\Lone);
+        \coordinate (P) at ($(A) + ({\ThetaAng + \PhiAng}:\Ltwo)$);
+
+        % --- 1. Suelo y Soporte en O ---
+        \draw[thick] (-0.5,-0.4) -- (0.5,-0.4);
+        \fill[pattern=north east lines] (-0.5,-0.5) rectangle (0.5,-0.4);
+        \draw[thin] (O) -- (-0.2,-0.4);
+        \draw[thin] (O) -- (0.2,-0.4);
+        \draw[<->, black,thick] (1,0) node[below right] {$\vec{E}_x$} -- (0,0) -- (0,1) node[above] {$\vec{E}_y$};
+        % --- 2. Barra 1 (OA) ---
+        \begin{scope}[rotate=\ThetaAng]
+            \shadedraw[top color=gray!10, bottom color=gray!40, draw=black, rounded corners=2.5pt] 
+                (-2.5pt,-\BarThickness) rectangle ({\Lone + 0.1},\BarThickness);
+                \draw[<->, blue,thick] (1,0) node[below right] {$\vec{e}_x$} -- (0,0) -- (0,1) node[above] {$\vec{e}_y$};
+        \end{scope}
+        % Etiqueta l1 (Horizontal y arriba)
+        \node[above left, yshift=3pt] at ($(O)!0.5!(A)$) {$l_1$};
+        
+        % --- 3. Barra 2 (AP) ---
+        \begin{scope}[shift={(A)}, rotate={\ThetaAng + \PhiAng}]
+            \shadedraw[top color=gray!10, bottom color=gray!40, draw=black, rounded corners=2.5pt] 
+                (-0.1,-\BarThickness) rectangle (\Ltwo+0.1,\BarThickness);
+                \draw[<->, red,thick] (1,0) node[below left] {$\vec{u}_r$} -- (0,0) -- (0,1) node[below] {$\vec{u}_\phi$};
+        \end{scope}
+        % Etiqueta l2 (Horizontal y arriba)
+        \node[above, yshift=3pt] at ($(A)!0.5!(P)$) {$l_2$};
+
+        % --- 4. Articulaciones (Gris oscuro) ---
+        \filldraw[fill=gray!80, draw=black] (O) circle (1.75pt);
+        \node[left, xshift=-4pt] at (O) {$O$};
+        \filldraw[fill=white, draw=black] (3,0) circle (4pt);
+        \filldraw[fill=black, draw=black] (3,0) circle (0.75pt);
+        \node[right, xshift=4pt] at (3,0) {$\vec{E}_z=\vec{e}_z=\vec{u}_z$};
+
+        \filldraw[fill=gray!80, draw=black] (A) circle (1.75pt);
+        \node[right, xshift=4pt, yshift=-2pt] at (A) {$A$};
+
+        \filldraw (P) circle (1.2pt) node[above left] {$P$};
+
+        % --- 5. Ángulos y Líneas de Referencia ---
+        \draw[dashed, thin] (O) -- (1.4,0);
+        \draw[->] (0.7,0) arc (0:\ThetaAng:0.7);
+        \node at (0.9, 0.25) {$\theta$};
+
+        \coordinate (Ext) at ($(A) + (0:1.1)$);
+        \draw[dashed, thin] (A) -- (Ext);
+        \draw[->] ($(A) + (0:0.6)$) arc (0:{\ThetaAng+\PhiAng}:0.6) node[midway, above] {$\phi+\theta$};
+
+    \end{tikzpicture}
+\end{center}
+Y para calcular la velocidad angular basta con sumarlas, de esta manera elimino el marco intermedio.
+        \begin{itemize}
+            \item $\velang{N}{A}=\dot \theta\vec{e}_z$
+            \item $\velang{A}{B}=\dot \phi\vec{e}_z$
+            \item $\velang{N}{B}=(\dot \phi+\dot \theta)\vec{e}_z$
+        \end{itemize}
+Para el caso de las aceleraciones angulares
+        \begin{equation}
+            \accang{N}{A}=\der{}{N}\velang{N}{A}=\der{}{N}\left(\dot \theta\vec{E}_z\right)=\ddot \theta\vec{E}_z
+        \end{equation}
+        \begin{equation}
+            \accang{N}{B}=\der{}{N}\velang{N}{B}=\der{}{N}\left((\dot \phi+\dot \theta)\vec{E}_z\right)=(\ddot \phi+\ddot \theta)\vec{E}_z
+        \end{equation}
+
+\textbf{Velocidad Del punto $P$ visto desde un observador fijo en la barra $OA$}\\
+La velocidad se define como la derivada temporal de la posicion, en este caso tiene que ser respecto al marco de referencia $\mathcal{A}$ ya que ese es el marco que se nos pide
+\begin{equation}
+            \marc{}{A}\vec{v}_P=\der{}{A}{(l_1\vec{e}_x+l_2\vec{u}_r)} 
+        \end{equation}
+
+
+        Para esta ocasion lo que hare sera expresar el vector $\vec{u}_r$ en el sistema de coordenadas $\mathcal{A}$ para asi poder derivar sin tener problemas que los vectores no sean constantes en el tiempo respecto a ese marco
+        \begin{equation*}
+\begin{split}
+    \vec{u}_r&=\cos(\phi)\vec{e}_x+\sin(\phi)\vec{e}_y\\
+    \vec{u}_\phi&=-\sin(\phi)\vec{e}_x+\cos(\phi)\vec{e}_y\\
+    \vec{u}_z&=\vec{e}_z
+\end{split}
+\end{equation*}
+\begin{equation}
+            \marc{}{A}\vec{v}_P=\der{}{A}{(l_1\vec{e}_x+l_2(\cos(\phi)\vec{e}_x+\sin(\phi)\vec{e}_y))}=l_2\dot\phi(-\sin(\phi)\vec{e}_x+\cos(\phi)\vec{e}_y) =l_2\dot\phi\vec{u}_\phi
+\end{equation}
+En este caso los otros terminos se teminan siendo constantes por ende se eliminan\\
+        \textbf{Velocidad y aceleración respecto a un marco inercial}
+        Aquí es donde utilizamos el teorema del transporte ya que si no tendríamos que derivar respecto a el sistema de coordenadas inercial y hacer 2 cambios consecutivos. Por ende utilizamos teorema del transoporte con respecto a un marco intermedio que nos ayude a calcular, mas adelante se podran utilizar varios teoremas del transporte para los distintos vectores pero aun estamos aprendiendo.
+        \begin{equation}
+            \marc{}{N}\vec{v}_P=\transD{(l_1\vec{e}_x+l_2\vec{u}_r)}{\dot\theta\vec{e}_z}{N}{A}{\vec{r}_p}
+        \end{equation}
+        Desarrollando el teorema del transporte el termino 1, que si lo reconocen es el mismo que previamente habiamos calculado
+        \begin{align}
+            \der{}{A}\left((l_1\vec{e}_x+l_2\vec{u}_r)\right)=l_2\dot\phi\vec{u}_\phi
+        \end{align}
+        Por otro lado el segundo termino del teorema del transporte
+        \begin{align}
+            \dot\theta\vec{e}_z\times (l_1\vec{e}_x+l_2\vec{u}_r)=\dot\theta(l_1\vec{e}_y+l_2\vec{u}_\phi)
+        \end{align}
+        entonces finalmente la velocidad quedaria como
+        $$\marc{}{N}\vec{v}_P=l_2\dot\phi\vec{u}_\phi+\dot\theta(l_1\vec{e}_y+l_2\vec{u}_\phi)$$
+    \textbf{Acelereación}\\
+    \begin{equation}
+            \marc{}{N}\vec{a}_P=\transD{l_2\dot\phi\vec{u}_\phi+\dot\theta(l_1\vec{e}_y+l_2\vec{u}_\phi)}{\Omega\vec{e}_z}{N}{A}{\marc{}{N}\vec{v}_p}
+        \end{equation}
+        Desarrollando el teorema del transporte el termino 1
+        \begin{align}
+            \der{}{A}\left((l_1\dot\theta\vec{e}_y+l_2(\dot\theta+\dot\phi)\vec{u}_\phi)\right)=l_1\ddot\theta\vec{e}_y+l_2(\ddot\theta+\ddot\phi)\vec{u}_\phi-l_2(\dot\theta+\dot\phi)\dot\phi\vec{u}_r
+        \end{align}
+        Por otro lado el segundo termino del teorema del transporte
+        \begin{align}
+            \dot \theta\vec{e}_z\times(l_1\dot\theta\vec{e}_y+l_2(\dot\theta+\dot\phi)\vec{u}_\phi)=-l_1\dot\theta^2\vec{e}_x-l_2(\dot\theta+\dot\phi)\dot\theta\vec{u}_r)
+        \end{align}
+        entonces la velocidad al final quedaria asi
+        $$\marc{}{N}\vec{a}_P = -l_1 \dot{\theta}^2 \vec{e}_x + l_1 \ddot{\theta} \vec{e}_y - l_2 (\dot{\theta} + \dot{\phi})^2 \vec{u}_r + l_2 (\ddot{\theta} + \ddot{\phi}) \vec{u}_\phi$$
+\end{tcolorbox}

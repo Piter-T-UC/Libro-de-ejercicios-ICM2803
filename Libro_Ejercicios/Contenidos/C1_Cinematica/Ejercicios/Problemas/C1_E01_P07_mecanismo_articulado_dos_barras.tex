@@ -60,10 +60,9 @@ Sabiendo que las longitudes de las barras, los ángulos $\theta$ y $\phi$, así 
         \draw[->] (0.7,0) arc (0:\ThetaAng:0.7);
         \node at (0.9, 0.25) {$\theta$};
 
-        \coordinate (Ext) at ($(A) + (\ThetaAng:1.1)$);
+        \coordinate (Ext) at ($(A) + (0:1.1)$);
         \draw[dashed, thin] (A) -- (Ext);
-        \draw[->] ($(A) + (\ThetaAng:0.6)$) arc (\ThetaAng:{\ThetaAng+\PhiAng}:0.6);
-        \node at ($(A) + ({\ThetaAng + 0.5*\PhiAng}:0.85)$) {$\phi$};
+        \draw[->] ($(A) + (0:0.6)$) arc (0:{\ThetaAng+\PhiAng}:0.6) node[midway, below] {$\phi$};
 
     \end{tikzpicture}
     \caption{Mecanismo de dos barras con etiquetas de longitud $l_1$ y $l_2$ en posición horizontal.}

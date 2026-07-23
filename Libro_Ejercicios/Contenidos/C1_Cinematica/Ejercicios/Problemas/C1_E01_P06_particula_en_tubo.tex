@@ -3,52 +3,60 @@
 Una partícula se mueve por el interior de un tubo de largo $2R$ que gira con una velocidad angular constante $\omega_0$. La partícula inicia su movimiento desde el punto medio del tubo, desplazándose por su interior con una rapidez constante $v_0$ respecto al mismo. Determine:
 
 \begin{enumerate}
-    \item El radio de curvatura de la trayectoria descrita, en función del tiempo. (\textbf{Indicación:} Investigue cómo se calcula el radio de curvatura a partir del concepto de curvatura visto en cátedra.)
+    \item El radio de curvatura de la trayectoria descrita, en función del tiempo.
     \item La distancia recorrida por la partícula desde que inicia su movimiento hasta que llega al extremo del tubo.
 \end{enumerate}
 
-\begin{figure}[!ht]
+\begin{figure}[htbp]
     \centering
-    \begin{tikzpicture}[>=Stealth, scale=1.6]
+    \begin{tikzpicture}[>=Latex, scale=1.5]
+        
         % --- Parámetros ---
-        \def\Ang{35}      % Ángulo de inclinación del tubo
-        \def\TubeL{3.5}   % Largo visual del tubo (2R)
-        \def\TubeW{0.3}   % Ancho del tubo
-        \def\PartPos{2.2} % Posición de la partícula desde el origen
+        \def\Ang{35}       % Ángulo de inclinación del tubo
+        \def\TubeL{4.5}    % Longitud del tubo (2R)
+        \def\TubeW{0.5}    % Ancho transversal del tubo
+        \def\PartPos{2.5}  % Posición radial de la partícula
 
         % --- 1. Ejes de Referencia ---
-        \draw[->, thin, gray] (-0.2,0) -- (4,0) node[right, black] {$x$};
-        \draw[->, thin, gray] (0,-0.2) -- (0,3) node[above, black] {$y$};
+        \draw[->, thick, gray!80] (-0.8,0) -- (5.5,0) node[right, text=black] {$x$};
+        \draw[->, thick, gray!80] (0,-0.8) -- (0,4) node[above, text=black] {$y$};
 
-        % --- 2. Tubo con Sombreado Cilíndrico ---
+        % --- 2. Tubo con Sombreado y Borde Redondeado ---
         \begin{scope}[rotate=\Ang]
-            % Cuerpo del tubo (degradado para efecto metálico/3D)
-            \shadedraw[top color=gray!40, bottom color=gray!40, middle color=white, draw=black, thin] 
-                (0, -\TubeW/2) rectangle (\TubeL, \TubeW/2);
+            % Trazado del tubo: comienza con un arco para redondear el origen
+            \shadedraw[top color=gray!50, bottom color=gray!50, middle color=white, draw=black, thick] 
+                (0, \TubeW/2) arc (90:270:\TubeW/2) -- (\TubeL, -\TubeW/2) -- (\TubeL, \TubeW/2) -- cycle;
             
-            % Línea de centro (opcional)
-            \draw[dash dot, gray!40, very thin] (0,0) -- (\TubeL,0);
+            % Línea de centro constructiva
+            \draw[dash dot, gray!60, thin] (0,0) -- (\TubeL,0);
 
-            % --- 3. Partícula (Esfera con brillo) ---
-            \shade[ball color=gray!80] (\PartPos, 0) circle (0.12);
+            % --- 3. Partícula y Vectores Relativos ---
+            % Esfera de la partícula
+            \shade[ball color=gray!30, draw=black, thin] (\PartPos, 0) circle (0.15);
+            \node[below right, yshift=-3pt, font=\small] at (\PartPos, 0) {$m$};
             
-            % Vector velocidad v0
-            \draw[->, thick, blue!80!black] (\PartPos, 0) -- ++(0.8, 0) node[above] {$v_0$};
+            % Vector velocidad v0 (Azul)
+            \draw[->, thick, blue] (\PartPos+0.18, 0) -- (\PartPos+1.3, 0) node[below, font=\small] {$v_0$};
             
             % Cota del largo 2R
-            \draw[<->, thin] (0, \TubeW/2 + 0.2) -- (\TubeL, \TubeW/2 + 0.2) node[midway, above, scale=0.9] {$2R$};
+            \draw[<->, thin] (0, \TubeW/2 + 0.25) -- (\TubeL, \TubeW/2 + 0.25) node[midway, above, font=\small] {$2R$};
         \end{scope}
 
-        % --- 4. Articulación en el origen ---
-        \filldraw[fill=white, thick] (0,0) circle (2.5pt);
-        \filldraw (0,0) circle (1pt);
+        % --- 4. Articulación / Pivote Mejorado ---
+        % Base del pivote
+        \filldraw[fill=gray!30, draw=black, thick] (0,0) circle (0.22);
+        % Anillo interior
+        \filldraw[fill=white, draw=black, thin] (0,0) circle (0.12);
+        % Pasador central
+        \filldraw[fill=black] (0,0) circle (0.05);
 
         % --- 5. Ángulo y Velocidad Angular ---
-        \draw[->, bend left] (1.2, 0) arc (0:\Ang:1.2) node[midway, right, xshift=2pt] {$\omega_0$};
-        
-        % Flecha de rotación curva en el eje
-        %\draw[->, thick] (-0.1, 0.5) arc (150:30:0.2);
+        \draw[->, thick] (2.2, 0) arc (0:\Ang:2.2) node[midway, right, xshift=2pt] {$\omega_0$};
+
+        % --- 6. Vector Gravedad ---
+        \draw[->, thick] (4.5, 3.2) -- (4.5, 2.2) node[midway, right] {$\mathbf{g}$};
 
     \end{tikzpicture}
-    \caption{Esquema del movimiento de una partícula dentro de un tubo rotatorio.}
+    \caption{Esquema del movimiento relativo de una partícula en el interior de un tubo rotatorio.}
+    \label{fig:particula_tubo_giratorio}
 \end{figure}

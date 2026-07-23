@@ -1,6 +1,6 @@
 \subsubsection{Barra articulada a argolla circular}
 
-Una barra (con espesor mayor que cero) de longitud $\ell$ está articulada en uno de sus extremos a una argolla, como se muestra en la Figura \ref{fig:barra_anillo}. La argolla se desliza a lo largo de una pista fija en forma de anillo circular de radio $R$. Sabiendo que el ángulo $\theta$ describe la posición de la argolla con respecto al centro del anillo y que el ángulo $\phi$ describe la orientación de la barra con respecto a la línea radial instantánea desde el centro del anillo hasta la argolla, determine las siguientes cantidades vistas por un observador fijo a la pista:
+Una barra de longitud $\ell$ está articulada en uno de sus extremos a una argolla, como se muestra en la Figura \ref{fig:barra_anillo}. La argolla se desliza a lo largo de una pista fija en forma de anillo circular de radio $R$. Sabiendo que el ángulo $\theta$ describe la posición de la argolla con respecto al centro del anillo y que el ángulo $\phi$ describe la orientación de la barra con respecto a la línea radial instantánea desde el centro del anillo hasta la argolla, determine las siguientes cantidades vistas por un observador fijo a la pista:
 
 \begin{enumerate}
     \item Velocidad angular de la barra.
@@ -24,6 +24,30 @@ Una barra (con espesor mayor que cero) de longitud $\ell$ está articulada en un
                 \draw[thick] (0,0) -- (0, 0.15*\s);
             \end{scope}
         }
+        % --- 3. Soporte Superior A ---
+        \begin{scope}[shift={(0, \R)}]
+            % Pieza en T (móvil, unida al anillo)
+            \draw[fill=gray!50, thick] (-0.15, 0) rectangle (0.15, 0.3);
+            \draw[fill=gray!50, thick] (-0.4, 0.3) rectangle (0.4, 0.6);
+            % Guía Fija (C negra)
+            \draw[fill=black] (-0.6, 0.2) rectangle (0.6, 0.7);
+            \draw[fill=white, thick] (-0.42, 0.18) rectangle (0.42, 0.62);
+            % Techo fijo (rayado)
+            \draw[thick, pattern=north east lines] (-0.7, 0.7) rectangle (0.7, 1.0);
+            \draw[thick] (-0.7, 0.7) -- (0.7, 0.7);
+            \node[left] at (-0.6, 0.35) {$A$};
+        \end{scope}
+
+        % --- 4. Soporte Inferior B (Espejo de A) ---
+        \begin{scope}[shift={(0, -\R)}, rotate=180]
+            \draw[fill=gray!50, thick] (-0.15, 0) rectangle (0.15, 0.3);
+            \draw[fill=gray!50, thick] (-0.4, 0.3) rectangle (0.4, 0.6);
+            \draw[fill=black] (-0.6, 0.2) rectangle (0.6, 0.7);
+            \draw[fill=white, thick] (-0.42, 0.18) rectangle (0.42, 0.62);
+            \draw[thick, pattern=north east lines] (-0.7, 0.7) rectangle (0.7, 1.0);
+            \draw[thick] (-0.7, 0.7) -- (0.7, 0.7);
+            \node[left] at (0.6, 0.35) {$B$};
+        \end{scope}
 
         % --- 2. Anillo Circular ---
         \draw[thick, double distance=2pt] (0,0) circle (\R);
@@ -39,7 +63,7 @@ Una barra (con espesor mayor que cero) de longitud $\ell$ está articulada en un
         % Dibujo de la barra con grosor
         \draw[line width=5pt, line cap=round, color=black] (Q) -- (P);
         \draw[line width=4pt, line cap=round, color=gray!30] (Q) -- (P);
-        \node[below] at ($(Q)!0.5!(P)$) {$\ell$};
+        \node[above] at ($(Q)!0.5!(P)$) {$\ell$};
 
         % --- 4. Líneas de Referencia ---
         \draw[dashed, gray] (O) -- (0, -\R-0.4); % Vertical
@@ -62,10 +86,13 @@ Una barra (con espesor mayor que cero) de longitud $\ell$ está articulada en un
 
         % --- 6. Etiquetas de puntos ---
         \filldraw[fill=white, thick] (Q) circle (2.5pt); % Argolla
-        \filldraw (Q) circle (1pt) node[below] {$Q$};
-        \filldraw (P) circle (1.2pt) node[right] {$P$};
+        \filldraw (Q) circle (1pt) node[below, yshift=-5] {$Q$};
+        \filldraw (P) circle (0.7pt) node[right] {$P$};
 
     \end{tikzpicture}
     \caption{Barra de longitud $\ell$ articulada a una argolla $Q$ que se desplaza sobre una guía circular.}
     \label{fig:barra_anillo}
 \end{figure}
+\ifmostrarSolucion
+
+\fi

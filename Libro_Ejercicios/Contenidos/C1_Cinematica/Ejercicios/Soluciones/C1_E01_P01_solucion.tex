@@ -1,0 +1,142 @@
+En la figura \ref{fig:Hormiga}, se encuentra una hormiga (Punto $B$), la cual camina de manera radial, hacia afuera del disco a una velocidad constante $v_0$ desde el centro. Si el disco rota desde su centro $O$ con una velocidad angular me magnitud $\Omega$ relativa al suelo, determine:
+\begin{enumerate}
+    \item La posición con respecto al tiempo.
+    \item La velocidad con respecto al tiempo.
+    \item La aceleración con respecto al tiempo.
+\end{enumerate}
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.5\linewidth]{Imagenes/Cinematica/Hormiga Velocista.png}
+    \caption{Hormiga Velocista}
+    \label{fig:Hormiga}
+\end{figure}
+
+\begin{tcolorbox}[colframe=black!50!white, % Borde gris oscuro
+        title= Solucion Hormiga Velocista (Definición), breakable]
+
+\textbf{Marcos de referencia y Sistemas de Coordenadas}
+En este caso se pueden diferenciar 2 marcos de referencia distintos.
+\begin{itemize}
+    \item $\mathcal{N}$ El suelo $\longrightarrow\{\vec{E}_x;\vec{E}_y;\vec{E}_z\}$
+    \item $\mathcal{D}$ Gira con el disco $\longrightarrow\{\vec{e}_x;\vec{e}_y;\vec{e}_z\}$
+\end{itemize}
+
+
+\begin{tikzpicture}[>=latex]
+
+    % Disco (Vista lateral)
+    \draw[thick] (-3, 0) rectangle (3, 0.4);
+
+    % Vectores (Se dibujan del más largo al más corto para que se superpongan correctamente)
+    
+    % Vector e_z (Azul) - Al fondo
+    \draw[->, thick, blue] (0, 0.4) -- (0, 3.6);
+    \node[right, blue] at (0.15, 3.3) {$\vec{e}_z$};
+
+    % Vector E_z (Rojo) - Al medio
+    \draw[->, thick, red] (0, 0.4) -- (0, 2.4);
+    \node[right, red] at (0.15, 2.1) {$\vec{E}_z$};
+
+    % Vector Omega (Amarillo) - Al frente
+    % Nota: Usamos un amarillo con un leve toque de naranja (yellow!90!orange) 
+    % para garantizar que sea legible sobre el fondo blanco.
+    \draw[->, thick, yellow!90!orange] (0, 0.4) -- (0, 1.2);
+    \node[right, yellow!90!orange] at (0.15, 0.9) {$\Omega$};
+
+    % Textos explicativos a la derecha
+    \node[right, align=left] at (2.5, 3.0) {Apuntan en la misma dirección\\[1ex] Vista Lateral del Disco};
+
+\end{tikzpicture}
+
+Entonces ambos sistemas de coordenadas se ven así desde arriba
+%Colocar coordenas cilindricas 
+\begin{tikzpicture}[>=stealth] % Usamos puntas de flecha tipo stealth para mejor estética
+
+    % --- Sistema de Coordenadas Fijo (x, y) ---
+    % Ejes principales con puntas de flecha
+    \draw[->, thick] (-4.5,0) -- (4.5,0) node[right] {$x$};
+    \draw[->, thick] (0,-4.5) -- (0,4.5) node[above] {$y$};
+
+    % --- Círculo Externo (Marco) ---
+    \draw (0,0) circle (3.5cm);
+
+    % --- Punto B en el perímetro ---
+    % Calculamos la posición del punto B a un ángulo específico (aprox 60 grados para que coincida)
+    \def\angB{60}
+    \fill (\angB:3.5) circle (1pt) node[below right] {B};
+
+    % --- Símbolo de dirección del eje z en el origen ---
+    % Este símbolo complejo representa un vector perpendicular al plano
+    % Dibujamos el círculo pequeño
+    \draw (0,0) circle (0.25cm);
+    % Dibujamos la cruz (cross)
+    \def\crs{0.18} % media longitud de la cruz
+    \draw (-\crs, -\crs) -- (\crs, \crs);
+    \draw (-\crs, \crs) -- (\crs, -\crs);
+    % Dibujamos el punto central (dot)
+    \fill (0,0) circle (0.7pt);
+    % Dibujamos el círculo diminuto interior alrededor del punto
+    \draw (0,0) circle (1.9pt);
+
+    % --- Etiqueta para la dirección z en el cuarto cuadrante ---
+    \node[scale=1.4] at (-2.5,-1.8) {$\vec{E}_z = \vec{e}_z$};
+
+    % --- Vectores Fijos (Azul: Ex, Ey) ---
+    % Ajustamos la longitud para que coincida con la imagen (aprox 2.8)
+    \draw[->, thick, blue] (0,0) -- (2.8,0);
+    \node[below right, blue, scale=1.3] at (2.8,-0.1) {$\vec{E}_x$};
+    \draw[->, thick, blue] (0,0) -- (0,2.8);
+    \node[above left, blue, scale=1.3] at (-0.2,2.8) {$\vec{E}_y$};
+
+    % --- Vectores Rotados (Verde: ex, ey) y ángulo Omega*t ---
+    % Definimos el ángulo de rotación (aprox 55 grados para que visualmente se separe de B)
+    \def\angRot{55}
+    
+    % Vector e_x rotado
+    \draw[->, thick, green!60!black] (0,0) -- (\angRot:3.3);
+    \node[above right, green!60!black, scale=1.2] at (\angRot:3.4) {$\vec{e}_x$};
+    
+    % Vector e_y rotado (ortogonal a e_x)
+    \draw[->, thick, green!60!black] (0,0) -- (\angRot+90:3.3);
+    \node[above left, green!60!black, scale=1.2] at (\angRot+90:3.4) {$\vec{e}_y$};
+
+    % --- Arco del ángulo Omega*t ---
+    % Definimos el radio del arco (aprox 2.2) y dibujamos el ángulo
+    \draw[<->] (2.2,0) arc (0:\angRot:2.2) node[midway, right, scale=1.2] {$\Omega t$};
+
+\end{tikzpicture}
+
+Aunque no parezca importante es clave hacer el dibujo donde se diferencian los distintos sistemas de coordenadas
+\subsubsection*{Cinemática de la partícula}
+\textbf{Posición}\\
+Para la posición necesitamos simplemente unir algún punto que este quieto y el punto $B$ en este caso por comodidad utilizaremos el Punto $O$, aparte definimos el vector $\vec{e}_x$ que era el que marcaba la dirección que se encontraba la hormiga $B$, por ende el vector posición
+$$\vec{r}_B=x(t)\vec{e}_x=r\vec{e}_x$$ 
+Aunque teniendo en cuenta información de la imagen se tiene que $x(t)=r$ que indica la distancia entre $O$ y $B$\\
+\subsubsection*{Derivadas por definición}
+\textbf{Velocidad}\\
+La velocidad (inercial) se define como
+$$\marc{\vec{v}_B}{N}=\der{\vec{r}_B}{N}=\der{(r\vec{e}_x)}{N}$$
+Pero en este caso no podemos simplemente derivar ya que tenemos que el vector $\vec{e}_x$ no es constante en el tiempo. lo que si podemos hacer es transformarlo a vectores que si son constantes
+con las transformaciones obtenidas desde la trigonometría del problema se obtiene que:
+\begin{equation*}
+\begin{split}
+    \vec{e}_x&=\cos(\Omega t)\vec{E}_x+\sin(\Omega t)\vec{E}_y\\
+    \vec{e}_y&=-\sin(\Omega t)\vec{E}_x+\cos(\Omega t)\vec{E}_y\\
+    \vec{e}_z&=\vec{E}_z
+\end{split}
+\end{equation*}
+
+Entonces la velocidad
+$$\marc{\vec{v}_B}{N}=\der{\vec{r}_B}{N}=\der{(r\vec{e}_x)}{N}=\der{(r(\cos(\Omega t)\vec{E}_x+\sin(\Omega t)\vec{E}_y)}{N}$$
+$$\marc{\vec{v}_B}{N}=\dot{r}(\cos(\Omega t)\vec{E}_x+\sin(\Omega t)\vec{E}_y)+r\Omega (-\sin(\Omega t)\vec{E}_x+\cos(\Omega t)\vec{E}_y)$$
+Se conoce que $\dot{r}=v_0$\\
+\textbf{Aceleración}\\
+La aceleración describe el cambio de la velocidad por unidad de tiempo.\\
+$$\marc{\vec{a}_B}{N}=\der{}{N}\marc{\vec{v}_B}{N}=\der{\left(\dot{r}(\cos(\Omega t)\vec{E}_x+\sin(\Omega t)\vec{E}_y)+r\Omega (-\sin(\Omega t)\vec{E}_x+\cos(\Omega t)\vec{E}_y)\right)}{N}$$
+Al momento de derivar se llega a:
+
+$$\marc{\vec{a}_B}{N}=-r\Omega^2(\cos(\Omega t)\vec{E}_x+\sin(\Omega t)\vec{E}_y)+2\dot{r}\Omega(-\sin(\Omega t)\vec{E}_x+\cos(\Omega t)\vec{E}_y)$$
+En realidad hay mas terminos que salen de la derivación los cuales son:
+$$\ddot{r}(\cos(\Omega t)\vec{E}_x+\sin(\Omega t)\vec{E}_y)+r\dot{\Omega}(-\sin(\Omega t)\vec{E}_x+\cos(\Omega t)\vec{E}_y)$$
+Pero para este caso se sabe del enunciado que camina de manera radial con una velocidad constante $\dot{r}=v_0$ osea ($\ddot{r}=0$), y que la velocidad angular también es constante por ende $\dot{\Omega}=0$.
+\end{tcolorbox}

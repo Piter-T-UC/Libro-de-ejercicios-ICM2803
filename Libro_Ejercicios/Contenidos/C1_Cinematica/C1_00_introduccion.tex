@@ -1,82 +1,502 @@
 % =========================================================================
 % Capítulo 1: Cinemática
-% =========================================================================
-% Archivo: C1_00_introduccion.tex
-% Descripción: Movimiento de puntos y sistemas de referencias
-% =========================================================================
-
 \chapter{Cinemática}
+\section{Respaso}
+La cinemática es el estudio de la geometría del movimiento, sin referirse a las causas de este.\\
+Para comenzar, es necesario describir que es lo mas importante a la hora de trabajar en cinemática.
 
-\section*{Introducción}
+\subsection{Marco de referencia}
+Un marco de referencia es la perspectiva desde la cual se analizan los sucesos, mas matemáticamente, de define como 3 puntos no colineales, que su distancia entre cada par de puntos es constante.
+Existen 2 tipos de marcos de referencia, los inerciales y los no inerciales. Se define un marco de referencia inercial como un marco el cual sus puntos no están asociados a una aceleración, llámese aceleración a los casos donde los puntos cambian su velocidad en el tiempo (Rotar también es un tipo de aceleración.) y existe los marcos referencia no inerciales los cuales si aceleran.
 
-La cinemática es la rama de la mecánica que describe el movimiento sin considerar las causas que lo producen (fuerzas). En este capítulo estudiaremos cómo representar la posición, velocidad y aceleración de puntos materiales en diferentes sistemas de coordenadas.
 
-\subsection*{Sistemas de Coordenadas}
+\subsection{Sistemas de coordenadas}
+Un sistema de coordenadas es un sistema usado para determinar la posición de objetos geométricos, esta asociado a un marco de referencia, el sistema contiene una base la cual es un conjunto de direcciones linealmente independientes.
 
-El análisis cinemático depende críticamente de la elección del sistema de coordenadas. En este libro estudiaremos:
+Todo objeto dentro de una espacio se puede representar como un vector
+$$\Vec{a}=a_1\Vec{e}_1+a_2\Vec{e}_2+a_3\Vec{e}_3$$
 
-\begin{enumerate}
-    \item \textbf{Coordenadas Cartesianas}: El sistema más simple e intuitivo.
-    \item \textbf{Coordenadas Cilíndricas}: Naturales para problemas con simetría axial.
-    \item \textbf{Coordenadas Esféricas}: Útiles para sistemas con simetría central.
-    \item \textbf{Coordenadas Intrínsecas}: Basadas en la geometría de la trayectoria.
-\end{enumerate}
+La cual es una combinación lineal de las direcciones ($\Vec{e}_{1,2,3}$) 
 
-\subsection*{Marcos de Referencia}
+Se espera que la base calculada sea orto-normal (tamaño de los vectores es 1 y todos perpendiculares), esto debido muchas veces aplicaremos el producto punto y el producto cruz (ambos productos son afectados por el ángulo entre las direcciones y la magnitud de ellas)
+\subsubsection{Operaciones vectoriales}
+De definen 2 operaciones vectoriales:\\
 
-Un concepto fundamental es la distinción entre:
-\begin{description}
-    \item[Marcos Inerciales:] Sistemas de referencia en los que las leyes de Newton se cumplen sin términos de corrección.
-    \item[Marcos No-Inerciales:] Sistemas acelerados o en rotación donde aparecen fuerzas ficticias.
-\end{description}
+\textbf{Producto punto o producto escalar}
+se define el producto punto de un vector con otro vector como $$\Vec{a}\cdot\Vec{b}=\|\Vec{a}\|\|\Vec{b}\|\cos{(\theta)}$$
+Donde $\theta$ es el ángulo entre ambos vectores
 
-\subsection*{Derivadas en Marcos Móviles}
 
-El \textbf{Teorema del Transporte} permite relacionar las derivadas de un vector en dos marcos de referencia que rotan uno respecto al otro:
+\subsection{Producto cruz}
+El producto cruz o también conocido como el producto vector, es un vector perpendicular a 2 vectores en el espacio.
+Sea el vector $\vec{a}=<a_1 , a_2 , a_3>$ y el vector $\vec{b}=<b_1 , b_2 , b_3>$
+\begin{equation}
+\begin{bmatrix}
+\Vec{e}_1 & \Vec{e}_2 & \Vec{e}_3\\
+a_1 & a_2 & a_3\\
+b_1 & b_2 & b_3
+\end{bmatrix}
+\end{equation}
+$$\vec{a}\times \vec{b}= <a_2b_3-a_3b_2,-(a_1b_3-a_3b_1), a_1b_2-a_2-b_1>$$
 
-$$\left(\frac{d\vec{a}}{dt}\right)_{\text{fijo}} = \left(\frac{d\vec{a}}{dt}\right)_{\text{móvil}} + \vec{\omega} \times \vec{a}$$
-
-donde $\vec{\omega}$ es la velocidad angular del marco móvil respecto al fijo.
-
-\section{Conceptos Clave de Cinemática}
-
-\begin{description}
-
-    \item[Posición:] Vector $\vec{r}(t)$ que especifica la ubicación de un punto.
-
-    \item[Velocidad:] Primera derivada de la posición,
-    $$\vec{v}(t) = \frac{d\vec{r}}{dt}$$
-    Representa la tasa de cambio de posición.
-
-    \item[Aceleración:] Segunda derivada de la posición (primera de la velocidad),
-    $$\vec{a}(t) = \frac{d\vec{v}}{dt} = \frac{d^2\vec{r}}{dt^2}$$
-    Representa la tasa de cambio de velocidad.
-
-    \item[Velocidad Angular:] Para marcos móviles, $\vec{\omega}$ describe la rotación.
-
-    \item[Aceleración Angular:] Primera derivada de la velocidad angular,
-    $$\vec{\alpha} = \frac{d\vec{\omega}}{dt}$$
-
-    \item[Velocidad Relativa:] En sistemas con dos marcos de referencia,
-    $$\vec{v}_{P/B} = \vec{v}_P - \vec{v}_B$$
-
-    \item[Composición de Velocidades:] Relaciona velocidades en marcos diferentes,
-    $$\vec{v}_{P/A} = \vec{v}_{P/B} + \vec{v}_{B/A}$$
-
-    \item[Restricciones:] Condiciones que relacionan las variables del sistema.
-    Ejemplos: movimiento en una curva, rodadura sin deslizar, etc.
-
-\end{description}
-
-\subsection*{Objetivos del Capítulo}
-
-Al completar este capítulo, deberás:
+Propiedades del producto cruz
 \begin{itemize}
-    \item Usar competentemente los cuatro sistemas de coordenadas principales.
-    \item Calcular velocidad y aceleración en cada sistema.
-    \item Aplicar el Teorema del Transporte para marcos móviles.
-    \item Analizar movimientos complejos usando cambios de marco.
-    \item Resolver problemas con restricciones de movimiento.
+    \item [No es Conmutativo]{$A\times B\neq B\times A$}
+    \item[Es anti conmutativo]{$A\times B=-B\times A$}
+    \item[No es asociativo]{$A\times (B\times C)\neq (A\times B)\times C$}
+    \item[Es distributivo]{$A\times (B+ C)=A\times B+A\times C$}
 \end{itemize}
 
-\newpage
+
+Aunque en el curso haremos las cosas mas algebraicas, expresando los vectores de su forma expandida, donde definimos el vector correspondiente con la regla de la mano derecha.
+
+$$\Vec{e}_1\times \Vec{e}_2=\Vec{e}_3$$
+$$\Vec{e}_2\times \Vec{e}_3=\Vec{e}_1$$
+$$\Vec{e}_1\times \Vec{e}_3=-\Vec{e}_2$$
+
+Lo que yo prefiero hacer es poner todos los vectores juntos así
+
+$$\{\Vec{e}_1,\Vec{e}_2,\Vec{e}_3,\Vec{e}_1,\Vec{e}_2\}$$
+En caso que quiera el producto cruz entre el 1,2 voy y miro el siguiente, pero por ejemplo si quiero el producto entre el 3 y el 2, no tengo ese pero si voy para el otro lado si lo tengo y cada vez que voy para la izquierda le pongo un menos. Finalmente derecha mas, izquierda menos.
+
+
+\subsection{Derivadas}
+
+Si bien pensabas que conocías las derivadas te darás rápidamente que no, no las conocías tan bien como tu pensabas, es por esto que aquí se enseñara como expresar la derivada de vectores.
+
+\subsubsection{Funciones escalares}
+En este caso cuando tenemos funciones escalares las derivadas son bastante directas
+
+$$\dfrac{d}{dx}f(x)\lim_{h\to 0}\dfrac{f(x+h)-f(x)}{h}$$ Como analizamos esto no tiene ninguna dependencia del marco de referencia.
+\subsubsection{Funciones vectoriales}
+
+En este caso son funciones las cuales están acompañadas de dirección.
+
+
+$$\dot{b}= \der{\Vec{b}(t)}{A}\lim_{\Delta t\to 0}\dfrac{\vec{b}(t+\Delta t)-\Vec{b}(t)}{\Delta t}$$ 
+
+Este caso siempre y cuando el vector arbitrario este desde el sistema de coordenadas orto-normal desde un marco de referencia $\mathcal{A}$
+$$\dot{b}= \sum_{i=1}^3\lim_{\Delta t\to 0}\dfrac{b_i(t+\Delta t)-b_i(t)}{\Delta t}\Vec{e}_i$$ 
+
+\subsubsection{Funciones escalares de vectores}
+Para este caso hay que analizar como se comporta la función, pero todo cambio de la función respecto a todas las variables que depende puede ser expresado por la suma independiente de todas las derivadas respecto a esa función.
+
+$$F(\Vec{b})=F(b_1,b_2,b_3)$$
+$$\dfrac{d F(\Vec{b})}{dt}=\dfrac{\partial F}{\partial b_1}\dfrac{d b_1}{dt}+\dfrac{\partial F}{\partial b_2}\dfrac{d b_2}{dt}+\dfrac{\partial F}{\partial b_3}\dfrac{d b_3}{dt}$$
+$$\dot F(\Vec{b})=\left(\dfrac{\partial F}{\partial b_1}\Vec{e}_1+\dfrac{\partial F}{\partial b_3}\Vec{e}_2\dfrac{\partial F}{\partial b_3}\Vec{e}_3\right)\cdot \left(\dfrac{d b_1}{dt}\Vec{e}_1+\dfrac{d b_2}{dt}\Vec{e}_2+\dfrac{d b_3}{dt}\Vec{e}_3\right)$$
+$$\dot F(\Vec{b})=\nabla_{\Vec{b}}F\cdot \dot{\Vec{b}}$$
+\subsection{Vectores de analisis}
+Dentro de la cinemática existen algunos vectores los cuales nos importan mas que otros, esto debido a su importancia física.
+
+\subsubsection{Posición}
+
+Se define al vector posición como el que define el punto en el lugar en el cual se encuentra una partícula desde el origen, generalmente depende de una variable como lo puede ser el tiempo.
+
+$$\Vec{r}(t)$$
+
+
+\subsubsection{Velocidad}
+Este es de los vectores mas importantes del análisis de movimiento es por esto que se definirá bien.
+Se denomina el vector velocidad como el la derivada de la posición en el tiempo respecto a un marco de referencia,
+\begin{equation*}
+\leftidx{^\mathcal{A}}{\frac{d\vec{b}}{dt}}{} \equiv \leftidx{^\mathcal{A}}{\dot{\vec{b}}}{} = \lim^{\mathcal{A}}\limits _{\Delta t\to 0} \frac{\vec{b}(t+\Delta t) - \vec{b}(t)}{\Delta t}
+\end{equation*}
+
+
+Junto con definir la velocidad también podemos definir la rapidez y la longitud de arco, en este caso se define la rapidez como la magnitud del vector velocidad.
+$$\leftidx{^\mathcal{A}}{v}{}=\|\marc{}{A}\Vec{v}\|=\sqrt{\marc{}{A}\Vec{v}\cdot\marc{}{A}\Vec{v}}$$
+
+Junto con la velocidad definimos la integral de esta como la longitud de arco
+$$\int_{t_0}^{t}\leftidx{^\mathcal{A}}{v}{}(\tau) d\tau=s(t)-s(t_0)$$
+
+\subsubsection{Aceleración}
+La aceleración es un vector muy importante ya que es el vector que une el mundo físico con el mundo matemático y se define como el cambio de la velocidad 
+\begin{equation*}
+\leftidx{^\mathcal{A}}{\frac{d\dot{\vec{b}}}{dt}}{} = \leftidx{^\mathcal{A}}{\ddot{\vec{b}}}{} = \lim^{\mathcal{A}}\limits _{\Delta t\to 0} \frac{\dot{ \vec{b}}(t+\Delta t) - \dot{\vec{b}}(t)}{\Delta t}
+\end{equation*}
+
+
+\subsection{Teorema del Transporte}
+Muchas veces tenemos posiciones respecto a un marco de referencia el tema que cuando queremos derivar respecto a otro llegamos a un problema, cual es este problema que los vectores pueden cambiar respecto al tiempo si es que derivo respecto a otra base, es por esto que don transporte creo esta preciosura, el teorema del Transporte, igual raro llamarte Transporte, pero es re util asi que no me quejo.\\
+
+EL teorema del transporte plantea que la derivada de un vector sobre una base distinta (un marco de referencia) sera igual que la derivada del vector derivado sobre su base mas la velocidad angular de una base a otra base cruz el vector mismo.
+
+$$\leftidx{^\mathcal{A}}{\dfrac{d}{dt}\Vec{b}}{}=\leftidx{^\mathcal{B}}{\dfrac{d}{dt}\Vec{b}}{}+\stackbin{\mathcal{A}\to \mathcal{B}}{\omega}\times \Vec{b}$$
+
+Esto que implica, muchas cosas, en especial que ahora podemos derivar mas facil, sin necesidad de derivar vectores
+
+
+\subsection{Sistemas de coordenadas}
+\subsubsection{Coordenadas Cartesianas}
+Se caracterizan estas por ser las primeras que uno conoce, y se definen como \{$\Vec{e}_x,\Vec{e}_y,\vec{e}_z$\}
+
+$$\Vec{e}_x=(1,0,0)$$
+$$\Vec{e}_y=(0,1,0)$$
+$$\Vec{e}_z=(0,0,1)$$
+Y todos los puntos del espacio se pueden determinar como
+$$\Vec{r}=x\Vec{e}_x+y\Vec{e}_y+z\Vec{e}_z$$
+\begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=2.5]
+        % 1. Definir la perspectiva 3D (ajustada para una vista clara)
+        \coordinate (O) at (0,0,0);
+        
+        % Definimos los ejes con una inclinación manual para un 2D-3D limpio
+        \draw[->, gray!60, thin] (O) -- (2.5,0) node[anchor=north east]{$y$};
+        \draw[->, gray!60, thin] (O) -- (0,2.5) node[anchor=south]{$z$};
+        \draw[->, gray!60, thin] (O) -- (-0.8,-0.8) node[anchor=north east]{$x$};
+
+        % --- VERSORES DE LA BASE CARTESIANA ---
+        % Se dibujan saliendo del origen con colores distintos
+        
+        % Versor e_x - Rojo
+        \draw[->, thick, red] (O) -- (1,0) node[anchor=north]{$\vec{e}_y$};
+        
+        % Versor e_z - Verde
+        \draw[->, thick, green!60!black] (O) -- (0,1) node[anchor=east]{$\vec{e}_z$};
+        
+        % Versor e_y - Cian/Azul
+        \draw[->, thick, cyan] (O) -- (-0.4,-0.4) node[anchor=north east]{$\vec{e}_x$};
+
+        % --- REPRESENTACIÓN DE UN PUNTO P (OPCIONAL) ---
+        \coordinate (P) at (1.5, 1.2); % Coordenadas en el dibujo
+        \filldraw (P) circle (1pt) node[above right] {$P(x, y, z)$};
+        
+        % Líneas de proyección para dar contexto
+        \draw[dashed, gray] (1.5,0) -- (P) -- (0,1.2);
+        \draw[dashed, gray] (P) -- (1.1, 0.8); % Simulación de profundidad y
+        
+    \end{tikzpicture}
+    \caption{Representación de la base ortonormal cartesiana $\{\vec{e}_x, \vec{e}_y, \vec{e}_z\}$. A diferencia de las bases curvilíneas, estos vectores son constantes en todo el espacio.}
+    \label{fig:base_cartesiana}
+\end{figure}
+\subsubsection{Coordenadas cilíndricas}
+Se caracterizan estas por depender de un vector radio, son usadas en casos donde tenemos una distancia y una manera de medir el ángulo, y se definen como \{$\Vec{e}_r,\Vec{e}_{\theta},\vec{e}_z$\}
+
+\begin{figure}[!ht]
+    \centering
+    \tdplotsetmaincoords{70}{115}
+
+\begin{tikzpicture}[tdplot_main_coords, scale=1.5, >=latex]
+
+    % --- PARÁMETROS ---
+    \def\rhoVal{2.2}   % Radio cilindrico (distancia al eje Z)
+    \def\thetaVal{60}  % Ángulo azimutal (en plano XY)
+    \def\zVal{1.8}     % Altura Z
+
+    % --- EJES CARTESIANOS ---
+    \draw[->, thick] (0,0,0) -- (3,0,0) node[anchor=north east]{$x$};
+    \draw[->, thick] (0,0,0) -- (0,3,0) node[anchor=north west]{$y$};
+    \draw[->, thick] (0,0,0) -- (0,0,3) node[anchor=south]{$z$};
+
+    % --- DEFINICIÓN DE COORDENADAS ---
+    % Coordenada en el plano XY (Pxy)
+    \coordinate (Pxy) at ({\rhoVal*cos(\thetaVal)}, {\rhoVal*sin(\thetaVal)}, 0);
+    % Coordenada del punto P
+    \coordinate (P) at ({\rhoVal*cos(\thetaVal)}, {\rhoVal*sin(\thetaVal)}, \zVal);
+    % Proyecciones en los ejes
+    \coordinate (Px) at ({\rhoVal*cos(\thetaVal)}, 0, 0);
+    \coordinate (Py) at (0, {\rhoVal*sin(\thetaVal)}, 0);
+    \coordinate (Pz) at (0, 0, \zVal);
+
+    % --- LÍNEAS DE PROYECCIÓN (DISCONTINUAS) ---
+    \draw[dashed, blue!60] (0,0,0) -- (Pxy) node[midway, below] {$r$}; % Radio rho
+    \draw[dashed] (Pxy) -- (P) node[midway, right] {$z$}; % Altura z
+    \draw[dashed] (Pxy) -- (Px);
+    \draw[dashed] (Pxy) -- (Py);
+    \draw[dashed] (P) -- (Pz);
+
+    % --- ÁNGULO AZIMUTAL (theta) ---
+    \tdplotdrawarc[->]{(0,0,0)}{0.9}{0}{\thetaVal}{anchor=south}{$\theta$}
+
+    % --- VERSORES CON COLORES DISTINTOS (BASE CILÍNDRICA) ---
+    % Rotamos el sistema para que el eje x local sea la dirección radial
+    \tdplotsetrotatedcoords{\thetaVal}{0}{0}
+    \begin{scope}[tdplot_rotated_coords, shift={(P)}, thick, ->]
+        % Versor Radial (e_rho) - Rojo
+        \draw[red] (0,0,0) -- (0.8,0,0) node[anchor=north west]{$\vec{e}_r$};
+        
+        % Versor Azimutal (e_phi) - Cian
+        \draw[cyan] (0,0,0) -- (0,0.8,0) node[anchor=west]{$\vec{e}_\theta$};
+        
+        % Versor Vertical (e_z) - Verde
+        \draw[green!60!black] (0,0,0) -- (0,0,0.8) node[anchor=south]{$\vec{e}_z$};
+    \end{scope}
+
+    % Punto P
+    \filldraw (P) circle (0.5pt) node[above right = 0.5cm and 0.5cm] {$P(r, \theta, z)$};
+
+\end{tikzpicture}
+    \caption{Coordenadas Cilindricas}
+    \label{fig:Cilindricas}
+\end{figure}
+$$\Vec{e}_r=(\cos(\theta),\sin(\theta),0)$$
+$$\Vec{e}_{\theta}=(-\sin(\theta),\cos(\theta),0)$$
+$$\Vec{e}_z=(0,0,1)$$
+Y todos los puntos del espacio se pueden determinar como
+$$\Vec{r}=r\Vec{e}_r+z\Vec{e}_z$$
+En las coordenadas cilíndricas esta lo que se llama el trucazo (es derivar el vector en el tiempo pero aumenta la eficiencia)\\
+Pero primero debemos obtener derivadas respecto a parámetros en este caso solo $\theta$
+$$\dfrac{\partial}{\partial\theta}(\Vec{e}_r)=(-\sin(\theta),\cos(\theta),0)=\Vec{e}_{\theta}$$
+$$\dfrac{\partial}{\partial\theta}(\Vec{e}_{\theta})=(-\cos(\theta),-\sin(\theta),0)=-\Vec{e}_r$$
+
+De esto se puede obtener que
+$$\dfrac{d}{dt}(\Vec{e}_r)=\dfrac{\partial(\Vec{e}_r)}{\partial\theta}\cdot\dfrac{d(\theta)}{dt}\longrightarrow\dfrac{d}{dt}(\Vec{e}_r)=\dot{\theta}\Vec{e}_{\theta}$$
+$$\dfrac{d}{dt}(\Vec{e}_{\theta})=\dfrac{\partial(\Vec{e}_{\theta})}{\partial\theta}\cdot\dfrac{d(\theta)}{dt}\longrightarrow\dfrac{d}{dt}(\Vec{e}_{\theta})=-\dot{\theta}\Vec{e}_r$$
+
+De esto lo mas importante es 
+$$\dfrac{d}{dt}(\Vec{e}_r)=\dot{\theta}\Vec{e}_{\theta}$$
+$$\dfrac{d}{dt}(\Vec{e}_{\theta})=-\dot{\theta}\Vec{e}_r$$
+\subsubsection{Coordenadas esféricas}
+Las coordenadas esfericas son muy utilizadas en objetos que pueden medir una distancia lineal y este pivotea respecto a dos angulos, un ejemplo de esto es una antena la cual gira arriba y abajo, y de lado a lado
+\{$\Vec{e}_r,\Vec{e}_{\phi},\vec{e}_{\theta}$\}
+\begin{figure}[!ht]
+    \centering
+% 1. Definir la perspectiva
+\tdplotsetmaincoords{65}{125}
+
+\begin{tikzpicture}[tdplot_main_coords, scale=1.5, >=latex]
+
+    % --- PARÁMETROS ---
+    \def\r{2.5}       % Radio
+    \def\phiangle{50} % Ángulo desde eje Z (polar)
+    \def\thetaangle{70}% Ángulo en plano XY (azimutal)
+
+    % --- EJES CARTESIANOS ---
+    \draw[->, thick] (0,0,0) -- (3,0,0) node[anchor=north east]{$x$};
+    \draw[->, thick] (0,0,0) -- (0,3,0) node[anchor=north west]{$y$};
+    \draw[->, thick] (0,0,0) -- (0,0,3) node[anchor=south]{$z$};
+
+    % --- GENERAR COORDENADAS ---
+    % Define: (P), (Px), (Py), (Pz), (Pxy)
+    \tdplotsetcoord{P}{\r}{\phiangle}{\thetaangle}
+
+    % --- VECTOR POSICIÓN (r) ---
+    \draw[thick, blue] (0,0,0) -- (P) node[midway, above ] {$r$};
+
+    % --- LÍNEAS DE PROYECCIÓN ---
+    \draw[dashed] (0,0,0) -- (Pxy);   
+    \draw[dashed] (Pxy) -- (P);       
+    \draw[dashed] (Pxy) -- (Px);      
+    \draw[dashed] (Pxy) -- (Py);      
+    \draw[dashed] (P) -- (Pz) node[left] {$z$}; 
+
+    % --- ÁNGULOS ---
+    \tdplotdrawarc[->]{(0,0,0)}{0.7}{0}{\thetaangle}{anchor=north}{$\theta$}
+    
+    \tdplotsetthetaplanecoords{\thetaangle}
+    \tdplotdrawarc[tdplot_rotated_coords, ->]{(0,0,0)}{0.7}{0}{\phiangle}{anchor=south west}{$\phi$}
+
+    % --- VERSORES CON COLORES DISTINTOS (BASE ESFÉRICA) ---
+    \tdplotsetrotatedcoords{\thetaangle}{\phiangle}{0}
+    \begin{scope}[tdplot_rotated_coords, shift={(P)}, thick, ->]
+        % Versor Radial (e_r) - Rojo
+        \draw[red] (0,0,0) -- (0,0,0.8) node[anchor=south west]{$\vec{e}_r$};
+        
+        % Versor Polar (e_phi) - Verde (apunta hacia "abajo", tangente al meridiano)
+        \draw[green!60!black] (0,0,0) -- (0.8,0,0) node[anchor=north west]{$\vec{e}_\phi$};
+        
+        % Versor Azimutal (e_theta) - Cian/Azul (tangente al paralelo)
+        \draw[cyan] (0,0,0) -- (0,0.8,0) node[anchor=west]{$\vec{e}_\theta$};
+    \end{scope}
+
+    \filldraw (P) circle (0.5pt);
+
+\end{tikzpicture}
+\caption{Coordenadas Esfericas}
+    \label{fig:Esfericas}
+\end{figure}
+
+
+
+$$\Vec{e}_r=(\cos(\theta)\sin(\phi),\sin(\theta)\sin(\phi),\cos{\phi})=\sin(\phi)\cdot(\cos(\theta)\Vec{e}_x+\sin(\theta)\Vec{e}_y)+\cos(\phi)\Vec{e}_z$$
+$$\Vec{e}_\phi=(\cos(\phi)\cos(\theta),\cos(\phi)\sin(\theta),-\sin(\phi))=\cos(\phi)\cdot(\cos(\theta)\Vec{e}_x+\sin(\theta)\Vec{e}_y)-\sin(\phi)\Vec{e}_z$$
+$$\Vec{e}_{\theta}=(-\sin(\theta),\cos(\theta),0)=-\sin(\theta)\Vec{e}_x+\cos(\theta)\vec{e}_y$$
+Y todos los puntos del espacio se pueden determinar como
+$$\Vec{r}=r\Vec{e}_r$$
+Al igual que se hizo en coordenadas cilíndricas podemos obtener las derivadas temporales de la base de vectores, y al igual que antes comenzaremos con las derivadas parciales de los vectores unitarios respecto a los parámetros tempo dependiente (que dependen el tiempo como $\theta$ y $\phi$)\\
+Partiendo del vector $\vec{e}_r$
+$$\dfrac{\partial(\Vec{e}_r)}{\partial\theta}=\sin(\phi)\cdot\Vec{e}_\theta$$
+$$\dfrac{\partial(\Vec{e}_r)}{\partial\phi}=\Vec{e}_\phi$$
+Seguimos con el vector $\Vec{e}_{\phi}$
+$$\dfrac{\partial(\Vec{e}_{\phi})}{\partial\theta}=\cos(\phi)\cdot\Vec{e}_\theta$$
+$$\dfrac{\partial(\Vec{e}_{\phi})}{\partial\phi}=-\Vec{e}_r$$
+Finalmente con el vector $\Vec{e}_{\theta}$
+$$\dfrac{\partial(\Vec{e}_{\theta})}{\partial\theta}=\sin(\phi)\cdot\Vec{e}_r-\cos(\phi)\Vec{e}_{\phi}$$
+$$\dfrac{\partial(\Vec{e}_{\theta})}{\partial\phi}=\Vec{0}$$
+
+Todo esto para finalmente obtener que la derivada de la base es:
+\begin{equation}
+    \dfrac{d}{dt}(\Vec{e}_r)=\dfrac{\partial(\Vec{e}_r)}{\partial\phi}\dfrac{d\phi}{dt}+\dfrac{\partial(\Vec{e}_r)}{\partial\theta}\dfrac{d\theta}{dt}=\dot{\phi}\Vec{e}_{\phi}+\sin(\phi)\dot{\theta}\Vec{e}_\theta
+\end{equation}
+\begin{equation}
+    \dfrac{d}{dt}(\Vec{e}_{\phi})=\dfrac{\partial(\Vec{e}_{\phi})}{\partial\theta}\dfrac{d\theta}{dt}+\dfrac{\partial(\Vec{e}_{\phi})}{\partial\phi}\dfrac{d\phi}{dt}=\cos(\phi)\dot{\theta}\cdot\Vec{e}_\theta-\dot{\phi}\Vec{e}_r
+\end{equation}
+\begin{equation}
+    \dfrac{d}{dt}(\Vec{e}_{\theta})=\dfrac{\partial(\Vec{e}_{\theta})}{\partial\theta}\dfrac{d\theta}{dt}=\sin(\phi)\dot{\theta}\cdot\Vec{e}_r-\cos(\phi)\dot{\theta}\Vec{e}_{\phi}
+\end{equation}
+
+
+
+\subsubsection{Coordenadas Intrínsecas}
+Uff estas coordenadas son medias raras, ya que dependen del pasado y futuro, sip asi como lo escuchas, estas coordenadas se definen como una partícula se mueve por una curva (están mas relacionadas a la curva que a la partícula pero también ayuda).
+$$\Vec{e}_t=\dfrac{\der{r}{A}}{\left|\left|\der{r}{A} \hspace{4px}\right|\right|}$$
+$$\Vec{e}_n=\dfrac{\der{e_t}{A}}{\left|\left|\der{e_t}{A} \hspace{4px}\right|\right|}$$
+$$\Vec{e}_{b}=\Vec{e}_t\times\Vec{e}_n$$
+\begin{figure}[!ht]
+    \centering
+\tdplotsetmaincoords{70}{120}
+
+\begin{tikzpicture}[tdplot_main_coords, scale=2, >=latex]
+
+    % --- DIBUJAR EJES DE REFERENCIA FIJOS ---
+    \draw[->, gray!50, thin] (0,0,0) -- (3,0,0) node[anchor=north east]{$x$};
+    \draw[->, gray!50, thin] (0,0,0) -- (0,3,0) node[anchor=north west]{$y$};
+    \draw[->, gray!50, thin] (0,0,0) -- (0,0,2.5) node[anchor=south]{$z$};
+
+    % --- DIBUJAR TRAYECTORIA CURVA ---
+    % Usamos una hélice suave como ejemplo de trayectoria
+    \draw[thick, blue!80!black] plot[domain=0.5:2.5, samples=100] 
+        ({2*cos(\x r)}, {2*sin(\x r)}, {0.5*\x});
+    
+    % --- DEFINIR PUNTO P EN LA TRAYECTORIA ---
+    \def\tP{1.5} % Posición del punto en el parámetro de la curva
+    \coordinate (P) at ({2*cos(\tP r)}, {2*sin(\tP r)}, {0.5*\tP});
+    
+    % --- DIBUJAR VECTOR POSICIÓN DESDE EL ORIGEN ---
+    \draw[->, dashed, gray] (0,0,0) -- (P) node[midway, below] {$\vec{r}(t)$};
+
+    % --- CÁLCULO DE DIRECCIONES PARA LOS VERSORES ---
+    % Tangente: Derivada de r(t) -> (-sin(t), cos(t), const)
+    % Normal: Derivada de T -> (-cos(t), -sin(t), 0)
+    
+    % Rotamos el sistema local para que coincida con la orientación en P
+    % Estos ángulos están ajustados para la hélice en t = 1.5
+    \tdplotsetrotatedcoords{175}{75}{0} 
+
+    \begin{scope}[tdplot_rotated_coords, shift={(P)}, thick, ->]
+        % 1. Versor Tangente (e_t) - Rojo
+        \draw[red] (0,0,0) -- (-1,0,0) node[anchor=west]{$\vec{e}_b$};
+        
+        % 2. Versor Normal (e_n) - Verde (apunta al centro de curvatura)
+        \draw[green!60!black] (0,0,0) -- (0,1,0) node[anchor=south east]{$\vec{e}_n$};
+        
+        % 3. Versor Binormal (e_b) - Cian
+        \draw[cyan] (0,0,0) -- (0,0,1) node[anchor=south]{$\vec{e}_t$};
+    \end{scope}
+
+    % Punto de la partícula
+    \filldraw (P) circle (1pt) node[below right] {$P(s)$};
+
+    % Radio de curvatura (Opcional)
+    \coordinate (Center) at (0,0,{0.5*\tP}); % Centro aproximado para este ejemplo
+    \draw[<->, orange, thin] (P) -- (Center) node[midway, above] {$\rho$};
+
+\end{tikzpicture}
+    \caption{Coordenadas Intrinsecas}
+    \label{fig:intrinsecas}
+\end{figure}
+\[
+\begin{pmatrix}
+\frac{d\Vec{T}}{dt}\\ \frac{d\Vec{N}}{dt}\\ \frac{d\Vec{B}}{dt}
+\end{pmatrix}
+=
+\|\marc{\vec{v}}{A}\|
+\begin{pmatrix}
+0 & \kappa & 0 \\
+-\kappa & 0 & \tau \\
+0 & -\tau & 0
+\end{pmatrix}
+\begin{pmatrix}
+\Vec{T} \\
+\Vec{N} \\
+\Vec{B}
+\end{pmatrix}
+\]
+Donde $\kappa$ se conoce como la curvatura de la curva (el radio de curvatura se define como $\rho=\dfrac{1}{\kappa}$) y $\tau$ es la torsion.
+
+
+\subsection{Cinemática de un cuerpo rigido}
+En estos casos donde tenemos marcos de referencia que rotan y se trasladan podemos obtener la velocidad de un punto si lo dividimos en 2, la velocidad de un punto del cuerpo que se traslada mas la velocidad del punto respecto al cuerpo
+Velocidad
+$$\marc{\vec{v}_P}{A}=\der{r_P}{A}=\der{\Vec{r}_Q}{A}+\der{\vec{r}_{(P/Q)}}{A}$$
+$$\marc{\vec{v}_P}{A}=\der{r_P}{A}=\marc{\Vec{v}_Q}{A}+\der{\vec{r}_{(P/Q)}}{A}\quad\quad\quad\left(\transport{\vec{r}_{(P/Q)}}{A}{B}\right)$$
+$$\marc{\vec{v}_P}{A}=\marc{\Vec{v}_Q}{A}+\transporta{\vec{r}_{(P/Q)}}{A}{B}$$
+
+\subsubsection{Rodar sin resbalar}
+Es un poco mas complicado explicar este punto, pero la manera que a mi me ayuda pensarlo es que cuando un cuerpo rueda se puede obtener un ver como un sistema cilindrico, donde el el vector $\Vec{r}$ es el punto que toca con la superficie. entonces si utilizamos la velocidad en coordenadas cilíndricas $\Vec{v}=\dot r\Vec{e}_r+r\dot {\theta}\Vec{e}_{\theta}$ ahora desglosemos cuanto vale la velocidad, podemos al tiro eliminar la componente de $\Vec{e}_{\theta}$ dado que $r$ en el punto de contacto debe valer 0 por ende solo nos queda la componente radial, pero si analizamos el comportamiento del valor de $r$ es que antes del contacto era mayor a 0 luego en el contacto es 0 y finalmente post contacto es mayor a 0, por ende podríamos decir que 0 es un mínimo del radio, y como se sabe que los mínimos de funciones se caracterizan por tener una derivada igual a 0. Esto significa que en el punto de contacto la velocidad es 0.\\
+En este caso podemos ocupar la ecuación antes obtenida para simplificar cálculos.
+
+%$$\marc{\Vec{v}_p}{N}=\marc{\cancelto{0}{\Vec{v}_c}{N}+\transporta{\Vec{r}_{p/C}{N}{R}}$$
+
+\begin{equation}
+    \marc{\Vec{v}_p}{N}=\marc{\cancelto{\Vec{0}}{\Vec{v}_C}}{N} \quad+ \transporta{\Vec{r}_{p/C}}{N}{R}
+\end{equation}
+
+Incluso muchas veces el vector $\marc{\Vec{r}_{p/C}}{R}$ es constante por ende se elimina y solo queda
+$$\marc{\Vec{v}_p}{N}=\stackbin{\mathcal{N}\to \mathcal{R}}{\omega}\times \Vec{r}_{p/C}$$
+
+\begin{figure}[!ht]
+    \centering
+\begin{tikzpicture}[>=Latex, scale=0.7]
+    % --- Definición de Parámetros ---
+    \def\R{2.0} % Radio de la rueda
+    \def\Vmag{1.5} % Magnitud del vector velocidad (para dibujo)
+
+    % --- Suelo (Marco Fijo N) ---
+    % Línea del suelo con patrón de rayado para indicar que es fijo
+    \draw[thick] (-3.5, 0) -- (3.5, 0);
+    \fill[pattern=north east lines, pattern color=gray!50] (-3.5, -0.3) rectangle (3.5, 0);
+    \node[below right, gray!80!black] at (2, 1) {Suelo (Marco $\mathcal{N}$)};
+
+    % --- Cuerpo Rígido (Rueda - Marco Móvil R) ---
+    \coordinate (C) at (0, \R); % Centro de masa
+    \coordinate (P) at (0, 0);  % Punto de contacto
+
+    % Dibujo de la rueda y ejes locales para mostrar rotación
+    \draw[thick, fill=gray!10] (C) circle (\R);
+    \begin{scope}[shift={(C)}, rotate=-30, gray] % Ejes rotados para dar sensación de movimiento
+        \draw[dashed] (-\R, 0) -- (\R, 0);
+        \draw[dashed] (0, -\R) -- (0, \R);
+    \end{scope}
+    \node[above left, gray] at ($(C)+(-1, \R-0.5)$) {Cuerpo $\mathcal{R}$};
+
+
+    % --- VECTORES CINEMÁTICOS ---
+
+    % 1. Velocidad del Centro de Masa (Traslación)
+    % Color AZUL para traslación
+    \draw[->, very thick, blue] (C) -- ++(\Vmag, 0) node[above] {$\vec{v}_C$};
+    \filldraw[blue] (C) circle (1.5pt) node[above left, black] {$C$};
+
+
+    % 2. Velocidad Angular (Rotación)
+    % Color ROJO para rotación
+    \draw[->, thick, red] ($(C)+(0.6,0.3)$) arc (30:-45:0.7) node[midway, right] {$\vec{\omega}$};
+
+
+    % --- ANÁLISIS EN EL PUNTO DE CONTACTO P ---
+
+    % Vector posición relativo r_{P/C}
+    \draw[->, dashed, thick, orange!80!black] (C) -- (P) node[midway, right] {$\vec{r}_{P/C}$};
+
+    % Descomposición de velocidades en P
+    % Componente de Traslación (apunta a la derecha, igual a v_C)
+    \draw[->, thick, blue, dashed] (P) -- ++(\Vmag, 0) node[below right] {$\vec{v}_{tras} = \vec{v}_C$};
+
+    % Componente de Rotación (apunta a la izquierda = omega x r)
+    % Su magnitud debe ser igual a la de traslación si no resbala
+    \draw[->, thick, red, dashed] (P) -- ++(-\Vmag, 0) node[below left] {$\vec{v}_{rot} = \vec{\omega} \times \vec{r}_{P/C}$};
+
+    % Punto de contacto y condición final
+    \filldraw[black] (P) circle (1.5pt) node[above right] {$P$};
+    \node[draw, align=center, fill=white, above right = 0.7cm and 3cm] at (P) {
+        \textbf{Condición "Sin Resbalar"}\\
+        $\vec{v}_P = \vec{v}_C + (\vec{\omega} \times \vec{r}_{P/C}) = \vec{0}$\\
+        \small{(La velocidad relativa al suelo es nula)}
+    };
+
+\end{tikzpicture}
+    \caption{Cinemática de cuerpo rígido}
+    \label{fig:Cinetica_rigida}
+\end{figure}

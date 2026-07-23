@@ -18,10 +18,10 @@ Sabiendo que la posición del collarín está descrita por las variables $r$ y $
         \draw[thick] (-0.5,-0.4) -- (0.5,-0.4);
         \draw (O) -- (-0.25,-0.4);
         \draw (O) -- (0.25,-0.4);
-        \filldraw[fill=white] (O) circle (2.5pt) node[above left] {$O$};
+        \filldraw[fill=white] (O) circle (3pt) node[above left] {$O$};
         \coordinate (End) at (\ang:4.5);
-        \draw[line width=5pt, color=black,cap=round] (O) -- (End);
-        \draw[line width=4pt, color=gray!20,cap=round] (O) -- (End);
+        \draw[line width=7pt, color=black,cap=round] (O) -- (End);
+        \draw[line width=6pt, color=gray!20,cap=round] (O) -- (End);
         \draw[thick] (O) -- (End);
         
         % COLLARÍN CON DEGRADADO CORREGIDO
@@ -37,12 +37,148 @@ Sabiendo que la posición del collarín está descrita por las variables $r$ y $
             rotate=\ang+90, 
             inner sep=0pt
         ] at (P) {};
-        \filldraw (P) circle (1.2pt) node[above right, yshift=5pt] {$P$};
+        \filldraw (P) circle (1.2pt) node[above, yshift=6pt] {$P$};
 
         \draw[dashed] (O) -- (2,0);
         \draw[->] (1,0) arc (0:\ang:1) node[midway, right, xshift=2pt] {$\theta$};
-        \draw[<->] ($(O)+(90+\ang:0.4)$) -- ($(P)+(90+\ang:0.4)$) node[midway, above left] {$r$};
+        \draw[|->] ($(O)+(90+\ang:0.4)$) -- ($(P)+(90+\ang:0.4)$) node[midway, above left] {$r$};
+        \filldraw[fill=black] (O) circle (1pt);
     \end{tikzpicture}
     \caption{Collarín deslizando sobre un brazo rotatorio.}
     \label{fig:collarin_brazo}
 \end{figure}
+\ifmostrarSolucion
+\begin{tcolorbox}[title= SOlucion Collarian brazo rotatorio, breakable]
+\noindent\textbf{Primero, definimos los marcos de referencia y sistemas de coordenadas:}
+
+\vspace{0.3cm}
+
+\noindent $\mathcal{F}$: Suelo (Inercial) \quad $\{\vec{E}_x, \vec{E}_y, \vec{E}_z\}$ \\
+\noindent $\mathcal{A}$: Fijo en el brazo \quad $\{\vec{e}_r, \vec{e}_\theta, \vec{e}_z\}$
+
+\vspace{0.5cm}
+
+% --- DIAGRAMA TIKZ Y RELACIONES DE TRANSFORMACIÓN ---
+\noindent
+\begin{minipage}{0.55\textwidth}
+\centering
+\begin{tikzpicture}[scale=1.2, >=stealth]
+   \def\ang{35} \def\rPos{3.0}
+        \coordinate (O) at (0,0);
+        \fill[pattern=north east lines] (-0.5,-0.5) rectangle (0.5,-0.4);
+        \draw[thick] (-0.5,-0.4) -- (0.5,-0.4);
+        \draw (O) -- (-0.25,-0.4);
+        \draw (O) -- (0.25,-0.4);
+        \filldraw[fill=white] (O) circle (3pt) node[above left] {$O$};
+        \coordinate (End) at (\ang:4.5);
+        \draw[line width=7pt, color=black,cap=round] (O) -- (End);
+        \draw[line width=6pt, color=gray!20,cap=round] (O) -- (End);
+        \draw[thick] (O) -- (End);
+        
+        % COLLARÍN CON DEGRADADO CORREGIDO
+        \coordinate (P) at (\ang:\rPos);
+        \node[
+            top color=gray!5, 
+            bottom color=gray!60, 
+            draw=black, 
+            thick, 
+            shape=rounded rectangle, 
+            minimum width=0.6cm, 
+            minimum height=0.35cm, 
+            rotate=\ang+90, 
+            inner sep=0pt
+        ] at (P) {};
+        \filldraw (P) circle (1.2pt) node[above, yshift=6pt] {$P$};
+
+        \draw[dashed] (O) -- (2,0);
+        \draw[->] (1,0) arc (0:\ang:1) node[midway, right, xshift=2pt] {$\theta$};
+        \draw[|->] ($(O)+(90+\ang:0.4)$) -- ($(P)+(90+\ang:0.4)$) node[midway, above left] {$r$};
+        \filldraw[fill=black] (O) circle (1pt);
+
+  % Marco Inercial F (Morado)
+  \draw[->, line width=1.2pt, violet] (0,0) -- (2.5,0) node[right] {$\vec{E}_x$};
+  \draw[->, line width=1.2pt, violet] (0,0) -- (0,2.5) node[above] {$\vec{E}_y$};
+  \node[violet] at (-0.25,0.15) {$\vec{E}_z$};
+
+  % Vector unitario e_theta (Verde)
+  \draw[->, line width=1.2pt, green!60!black] (0,0) -- ({2.0*cos(\ang)},{2.0*sin(\ang)}) node[above left] {$\vec{e}_r$};
+  \draw[->, line width=1.2pt, green!60!black] (0,0) -- ({2.0*cos(\ang+90)},{2.0*sin(\ang+90)}) node[above left] {$\vec{e}_\theta$};
+  \node[green!60!black] at (-0.35,-0.1) {$\vec{e}_z$};
+\end{tikzpicture}
+\end{minipage}
+\begin{minipage}{0.42\textwidth}
+\[
+\begin{aligned}
+\vec{e}_r &= \cos\theta \vec{E}_x + \sin\theta \vec{E}_y \\
+\vec{e}_\theta &= -\sin\theta \vec{E}_x + \cos\theta \vec{E}_y \\
+\vec{e}_z &= \vec{E}_z
+\end{aligned}
+\]
+\end{minipage}
+
+\vspace{0.8cm}
+
+% --- PARTE A ---
+\noindent\textbf{A) Definamos:} 
+\[
+\vec{r} = r\vec{e}_r, \qquad {}^{\mathcal{F}}\vec{\omega}^{\mathcal{A}} = \dot{\theta}\vec{e}_z
+\]
+
+\[
+\Rightarrow {}^{\mathcal{F}}\vec{v} = \frac{{}^{\mathcal{F}}d}{dt}\vec{r} = \frac{{}^{\mathcal{A}}d}{dt}\vec{r} + {}^{\mathcal{F}}\vec{\omega}^{\mathcal{A}} \times \vec{r} \quad \text{(Teorema de Transporte)}
+\]
+
+\begin{itemize}
+    \item $\frac{{}^{\mathcal{A}}d}{dt}\vec{r} = \dot{r}\vec{e}_r$
+    \item ${}^{\mathcal{F}}\vec{\omega}^{\mathcal{A}} \times \vec{r} = \dot{\theta}\vec{e}_z \times r\vec{e}_r = r\dot{\theta}\vec{e}_\theta$
+\end{itemize}
+
+\[
+\Rightarrow \boxed{{}^{\mathcal{F}}\vec{v} = \dot{r}\vec{e}_r + r\dot{\theta}\vec{e}_\theta}
+\]
+
+\[
+\Rightarrow {}^{\mathcal{F}}\vec{a} = \frac{{}^{\mathcal{F}}d}{dt}({}^{\mathcal{F}}\vec{v}) = \frac{{}^{\mathcal{A}}d}{dt}({}^{\mathcal{F}}\vec{v}) + {}^{\mathcal{F}}\vec{\omega}^{\mathcal{A}} \times {}^{\mathcal{F}}\vec{v}
+\]
+
+\[
+\left.
+\begin{aligned}
+\cdot \; \frac{{}^{\mathcal{A}}d}{dt}({}^{\mathcal{F}}\vec{v}) &= \ddot{r}\vec{e}_r + (\dot{r}\dot{\theta} + r\ddot{\theta})\vec{e}_\theta \\[4pt]
+\cdot \; {}^{\mathcal{F}}\vec{\omega}^{\mathcal{A}} \times {}^{\mathcal{F}}\vec{v} &= \dot{\theta}\vec{e}_z \times (\dot{r}\vec{e}_r + r\dot{\theta}\vec{e}_\theta) \\
+&= \dot{r}\dot{\theta}\vec{e}_\theta - r\dot{\theta}^2\vec{e}_r
+\end{aligned}
+\right\} 
+\Rightarrow \boxed{{}^{\mathcal{F}}\vec{a} = (\ddot{r} - r\dot{\theta}^2)\vec{e}_r + (2\dot{r}\dot{\theta} + r\ddot{\theta})\vec{e}_\theta}
+\]
+
+\vspace{0.8cm}
+
+% --- PARTE B ---
+\noindent\textbf{B) Definamos:}
+
+\[
+\frac{{}^{\mathcal{F}}d}{dt}(\vec{e}_r) = -\dot{\theta}\sin\theta \vec{E}_x + \dot{\theta}\cos\theta \vec{E}_y = \dot{\theta}\vec{e}_\theta
+\]
+\[
+\frac{{}^{\mathcal{F}}d}{dt}(\vec{e}_\theta) = -\dot{\theta}\cos\theta \vec{E}_x - \dot{\theta}\sin\theta \vec{E}_y = -\dot{\theta}\vec{e}_r
+\]
+
+\begin{itemize}
+    \item $\vec{r} = r\vec{e}_r$
+    \item ${}^{\mathcal{F}}\vec{v} = \frac{{}^{\mathcal{F}}d}{dt}(\vec{r}) = \dot{r}\vec{e}_r + r\dot{\theta}\vec{e}_\theta$
+    \item ${}^{\mathcal{F}}\vec{a} = \frac{{}^{\mathcal{F}}d}{dt}({}^{\mathcal{F}}\vec{v}) = \ddot{r}\vec{e}_r + \dot{r}\dot{\theta}\vec{e}_\theta + \dot{r}\dot{\theta}\vec{e}_\theta + r\left[\ddot{\theta}\vec{e}_\theta - \dot{\theta}^2\vec{e}_r\right]$
+    \[
+    = \ddot{r}\vec{e}_r + \dot{r}\dot{\theta}\vec{e}_\theta + \dot{r}\dot{\theta}\vec{e}_\theta + r\ddot{\theta}\vec{e}_\theta - r\dot{\theta}^2\vec{e}_r
+    \]
+    \[
+    = (\ddot{r} - r\dot{\theta}^2)\vec{e}_r + (2\dot{r}\dot{\theta} + r\ddot{\theta})\vec{e}_\theta
+    \]
+\end{itemize}
+
+\vspace{0.3cm}
+
+\noindent $\therefore$ \textbf{DAN EL MISMO RESULTADO, EL TEOREMA SIRVE.}
+    
+\end{tcolorbox}
+\fi

@@ -11,3 +11,152 @@ donde $r, \theta$ y $z$ son coordenadas cilíndricas, siendo $A, k$ y $h$ valore
     \item Encuentre una expresión para $\theta(t)$.
 \end{enumerate}
 
+\ifmostrarSolucion
+
+\begin{tcolorbox}[colframe=black!50!white, % Borde gris oscuro
+        title= Movimiento en coordenadas cilindricas, breakable]
+\textbf{Planteamiento Inicial}
+
+El vector de posición de la partícula $P$ respecto al sistema de referencia inercial $\mathcal{F}$ en coordenadas cilíndricas $(r, \theta, z)$ es:
+\[
+{}^{\mathcal{F}}\vec{r}_{P} = r \vec{e}_r + z \vec{e}_z
+\]
+
+Dado que la trayectoria está definida por:
+\[
+r(\theta) = A e^{k\theta}
+\]
+\[
+z(\theta) = h r(\theta) = h A e^{k\theta}
+\]
+
+\vspace{0.5cm}
+
+\noindent\textbf{1. Cálculo de la velocidad ${}^{\mathcal{F}}\vec{v}_{P}$}
+
+\textbf{Paso 1:} Definir la velocidad en coordenadas cilíndricas derivando respecto al tiempo:
+\[
+{}^{\mathcal{F}}\vec{v}_{P} = \frac{d}{dt}\left({}^{\mathcal{F}}\vec{r}_{P}\right) = \dot{r}\vec{e}_r + r\dot{\theta}\vec{e}_\theta + \dot{z}\vec{e}_z
+\]
+
+\textbf{Paso 2:} Calcular las derivadas temporales $\dot{r}$ y $\dot{z}$ usando la regla de la cadena:
+\[
+\dot{r} = \frac{d}{dt}\left(A e^{k\theta}\right) = A k e^{k\theta}\dot{\theta} = k r \dot{\theta}
+\]
+\[
+\dot{z} = \frac{d}{dt}\left(h r\right) = h \dot{r} = h k r \dot{\theta}
+\]
+
+\textbf{Paso 3:} Sustituir estas derivadas en la expresión de la velocidad:
+\[
+{}^{\mathcal{F}}\vec{v}_{P} = (k r \dot{\theta})\vec{e}_r + (r \dot{\theta})\vec{e}_\theta + (h k r \dot{\theta})\vec{e}_z = r \dot{\theta} \left( k \vec{e}_r + \vec{e}_\theta + h k \vec{e}_z \right)
+\]
+
+\textbf{Paso 4:} Relacionar con la rapidez constante $v_0 = \|{}^{\mathcal{F}}\vec{v}_{P}\|$:
+\[
+v_0 = \sqrt{(k r \dot{\theta})^2 + (r \dot{\theta})^2 + (h k r \dot{\theta})^2} = r \dot{\theta} \sqrt{k^2 + 1 + h^2 k^2}
+\]
+
+Despejando el término común $r \dot{\theta}$:
+\[
+r \dot{\theta} = \frac{v_0}{\sqrt{k^2 + 1 + h^2 k^2}}
+\]
+
+\textbf{Paso 5:} Reemplazar $r\dot{\theta}$ en la ecuación vectorial de la velocidad:
+\[
+{}^{\mathcal{F}}\vec{v}_{P} = \frac{v_0}{\sqrt{k^2 + 1 + h^2 k^2}} \left( k \vec{e}_r + \vec{e}_\theta + h k \vec{e}_z \right)
+\]
+
+\vspace{0.5cm}
+
+\noindent\textbf{2. Cálculo de la aceleración ${}^{\mathcal{F}}\vec{a}_{P}$}
+
+\textbf{Paso 1:} Derivar la velocidad con respecto al tiempo $t$:
+\[
+{}^{\mathcal{F}}\vec{a}_{P} = \frac{d}{dt}\left({}^{\mathcal{F}}\vec{v}_{P}\right) = \frac{v_0}{\sqrt{k^2 + 1 + h^2 k^2}} \frac{d}{dt}\left( k \vec{e}_r + \vec{e}_\theta + h k \vec{e}_z \right)
+\]
+
+\textit{(Observación: el coeficiente escalar antepuesto es constante).}
+
+\textbf{Paso 2:} Aplicar las derivadas de los vectores de la base cilíndrica:
+\[
+\frac{d\vec{e}_r}{dt} = \dot{\theta}\vec{e}_\theta, \quad \frac{d\vec{e}_\theta}{dt} = -\dot{\theta}\vec{e}_r, \quad \frac{d\vec{e}_z}{dt} = \vec{0}
+\]
+
+Sustituyendo:
+\[
+{}^{\mathcal{F}}\vec{a}_{P} = \frac{v_0}{\sqrt{k^2 + 1 + h^2 k^2}} \left( k \dot{\theta}\vec{e}_\theta - \dot{\theta}\vec{e}_r \right) = \frac{v_0 \dot{\theta}}{\sqrt{k^2 + 1 + h^2 k^2}} \left( -\vec{e}_r + k \vec{e}_\theta \right)
+\]
+
+\textbf{Paso 3:} Expresar $\dot{\theta}$ en función de los parámetros del problema. De la relación $r \dot{\theta} = \frac{v_0}{\sqrt{k^2 + 1 + h^2 k^2}}$ y sustituyendo $r = A e^{k\theta}$:
+\[
+\dot{\theta} = \frac{v_0}{A e^{k\theta} \sqrt{k^2 + 1 + h^2 k^2}}
+\]
+
+\textbf{Paso 4:} Sustituir $\dot{\theta}$ en la aceleración:
+\[
+{}^{\mathcal{F}}\vec{a}_{P} = \frac{v_0^2}{A e^{k\theta} (k^2 + 1 + h^2 k^2)} \left( -\vec{e}_r + k \vec{e}_\theta \right)
+\]
+
+\vspace{0.5cm}
+
+\noindent\textbf{3. Prueba de que ${}^{\mathcal{F}}\vec{a}_{P} \perp {}^{\mathcal{F}}\vec{v}_{P}$}
+
+\textbf{Paso 1:} Calcular el producto escalar (punto) entre ${}^{\mathcal{F}}\vec{a}_{P}$ y ${}^{\mathcal{F}}\vec{v}_{P}$:
+\[
+{}^{\mathcal{F}}\vec{a}_{P} \cdot {}^{\mathcal{F}}\vec{v}_{P} = \left[ \frac{v_0^2}{A e^{k\theta} (k^2 + 1 + h^2 k^2)} \left( -\vec{e}_r + k \vec{e}_\theta \right) \right] \cdot \left[ \frac{v_0}{\sqrt{k^2 + 1 + h^2 k^2}} \left( k \vec{e}_r + \vec{e}_\theta + h k \vec{e}_z \right) \right]
+\]
+
+\textbf{Paso 2:} Aplicar las propiedades de la base ortonormal ($\vec{e}_r \cdot \vec{e}_r = 1$, $\vec{e}_\theta \cdot \vec{e}_\theta = 1$, $\vec{e}_r \cdot \vec{e}_\theta = 0$, etc.):
+\[
+{}^{\mathcal{F}}\vec{a}_{P} \cdot {}^{\mathcal{F}}\vec{v}_{P} = \frac{v_0^3}{A e^{k\theta} (k^2 + 1 + h^2 k^2)^{3/2}} \Big( (-1)(k) + (k)(1) + (0)(hk) \Big)
+\]
+\[
+{}^{\mathcal{F}}\vec{a}_{P} \cdot {}^{\mathcal{F}}\vec{v}_{P} = \frac{v_0^3}{A e^{k\theta} (k^2 + 1 + h^2 k^2)^{3/2}} (-k + k) = 0
+\]
+
+Al ser el producto escalar igual a cero, queda demostrado formalmente que:
+\[
+{}^{\mathcal{F}}\vec{a}_{P} \perp {}^{\mathcal{F}}\vec{v}_{P}
+\]
+
+\vspace{0.5cm}
+
+\noindent\textbf{4. Expresión para $\theta(t)$}
+
+\textbf{Paso 1:} Formular la ecuación diferencial a partir de $\dot{\theta}$:
+\[
+\frac{d\theta}{dt} = \frac{v_0}{A \sqrt{k^2 + 1 + h^2 k^2}} e^{-k\theta}
+\]
+
+\textbf{Paso 2:} Separar variables:
+\[
+e^{k\theta} d\theta = \frac{v_0}{A \sqrt{k^2 + 1 + h^2 k^2}} dt
+\]
+
+\textbf{Paso 3:} Integrar a ambos lados definiendo $\theta(0) = \theta_0$:
+\[
+\int_{\theta_0}^{\theta(t)} e^{k\theta} d\theta = \frac{v_0}{A \sqrt{k^2 + 1 + h^2 k^2}} \int_{0}^{t} dt'
+\]
+\[
+\left[ \frac{1}{k} e^{k\theta} \right]_{\theta_0}^{\theta(t)} = \frac{v_0 t}{A \sqrt{k^2 + 1 + h^2 k^2}}
+\]
+\[
+\frac{1}{k} \left( e^{k\theta(t)} - e^{k\theta_0} \right) = \frac{v_0 t}{A \sqrt{k^2 + 1 + h^2 k^2}}
+\]
+
+\textbf{Paso 4:} Despejar $\theta(t)$:
+\[
+e^{k\theta(t)} = e^{k\theta_0} + \frac{k v_0 t}{A \sqrt{k^2 + 1 + h^2 k^2}}
+\]
+\[
+\theta(t) = \frac{1}{k} \ln \left( e^{k\theta_0} + \frac{k v_0 t}{A \sqrt{k^2 + 1 + h^2 k^2}} \right)
+\]
+
+\textit{Caso particular:} Si se considera como condición inicial $\theta(0) = 0$, la expresión se reduce a:
+\[
+\theta(t) = \frac{1}{k} \ln \left( 1 + \frac{k v_0 t}{A \sqrt{k^2 + 1 + h^2 k^2}} \right)
+\]
+
+\end{tcolorbox}
+\fi
