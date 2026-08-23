@@ -60,3 +60,125 @@ Una partícula se mueve por el interior de un tubo de largo $2R$ que gira con un
     \caption{Esquema del movimiento relativo de una partícula en el interior de un tubo rotatorio.}
     \label{fig:particula_tubo_giratorio}
 \end{figure}
+
+\ifmostrarSolucion
+\begin{tcolorbox}[title=Barra articulada a argolla circular,breakable]
+
+\noindent\textbf{1) Definamos marcos de referencia:}
+\begin{itemize}
+    \item $\mathcal{F}$: Suelo.
+    \item $\mathcal{B}$: Barra.
+\end{itemize}
+
+\noindent\textbf{Los sistemas de coordenadas son:}
+\begin{itemize}
+    \item $\{\vec{e}_x, \vec{e}_y, \vec{e}_z\}$: Cartesiano, fijo en $\mathcal{F}$.
+    \item $\{\vec{e}_r, \vec{e}_\theta, \vec{e}_z\}$: Cilíndrico, fijo en $\mathcal{B}$.
+\end{itemize}
+\vspace{0.3cm}
+
+\noindent Utilizamos coordenadas cilíndricas:
+\[
+\dot{r} = v_0 \implies r = v_0 t + R
+\]
+\[
+\vec{r}_P = r \vec{e}_r
+\]
+\[
+{}^{\mathcal{N}}\vec{v}_P = \dot{r}\vec{e}_r + r\dot{\theta}\vec{e}_\theta = v_0 \vec{e}_r + (v_0 t + R)\omega_0 \vec{e}_\theta
+\]
+\[
+\implies {}^{\mathcal{N}}v_P = \|{}^{\mathcal{N}}\vec{v}_P\| = \sqrt{v_0^2 + (v_0 t + R)^2 \omega_0^2}
+\]
+
+\vspace{0.5cm}
+
+\noindent\textbf{a) Radio de curvatura de la trayectoria descrita (Parte 1)}
+
+\vspace{0.2cm}
+
+\noindent La derivada del vector tangencial es entonces:
+\[
+\frac{{}^{\mathcal{N}}d\vec{e}_t}{dt} = \frac{d}{dt}\left(\frac{{}^{\mathcal{N}}\vec{v}_P}{{}^{\mathcal{N}}v_P}\right) = \frac{\frac{{}^{\mathcal{N}}d}{dt}({}^{\mathcal{N}}\vec{v}_P){}^{\mathcal{N}}v_P - {}^{\mathcal{N}}\vec{v}_P \frac{d}{dt}({}^{\mathcal{N}}v_P)}{{}^{\mathcal{N}}v_P^2}
+\]
+
+\noindent Notemos que:
+\begin{itemize}
+    \item $\frac{{}^{\mathcal{N}}d}{dt}({}^{\mathcal{N}}\vec{v}_P) = v_0 \omega_0 \vec{e}_\theta + v_0 \omega_0 \vec{e}_\theta - (v_0 t + R)\omega_0^2 \vec{e}_r = -(v_0 t + R)\omega_0^2 \vec{e}_r + 2 v_0 \omega_0 \vec{e}_\theta$
+    \item $\frac{d}{dt}({}^{\mathcal{N}}v_P) = \frac{1}{2} \frac{1}{{}^{\mathcal{N}}v_P} \cdot 2 (v_0 t + R) v_0 \omega_0^2 = \frac{(v_0 t + R) v_0 \omega_0^2}{{}^{\mathcal{N}}v_P}$
+\end{itemize}
+
+\[
+\begin{aligned}
+\implies \frac{{}^{\mathcal{N}}d\vec{e}_t}{dt} &= \frac{\omega_0}{{}^{\mathcal{N}}v_P} \left[ -(v_0 t + R)\omega_0 \vec{e}_r + 2 v_0 \vec{e}_\theta \right] - \frac{(v_0 t + R) v_0 \omega_0^2}{{}^{\mathcal{N}}v_P^3} \left[ v_0 \vec{e}_r + (v_0 t + R)\omega_0 \vec{e}_\theta \right] \\[6pt]
+&= \frac{-(v_0 t + R)\omega_0^2}{{}^{\mathcal{N}}v_P^3}\left({}^{\mathcal{N}}v_P^2 + v_0^2\right)\vec{e}_r + \frac{v_0 \omega_0}{{}^{\mathcal{N}}v_P^3}\left(2 {}^{\mathcal{N}}v_P^2 - (v_0 t + R)^2 \omega_0^2\right)\vec{e}_\theta \\[6pt]
+&= \frac{-(v_0 t + R)\omega_0^2}{{}^{\mathcal{N}}v_P^3}\left(2 v_0^2 + (v_0 t + R)^2 \omega_0^2\right)\vec{e}_r + \frac{v_0 \omega_0}{{}^{\mathcal{N}}v_P^3}\left(2 v_0^2 + (v_0 t + R)^2 \omega_0^2\right)\vec{e}_\theta \\[6pt]
+&= \frac{(v_0^2 + {}^{\mathcal{N}}v_P^2)\omega_0}{{}^{\mathcal{N}}v_P^3} \left[ -(v_0 t + R)\omega_0 \vec{e}_r + v_0 \vec{e}_\theta \right]
+\end{aligned}
+\]
+
+\[
+\implies \left\| \frac{{}^{\mathcal{N}}d\vec{e}_t}{dt} \right\| = \frac{(v_0^2 + {}^{\mathcal{N}}v_P^2)\omega_0}{{}^{\mathcal{N}}v_P^2}
+\]
+
+\vspace{0.3cm}
+
+\noindent Así, la curvatura nos queda:
+\[
+\kappa = \frac{1}{{}^{\mathcal{N}}v_P} \left\| \frac{{}^{\mathcal{N}}d\vec{e}_t}{dt} \right\| = \frac{(v_0^2 + {}^{\mathcal{N}}v_P^2)\omega_0}{{}^{\mathcal{N}}v_P^3}
+\]
+
+\noindent El radio de curvatura es $r_c = \frac{1}{\kappa}$. Por lo tanto,
+\[
+\boxed{r_c = \frac{1}{\omega_0} \cdot \frac{{}^{\mathcal{N}}v_P^3}{(v_0^2 + {}^{\mathcal{N}}v_P^2)} = \frac{\left[ v_0^2 + (v_0 t + R)^2 \omega_0^2 \right]^{3/2}}{\omega_0 \left[ 2 v_0^2 + (v_0 t + R)^2 \omega_0^2 \right]} = \frac{v_0}{\omega_0} \frac{\left[ 1 + \left(t + \frac{R}{v_0}\right)^2 \omega_0^2 \right]^{3/2}}{\left[ 2 + \left(t + \frac{R}{v_0}\right)^2 \omega_0^2 \right]}}
+\]
+
+\vspace{0.8cm}
+
+\noindent\textbf{b) Distancia recorrida por la partícula (Parte 2)}
+
+\vspace{0.2cm}
+
+\noindent Denotando el tiempo final como $t_f$, se tiene que $r(t_f) = 2R$, lo que implica que $2R = v_0 t_f + R$. Por tanto,
+\[
+\boxed{t_f = \frac{R}{v_0}}
+\]
+
+\noindent La distancia recorrida es entonces:
+\[
+d = \int_{0}^{t_f} {}^{\mathcal{N}}v_P \, dt = \int_{0}^{R/v_0} \sqrt{v_0^2 + (v_0 t + R)^2 \omega_0^2} \, dt
+\]
+
+\noindent Haciendo el cambio de variable:
+\[
+x = (v_0 t + R)\omega_0 \implies t = \frac{1}{v_0}\left(\frac{x}{\omega_0} - R\right) \implies dt = \frac{1}{v_0 \omega_0} dx
+\]
+\noindent Límites de integración: $t = 0 \implies x = R\omega_0$, y $t = R/v_0 \implies x = 2R\omega_0$.
+
+\[
+d = \frac{1}{v_0 \omega_0} \int_{R\omega_0}^{2R\omega_0} \sqrt{v_0^2 + x^2} \, dx
+\]
+
+\noindent Integrando por partes ($u = \sqrt{v_0^2 + x^2} \implies \frac{du}{dx} = \frac{x}{u}$, $\frac{dv}{dx} = 1 \implies v = x$):
+\[
+d = \frac{1}{v_0 \omega_0} \left[ \underbrace{\left( x \sqrt{v_0^2 + x^2} \right)\Bigg|_{x=R\omega_0}^{x=2R\omega_0}}_{A} - \underbrace{\int_{R\omega_0}^{2R\omega_0} \frac{x^2}{\sqrt{v_0^2 + x^2}} \, dx}_{B} \right]
+\]
+
+\noindent Evaluando los términos $A$ y $B$:
+\[
+A = \sqrt{v_0^2 + 4R^2\omega_0^2} \cdot 2R\omega_0 - \sqrt{v_0^2 + R^2\omega_0^2} \cdot R\omega_0 = R^2\omega_0^2 \left( 4 \sqrt{\left(\frac{v_0}{2R\omega_0}\right)^2 + 1} - \sqrt{\left(\frac{v_0}{R\omega_0}\right)^2 + 1} \right)
+\]
+
+\[
+\begin{aligned}
+B &= \int_{R\omega_0}^{2R\omega_0} \frac{v_0^2 + x^2 - v_0^2}{\sqrt{v_0^2 + x^2}} \, dx = \int_{R\omega_0}^{2R\omega_0} \sqrt{v_0^2 + x^2} \, dx - v_0^2 \int_{R\omega_0}^{2R\omega_0} \frac{1}{\sqrt{v_0^2 + x^2}} \, dx \\
+&= v_0 \omega_0 d - v_0^2 \ln \left( \left| x + \sqrt{v_0^2 + x^2} \right| \right) \Bigg|_{x=R\omega_0}^{x=2R\omega_0}
+\end{aligned}
+\]
+
+\noindent Despejando $d$:
+\[
+{d = \frac{1}{2 v_0 \omega_0} \left[ R^2 \omega_0^2 \left( 4 \sqrt{\left(\frac{v_0}{2R\omega_0}\right)^2 + 1} - \sqrt{\left(\frac{v_0}{R\omega_0}\right)^2 + 1} \right) + v_0^2 \ln \left( 2 \frac{1 + \sqrt{\left(\frac{v_0}{2R\omega_0}\right)^2 + 1}}{1 + \sqrt{\left(\frac{v_0}{R\omega_0}\right)^2 + 1}} \right) \right]}
+\]
+\end{tcolorbox}
+\fi

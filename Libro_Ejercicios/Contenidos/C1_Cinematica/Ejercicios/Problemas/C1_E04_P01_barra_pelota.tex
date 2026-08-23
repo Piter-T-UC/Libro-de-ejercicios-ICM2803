@@ -59,3 +59,135 @@ Un brazo de longitud \( l \) está articulado en uno de sus extremos al centro d
     \caption{Cilindro de radio $R$ rodando sin deslizar sobre una superficie horizontal. Una varilla de longitud $l$ está articulada en el centro $O$, formando un ángulo $\phi$ con la vertical.}
     \label{fig:rodadura_varilla}
 \end{figure}
+
+
+\ifmostrarSolucion
+\begin{tcolorbox}[title=Disco en barra rotatoria vertical,breakable]
+\begin{itemize}
+    \item $\mathcal{N}$ El suelo $\longrightarrow\{\vec{e}_x;\vec{e}_y;\vec{e}_z\}$
+    \item $\mathcal{D}$ Disco $\longrightarrow\{\vec{E}_r;\vec{E}_\theta;\vec{E}_z\}$
+    \item $\mathcal{B}$ Brazo OP $\longrightarrow\{\vec{e}_r;\vec{e}_\phi;\vec{e}_z\}$
+\end{itemize}
+
+\begin{center}
+\begin{tikzpicture}[>=Latex, scale=1.8]
+        % --- Parámetros Geométricos ---
+        \def\R{1.5}      % Radio del cilindro
+        \def\L{2.2}      % Longitud de la varilla l
+        \def\PhiAng{30}  % Ángulo phi respecto a la vertical
+
+        % --- 1. Suelo (Superficie de rodadura) ---
+        \draw[thick] (-2,0) -- (3.5,0);
+        \fill[pattern=north east lines, pattern color=gray!60] (-2, -0.2) rectangle (3.5, 0);
+
+        % --- 2. Cilindro ---
+        \coordinate (O) at (0, \R); % Centro O
+        \coordinate (Q) at (0, 0);  % Punto de contacto Q
+        
+        % Sombreado degradado para el cilindro
+        \shadedraw[inner color=gray!10, outer color=gray!70] (O) circle (\R);
+        \filldraw (O) circle (1.5pt) node[above left] {$O$};
+        \filldraw (Q) circle (1pt) node[above left, xshift=-2pt] {$Q$};
+
+        % --- 3. Ejes y Referencias ---
+        % Eje x desde el centro
+        \draw[->, thick] (O) -- (2.5, \R) node[below] {$x$};
+        % Línea vertical discontinua
+        \draw[dashed, gray] (O) -- (0, -0.5);
+        % Radio R
+        \draw[->, thick] (O) -- ({\R*cos(45)}, {\R+\R*sin(45)}) node[midway, above left] {$R$};
+
+        % --- 4. Varilla acoplada en O ---
+        % Punto P al final de la varilla
+        \coordinate (P) at ({\L*sin(\PhiAng)}, {\R - \L*cos(\PhiAng)});
+        
+        % Varilla con grosor (estilo 2D)
+        \draw[line width=6pt, line cap=round, color=black] (O) -- (P);
+        \draw[line width=5pt, line cap=round, color=gray!50!white] (O) -- (P);
+        \draw[thick] (O) -- (P);
+        \filldraw (P) circle (1pt) node[below right] {$P$};
+        \node[right, xshift=3pt] at ($(O)!0.5!(P)$) {$l$};
+
+        % --- 5. Ángulo Phi ---
+        \draw[->] (0, 0.5) arc (-90:{-85+\PhiAng}:0.8);
+        \node at (0.3, 0.4) {$\phi$};
+
+        %%Vectoress
+
+        %base inercial
+        \draw[->, thick,blue] (O) --++(0, -1) node[below] {$\vec{e}_x$};
+        \draw[->, thick,blue] (O) --++(1, 0) node[above] {$\vec{e}_y$};
+        
+        %base circulo
+        \draw[->, thick,red] (O) --++(70:1) node[above] {$\vec{E}_r$};
+        \draw[->, thick,red] (O) --++(160:1) node[above] {$\vec{E}_\theta$};
+        %base vara
+        \draw[->, thick,purple] (O) --++(-60:1) node[above] {$\vec{e}_r$};
+        \draw[->, thick,purple] (O) --++(30:1) node[above] {$\vec{e}_\phi$};
+        
+
+
+
+    \end{tikzpicture}
+\end{center}
+
+Como siempre para obtener la velocidad de algún punto respecto a un marco de referencia inercial, es obtener la posición, en este caso la posición del centro O, es 
+$$\vec{r}_O=x\vec{e}_x$$
+\textbf{Velocidad}\\
+Como se sabe, la velocidad es la derivada temporal de la posición
+$$\marc{\vec{v}_P}{N}=\der{\vec{r}_{O}}{N}=\der{(x\vec{e}_x)}{N}=\dot x\vec{e}_x$$
+En este caso no es necesario utilizar teorema del transporte porque ya esta expresado en vectores que no cambian con el tiempo.\\
+\textbf{Aceleración}\\
+Al igual que antes podemos simplemente derivar la velocidad para obtener la velocidad.
+$$\marc{\vec{a}_O}{A}=\der{\marc{}{N}\vec{v}_O}{N}=\der{\dot x\vec{e}_x}{N}=\ddot{x}\vec{e}_x$$
+
+\textbf{La velocidad y aceleración angular del disco}
+Ahora es donde se complica un poco mas las cosas, nosotros sabemos la velocidad del centro del disco, pero desconocemos la velocidad angular, en este caso podemos usar la cinemática de cuerpo rígido.(\href{https://dynref.engr.illinois.edu/rkg.html#rkg-er}{Link Cinematica de Cuerpo Rigido}) y la condicion de rodamineto sin deslizamiento para obtener la velocidad angular.(\href{https://dynref.engr.illinois.edu/rko.html#rko-wr}{Link rodar sin resbalar})\\
+Se conoce que la velocidad de cualquier punto de un cuerpo rigido si se conoce la velocidad angular del cuerpo y la velocidad de un punto arbitrario.
+$$\marc{\Vec{v}_P}{N}=\marc{{\Vec{v}_C}}{N} + \transporta{\Vec{r}_{P/C}}{N}{R}$$
+(La formula sale de ocupar el teorema del transporte en $\vec{r}_{P/C}=\vec{r}_P-\vec{r}_C$)\\
+Si lo aplicamos a nuestro caso tenemos esto
+$$\marc{\Vec{v}_O}{N}=\marc{{\Vec{v}_C}}{N} + \transporta{\Vec{r}_{O/C}}{N}{D}$$
+Tenemos que conocer la velocidad de un punto, por la condición de rodamiento sin deslizamiento conocemos que la velocidad del punto de contacto siempre tiene que ser $\vec{0}$ entonces el punto útil es $Q$ con $\vec{r}_{O/Q}=R\vec{e}_y$
+$$\marc{\Vec{v}_O}{N}=\marc{\cancelto{\Vec{0}}{\Vec{v}_Q}}{N} \quad+ \transporta{\Vec{r}_{O/Q}}{N}{D}$$
+Esto por la cinemática de una partícula en contacto continuo con una superficie, que en este caso como $\vec{r}_{O/Q}=R\vec{e}_y$ es constante, seria $\der{\vec{r}_{O/Q}}{D}=\vec{0}$
+ que finalmente nos queda la siguiente igualdad
+ $$\marc{}{N}{\vec{v}}_O=\velang{N}{D}\times R\vec{e}_y=\dot x\vec{e}_x$$
+ Resolver esta ecuación se complica un poco, ya que tenemos que encontrar que tanto como la magnitud y la dirección se cumplan. para simplificar la ecuación podemos simplificar porque conocemos que el disco tiene una velocidad angular en $\vec e_z$ asumimos una magnitud $\Omega$ y obtenemos la siguiente ecuación.
+ $$\dot x\vec e_x=\Omega\vec e_z\times R\vec e_y\longrightarrow R\Omega(-\vec{e}_x)\longrightarrow\Omega=-\dfrac{\dot x}{R}$$
+ $$\velang{N}{D}=-\dfrac{\dot x}{R}\vec{e}_z$$
+ \textbf{Aceleracion angular}\\
+ En este caso podemos simplemente derivar o utilizar el teorema del transporte, pero es exactamente lo mismo.
+ $$\accang{N}{D}=\transporta{\velang{N}{D}}{N}{N}=-\dfrac{\ddot x}{R}\vec{e}_z$$
+ 
+
+\textbf{La velocidad y aceleración del extremo libre}
+        Como siempre lo mas importante es importante es obtener la posición desde un punto inercial (que no se  mueva el punto), en este caso es complejo encontrar un punto exacto, pero lo que si sabemos es la posición del centro $O$ $\vec{r}_O=x\vec{e}_x$ y la posición del punto $P$ puede expresarse como 
+        $$\vec{r}_P=\underbrace{\vec{r}_{P/O}}_{l\vec{e}_r}+\underbrace{\vec{r}_O}_{x\vec{e}_x}$$
+
+        \textbf{Velocidad}\\
+        Como siempre obtenemos la derivada temporal de la posición
+        $$\marc{\vec{v}_P}{N}=\der{\vec{r}_{P}}{N}=\der{(x\vec{e}_x+l\vec{e}_r)}{N}=\der{(x\vec{e}_x)}{N}+\der{(l\vec{e}_r)}{N}$$
+        $$\der{(x\vec{e}_x)}{N}=\dot x\vec{e}_x$$
+        Ahora muy atento porque dejaremos de aplicar teorema del transporte para la mayoría de casos, si no que trabajaremos con las derivadas temporales de los vectores (en cilíndricas) 
+        $$\der{(l\vec{e}_r)}{N}=\underbrace{\dfrac{d}{dt} (l)}_{0}\cdot\vec{e}_r+l\cdot\der{\vec{e}_r}{N}$$
+        Para poder encontrar la derivada del vector $\vec{e}_r$ respecto a un marco de referencia inercial podemos usar transporte o podemos transformarlo a la base orto normal asociada al marco de referencia $\mathcal{N}$ mas adelante pondré la demostración con la transformación, pero por el momento sera solo con teorema del transporte.
+        $$\transport{\vec{e}_r}{N}{B}=\dot\phi\vec{e}_z\times\vec{e}_r=\dot\phi\vec{e}_\phi $$
+        y se puede hacer exactamente lo mismo con $\vec{e}_{\phi}$
+        $$\transport{\vec{e}_\phi}{N}{B}=\dot\phi\vec{e}_z\times\vec{e}_\phi=-\dot\phi\vec{e}_r$$
+        ($\vec{e}_z$ es constante en el tiempo por ende su derivada temporal es $\vec 0$)\\
+        Con esta información podemos simplemente reemplazar\\
+        $$\marc{\vec{v}_P}{N}=\der{\vec{r}_{P}}{N}=\dot x\vec{e}_x+l\dot\phi\vec{e}_\phi$$
+    \textbf{Aceleración}\\
+    Ahora es un simple problema de derivación\\
+    $$\marc{\vec{a}_P}{N}=\der{}{N}\marc{\vec{v}_P}{N}=\der{}{N}(\dot x\vec{e}_x+l\dot\phi\vec{e}_\phi)$$
+    $$\der{}{N}(\dot x\vec{e}_x+l\dot\phi\vec{e}_\phi)=\ddot x\vec{e}_x+l\left(\dfrac{d}{dt}(\dot\phi)\cdot \vec{e}_\phi+\dot\phi\cdot\der{\vec{e}_\phi}{N}\right)$$
+    \begin{align*}
+        \der{}{N}(\dot x\vec{e}_x+l\dot\phi\vec{e}_\phi)&=\ddot x\vec{e}_x+l\left(\dfrac{d}{dt}(\dot\phi)\cdot \vec{e}_\phi+\dot\phi\cdot\der{\vec{e}_\phi}{N}\right)\\
+        &=\ddot x\vec{e}_x+l\ddot\phi\vec{e}_\phi-l\dot\phi^2\vec{e}_r
+    \end{align*}
+    Si bien no pasamos todo a una base la respuesta sigue estando buena, mas adelante pasarlo a una base no sera tan importante como saber trabajar con ella (la aceleración).
+
+
+\end{tcolorbox}
+\fi

@@ -94,5 +94,274 @@ Una barra de longitud $\ell$ está articulada en uno de sus extremos a una argol
     \label{fig:barra_anillo}
 \end{figure}
 \ifmostrarSolucion
+\begin{tcolorbox}[title=Barra articulada a argolla circular,breakable]
+\noindent\textbf{1) Definamos marcos de referencia:}
+\begin{itemize}
+    \item $\mathcal{F}$: Pista con forma de anillo (Inercial).
+    \item $\mathcal{A}$: Imaginario, que gira en torno al punto $O$ solidario a $Q$.
+    \item $\mathcal{B}$: Barra $QP$.
+\end{itemize}
 
+\noindent\textbf{Los sistemas de coordenadas son:}
+\begin{itemize}
+    \item $\{\vec{e}_x, \vec{e}_y, \vec{e}_z\}$: Cartesiano, fijo en $\mathcal{F}$.
+    \item $\{\vec{e}_r, \vec{e}_\theta, \vec{e}_z\}$: Cilíndrico, fijo en $\mathcal{A}$.
+    \item $\{\vec{e}_\rho, \vec{e}_\phi, \vec{e}_z\}$: Cilíndrico, fijo en $\mathcal{B}$.
+\end{itemize}
+
+\vspace{0.3cm}
+
+% --- DIAGRAMA TIKZ ---
+\begin{center}
+\begin{tikzpicture}[scale=1.1, >=stealth]
+  % Anillo principal
+  \draw[line width=1.2pt] (0,0) circle (2.5);
+  
+  % Soportes A y B
+  \draw[thick, fill=gray!30] (-0.4,2.5) rectangle (0.4,2.8);
+  \draw[thick, fill=black] (-0.5,2.8) rectangle (0.5,3.1);
+  \draw[thick] (-0.3,-2.5) -- (-0.3,-2.8) -- (0.3,-2.8) -- (0.3,-2.5);
+  \draw[thick, fill=black] (-0.5,-2.8) rectangle (0.5,-3.1);
+
+  % Eje de referencia vertical (e_x) y horizontal
+  \draw[dashed] (0,2.2) -- (0,-2.2);
+  \draw[->, thick] (0,0) -- (0,-1.5) node[left] {$\vec{e}_x$};
+  \draw[->, thick] (0,0) -- (1.5,0) node[above] {$\vec{e}_y$};
+
+  % Angulo theta y radio R hacia Q
+  \def\angtheta{40} % respecto al eje vertical hacia abajo
+  \draw[dashed] (0,0) -- ({2.5*sin(\angtheta)},{-2.5*cos(\angtheta)});
+  \draw[->] (0,-1.0) arc (-90:(-90+\angtheta):1.0);
+  \node at (-65:0.7) {$\theta$};
+
+  % Punto O
+  \filldraw (0,0) circle (2pt) node[above left] {$O$};
+
+  % Coordenadas del punto Q
+  \coordinate (Q) at ({2.5*sin(\angtheta)},{-2.5*cos(\angtheta)});
+  \filldraw (Q) circle (2.5pt) node[below left] {$Q$};
+  \draw[->, thick] (0,0) -- (Q) node[midway, above right] {$\vec{r}_Q$};
+
+  % Base de A en O/Q
+  \draw[->, line width=1pt, blue] (Q) -- ++({0.8*sin(\angtheta)},{-0.8*cos(\angtheta)}) node[below] {$\vec{e}_r$};
+  \draw[->, line width=1pt, blue] (Q) -- ++({0.8*cos(\angtheta)},{0.8*sin(\angtheta)}) node[above right] {$\vec{e}_\theta$};
+
+  % Barra QP
+  \def\angphi{25}
+  \coordinate (P) at ($(Q) + ({2.2*sin(\angtheta+\angphi)},{-2.2*cos(\angtheta+\angphi)})$);
+  \draw[line width=2.5pt, gray!80!black] (Q) -- (P);
+  \filldraw (P) circle (2pt) node[right] {$P$};
+
+  % Angulo phi
+  \draw[dotted] (Q) -- ++({1.5*sin(\angtheta)},{-1.5*cos(\angtheta)});
+  \draw[->] ($(Q)+({1.0*sin(\angtheta)},{-1.0*cos(\angtheta)})$) arc ((-90+\angtheta):(-90+\angtheta+\angphi):1.0);
+  \node at ($(Q)+({-90+\angtheta+0.5*\angphi}:1.3)$) {$\phi$};
+
+  % Base de B en Q
+  \draw[->, line width=1pt, red!80!black] (Q) -- ++({1.0*sin(\angtheta+\angphi)},{-1.0*cos(\angtheta+\angphi)}) node[above] {$\vec{e}_\rho$};
+\end{tikzpicture}
+\end{center}
+
+\vspace{0.3cm}
+
+\noindent\textbf{a) Velocidad angular de la barra}
+
+\noindent Lo que se nos pide es ${}^{\mathcal{F}}\vec{\omega}^{\mathcal{B}}$. Por aditividad, tenemos que:
+\[
+\left[ {}^{\mathcal{F}}\vec{\omega}^{\mathcal{B}} = {}^{\mathcal{F}}\vec{\omega}^{\mathcal{A}} + {}^{\mathcal{A}}\vec{\omega}^{\mathcal{B}} = \dot{\theta}\vec{e}_z + \dot{\phi}\vec{e}_z = (\dot{\theta} + \dot{\phi})\vec{e}_z \right]
+\]
+
+\vspace{0.6cm}
+
+\noindent\textbf{1. Vector de Posición $\vec{r}_P$}
+
+El vector de posición del punto $P$ respecto al centro $O$ se expresa como la suma vectorial:
+\[
+\vec{r}_P = \vec{r}_Q + \vec{r}_{P/Q} = R\vec{e}_r + \ell\vec{e}_\rho
+\]
+
+Para operar de manera consistente en el marco de referencia móvil $\mathcal{A}$ (cuya base es $\{\vec{e}_r, \vec{e}_\theta, \vec{e}_z\}$), descomponemos el vector unitario de la barra $\vec{e}_\rho$:
+\[
+\vec{e}_\rho = \cos\phi\,\vec{e}_r + \sin\phi\,\vec{e}_\theta
+\]
+
+Sustituyendo $\vec{e}_\rho$ en la posición:
+\[
+\vec{r}_P = R\vec{e}_r + \ell(\cos\phi\,\vec{e}_r + \sin\phi\,\vec{e}_\theta) = (R + \ell\cos\phi)\vec{e}_r + (\ell\sin\phi)\vec{e}_\theta
+\]
+
+\vspace{0.5cm}
+
+\noindent\textbf{2. Obtención de la Velocidad ${}^{\mathcal{F}}\vec{v}_P$}
+
+El \textbf{Teorema de Transporte} para la posición establece:
+\[
+{}^{\mathcal{F}}\vec{v}_P = \frac{{}^{\mathcal{F}}d}{dt}\vec{r}_P = \frac{{}^{\mathcal{A}}d}{dt}\vec{r}_P + {}^{\mathcal{F}}\vec{\omega}^{\mathcal{A}} \times \vec{r}_P
+\]
+donde ${}^{\mathcal{F}}\vec{\omega}^{\mathcal{A}} = \dot{\theta}\vec{e}_z$ es la velocidad angular del marco $\mathcal{A}$ respecto al marco fijo $\mathcal{F}$.
+
+\vspace{0.3cm}
+
+\noindent\textbf{Paso A: Derivada local en el marco $\mathcal{A}$}
+
+En la derivación observada desde $\mathcal{A}$, los vectores unitarios $\{\vec{e}_r, \vec{e}_\theta\}$ se consideran constantes en dirección. Por tanto, derivamos únicamente los coeficientes escalares respecto al tiempo (usando la regla de la cadena con $\phi(t)$):
+\begin{enumerate}
+    \item Componente radial:
+    \[
+    \frac{d}{dt}(R + \ell\cos\phi) = -\ell\sin\phi \cdot \dot{\phi}
+    \]
+    \item Componente angular:
+    \[
+    \frac{d}{dt}(\ell\sin\phi) = \ell\cos\phi \cdot \dot{\phi}
+    \]
+\end{enumerate}
+
+De este modo:
+\[
+\frac{{}^{\mathcal{A}}d}{dt}\vec{r}_P = (-\ell\sin\phi \cdot \dot{\phi})\vec{e}_r + (\ell\cos\phi \cdot \dot{\phi})\vec{e}_\theta
+\]
+
+\vspace{0.3cm}
+
+\noindent\textbf{Paso B: Producto cruz de rotación}
+
+Calculamos ${}^{\mathcal{F}}\vec{\omega}^{\mathcal{A}} \times \vec{r}_P$:
+\[
+{}^{\mathcal{F}}\vec{\omega}^{\mathcal{A}} \times \vec{r}_P = (\dot{\theta}\vec{e}_z) \times \Big[ (R + \ell\cos\phi)\vec{e}_r + (\ell\sin\phi)\vec{e}_\theta \Big]
+\]
+
+Recordando las reglas del producto cruz para bases ortonormales derechas ($\vec{e}_z \times \vec{e}_r = \vec{e}_\theta$ y $\vec{e}_z \times \vec{e}_\theta = -\vec{e}_r$):
+\[
+{}^{\mathcal{F}}\vec{\omega}^{\mathcal{A}} \times \vec{r}_P = \dot{\theta}(R + \ell\cos\phi)\vec{e}_\theta - \dot{\theta}(\ell\sin\phi)\vec{e}_r
+\]
+
+\vspace{0.3cm}
+
+\noindent\textbf{Paso C: Agrupación de términos}
+
+Sumamos ambos resultados componente a componente:
+\begin{itemize}
+    \item \textbf{Eje $\vec{e}_r$:}
+    \[
+    v_r = -\ell\sin\phi \cdot \dot{\phi} - \ell\sin\phi \cdot \dot{\theta} = -\ell(\dot{\theta} + \dot{\phi})\sin\phi
+    \]
+    \item \textbf{Eje $\vec{e}_\theta$:}
+    \[
+    v_\theta = \ell\cos\phi \cdot \dot{\phi} + R\dot{\theta} + \ell\cos\phi \cdot \dot{\theta} = R\dot{\theta} + \ell(\dot{\theta} + \dot{\phi})\cos\phi
+    \]
+\end{itemize}
+
+Por lo tanto, la velocidad resulta:
+\[
+{}^{\mathcal{F}}\vec{v}_P = -\ell(\dot{\theta} + \dot{\phi})\sin\phi\,\vec{e}_r + \left[ R\dot{\theta} + \ell(\dot{\theta} + \dot{\phi})\cos\phi \right]\vec{e}_\theta
+\]
+
+\vspace{0.5cm}
+
+\noindent\textbf{3. Obtención de la Aceleración ${}^{\mathcal{F}}\vec{a}_P$}
+
+Aplicamos nuevamente el Teorema de Transporte al vector velocidad ${}^{\mathcal{F}}\vec{v}_P$:
+\[
+{}^{\mathcal{F}}\vec{a}_P = \frac{{}^{\mathcal{F}}d}{dt}({}^{\mathcal{F}}\vec{v}_P) = \frac{{}^{\mathcal{A}}d}{dt}({}^{\mathcal{F}}\vec{v}_P) + {}^{\mathcal{F}}\vec{\omega}^{\mathcal{A}} \times {}^{\mathcal{F}}\vec{v}_P
+\]
+
+Escribamos formalmente $v_r$ y $v_\theta$:
+\[
+v_r = -\ell(\dot{\theta} + \dot{\phi})\sin\phi, \qquad v_\theta = R\dot{\theta} + \ell(\dot{\theta} + \dot{\phi})\cos\phi
+\]
+
+\vspace{0.3cm}
+
+\noindent\textbf{Paso A: Derivada local de la velocidad en $\mathcal{A}$}
+
+Derivamos las componentes $v_r$ y $v_\theta$ respecto al tiempo usando la regla del producto y la regla de la cadena:
+\begin{enumerate}
+    \item Derivada de $v_r$ ($\dot{v}_r$):
+    \[
+    \dot{v}_r = \frac{d}{dt} \left[ -\ell(\dot{\theta} + \dot{\phi})\sin\phi \right]
+    \]
+    \[
+    \dot{v}_r = -\ell \left[ \frac{d}{dt}(\dot{\theta} + \dot{\phi}) \cdot \sin\phi + (\dot{\theta} + \dot{\phi}) \cdot \frac{d}{dt}(\sin\phi) \right]
+    \]
+    \[
+    \dot{v}_r = -\ell \left[ (\ddot{\theta} + \ddot{\phi})\sin\phi + (\dot{\theta} + \dot{\phi})\dot{\phi}\cos\phi \right]
+    \]
+
+    \item Derivada de $v_\theta$ ($\dot{v}_\theta$):
+    \[
+    \dot{v}_\theta = \frac{d}{dt} \left[ R\dot{\theta} + \ell(\dot{\theta} + \dot{\phi})\cos\phi \right]
+    \]
+    \[
+    \dot{v}_\theta = R\ddot{\theta} + \ell \left[ \frac{d}{dt}(\dot{\theta} + \dot{\phi}) \cdot \cos\phi + (\dot{\theta} + \dot{\phi}) \cdot \frac{d}{dt}(\cos\phi) \right]
+    \]
+    \[
+    \dot{v}_\theta = R\ddot{\theta} + \ell \left[ (\ddot{\theta} + \ddot{\phi})\cos\phi - (\dot{\theta} + \dot{\phi})\dot{\phi}\sin\phi \right]
+    \]
+\end{enumerate}
+
+\vspace{0.3cm}
+
+\noindent\textbf{Paso B: Producto cruz de la aceleración rotacional}
+
+Calculamos ${}^{\mathcal{F}}\vec{\omega}^{\mathcal{A}} \times {}^{\mathcal{F}}\vec{v}_P$:
+\[
+{}^{\mathcal{F}}\vec{\omega}^{\mathcal{A}} \times {}^{\mathcal{F}}\vec{v}_P = (\dot{\theta}\vec{e}_z) \times (v_r\vec{e}_r + v_\theta\vec{e}_\theta) = -\dot{\theta}v_\theta\vec{e}_r + \dot{\theta}v_r\vec{e}_\theta
+\]
+
+Sustituyendo los valores de $v_r$ y $v_\theta$:
+\begin{itemize}
+    \item \textbf{En el eje $\vec{e}_r$:}
+    \[
+    -\dot{\theta}v_\theta = -\dot{\theta}\left[ R\dot{\theta} + \ell(\dot{\theta} + \dot{\phi})\cos\phi \right] = -R\dot{\theta}^2 - \ell\dot{\theta}(\dot{\theta} + \dot{\phi})\cos\phi
+    \]
+    \item \textbf{En el eje $\vec{e}_\theta$:}
+    \[
+    \dot{\theta}v_r = \dot{\theta}\left[ -\ell(\dot{\theta} + \dot{\phi})\sin\phi \right] = -\ell\dot{\theta}(\dot{\theta} + \dot{\phi})\sin\phi
+    \]
+\end{itemize}
+
+\vspace{0.3cm}
+
+\noindent\textbf{Paso C: Agrupación y simplificación final}
+
+\begin{enumerate}
+    \item \textbf{Componente Radial total $a_r = \dot{v}_r - \dot{\theta}v_\theta$:}
+    \[
+    a_r = -\ell(\ddot{\theta} + \ddot{\phi})\sin\phi - \ell(\dot{\theta} + \dot{\phi})\dot{\phi}\cos\phi - R\dot{\theta}^2 - \ell\dot{\theta}(\dot{\theta} + \dot{\phi})\cos\phi
+    \]
+    Factorizamos los términos con $\cos\phi$:
+    \[
+    -\ell(\dot{\theta} + \dot{\phi})\dot{\phi}\cos\phi - \ell\dot{\theta}(\dot{\theta} + \dot{\phi})\cos\phi = -\ell(\dot{\theta} + \dot{\phi})^2\cos\phi
+    \]
+    Quedando:
+    \[
+    a_r = -\left[ R\dot{\theta}^2 + \ell(\ddot{\theta} + \ddot{\phi})\sin\phi + \ell(\dot{\theta} + \dot{\phi})^2\cos\phi \right]
+    \]
+
+    \item \textbf{Componente Angular total $a_\theta = \dot{v}_\theta + \dot{\theta}v_r$:}
+    \[
+    a_\theta = R\ddot{\theta} + \ell(\ddot{\theta} + \ddot{\phi})\cos\phi - \ell(\dot{\theta} + \dot{\phi})\dot{\phi}\sin\phi - \ell\dot{\theta}(\dot{\theta} + \dot{\phi})\sin\phi
+    \]
+    Factorizamos los términos con $\sin\phi$:
+    \[
+    -\ell(\dot{\theta} + \dot{\phi})\dot{\phi}\sin\phi - \ell\dot{\theta}(\dot{\theta} + \dot{\phi})\sin\phi = -\ell(\dot{\theta} + \dot{\phi})^2\sin\phi
+    \]
+    Quedando:
+    \[
+    a_\theta = R\ddot{\theta} + \ell(\ddot{\theta} + \ddot{\phi})\cos\phi - \ell(\dot{\theta} + \dot{\phi})^2\sin\phi
+    \]
+\end{enumerate}
+
+\vspace{0.5cm}
+
+\noindent\textbf{Resultado Final}
+
+La aceleración observada desde el marco fijo $\mathcal{F}$ expresada en la base cilíndrica de $\mathcal{A}$ es:
+\[
+\begin{aligned}
+{}^{\mathcal{F}}\vec{a}_P &= -\left[ R\dot{\theta}^2 + \ell(\ddot{\theta} + \ddot{\phi})\sin\phi + \ell(\dot{\theta} + \dot{\phi})^2\cos\phi \right]\vec{e}_r \\
+&\quad + \left[ R\ddot{\theta} + \ell(\ddot{\theta} + \ddot{\phi})\cos\phi - \ell(\dot{\theta} + \dot{\phi})^2\sin\phi \right]\vec{e}_\theta
+\end{aligned}
+\]
+\end{tcolorbox}
 \fi

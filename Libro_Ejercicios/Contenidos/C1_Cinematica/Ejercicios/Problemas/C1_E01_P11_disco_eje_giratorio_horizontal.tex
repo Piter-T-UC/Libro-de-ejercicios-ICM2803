@@ -66,3 +66,82 @@ Un disco circular de radio $R$ se une a un eje giratorio de longitud $L$, como s
     \caption{Representación esquemática de un disco de radio $R$ montado en un eje giratorio horizontal de longitud $L$.}
     \label{fig:disco_eje_horizontal}
 \end{figure}
+
+\ifmostrarSolucion
+\begin{tcolorbox}[title=Barra articulada a argolla circular,breakable]
+Lo primero que hacemos es definir los marcos de referencia, con los cuales trabajaremos durante el ejercicio.
+\begin{itemize}
+    \item $\mathcal{N}$ Suelo (Inercial) $\{\vec{E_x},\vec{E_y},\vec{E_z}\}$
+    \item $\mathcal{A}$ Barra $AO$ $\{\vec{e_x},\vec{e_y},\vec{e_z}\}$
+    \item $\mathcal{B}$ Disco  $\{\vec{e}_r,\vec{e}_\theta,\vec{e}_z\}$
+\end{itemize}
+
+\begin{center}
+        \begin{tikzpicture}[>=Latex, scale=1.8]
+        % --- Parámetros Geométricos ---
+        \def\L{3.2}          % Longitud del eje
+        \def\R{1.1}          % Radio del disco
+        \def\thetaAng{45}    % Ángulo theta para el punto P
+        \def\BarThickness{0.06} % Grosor de la barra
+
+        % --- Coordenadas ---
+        \coordinate (A) at (0,0);
+        \coordinate (O) at (\L,0);
+        \coordinate (P) at ($ (O) + ({90-\thetaAng}:\R) $);
+
+        % --- 1. Soporte en A ---
+        \fill[pattern=north east lines] (-0.3, -0.4) rectangle (0.3, -0.3);
+        \draw[thick] (-0.3, -0.3) -- (0.3, -0.3);
+        \draw[thin] (A) -- (-0.15, -0.3);
+        \draw[thin] (A) -- (0.15, -0.3);
+        
+        % Articulación A (Gris oscuro)
+        \filldraw[fill=gray!80, draw=black] (A) circle (1.8pt) node[below left] {$A$};
+    \shadedraw[inner color=white, outer color=gray!40, draw=black, thick] (O) circle (\R);
+        % --- 2. Eje Giratorio (Barra L) ---
+        \begin{scope}
+            \shadedraw[inner color=white, outer color=gray!30, draw=black, rounded corners=2pt] 
+                (0, -\BarThickness) rectangle (\L+0.1, \BarThickness);
+        \end{scope}
+        
+        % Velocidad angular Omega
+        \draw[->, thick] (1.2, 0.4) arc (60:300:0.2 and 0.4);
+        \node[above] at (1.2, 0.4) {$\Omega$};
+        
+        % Cota de longitud L
+        \draw[<->] (0, -0.6) -- (\L, -0.6) node[midway, below] {$L$};
+        \draw[dotted] (0, -0.1) -- (0, -0.7);
+        \draw[dotted] (\L, -0.1) -- (\L, -0.7);
+
+        % --- 3. Disco en O ---
+        
+        \draw[dashed] (O) -- ($(O) + (0, \R)$); % Referencia vertical
+        
+        % Radio R y Ángulo Theta
+        \draw[->] (O) -- (P) node[midway, right] {$R$};
+        \draw[->] ($(O) + (0, 0.5)$) arc (90:{90-\thetaAng}:0.5);
+        \node at ($ (O) + (70:0.75) $) {$\theta$};
+
+        % Articulación O (Gris oscuro)
+        \filldraw[fill=gray!80, draw=black] (O) circle (1.2pt) node[above left, xshift=-2pt] {$O$};
+        
+        % Punto P
+        \filldraw (P) circle (1.5pt) node[above right] {$P$};
+
+        %aqui van los vectores
+        \draw[->, thick, red] (0,0)--++(0.5,0) node[below] {$\vec{E}_y$};
+        \draw[->, thick, red] (0,0)--++(0,0.5) node[above] {$\vec{E}_z$};
+        
+        %aqui van los vectores
+        \draw[->, thick, blue] (\L,0)--++(0.7,0) node[below] {$\vec{e}_x$};
+        \draw[->, thick, blue] (\L,0)--++(0,0.7) node[above] {$\vec{e}_y$};
+        %aqui van los vectores
+        \draw[->, thick, green] (\L,0)--++(45:0.7) node[above] {$\vec{e}_r$};
+        \draw[->, thick, green] (\L,0)--++(-45:0.7) node[below] {$\vec{e}_\theta$};
+
+    \end{tikzpicture}
+\end{center}
+
+
+\end{tcolorbox}
+\fi
