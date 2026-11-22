@@ -3,12 +3,18 @@
 \usepackage{Paquetes/Dinamica}
 \usepackage{Paquetes/TikzDina}
 
+\usepackage{Paquetes/Patos}
 \usepackage{pgfplots}
-% 1. Definimos la condición (por defecto es falsa)
-\newif\ifmostrarSolucion
 
-% 2. Activamos la condición (para ocultar, cambia a \mostrarSolucionfalse)
-\mostrarSoluciontrue
+% =========================================================================
+% PANEL DE CONTROL — todo está encendido por defecto.
+% Descomenta una línea para OCULTAR ese tipo de contenido en el PDF.
+% =========================================================================
+%\mostrarSolucionfalse   % cajas de solución
+%\mostrarTipsfalse       % \patotip   (pato ingeniero)
+%\mostrarOjofalse        % \patoojo   (pato con letrero)
+%\mostrarTrucosfalse     % \patotruco (pato mago)
+%\mostrarResumenfalse    % entorno resumen (pato profe)
 \begin{document}
 
 \frontmatter
@@ -66,6 +72,9 @@
 
 % — Índice automático —
 \tableofcontents
+
+% — Guía de lectura: presenta a los patos —
+\input{Contenidos/Guia_de_lectura}
 
 
 % — Mainmatter: numeración arábiga para el contenido —

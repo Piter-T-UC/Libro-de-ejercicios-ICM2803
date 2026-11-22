@@ -1,0 +1,99 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{Paquetes/Patos}[2026/11/22 Patos didacticos con interruptores]
+% =========================================================================
+% PATOS DIDÁCTICOS
+% -------------------------------------------------------------------------
+% Cajas de apoyo con un pato (paquete tikzducks) que habla en un globo.
+% Cada tipo tiene su propio pato, su color y su interruptor:
+%
+%   \patotip[accesorios]{texto}    Pato ingeniero (casco)   -> \ifmostrarTips
+%   \patoojo[accesorios]{texto}    Pato con letrero "!"     -> \ifmostrarOjo
+%   \patotruco[accesorios]{texto}  Pato mago               -> \ifmostrarTrucos
+%   \begin{resumen}[Título] ... \end{resumen}
+%                                  Pato profe (graduado)    -> \ifmostrarResumen
+%
+% [accesorios] son llaves de tikzducks que se SUMAN al pato base, p. ej.
+%   \patotip[squareglasses,shovel]{...}   \patotip[tie=blue!70!black]{...}
+% Los interruptores se definen en Dinamica.sty y se apagan desde main.tex.
+% =========================================================================
+
+\RequirePackage{tikzducks}
+
+% --- Colores de cada pato --------------------------------------------------
+\colorlet{casco}{orange!90!yellow}
+\colorlet{patoTipBorde}{orange!80!black}
+\colorlet{patoTipFondo}{orange!8}
+\colorlet{patoOjoBorde}{red!75!black}
+\colorlet{patoOjoFondo}{red!5}
+\colorlet{patoTrucoBorde}{violet!70!black}
+\colorlet{patoTrucoFondo}{violet!6}
+\colorlet{patoResumenBorde}{blue!45!black}
+\colorlet{patoResumenFondo}{blue!3}
+
+% --- Llaves base de cada pato ---------------------------------------------
+\def\pato@tip{helmet=casco}
+\def\pato@ojo{signpost={\bfseries !}, signback=red!80!black, signcolour=brown!60!black}
+\def\pato@truco{magichat, magicwand}
+\def\pato@resumen{graduate=blue!45!black, tassel=red!60!black, book={\scalebox{0.6}{$\Sigma$}}, bookcolour=red!45!black}
+
+% --- Globo genérico ---------------------------------------------------------
+% #1: llaves del pato, #2: color de borde, #3: color de fondo, #4: texto
+\newlength{\pato@ancho}
+\newcommand{\pato@globo}[4]{%
+  \par\medskip\noindent
+  \setlength{\pato@ancho}{\linewidth}%
+  \addtolength{\pato@ancho}{-1.75cm}%
+  \addtolength{\pato@ancho}{-16pt}%
+  \begin{tikzpicture}
+    \begin{scope}[xshift=1.35cm, xscale=-0.6, yscale=0.6]\duck[#1]\end{scope}
+    \node[draw=#2, fill=#3, rounded corners=3pt, very thick,
+          text width=\pato@ancho, align=left, font=\small, inner sep=6pt,
+          anchor=west] (globo) at (1.75,0.75) {#4};
+    \filldraw[draw=#2, fill=#3, very thick, line join=round]
+      ([yshift=5pt]globo.west) -- (1.42,0.92) -- ([yshift=-5pt]globo.west);
+    \fill[#3] ([xshift=-0.8pt,yshift=4.2pt]globo.west)
+      rectangle ([xshift=0.8pt,yshift=-4.2pt]globo.west);
+  \end{tikzpicture}\par\medskip}
+
+% --- Elenco -----------------------------------------------------------------
+\NewDocumentCommand{\patotip}{O{} +m}{%
+  \ifmostrarTips
+    \begingroup
+    \expandafter\pato@globo\expandafter{\pato@tip,#1}{patoTipBorde}{patoTipFondo}{#2}%
+    \endgroup
+  \fi}
+
+\NewDocumentCommand{\patoojo}{O{} +m}{%
+  \ifmostrarOjo
+    \begingroup
+    \expandafter\pato@globo\expandafter{\pato@ojo,#1}{patoOjoBorde}{patoOjoFondo}%
+      {{\color{patoOjoBorde}\bfseries ¡Ojo!}\ #2}%
+    \endgroup
+  \fi}
+
+\NewDocumentCommand{\patotruco}{O{} +m}{%
+  \ifmostrarTrucos
+    \begingroup
+    \expandafter\pato@globo\expandafter{\pato@truco,#1}{patoTrucoBorde}{patoTrucoFondo}%
+      {{\color{patoTrucoBorde}\bfseries Trucazo:}\ #2}%
+    \endgroup
+  \fi}
+
+% --- Resumen: caja azul con el pato profe sentado encima ---------------------
+\newtcolorbox{pato@cajaresumen}[1]{
+  enhanced, breakable,
+  colback=patoResumenFondo, colframe=patoResumenBorde,
+  fonttitle=\bfseries, title={#1}, arc=2pt, boxrule=0.6pt,
+  before skip=1.3cm, after skip=10pt,
+  overlay unbroken and first={
+    \begin{scope}[shift={([xshift=-1.7cm,yshift=-0.12cm]frame.north east)}, scale=0.55]
+      \expandafter\duck\expandafter[\pato@resumen]
+    \end{scope}
+  }
+}
+\NewDocumentEnvironment{resumen}{O{Resumen} +b}{%
+  \ifmostrarResumen
+    \begin{pato@cajaresumen}{#1}#2\end{pato@cajaresumen}%
+  \fi}{}
+
+\endinput

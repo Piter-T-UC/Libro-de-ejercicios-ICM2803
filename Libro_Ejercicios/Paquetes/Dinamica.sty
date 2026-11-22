@@ -36,6 +36,33 @@
 \RequirePackage[most]{tcolorbox}
 \tcbuselibrary{skins, breakable, raster}
 
+% =========================================================================
+% INTERRUPTORES (todos encendidos por defecto; se apagan desde main.tex)
+% =========================================================================
+\newif\ifmostrarSolucion \mostrarSoluciontrue % cajas `solucion`
+\newif\ifmostrarTips     \mostrarTipstrue     % \patotip
+\newif\ifmostrarOjo      \mostrarOjotrue      % \patoojo
+\newif\ifmostrarTrucos   \mostrarTrucostrue   % \patotruco
+\newif\ifmostrarResumen  \mostrarResumentrue  % entorno `resumen`
+
+% =========================================================================
+% SOLUCIÓN: una sola caja gris, condicionada por \ifmostrarSolucion
+%   \begin{solucion}{Nombre del problema} ... \end{solucion}
+% =========================================================================
+\NewDocumentEnvironment{solucion}{m +b}{%
+  \ifmostrarSolucion
+    \begin{tcolorbox}[colframe=black!50!white, colback=white,
+                      title={Solución: #1}, breakable]
+    #2
+    \end{tcolorbox}%
+  \fi}{}
+
+% Resultado final destacado (en vez de \boxed)
+\newcommand{\respuesta}[1]{%
+  \begin{center}
+    \fcolorbox{black!50!white}{black!3}{\parbox{0.9\linewidth}{\centering #1}}
+  \end{center}}
+
 % 1. Entorno Solución
 \newtcolorbox[auto counter, number within=section]{sol}[1][]{
   colback=black!5!white,     
@@ -173,4 +200,8 @@
 \newcommand{\velang}[2]{\stackrel{\mathcal{#1} \to \mathcal{#2}}{\omega}}
 \newcommand{\accang}[2]{\stackrel{\mathcal{#1} \to \mathcal{#2}}{\alpha}}
 \newcommand{\transportad} [3] {\underbrace{\der{}{#2}\left(#1\right)}_{1}+\underbrace{\velang{#2}{#3}\times #1}_{2}}
+% Matrices de rotación entre marcos (usadas en las ayudantías)
+\newcommand{\Rot}[2]{\stackbin{#1\to #2}{\textbf{R}}}
+\newcommand{\RotA}[2]{\stackbin{\mathcal{#1}\to \mathcal{#2}}{\textbf{R}}}
+\newcommand{\DotRotA}[2]{\stackbin{\mathcal{#1}\to \mathcal{#2}}{\dot{\mathbf{R}}}}
 \newcommand{\transD} [5] {\der{}{#4}\underbrace{\left(#1\right)}_{#5}+\underbrace{#2}_{\velang{#3}{#4}}\times \underbrace{#1}_{#5}}
