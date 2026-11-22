@@ -1,0 +1,196 @@
+% =========================================================================
+% Capítulo 4: Cuerpo rígido
+% Tema 01: Cuerpo rígido
+% Problema 11: Centro de masa de un volumen tridimensional
+% Origen: Ayudantía 1, 2026
+% =========================================================================
+\subsubsection{Centro de masa de un volumen tridimensional}
+
+Se desea determinar la ubicación del centro de masa de un cuerpo tridimensional con densidad
+uniforme, cuya masa total es $M$. El volumen que ocupa dicho cuerpo está definido
+geométricamente como muestra la Figura \ref{fig:c4_e01_p11_volumen}.
+
+% --- FIGURA PRINCIPAL -------------------------------------------------------
+\begin{figure}[!ht]
+    \centering
+    \begin{tikzpicture}[>=Latex, x={(-1.2cm,-1.0cm)}, y={(3cm,0cm)}, z={(0cm,3cm)}]
+        % --- PARÁMETROS ---
+        \def\cuerpo{azul!18}
+
+        % --- PLANO TRASERO x = 0 (triángulo) ---
+        \filldraw[fill=\cuerpo, draw=azul, thick] (0,0,0) -- (0,1,0) -- (0,0,1) -- cycle;
+
+        % --- PLANO INCLINADO z = 1 - y ---
+        \filldraw[fill=azul!30, draw=azul, thick]
+            (0,0,1) -- (0,1,0)
+            -- plot[domain=1:0, samples=40, smooth] ({\x*\x},{\x},{1-\x}) -- cycle;
+
+        % --- SUPERFICIE CURVA x = y^2 ---
+        \filldraw[fill=azul!12, draw=azul, thick]
+            plot[domain=0:1, samples=40, smooth] ({\x*\x},{\x},0)
+            -- plot[domain=1:0, samples=40, smooth] ({\x*\x},{\x},{1-\x}) -- cycle;
+
+        % --- ARISTA OCULTA EN LA BASE ---
+        \draw[dashed] (0,0,0) -- (0,1,0);
+
+        % --- EJES ---
+        \draw[->] (0,0,0) -- (1.35,0,0) node[below left] {$x$};
+        \draw[->] (0,0,0) -- (0,1.35,0) node[right] {$y$};
+        \draw[->] (0,0,0) -- (0,0,1.35) node[above] {$z$};
+
+        % --- PUNTOS Y COORDENADAS ---
+        \node[left] at (0,0,1) {$1$};
+        \node[below right] at (0,1,0) {$1$};
+        \node[below left] at (0,0,0) {$0$};
+
+        % --- ETIQUETAS DE LAS SUPERFICIES ---
+        \node[font=\small] (e1) at (0,0.95,0.95) {$z=1-y$};
+        \draw[->, thin] (e1) -- (0.1,0.55,0.35);
+        \node[font=\small] (e2) at (1.05,0.35,-0.15) {$y=\sqrt{x}$};
+        \draw[->, thin] (e2) -- (0.25,0.5,0);
+    \end{tikzpicture}
+    \caption{Volumen limitado por $x=y^2$, $z=1-y$ y los planos coordenados.}
+    \label{fig:c4_e01_p11_volumen}
+\end{figure}
+
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Centro de masa de un volumen tridimensional}
+
+\subsubsection*{Idea general}
+
+El centro de masa es la posición \emph{promedio} del cuerpo, donde cada punto aporta con su masa:
+\[
+\vec r_G=\frac{1}{M}\iiint \vec r\,\rho\,dV .
+\]
+Como la densidad es uniforme, $\rho$ sale de la integral y, como además $M=\rho V$, la masa se cancela:
+\[
+\bar x=\frac{1}{V}\iiint x\,dV,\qquad
+\bar y=\frac{1}{V}\iiint y\,dV,\qquad
+\bar z=\frac{1}{V}\iiint z\,dV .
+\]
+En otras palabras, para un cuerpo homogéneo el centro de masa es un asunto puramente geométrico: es el centroide de la región. Por eso el primer paso es calcular el volumen $V$.
+
+\subsubsection*{Geometría y límites de integración}
+
+La región está delimitada por:
+\begin{align*}
+& 0 < y < 1, \\
+& 0 < x < y^2, \\
+& 0 < z < 1 - y.
+\end{align*}
+
+Para plantear la integral triple hay que decidir un orden. Conviene fijar primero $y$, porque sus límites son números ($0$ y $1$); luego $x$, cuyos límites dependen solo de $y$; y finalmente $z$, cuya altura también depende solo de $y$. Como los límites de $x$ y de $z$ no dependen entre sí, el orden $dz\,dx\,dy$ (integrando primero en $z$) es el más cómodo. La figura muestra la proyección del cuerpo sobre el plano $xy$ (la zona sombreada) y, sobre cada punto de esa zona, el cuerpo se eleva hasta la altura $z=1-y$.
+
+\begin{center}
+\begin{tikzpicture}[>=Latex]
+  \def\s{3}
+  \fill[gray!20] (0,0) -- plot[domain=0:1,samples=40] ({\s*\x*\x},{\s*\x}) -- (0,\s) -- cycle;
+  \draw[->] (0,0) -- (\s+0.6,0) node[right] {$x$};
+  \draw[->] (0,0) -- (0,\s+0.6) node[above] {$y$};
+  \draw[thick] plot[domain=0:1,samples=40] ({\s*\x*\x},{\s*\x});
+  \draw[dashed] (0,\s) -- (\s,\s);
+  \node at (0.75,2.65) {\small $0<x<y^2$};
+  \node[right] at (0.95,1.5) {\small $x=y^2$};
+  \node[left] at (0,\s) {$1$};
+  \node[below] at (\s,0) {$1$};
+  \node[right] at (\s+0.2,2.2) {altura: $z=1-y$};
+\end{tikzpicture}
+\end{center}
+
+\subsubsection*{Volumen}
+
+El volumen se calcula mediante la integral triple:
+\[
+V = \int_0^1 \int_0^{y^2} \int_0^{1 - y} dz\,dx\,dy.
+\]
+
+Resolvemos de adentro hacia afuera. La integral en $z$ entrega la altura de la columna; la integral en $x$ multiplica esa altura por el ancho $y^2$; y la última suma todas las columnas:
+\[
+\int_0^{1 - y} dz = 1 - y,
+\quad \Rightarrow \quad
+\int_0^{y^2} (1 - y)\,dx = (1 - y)y^2,
+\]
+\[
+V=\int_0^1 (1 - y)y^2\,dy = \int_0^1 (y^2 - y^3)\,dy
+= \left[ \frac{y^3}{3} - \frac{y^4}{4} \right]_0^1 = \frac{1}{3} - \frac{1}{4} = \frac{1}{12}.
+\]
+Por ende la densidad del cuerpo será
+$$\rho=\dfrac{M}{V}=12M .$$
+
+\subsubsection*{Centro de masa}
+
+Con densidad constante, el centro de masa está dado por:
+\[
+\bar{x} = \frac{1}{M} \iiint \rho x\,dV, \qquad
+\bar{y} = \frac{1}{M} \iiint \rho y\,dV, \qquad
+\bar{z} = \frac{1}{M} \iiint\rho z\,dV,
+\]
+y como ya calculamos que \( V = \frac{1}{12} \) y se cancelan las masas, basta multiplicar cada integral por 12 (es dividir por el volumen, como dijimos al comienzo).
+
+\textbf{Coordenada $\bar{x}$}\\
+\[
+\bar{x} = 12 \int_0^1 \int_0^{y^2} \int_0^{1 - y} x \, dz\,dx\,dy.
+\]
+El integrando $x$ no depende de $z$, así que la integral en $z$ solo multiplica por la altura $1-y$:
+\[
+\int_0^{1 - y} x\,dz = x(1 - y),
+\quad \Rightarrow \quad
+\int_0^{y^2} x(1 - y)\,dx = (1 - y) \left[ \frac{x^2}{2} \right]_0^{y^2} = (1 - y) \cdot \frac{y^4}{2},
+\]
+\[
+\bar{x} = 12 \int_0^1 \frac{1 - y}{2} y^4\,dy
+= 6 \int_0^1 (1 - y)y^4\,dy = 6 \int_0^1 (y^4 - y^5)\,dy
+\]
+\[
+= 6 \left[ \frac{y^5}{5} - \frac{y^6}{6} \right]_0^1
+= 6 \left( \frac{1}{5} - \frac{1}{6} \right)
+= \frac{1}{5}.
+\]
+
+\textbf{Coordenada $\bar{y}$}\\
+\[
+\bar{y} = 12 \int_0^1 \int_0^{y^2} \int_0^{1 - y} y\,dz\,dx\,dy.
+\]
+Ahora el integrando es $y$, que es constante respecto de $z$ y de $x$, así que ambas integrales interiores solo multiplican por la altura $(1-y)$ y por el ancho $y^2$:
+\[
+\int_0^{1 - y} y\,dz = y(1 - y),
+\quad \Rightarrow \quad
+\int_0^{y^2} y(1 - y)\,dx = y(1 - y)y^2 = y^3(1 - y),
+\]
+\[
+\bar{y} = 12 \int_0^1 (y^3 - y^4)\,dy
+= 12 \left[ \frac{y^4}{4} - \frac{y^5}{5} \right]_0^1 = 12 \left( \frac{1}{4} - \frac{1}{5} \right)
+= \frac{3}{5}.
+\]
+
+\textbf{Coordenada $\bar{z}$}\\
+\[
+\bar{z} = 12 \int_0^1 \int_0^{y^2} \int_0^{1 - y} z\,dz\,dx\,dy.
+\]
+\[
+\int_0^{1 - y} z\,dz = \frac{(1 - y)^2}{2},
+\quad \Rightarrow \quad
+\int_0^{y^2} \frac{(1 - y)^2}{2}\,dx = \frac{(1 - y)^2}{2} \cdot y^2,
+\]
+\[
+\bar{z} = 12 \int_0^1 \frac{(1 - y)^2 y^2}{2}\,dy = 6 \int_0^1 (1 - 2y + y^2)y^2\,dy = 6 \int_0^1 (y^2 - 2y^3 + y^4)\,dy,
+\]
+\[
+= 6 \left[ \frac{y^3}{3} - \frac{y^4}{2} + \frac{y^5}{5} \right]_0^1
+= 6 \left( \frac{1}{3} - \frac{1}{2} + \frac{1}{5} \right)
+= 6 \cdot \frac{10 - 15 + 6}{30} = \frac{1}{5}.
+\]
+
+\subsubsection*{¿Tiene sentido el resultado?}
+
+Conviene siempre revisar que el centroide sea coherente con la forma del cuerpo. En $y$, el ancho en $x$ crece como $y^2$, de modo que hay más masa para $y$ grande y es razonable que $\bar y=3/5>1/2$. En $z$, la altura $1-y$ disminuye cuando $y$ crece, y el cuerpo es más bajo justo donde hay más masa, por lo que $\bar z=1/5$ queda en la parte baja de la caja (no cerca de $1/2$). Finalmente $\bar x=1/5$ es pequeño porque en cada sección $x$ solo llega hasta $y^2$, que es una fracción de $1$. Los tres valores caen dentro de la caja $[0,1]^3$ que contiene al cuerpo, como debe ser.
+
+\subsubsection*{Resultado final}
+
+\respuesta{$\displaystyle
+V = \frac{1}{12}, \qquad
+\bar{x} = \frac{1}{5}, \qquad
+\bar{y} = \frac{3}{5}, \qquad
+\bar{z} = \frac{1}{5}$}
+
+\end{solucion}

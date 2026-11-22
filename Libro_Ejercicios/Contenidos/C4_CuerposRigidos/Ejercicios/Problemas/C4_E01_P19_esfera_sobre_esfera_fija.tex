@@ -1,0 +1,217 @@
+% =========================================================================
+% Capítulo 4: Cuerpo rígido
+% Tema 01: Cuerpo rígido
+% Problema 19: Esfera rodante sobre una esfera fija
+% Origen: Ayudantía 12 (Sólido Rígido), 2026; corresponde al Ejemplo 5-6 del texto de referencia
+% =========================================================================
+\subsubsection{Esfera rodante sobre una esfera fija}
+
+Una esfera uniforme de masa $m$ y radio $r$ rueda sin deslizar sobre la superficie de una esfera fija, también de radio $r$, como se muestra en la Figura \ref{fig:c4_e01_p19_esferas}. El ángulo $\phi$ describe la rotación de la esfera móvil respecto a la dirección vertical, mientras que el ángulo $\theta$ describe la posición del centro de masa de la esfera móvil respecto a la vertical. Sabiendo que la gravedad actúa verticalmente hacia abajo:
+
+\begin{enumerate}
+    \item Determine la ecuación diferencial de movimiento para la esfera en términos del ángulo $\theta$.
+\end{enumerate}
+
+\begin{figure}[!ht]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.1]
+        % Pedestal y tierra de la esfera fija
+        \fill[gray!35] (-0.5, -1.2) .. controls (-0.3, -1.5) and (-0.5, -1.8) .. (-0.8, -1.9) -- (0.8, -1.9) .. controls (0.5, -1.8) and (0.3, -1.5) .. (0.5, -1.2) -- cycle;
+        \draw[thick] (-0.5, -1.25) .. controls (-0.3, -1.5) and (-0.5, -1.8) .. (-0.8, -1.9);
+        \draw[thick] (0.5, -1.25) .. controls (0.3, -1.5) and (0.5, -1.8) .. (0.8, -1.9);
+        \fill[pattern=north east lines] (-1.1, -2.15) rectangle (1.1, -1.9);
+        \draw[thick] (-1.1, -1.9) -- (1.1, -1.9);
+
+        % Esfera fija (Centro O en (0,0), radio 1.35)
+        \shadedraw[inner color=white, outer color=gray!45, draw=black, thick] (0,0) circle (1.35cm);
+        \fill (0,0) circle (2pt) node[below left] {$O$};
+        \draw[->, thick] (0,0) -- (-35:1.35) node[midway, below left] {$r$};
+
+        % Esfera móvil (Ángulo 40 grados desde la vertical -> 50 grados desde +x)
+        \coordinate (C) at (50:2.7);
+        \coordinate (P) at (50:1.35);
+
+        \shadedraw[inner color=white, outer color=gray!45, draw=black, thick] (C) circle (1.35cm);
+        \fill (C) circle (2pt) node[left] {$C$};
+    
+        % Radio en esfera móvil y masa m
+        \draw[->, thick] (C) -- ($(C)+(-35:1.35)$) node[midway, below left] {$r$};
+        \node at ($(C)+(140:0.85)$) {$m$};
+
+        % Línea segmentada O - P - C y vertical de referencia
+        \draw[dashed, thick] (0,0) -- (C);
+        \draw[dash dot, thick] (0,0) -- (0, 1.5);
+
+        % Arco ángulo theta
+        \draw[->, thick] (0, 0.85) arc (90:50:0.85) node[midway, above right] {$\theta$};
+
+        % Punto de contacto P e indicación "Sin deslizar"
+        \node[above] at (P) {$P$};
+        \draw[thick] ($(P)+(-40:0.15)$) -- ++(-25:1.2) node[right] {Sin deslizar};
+
+        % Arco de rotación phi
+        \draw[->, thick] ($(C)+(75:1.65)$) arc (75:30:1.65) node[midway, above right] {$\phi$};
+
+        % Vector gravedad
+        \draw[->, thick] (-1.6, 2.6) -- (-1.6, 1.6) node[midway, left] {$\vec{g}$};
+    \end{tikzpicture}
+
+    \caption{Esfera de masa $m$ rodando sin deslizar sobre una esfera fija.}
+    \label{fig:c4_e01_p19_esferas}
+\end{figure}
+
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Esfera rodante sobre una esfera fija}
+\subsubsection*{Cinemática}
+
+Primero, sea $\mathcal{F}$ un marco de referencia fijo a tierra. Elegimos el siguiente sistema de coordenadas fijo en el marco $\mathcal{F}$:
+\begin{itemize}
+    \item Origen en $O$
+    \item $\vec{E}_x =$ A lo largo de $OP$ cuando $\theta = 0$ (verticalmente hacia arriba)
+    \item $\vec{E}_z =$ Hacia adentro de la página
+    \item $\vec{E}_y = \vec{E}_z \times \vec{E}_x$ (horizontalmente hacia la derecha)
+\end{itemize}
+
+A continuación, sea $\mathcal{A}$ un marco de referencia fijo a la dirección de $OC$. Elegimos el siguiente sistema de coordenadas fijo en el marco $\mathcal{A}$:
+\begin{itemize}
+    \item Origen en $O$
+    \item $\vec{e}_r =$ A lo largo de $OP$
+    \item $\vec{e}_z = \vec{E}_z =$ Hacia adentro de la página
+    \item $\vec{e}_\theta = \vec{e}_z \times \vec{e}_r$
+\end{itemize}
+
+La geometría de las bases $\{\vec{E}_x, \vec{E}_y, \vec{E}_z\}$ y $\{\vec{e}_r, \vec{e}_\theta, \vec{e}_z\}$ se muestra a continuación:
+
+\begin{center}
+\begin{tikzpicture}[scale=1.1, >=Stealth]
+    \draw[->, thick] (0,0) -- (0,2.2) node[left] {$\vec{E}_x$};
+    \draw[->, thick] (0,0) -- (2.2,0) node[below] {$\vec{E}_y$};
+    \draw[->, thick] (0,0) -- (50:2.2) node[right] {$\vec{e}_r$};
+    \draw[->, thick] (0,0) -- (-40:2.2) node[below left] {$\vec{e}_\theta$};
+
+    % Símbolo hacia adentro de la página
+    \filldraw[fill=white, thick] (0,0) circle (4pt);
+    \draw[thick] (-2.8pt,-2.8pt) -- (2.8pt,2.8pt);
+    \draw[thick] (-2.8pt,2.8pt) -- (2.8pt,-2.8pt);
+    \node[left] at (-0.15,0) {$\vec{e}_z, \vec{E}_z$};
+
+    % Arcos de ángulo theta
+    \draw[->, thin] (0,1.3) arc (90:50:1.3);
+    \node at (70:1.5) {$\theta$};
+    \draw[->, thin] (1.3,0) arc (0:-40:1.3);
+    \node at (-20:1.5) {$\theta$};
+\end{tikzpicture}
+\end{center}
+
+A partir de la geometría de las bases, tenemos:
+\begin{align}
+    \vec{E}_x &= \cos\theta\,\vec{e}_r - \sin\theta\,\vec{e}_\theta \\
+    \vec{E}_y &= \sin\theta\,\vec{e}_r + \cos\theta\,\vec{e}_\theta
+\end{align}
+
+Finalmente, sea $\mathcal{R}$ el marco de referencia de la esfera móvil (no es necesario especificar un sistema de coordenadas fijo en $\mathcal{R}$). La posición del centro de masa de la esfera móvil es:
+\begin{equation}
+    \bar{\vec{r}} = 2r\vec{e}_r
+\end{equation}
+Además, la velocidad angular del marco $\mathcal{A}$ en $\mathcal{F}$ y la velocidad angular del marco $\mathcal{R}$ en $\mathcal{F}$ (dado que $\phi$ se mide respecto a la vertical fija) están dadas por:
+\begin{align}
+    {}^{\mathcal{F}}\vec{\omega}^{\mathcal{A}} &= \dot{\theta}\vec{e}_z \\
+    {}^{\mathcal{F}}\vec{\omega}^{\mathcal{R}} &= \dot{\phi}\vec{e}_z
+\end{align}
+
+Aplicando el teorema del transporte entre los marcos $\mathcal{A}$ y $\mathcal{F}$, la velocidad del centro de masa de la esfera es:
+\begin{equation}
+    {}^{\mathcal{F}}\bar{\vec{v}} = \frac{{}^{\mathcal{F}}d\bar{\vec{r}}}{dt} = \frac{{}^{\mathcal{A}}d\bar{\vec{r}}}{dt} + {}^{\mathcal{F}}\vec{\omega}^{\mathcal{A}} \times \bar{\vec{r}} = \vec{0} + \dot{\theta}\vec{e}_z \times (2r\vec{e}_r) = 2r\dot{\theta}\vec{e}_\theta
+\end{equation}
+
+Aplicando nuevamente el teorema del transporte a ${}^{\mathcal{F}}\bar{\vec{v}}$ entre $\mathcal{A}$ y $\mathcal{F}$, obtenemos la aceleración del centro de masa:
+\begin{equation}
+    {}^{\mathcal{F}}\bar{\vec{a}} = \frac{{}^{\mathcal{F}}d}{dt}({}^{\mathcal{F}}\bar{\vec{v}}) = \frac{{}^{\mathcal{A}}d}{dt}({}^{\mathcal{F}}\bar{\vec{v}}) + {}^{\mathcal{F}}\vec{\omega}^{\mathcal{A}} \times {}^{\mathcal{F}}\bar{\vec{v}} = 2r\ddot{\theta}\vec{e}_\theta + \dot{\theta}\vec{e}_z \times (2r\dot{\theta}\vec{e}_\theta) = -2r\dot{\theta}^2\vec{e}_r + 2r\ddot{\theta}\vec{e}_\theta
+\end{equation}
+
+Una segunda expresión para ${}^{\mathcal{F}}\bar{\vec{v}}$ se obtiene observando que los puntos $C$ y $P$ pertenecen a la esfera móvil $\mathcal{R}$:
+\begin{equation}
+    {}^{\mathcal{F}}\bar{\vec{v}} = {}^{\mathcal{F}}\vec{v}_P^{\mathcal{R}} + {}^{\mathcal{F}}\vec{\omega}^{\mathcal{R}} \times (\bar{\vec{r}} - \vec{r}_P)
+\end{equation}
+donde $\bar{\vec{r}} - \vec{r}_P = r\vec{e}_r$. Por la condición de rodadura sin deslizamiento, ${}^{\mathcal{F}}\vec{v}_P^{\mathcal{R}} = \vec{0}$. En consecuencia:
+\begin{equation}
+    {}^{\mathcal{F}}\bar{\vec{v}} = \dot{\phi}\vec{e}_z \times r\vec{e}_r = r\dot{\phi}\vec{e}_\theta
+\end{equation}
+Igualando ambas expresiones de ${}^{\mathcal{F}}\bar{\vec{v}}$:
+\begin{equation}
+    2r\dot{\theta} = r\dot{\phi} \implies \dot{\phi} = 2\dot{\theta} \implies \ddot{\phi} = 2\ddot{\theta}
+\end{equation}
+Por lo tanto, la velocidad angular de la esfera superior en el marco $\mathcal{F}$ es:
+\begin{equation}
+    {}^{\mathcal{F}}\vec{\omega}^{\mathcal{R}} = 2\dot{\theta}\vec{e}_z
+\end{equation}
+
+\subsubsection*{Cinética}
+
+Resolveremos el problema aplicando ambas leyes de Euler utilizando el centro de masa de la esfera como punto de referencia. El diagrama de cuerpo libre (DCL) se muestra a continuación:
+
+\begin{center}
+\begin{tikzpicture}[scale=1.0, >=Stealth]
+    \def\R{1.35}
+    \shadedraw[ball color=gray!15, shading=ball, opacity=0.85, thick] (0,0) circle (\R cm);
+    \fill (0,0) circle (2pt);
+    % Peso
+    \draw[->, very thick] (0,0) -- (0,-1.0) node[midway, left] {$m\vec{g}$};
+    % Punto de contacto P en angulo -130 grados
+    \coordinate (P) at (-130:\R);
+    % Fuerza Normal N (en direccion e_r, angulo 50)
+    \draw[<-, very thick] (P) -- ++(-130:1.1) node[left] {$\vec{N}$};
+    % Fuerza de roce F_f (en direccion e_theta, angulo -40)
+    \draw[->, very thick] (P) -- ++(-40:1.1) node[below] {$\vec{F}_f$};
+\end{tikzpicture}
+\end{center}
+
+Expresando la fuerza normal $\vec{N}$, la fuerza de rodadura (roce) $\vec{F}_f$ y la fuerza de gravedad $m\vec{g}$ en la base $\{\vec{e}_r, \vec{e}_\theta, \vec{e}_z\}$:
+\begin{align}
+    \vec{N} &= N\vec{e}_r \\
+    \vec{F}_f &= F_f\vec{e}_\theta \\
+    m\vec{g} &= -mg\vec{E}_x = -mg(\cos\theta\,\vec{e}_r - \sin\theta\,\vec{e}_\theta) = -mg\cos\theta\,\vec{e}_r + mg\sin\theta\,\vec{e}_\theta
+\end{align}
+
+\textit{1. Aplicación de la 1ª Ley de Euler al centro de masa:}
+La fuerza resultante $\vec{F}$ sobre la esfera es:
+\begin{equation}
+    \vec{F} = (N - mg\cos\theta)\vec{e}_r + (F_f + mg\sin\theta)\vec{e}_\theta
+\end{equation}
+Igualando $\vec{F} = m\,{}^{\mathcal{F}}\bar{\vec{a}}$:
+\begin{equation}
+    (N - mg\cos\theta)\vec{e}_r + (F_f + mg\sin\theta)\vec{e}_\theta = -2mr\dot{\theta}^2\vec{e}_r + 2mr\ddot{\theta}\vec{e}_\theta
+\end{equation}
+Lo cual entrega dos ecuaciones escalares:
+\begin{align}
+    N - mg\cos\theta &= -2mr\dot{\theta}^2 \\
+    F_f + mg\sin\theta &= 2mr\ddot{\theta} \label{eq:c4_e01_p19_f}
+\end{align}
+
+\textit{2. Aplicación de la 2ª Ley de Euler respecto al centro de masa:}
+Como $\vec{N}$ y $m\vec{g}$ pasan por el centro de masa, solo $\vec{F}_f$ produce momento respecto a $C$. Como $\vec{r}_P - \bar{\vec{r}} = -r\vec{e}_r$:
+\begin{equation}
+    \bar{\vec{M}} = (\vec{r}_P - \bar{\vec{r}}) \times \vec{F}_f = -r\vec{e}_r \times F_f\vec{e}_\theta = -rF_f\vec{e}_z
+\end{equation}
+El momento angular respecto al centro de masa es ${}^{\mathcal{F}}\bar{\vec{H}} = \bar{\vec{I}}^{\mathcal{R}} \cdot {}^{\mathcal{F}}\vec{\omega}^{\mathcal{R}}$. Dado que para una esfera uniforme $\bar{I}_{zz} = \frac{2}{5}mr^2$:
+\begin{equation}
+    {}^{\mathcal{F}}\bar{\vec{H}} = \bar{I}_{zz}(2\dot{\theta}\vec{e}_z) = \frac{2}{5}mr^2(2\dot{\theta}\vec{e}_z) = \frac{4}{5}mr^2\dot{\theta}\vec{e}_z
+\end{equation}
+Derivando en el marco $\mathcal{F}$:
+\begin{equation}
+    \frac{{}^{\mathcal{F}}d}{dt}({}^{\mathcal{F}}\bar{\vec{H}}) = \frac{4}{5}mr^2\ddot{\theta}\vec{e}_z
+\end{equation}
+Aplicando $\bar{\vec{M}} = \frac{{}^{\mathcal{F}}d}{dt}({}^{\mathcal{F}}\bar{\vec{H}})$:
+\begin{equation}
+    -rF_f = \frac{4}{5}mr^2\ddot{\theta} \implies F_f = -\frac{4}{5}mr\ddot{\theta}
+\end{equation}
+
+\subsubsection*{Ecuación Diferencial de Movimiento}
+
+Sustituyendo $F_f$ en la ecuación (\ref{eq:c4_e01_p19_f}):
+\begin{equation}
+    -\frac{4}{5}mr\ddot{\theta} + mg\sin\theta = 2mr\ddot{\theta} \implies \frac{14}{5}mr\ddot{\theta} = mg\sin\theta
+\end{equation}
+Simplificando, obtenemos la ecuación diferencial de movimiento para la esfera:
+\respuesta{$\displaystyle \ddot{\theta} - \frac{5g}{14r}\sin\theta = 0$}
+\end{solucion}

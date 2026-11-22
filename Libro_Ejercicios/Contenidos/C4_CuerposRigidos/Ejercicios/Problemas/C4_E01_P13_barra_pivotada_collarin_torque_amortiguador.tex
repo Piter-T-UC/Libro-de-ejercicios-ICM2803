@@ -1,0 +1,404 @@
+% =========================================================================
+% Capítulo 4: Cuerpo rígido
+% Tema 01: Cuerpo rígido
+% Problema 13: Barra pivotada con collarín, torque y amortiguador
+% Origen: Ayudantía 4, 2026
+% =========================================================================
+\subsubsection{Barra pivotada con collarín, torque y amortiguador}
+
+Una barra delgada y uniforme de longitud $L$ y densidad lineal de masa $\rho$ (masa total
+$m = \rho L$) está pivotada en el punto fijo $O$. La barra atraviesa un collarín de masa $M$ que
+está restringido a moverse únicamente a lo largo de una guía vertical situada a una distancia
+horizontal $d$ del pivote. Entre el punto $O$ y el collarín se encuentra conectado un resorte de
+constante elástica $k$ y longitud natural $l_0$, el cual se deforma a lo largo de la barra. Se
+aplica un par motor externo $\tau$ en el pivote para controlar el movimiento. Los coeficientes de
+fricción dinámico y estático entre el collarín y la guía vertical son $\mu_d$ y $\mu_s$
+respectivamente (Figura \ref{fig:c4_e01_p13_barra_collarin}).
+
+\begin{enumerate}
+    \item Encuentre la ecuación que modela el comportamiento ($\ddot \theta$).
+    \item Encuentre el torque necesario para mover la barra desde el reposo.
+\end{enumerate}
+
+\begin{figure}[!ht]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.0]
+        % --- PARÁMETROS ---
+        \def\thetaang{35}   % ángulo de dibujo [°]
+        \def\d{3}           % distancia horizontal pivote-guía
+        \def\L{5}           % largo de la barra
+        \coordinate (O) at (0,0);
+        \pgfmathsetmacro{\a}{\d*tan(\thetaang)}
+
+        % --- EJES EN O ---
+        \draw[->, thin] (0,-0.5) -- (0,1) node[left] {$y$};
+        \draw[->, thin] (-0.5,0) -- (1,0) node[below] {$x$};
+
+        % --- GUÍA VERTICAL ---
+        \draw[thick] (\d-0.05, -1) -- (\d-0.05, 4);
+        \draw[thick] (\d+0.25, -1) -- (\d+0.25, 4);
+        \draw[dashed] (0,0) -- (\d,0);
+
+        % --- BARRA ---
+        \draw[double, double distance=2pt, rotate around={\thetaang:(O)}] (O) -- (\L,0) node[below right] {$L, \rho$};
+
+        % --- COLLARÍN ---
+        \draw[thick, shading=axis, left color=gray!60, right color=white] (\d, \a-0.1) rectangle ++(0.2, 0.4);
+
+        % --- RESORTE (esquemático sobre la barra) ---
+        \draw[decoration={aspect=0.3, segment length=2mm, amplitude=1.5mm, coil}, decorate]
+            (0.1,0.05) -- (\d, {\a+0.05});
+        \node[above right] at (3.2,\a+0.25) {$\mu$};
+
+        % --- COTAS Y ÁNGULOS ---
+        \draw[->] (1.5,0) arc (0:\thetaang:1.5);
+        \node at (1.8, 0.4) {$\theta$};
+        \fill (0,0) circle (2pt) node[below left] {$O$};
+        \draw[|<->|] (0,-0.8) -- (\d,-0.8) node[midway, fill=white] {$d$};
+
+        % --- TORQUE ---
+        \draw[->, thick, rotate around={-35:(O)}] (-0.3, 0.3) arc (135:225:0.5);
+        \node at (-0.6, 0.5) {$\tau$};
+    \end{tikzpicture}
+    \caption{Barra pivotada en $O$ con collarín en una guía vertical.}
+    \label{fig:c4_e01_p13_barra_collarin}
+\end{figure}
+
+Ahora se le añadió un amortiguador, el cual aplica una fuerza que se opone al movimiento de la
+partícula proporcional a su velocidad, $f_c=-cv$ (Figura \ref{fig:c4_e01_p13_amortiguador}).
+
+\begin{enumerate}
+    \item[c)] Encuentre la ecuación que modela el comportamiento ($\ddot \theta$).
+    \item[d)] Encuentre el torque necesario para hacer que la partícula se mueva a una velocidad constante.
+\end{enumerate}
+
+\begin{figure}[!ht]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.0]
+        % --- PARÁMETROS ---
+        \def\thetaang{35}   % ángulo de dibujo [°]
+        \def\d{3}           % distancia horizontal pivote-guía
+        \def\L{5}           % largo de la barra
+        \coordinate (O) at (0,0);
+        \pgfmathsetmacro{\a}{\d*tan(\thetaang)}
+
+        % --- EJES EN O ---
+        \draw[->, thin] (0,-0.5) -- (0,1) node[left] {$y$};
+        \draw[->, thin] (-0.5,0) -- (1,0) node[below] {$x$};
+
+        % --- GUÍA VERTICAL ---
+        \draw[thick] (\d-0.05, -1) -- (\d-0.05, 4);
+        \draw[thick] (\d+0.25, -1) -- (\d+0.25, 4);
+        \draw[dashed] (0,0) -- (\d,0);
+
+        % --- BARRA ---
+        \draw[double, double distance=2pt, rotate around={\thetaang:(O)}] (O) -- (\L,0) node[below right] {$L, \rho$};
+
+        % --- COLLARÍN ---
+        \draw[thick, shading=axis, left color=gray!60, right color=white] (\d, \a-0.1) rectangle ++(0.2, 0.4);
+
+        % --- RESORTE (esquemático sobre la barra) ---
+        \draw[decoration={aspect=0.3, segment length=2mm, amplitude=1.5mm, coil}, decorate]
+            (0.1,0.05) -- (\d, {\a+0.05});
+        \node[above right] at (3.2,\a+0.25) {$\mu$};
+
+        % --- COTAS Y ÁNGULOS ---
+        \draw[->] (1.5,0) arc (0:\thetaang:1.5);
+        \node at (1.8, 0.4) {$\theta$};
+        \fill (0,0) circle (2pt) node[below left] {$O$};
+        \draw[|<->|] (0,-0.8) -- (\d,-0.8) node[midway, fill=white] {$d$};
+
+        % --- TORQUE ---
+        \draw[->, thick, rotate around={-35:(O)}] (-0.3, 0.3) arc (135:225:0.5);
+        \node at (-0.6, 0.5) {$\tau$};
+
+        % --- AMORTIGUADOR ---
+        \draw[thick] (\d+0.1, \a-0.1) -- (\d+0.1, -0.6);              % vástago
+        \draw[thick] (\d+0.1-0.06, -0.6) -- (\d+0.1+0.06, -0.6);      % pistón
+        \draw[thick] (\d+0.1-0.08, -0.9) -- (\d+0.1-0.08, -0.5);      % paredes
+        \draw[thick] (\d+0.1+0.08, -0.9) -- (\d+0.1+0.08, -0.5);
+        \draw[thick] (\d+0.1-0.08, -0.9) -- (\d+0.1+0.08, -0.9);      % base
+        \draw[thick] (\d+0.1, -0.9) -- (\d+0.1, -1);                  % soporte
+    \end{tikzpicture}
+    \caption{Mismo sistema con un amortiguador viscoso conectado al collarín.}
+    \label{fig:c4_e01_p13_amortiguador}
+\end{figure}
+
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Barra pivotada con collarín, torque y amortiguador}
+
+\subsubsection*{Partes a) y b)}
+
+Primero partimos encontrando los marcos de referencia
+\begin{itemize}
+    \item $\mathcal{S}$ Inercial $\longrightarrow\{\vec{e}_x;\vec{e}_y;\vec{e}_z\}$
+    \item $\mathcal{B}$ Barra $\longrightarrow\{\vec{e}_r;\vec{e}_\theta;\vec{e}_z\}$
+\end{itemize}
+
+\textbf{Cinemática}\\
+Por la geometría del problema tenemos que la altura ($a$) de la masa es:
+$$a = d \tan \theta$$
+Para la longitud de la varilla $\ell$, utilizamos el teorema de Pitágoras o la ley de cosenos:
+$$
+\left.
+\begin{aligned}
+    \ell^2 &= d^2 + a^2 \\
+    a^2 &= \ell^2 + d^2 - 2 \ell d \cos \theta
+\end{aligned}
+\right\} \implies \ell = \frac{d}{\cos \theta} = d \sec \theta
+$$
+
+\textbf{Vector de posición en el marco fijo}\\
+El vector de posición en el marco de referencia $s$ se obtiene rotando el vector local del marco móvil $b$:
+$$
+{}^s p_q = {}^s r_b + {}^s R_b {}^b r_q =
+\begin{bmatrix}
+    \cos \theta & -\sin \theta & 0 \\
+    \sin \theta & \cos \theta & 0 \\
+    0 & 0 & 1
+\end{bmatrix}
+\begin{bmatrix}
+    \ell \\ 0 \\ 0
+\end{bmatrix}
+$$
+Sustituyendo $\ell = d \sec \theta$, obtenemos:
+$$
+{}^s P_q = \begin{bmatrix} d \\ d \tan \theta \\ 0 \end{bmatrix}
+$$
+
+\textbf{Cálculo de la velocidad}\\
+Derivamos la posición respecto al tiempo. Primero calculamos la derivada de la longitud $\ell$:
+$$
+\dot{\ell} = d \frac{\sin \theta}{\cos^2 \theta} \dot{\theta}
+$$
+La velocidad general está dada por:
+$$
+{}^s v_q = [\omega] {}^s R_b {}^b r_q + {}^s R_b {}^b \dot{r}_q =
+\begin{bmatrix}
+    0 & -\dot{\theta} & 0 \\
+    \dot{\theta} & 0 & 0 \\
+    0 & 0 & 0
+\end{bmatrix}
+\begin{bmatrix}
+    d \\ d \tan \theta \\ 0
+\end{bmatrix} +
+\begin{bmatrix}
+    \cos \theta & -\sin \theta & 0 \\
+    \sin \theta & \cos \theta & 0 \\
+    0 & 0 & 1
+\end{bmatrix}
+\begin{bmatrix}
+    \dot{\ell} \\ 0 \\ 0
+\end{bmatrix}
+$$
+Resolviendo las operaciones matriciales:
+$$
+{}^s v_q =
+\begin{bmatrix}
+    -\dot{\theta} d \tan \theta \\ \dot{\theta} d \\ 0
+\end{bmatrix} +
+\begin{bmatrix}
+    \dot{\theta} d \tan \theta \\ \dot{\theta} d \tan^2 \theta \\ 0
+\end{bmatrix} =
+\begin{bmatrix}
+    0 \\ \dot{\theta} d (1 + \tan^2 \theta) \\ 0
+\end{bmatrix}
+$$
+Usando la identidad $1 + \tan^2 \theta = \sec^2 \theta$:
+$$
+{}^s v_q = \begin{bmatrix} 0 \\ \dot{\theta} d \sec^2 \theta \\ 0 \end{bmatrix}
+$$
+
+\textbf{Vector de aceleración}\\
+Derivando el vector de velocidad obtenido en el paso anterior:
+$$
+{}^s a_q =
+\begin{bmatrix}
+    0 \\ \ddot{\theta} d \sec^2 \theta + 2\dot{\theta}^2 d \sec^2 \theta \tan \theta \\ 0
+\end{bmatrix}
+$$
+
+\textbf{Análisis del centro de masa de la barra (CM)}\\
+Considerando una varilla de longitud $L$:
+
+\textbf{Velocidad en el marco $b$:}
+$$
+{}^b v_{cm} = \begin{bmatrix} 0 \\ \frac{L}{2} \dot{\theta} \\ 0 \end{bmatrix}
+$$
+\textbf{Aceleración en el marco $b$:}
+$$
+{}^b a_{cm} = \begin{bmatrix} -\frac{L}{2} \dot{\theta}^2 \\ \frac{L}{2} \ddot{\theta} \\ 0 \end{bmatrix}
+$$
+\textbf{Aceleración en el marco fijo $s$:}
+$$
+{}^s a_{cm} =
+\begin{bmatrix}
+    -\frac{L}{2} \dot{\theta}^2 \cos \theta - \frac{L}{2} \ddot{\theta} \sin \theta \\
+    \frac{L}{2} \dot{\theta}^2 \sin \theta + \frac{L}{2} \ddot{\theta} \cos \theta \\
+    0
+\end{bmatrix}
+$$
+
+\subsubsection*{Cinética}
+Aquí es donde analizamos la razón de por qué se mueve el cuerpo; primero siempre se hace un DCL.
+
+\begin{center}
+\begin{tikzpicture}[>=Latex, line width=0.8pt]
+    % --- DCL DE LA BARRA ---
+    \coordinate (O) at (0,0);
+    \coordinate (End) at (40:5);
+    \coordinate (CM) at (40:2.5);
+    \coordinate (Collar) at (40:3.5);
+    \draw[line width=2pt, gray!70] (O) -- (End);
+    % Reacciones en O
+    \draw[->, azul] (O) -- (0,1.5) node[above] {$F_y$};
+    \draw[->, azul] (O) -- (1.5,0) node[below right] {$F_x$};
+    \fill (O) circle (2pt) node[below left] {$O$};
+    % Torque externo
+    \draw[->, orange, line width=1.2pt] (170:0.8) arc (170:250:0.8) node[midway, left] {$\tau$};
+    \fill (CM) circle (1.5pt) node[above] {$CM$};
+    % Normal del collarín sobre la barra (perpendicular a la barra)
+    \draw[->, green!60!black] (Collar) -- ++(130:1.2) node[above left] {$N_c$};
+    % Ángulo theta
+    \draw[dashed] (O) -- (2,0);
+    \draw (0.8,0) arc (0:40:0.8) node[midway, right, xshift=2pt] {$\theta$};
+\end{tikzpicture}
+\hspace{1.5cm}
+\begin{tikzpicture}[>=Latex, line width=0.8pt]
+    % --- DCL DEL COLLARÍN ---
+    \coordinate (C) at (0,0);
+    \draw[fill=gray!20] (-0.3,-0.4) rectangle (0.3,0.4);
+    \draw[->, orange] (C) -- (220:1.8) node[below left] {$F_s$};
+    \draw[->, azul] (C) -- (1.5,0) node[right] {$N_v$};
+    \draw[->, green!60!black] (C) -- (-50:1.5) node[right] {$N_b$};
+    \draw[->, myred] (C) -- (-90:1.5) node[right] {$f_r$};
+    \draw[dashed, gray] (C) -- (0,2);
+    \draw[dashed, gray] (C) -- (-2,0);
+\end{tikzpicture}
+\end{center}
+
+\begin{align*}
+    {}^s N_{pared} &= \begin{bmatrix} N_p \\ 0 \\ 0 \end{bmatrix} &
+    {}^s f_{roce} &= \begin{bmatrix} 0 \\ -f_r \\ 0 \end{bmatrix} &
+    {}^b F_r &= \begin{bmatrix} -f_k \\ 0 \\ 0 \end{bmatrix} &
+    {}^b N_{Barra} &= \begin{bmatrix} 0 \\ N_b \\ 0 \end{bmatrix} &
+    {}^s F &= \begin{bmatrix} F_1 \\ F_2 \\ F_3 \end{bmatrix} \\[10pt]
+    {}^b N_{anillo} &= \begin{bmatrix} 0 \\ -N_b \\ 0 \end{bmatrix}
+\end{align*}
+
+La fuerza de roce $f_r$ se caracteriza según el régimen de contacto con la pared:
+
+\textbf{Régimen estático ($\dot{y} = 0$):} la fuerza de roce es reactiva y cumple la condición de no deslizamiento:
+$$|f_r| \leq \mu_s |N_p|$$
+\textbf{Régimen dinámico ($\dot{y} \neq 0$):} la fuerza es disipativa y proporcional a la normal:
+$$f_r = \mu_k |N_p| \frac{\vec{v}_{rel}}{\|\vec{v}_{rel}\|} = \mu_k |N_p| \operatorname{sgn}(\dot{y})$$
+$$
+{}^s f_{roce} = \begin{bmatrix} 0 \\ -\mu_k |N_p| \operatorname{sgn}(\dot{y}) \\ 0 \end{bmatrix} , \quad
+{}^b F_r = \begin{bmatrix} -k(d \sec \theta - l_0) \\ 0 \\ 0 \end{bmatrix}
+$$
+
+\textbf{Ecuaciones}\\
+Ahora tenemos que ocupar ya sea las leyes de Euler o las leyes de Newton para poder relacionar lo físico con lo geométrico (cinética con cinemática).
+
+En esta primera instancia ocuparemos la ley de Euler sobre el sistema collarín-barra; la razón es que de esta manera eliminamos todo lo que sea fuerza interna ($N_b$). También, si lo hacemos respecto al punto $O$, eliminamos las reacciones $F$.
+
+\textbf{Forma vectorial expandida:}
+$$
+\sum M = \tau + \begin{bmatrix} d \\ d \tan \theta \\ 0 \end{bmatrix} \times \left( \begin{bmatrix} N_p \\ 0 \\ 0 \end{bmatrix} + \begin{bmatrix} 0 \\ -f_r \\ 0 \end{bmatrix} + \begin{bmatrix} -f_k \cos \theta \\ -f_k \sin \theta \\ 0 \end{bmatrix} \right) = \der{\vec{H}_O}{S}{}
+$$
+$$\der{\vec{H}_O}{S}{}=I_O\ddot \theta + \dot I_O \dot\theta$$
+$$I_O=I_{barra}+I_{collarin}=\underbrace{\int_0^L\varsigma^2\rho \,\text{d}\varsigma}_{I_{barra}} +\underbrace{\ell^2M}_{I_{collarin}}$$
+Esto corresponde a la derivada temporal del momento angular respecto al punto $O$; se elige ese punto y no otro porque elimina las fuerzas de reacción.
+
+\textbf{Forma matricial (usando matriz antisimétrica para el producto cruz):}
+$$
+\sum M = \begin{bmatrix} \tau_1 \\ \tau_2 \\ \tau_3 \end{bmatrix} + \begin{bmatrix} 0 & 0 & d \tan \theta \\ 0 & 0 & -d \\ -d \tan \theta & d & 0 \end{bmatrix} \times \left( \dots \right) = I \alpha + \dot{I} \omega
+$$
+Reduciendo la componente en $z$ (con $\dot I_O=2\ell\dot\ell M$):
+\respuesta{$\displaystyle \tau - d N_p \tan \theta - d\, f_r = I_{O} \ddot{\theta}+2\ell\dot\ell M\dot\theta$}
+
+Pero nos falta conocer la fuerza normal de la pared, ya que aparece en esta ecuación; esto lo podemos obtener del balance de fuerzas de
+$$
+{}^s F_{resorte} = {}^s R_b \begin{bmatrix} -f_k \\ 0 \\ 0 \end{bmatrix} = \begin{bmatrix} -f_k \cos \theta \\ -f_k \sin \theta \\ 0 \end{bmatrix}
+\qquad
+{}^s N_{barra} = {}^s R_b \begin{bmatrix} 0 \\ N_b \\ 0 \end{bmatrix} = \begin{bmatrix} -N_b \sin \theta \\ N_b \cos \theta \\ 0 \end{bmatrix}
+$$
+Utilizando la matriz de rotación ${}^s R_b$ para transformar las fuerzas del marco de la barra al marco fijo, la sumatoria de fuerzas queda caracterizada de la siguiente forma:
+$$
+\sum {}^s \mathbf{F} = {}^s N_{pared} + {}^s f_{roce} + {}^s R_b ({}^b F_r + {}^b N_{Barra}) = m {}^s \mathbf{a}
+$$
+Sustituyendo los vectores y las caracterizaciones ($f_k = k(d \sec \theta - l_0)$):
+$$
+\begin{bmatrix}
+    N_p \\ 0 \\ 0
+\end{bmatrix} +
+\begin{bmatrix}
+    0 \\ -f_r \\ 0
+\end{bmatrix} +
+\begin{bmatrix}
+    -f_k \cos \theta - N_b \sin \theta \\
+    -f_k \sin \theta + N_b \cos \theta \\
+    0
+\end{bmatrix} =
+m \begin{bmatrix}
+    0 \\ \ddot{\theta} d \sec^2 \theta + 2\dot{\theta}^2 d \sec^2 \theta \tan \theta \\ 0
+\end{bmatrix}
+$$
+
+Pero de aquí aparece una nueva variable, que es la normal de la barra. Esta la podemos obtener desde el balance de fuerzas de la barra o, mejor aún, del balance de momentos, ya que del balance de fuerzas nos quedarán las fuerzas de restricción como incógnitas.
+
+Realizando el balance de momentos respecto al punto de apoyo $O$, y considerando el momento de inercia de una barra delgada respecto a su extremo ($I_O = \frac{1}{3} \rho L^3$):
+$$\sum M_O = I_O \ddot{\theta}$$
+Sumando los aportes del torque externo y la fuerza de contacto con el collarín (ubicado en $r = d \sec \theta$):
+$$-N_b (d \sec \theta) + \tau = \left( \frac{1}{3} \rho L^3 \right) \ddot{\theta}$$
+Finalmente, despejamos $N_b$ utilizando la relación $\frac{1}{\sec \theta} = \cos \theta$:
+\respuesta{$\displaystyle N_b = \frac{\tau \cos \theta}{d} - \frac{\rho L^3 \ddot{\theta} \cos \theta}{3d}$}
+
+A partir de la primera componente de la ecuación de movimiento del collarín (eje $x$):
+$$N_p - f_k \cos \theta - N_b \sin \theta = 0 \implies N_p = f_k \cos \theta + N_b \sin \theta$$
+Sustituyendo la caracterización del resorte $f_k = k(d \sec \theta - l_0)$ y la expresión de $N_b$ obtenida del balance de momentos:
+$$N_p = k(d \sec \theta - l_0) \cos \theta + \left( \frac{\tau \cos \theta}{d} - \frac{\rho L^3 \ddot{\theta} \cos \theta}{3d} \right) \sin \theta$$
+Simplificando los términos trigonométricos:
+\respuesta{$\displaystyle N_p = k(d - l_0 \cos \theta) + \frac{\tau \sin \theta \cos \theta}{d} - \frac{\rho L^3 \ddot{\theta} \sin \theta \cos \theta}{3d}$}
+
+Ya con todo eso puedo sustituir en la otra ecuación y llegar a una relación entre variables conocidas y $\ddot\theta$:
+\respuesta{$\displaystyle \tau \cos^2 \theta - k d^2 \tan \theta + k d l_0 \sin \theta + \frac{\rho L^3 \ddot{\theta} \sin^2 \theta}{3} - d f_r = I_O \ddot{\theta} + 2 \ell \dot{\ell} M \dot{\theta}$}
+
+A eso es lo que se le conoce como la ecuación diferencial gobernante: básicamente la que te dice cómo se mueve el sistema con ciertas condiciones.
+
+(Puede que haya errores matemáticos; cualquier error por favor contactarme vía mail, pero la idea física se mantiene.)
+
+\textbf{Parte b)}\\
+En este caso es fácil, ya teniendo la ecuación diferencial simplemente nos toca despejar. Como no se mueve, todo lo que cambie en el tiempo es 0, por ende
+$$\tau \cos^2 \theta - k d^2 \tan \theta + k d l_0 \sin \theta - d f_r =0$$
+También, como trabajamos desde estático, tenemos que en el punto justo donde se comience a mover $|f_r| = \mu_s |N_p|$:
+$$\tau \cos^2 \theta - k d^2 \tan \theta + k d l_0 \sin \theta - d \mu_s |N_p| =0$$
+\respuesta{$\displaystyle \tau =\left( k d^2 \tan \theta - k d l_0 \sin \theta + d \mu_s |N_p|\right)\sec^2\theta$}
+
+\subsubsection*{Partes c) y d): con amortiguador}
+
+Voy a reutilizar el desarrollo anterior para agregar en $f_{roce}$ el roce viscoso, ya que por lo demás es el mismo ejercicio. La cinemática (posición, velocidad y aceleración del collarín y del centro de masa) es exactamente la misma. En la cinética, el DCL del collarín incluye ahora la fuerza del amortiguador $f_c$, vertical y opuesta al movimiento, junto con el roce $f_r$:
+
+\begin{center}
+\begin{tikzpicture}[>=Latex, line width=0.8pt]
+    \coordinate (C) at (0,0);
+    \draw[fill=gray!20] (-0.3,-0.4) rectangle (0.3,0.4);
+    \draw[->, orange] (C) -- (220:1.8) node[below left] {$F_s$};
+    \draw[->, azul] (C) -- (1.5,0) node[right] {$N_v$};
+    \draw[->, green!60!black] (C) -- (-50:1.5) node[right] {$N_b$};
+    \draw[->, myred] (C) -- (-90:1.5) node[right] {$f_r$};
+    \draw[->, magenta] (C) -- (-90:1) node[left] {$f_c$};
+    \draw[dashed, gray] (C) -- (0,2);
+    \draw[dashed, gray] (C) -- (-2,0);
+\end{tikzpicture}
+\end{center}
+
+$$
+{}^s f_{roce} = \begin{bmatrix} 0 \\ -f_r-c\vec{v} \\ 0 \end{bmatrix}
+$$
+
+\textbf{Balance de momentos}
+$$\tau - d N_p \tan \theta - d\cdot (f_r+c\|\vec{v}\|) = I_{O} \ddot{\theta}+2\ell\dot\ell M\dot\theta$$
+\respuesta{$\displaystyle \tau - d N_p \tan \theta - d\left(f_r+c\,d\dot\theta\sec^2\theta\right) = I_{O} \ddot{\theta}+2\ell\dot\ell M\dot\theta$}
+
+\end{solucion}

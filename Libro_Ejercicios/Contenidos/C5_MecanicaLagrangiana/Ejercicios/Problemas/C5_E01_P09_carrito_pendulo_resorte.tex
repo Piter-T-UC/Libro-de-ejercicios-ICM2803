@@ -1,0 +1,83 @@
+% =========================================================================
+% Capítulo 5: Mecánica Lagrangiana
+% Tema 01: Mecánica Lagrangiana
+% Problema 09: Carrito con péndulo, resorte y mecanismo de varillas
+% Origen: Ayudantía 7, 2026
+% =========================================================================
+% TODO: solución pendiente (Ay7S.tex del zip está vacío)
+\subsubsection{Carrito con péndulo, resorte y mecanismo de varillas}
+
+Considere el sistema mecánico de la Figura \ref{fig:c5_e01_p09_carrito_pendulo} que se desplaza
+en un plano vertical bajo un campo gravitatorio constante $g$. Está constituido por una masa
+puntual $m_1$ articulada al origen $O(0,0)$ mediante una varilla ideal de longitud $\ell_1$ con
+una inclinación $\theta_1$ respecto al eje horizontal $x$, un carrito de masa $m_2$ que se mueve
+sin fricción sobre la guía horizontal $y=0$ conectado a la pared izquierda por un resorte de
+constante elástica $k$ y longitud natural $L_0$ (estando acoplado simultáneamente a $m_1$ por
+otra varilla idéntica de longitud $\ell_1$), y un péndulo simple de masa $m_3$ y longitud
+$\ell_2$ que suspende desde el centro del carrito formando un ángulo $\theta_2$ con la vertical.
+Utilizando el formalismo de Lagrange con las coordenadas generalizadas $\{\theta_1,\theta_2\}$:
+
+\begin{enumerate}
+    \item Determine el Lagrangiano del sistema $\mathcal{L} = T - V$.
+    \item Deduzca las ecuaciones diferenciales acopladas que gobiernan su movimiento.
+\end{enumerate}
+
+\begin{figure}[!ht]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=0.95]
+
+        % --- PARAMETROS ---
+        \def\lone{2.6}     % Largo de las varillas l1
+        \def\ltwo{3.0}     % Largo del péndulo l2
+        \def\tuno{40}      % Ángulo theta_1 [°]
+        \def\tdos{35}      % Ángulo theta_2 [°]
+
+        % --- COORDENADAS PRINCIPALES ---
+        \coordinate (O)  at (0,0);
+        \coordinate (M1) at ({\lone*cos(\tuno)},{-\lone*sin(\tuno)});
+        \coordinate (M2) at ({2*\lone*cos(\tuno)},0);
+        \coordinate (M3) at ($(M2)+({-90+\tdos}:\ltwo)$);
+
+        % --- PARED Y GUIA SUPERIOR ---
+        \fill[pattern=north east lines] (-0.5,-4) rectangle (0,1.5);
+        \draw[thick] (0,-4) -- (0,1.5);
+        \fill[pattern=north east lines] ($(M2)+(-1.6,0.75)$) rectangle ($(M2)+(1.6,1.1)$);
+        \draw[thick] ($(M2)+(-1.6,0.75)$) -- ($(M2)+(1.6,0.75)$);
+
+        % --- RESORTE O -> m2 ---
+        \draw[thick, decoration={coil, aspect=0.5, segment length=4pt, amplitude=4pt, pre length=8pt, post length=14pt}, decorate] (O) -- (M2);
+        \node at ($(M2)!0.5!(O)+(0,0.5)$) {$k,\ L_0$};
+
+        % --- VARILLAS Y PENDULO ---
+        \draw[thick] (O) -- (M1) node[midway, below left=-1pt] {$\ell_1$};
+        \draw[thick] (M1) -- (M2) node[midway, below right=-1pt] {$\ell_1$};
+        \draw[thick] (M2) -- (M3) node[midway, above right=-1pt] {$\ell_2$};
+        \draw[dashed, gray] (M2) -- ($(M2)+(0,-\ltwo-0.3)$);
+
+        % --- CARRITO m2 (con ruedas sobre la guia) ---
+        \draw[thick, fill=gray!30] ($(M2)+(-0.45,-0.45)$) rectangle ($(M2)+(0.45,0.45)$);
+        \node at (M2) {$m_2$};
+        \draw[thick, fill=white] ($(M2)+(-0.25,0.55)$) circle (0.1);
+        \draw[thick, fill=white] ($(M2)+(0.25,0.55)$) circle (0.1);
+
+        % --- MASAS m1 y m3 ---
+        \draw[thick, fill=gray!30] (M1) circle (0.35) node {$m_1$};
+        \draw[thick, fill=gray!30] (M3) circle (0.35) node {$m_3$};
+
+        % --- ARTICULACIONES ---
+        \filldraw (O) circle (2pt) node[above left] {$O$};
+
+        % --- EJES ---
+        \draw[->, very thick, myred] (0.3,1.0) -- (1.3,1.0) node[right] {$x$};
+        \draw[->, very thick, myred] (0.3,1.0) -- (0.3,2.0) node[above] {$y$};
+
+        % --- ANGULOS (arco + nodo, sin comillas) ---
+        \draw[->] (1.3,0) arc (0:{-\tuno}:1.3) node[midway, right] {$\theta_1$};
+        \draw[->] ($(M2)+(0,-1.4)$) arc (-90:{-90+\tdos}:1.4) node[midway, below] {$\theta_2$};
+
+        % --- GRAVEDAD ---
+        \draw[->, thick] (-1.2,-1) -- (-1.2,-2) node[midway, right] {$\vec{g}$};
+    \end{tikzpicture}
+    \caption{Carrito $m_2$ ligado por un resorte, un mecanismo de varillas y un péndulo.}
+    \label{fig:c5_e01_p09_carrito_pendulo}
+\end{figure}

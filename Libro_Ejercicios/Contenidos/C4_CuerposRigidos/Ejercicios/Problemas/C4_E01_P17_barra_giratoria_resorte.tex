@@ -1,0 +1,232 @@
+% =========================================================================
+% Capítulo 4: Cuerpo rígido
+% Tema 01: Cuerpo rígido
+% Problema 17: Barra giratoria colgada de un resorte
+% Origen: Ayudantía 6, 2026 (Problema 1 Extra; enunciado solo en la versión con solución)
+% =========================================================================
+\subsubsection{Barra giratoria colgada de un resorte}
+
+Una barra de longitud $2r_0$ y masa $m$ gira en torno a un punto $P$, que corresponde a uno de
+los extremos de un resorte lineal de constante $k$ y largo natural $\ell_0$. El otro extremo del
+resorte se encuentra empotrado en el punto $O$, que está fijo en el marco de referencia inercial.
+Notar que a pesar del movimiento de la barra, el resorte siempre permanece recto, como se muestra
+en la Figura \ref{fig:c4_e01_p17_barra_resorte}. Considerando la acción de la gravedad hacia abajo:
+
+\begin{enumerate}
+    \item Realice un análisis cinemático y cinético de la barra. Para el análisis cinemático
+          considere la posición, velocidad y aceleración de los puntos $P$ y $C$.
+    \item Muestre que el momento de inercia de la barra respecto de uno de sus extremos es
+          $I = \frac{4}{3}mr_0^2$.
+    \item Determine ecuaciones diferenciales que describan el movimiento de la barra en términos
+          de las variables $\theta$, $\varphi$ y $\ell$, siendo $\ell$ el largo del resorte (es
+          decir, encuentre expresiones para $\ddot{\theta}$, $\ddot{\varphi}$ y $\ddot{\ell}$).
+\end{enumerate}
+
+\begin{figure}[!ht]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=0.8]
+        % --- PARAMETROS ---
+        \def\thetaval{33}   % Ángulo del resorte respecto a la vertical [°]
+        \def\phival{42}     % Ángulo de la barra respecto a la vertical [°]
+        \def\springL{4.2}   % Longitud del resorte
+        \def\rodW{0.5}      % Ancho de la barra
+        \def\rodL{5.2}      % Largo de la barra
+
+        % --- SOPORTE FIJO Y ORIGEN O ---
+        \coordinate (O) at (0,0);
+        \fill[pattern=north east lines] (-1.5,0.4) rectangle (1.5,0.7);
+        \draw[thick] (-1.5,0.4) -- (1.5,0.4);
+        \draw[thick, fill=white] (-0.4,0.4) -- (-0.2,0) arc (180:360:0.2) -- (0.4,0.4) -- cycle;
+        \fill (O) circle (2.5pt) node[left=6pt, yshift=-2pt] {$O$};
+
+        % --- RESORTE Y PUNTO P ---
+        \coordinate (P) at ({-90+\thetaval}:\springL);
+        \draw[thick, decoration={aspect=0.3, segment length=3.5mm, amplitude=2.5mm, coil}, decorate] (O) -- (P);
+        \path (O) -- (P) node[midway, above right=4pt, xshift=2pt] {$\ell_0, k$};
+
+        % --- ANGULO theta ---
+        \draw[dashed, thick] (O) -- (0,-3.5);
+        \draw[->, thick] (0,-2.5) arc (-90:{-90+\thetaval}:2.5);
+        \node at ({-90+\thetaval/2}:2.9) {$\theta$};
+
+        % --- BARRA (rotada segun phi) ---
+        \begin{scope}[shift={(P)}, rotate=\phival]
+            \draw[thick, fill=white] (-0.3,-0.2) -- (-0.2,0) arc (180:0:0.2) -- (0.3,-0.2) -- cycle;
+            \draw[thick, fill=gray!20] (-\rodW/2,-0.2) rectangle (\rodW/2,-\rodL-0.2);
+            \coordinate (C) at (0,{-\rodL/2-0.2});
+            \draw[dashed, thick] (C) -- (0,{-\rodL-1.0});
+            \fill (0,0) circle (2.5pt) node[left=6pt, yshift=-4pt] {$P$};
+            \fill (C) circle (2pt) node[right=3pt] {$C$};
+            \draw[thin] (\rodW/2+0.1,-0.2) -- (\rodW/2+0.9,-0.2);
+            \draw[thin] (\rodW/2+0.1,{-\rodL/2-0.2}) -- (\rodW/2+0.9,{-\rodL/2-0.2});
+            \draw[<->, thick] (\rodW/2+0.6,-0.2) -- (\rodW/2+0.6,{-\rodL/2-0.2});
+            \node[fill=white, inner sep=2pt] at (\rodW/2+0.6,{-\rodL/4-0.2}) {$r_0$};
+            \node at (0.9,{-\rodL-0.2}) {$m$};
+        \end{scope}
+
+        % --- ANGULO phi ---
+        \draw[dashed, thick] (P) -- ++(0,-6.4);
+        \draw[->, thick] ($(P)+(0,-4.2)$) arc (-90:{-90+\phival}:4.2);
+        \node at ([shift={({-90+\phival/2}:4.6)}]P) {$\varphi$};
+
+        % --- GRAVEDAD ---
+        \draw[->, ultra thick] (3,-1) -- ++(0,-1.2) node[midway, right=3pt] {$\vec{g}$};
+
+    \end{tikzpicture}
+    \caption{Barra de masa $m$ articulada en $P$, extremo de un resorte fijo en $O$.}
+    \label{fig:c4_e01_p17_barra_resorte}
+\end{figure}
+
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Barra giratoria colgada de un resorte}
+\textbf{Marcos de referencia}
+\begin{itemize}
+    \item $\mathcal{N}$: fijo $\longrightarrow \{\vec{e}_x;\vec{e}_y;\vec{e}_z\}$
+    \item $\mathcal{A}$: resorte $\longrightarrow \{\vec{e}_r;\vec{e}_\theta;\vec{e}_z\}$
+    \item $\mathcal{B}$: barra $\longrightarrow \{\vec{E}_r;\vec{E}_\varphi;\vec{E}_z\}$
+\end{itemize}
+\begin{center}
+\begin{tikzpicture}[>=Latex, scale=0.55]
+        % --- PARAMETROS ---
+        \def\thetaval{33}   % Ángulo del resorte respecto a la vertical [°]
+        \def\phival{42}     % Ángulo de la barra respecto a la vertical [°]
+        \def\springL{4.2}   % Longitud del resorte
+        \def\rodW{0.5}      % Ancho de la barra
+        \def\rodL{5.2}      % Largo de la barra
+
+        % --- SOPORTE FIJO Y ORIGEN O ---
+        \coordinate (O) at (0,0);
+        \fill[pattern=north east lines] (-1.5,0.4) rectangle (1.5,0.7);
+        \draw[thick] (-1.5,0.4) -- (1.5,0.4);
+        \draw[thick, fill=white] (-0.4,0.4) -- (-0.2,0) arc (180:360:0.2) -- (0.4,0.4) -- cycle;
+        \fill (O) circle (2.5pt) node[left=6pt, yshift=-2pt] {$O$};
+
+        % --- RESORTE Y PUNTO P ---
+        \coordinate (P) at ({-90+\thetaval}:\springL);
+        \draw[thick, decoration={aspect=0.3, segment length=3.5mm, amplitude=2.5mm, coil}, decorate] (O) -- (P);
+        \path (O) -- (P) node[midway, above right=4pt, xshift=2pt] {$\ell_0, k$};
+
+        % --- ANGULO theta ---
+        \draw[dashed, thick] (O) -- (0,-3.5);
+        \draw[->, thick] (0,-2.5) arc (-90:{-90+\thetaval}:2.5);
+        \node at ({-90+\thetaval/2}:2.9) {$\theta$};
+
+        % --- BARRA (rotada segun phi) ---
+        \begin{scope}[shift={(P)}, rotate=\phival]
+            \draw[thick, fill=white] (-0.3,-0.2) -- (-0.2,0) arc (180:0:0.2) -- (0.3,-0.2) -- cycle;
+            \draw[thick, fill=gray!20] (-\rodW/2,-0.2) rectangle (\rodW/2,-\rodL-0.2);
+            \coordinate (C) at (0,{-\rodL/2-0.2});
+            \draw[dashed, thick] (C) -- (0,{-\rodL-1.0});
+            \fill (0,0) circle (2.5pt) node[left=6pt, yshift=-4pt] {$P$};
+            \fill (C) circle (2pt) node[right=3pt] {$C$};
+            \draw[thin] (\rodW/2+0.1,-0.2) -- (\rodW/2+0.9,-0.2);
+            \draw[thin] (\rodW/2+0.1,{-\rodL/2-0.2}) -- (\rodW/2+0.9,{-\rodL/2-0.2});
+            \draw[<->, thick] (\rodW/2+0.6,-0.2) -- (\rodW/2+0.6,{-\rodL/2-0.2});
+            \node[fill=white, inner sep=2pt] at (\rodW/2+0.6,{-\rodL/4-0.2}) {$r_0$};
+            \node at (0.9,{-\rodL-0.2}) {$m$};
+        \end{scope}
+
+        % --- ANGULO phi ---
+        \draw[dashed, thick] (P) -- ++(0,-6.4);
+        \draw[->, thick] ($(P)+(0,-4.2)$) arc (-90:{-90+\phival}:4.2);
+        \node at ([shift={({-90+\phival/2}:4.6)}]P) {$\varphi$};
+
+        % --- BASES ---
+        \draw[->, thick, azul] (O) -- ({-90+\thetaval}:1.2) node[right] {$\vec{e}_r$};
+        \draw[->, thick, azul] (O) -- (\thetaval:1.2) node[above] {$\vec{e}_\theta$};
+        \draw[->, thick, gris1] (O) -- (1.2,0) node[right] {$\vec{e}_y$};
+        \draw[->, thick, gris1] (O) -- (0,-1.2) node[below] {$\vec{e}_x$};
+        \draw[->, thick, myred] (P) -- ++({-90+\phival}:1.2) node[below right] {$\vec{E}_r$};
+        \draw[->, thick, myred] (P) -- ++({\phival}:1.2) node[above] {$\vec{E}_\varphi$};
+
+        % --- GRAVEDAD ---
+        \draw[->, ultra thick] (3,-1) -- ++(0,-1.2) node[midway, right=3pt] {$\vec{g}$};
+
+\end{tikzpicture}
+\end{center}
+
+\subsubsection*{Pregunta 1: Análisis cinemático y cinético}
+
+\textbf{Análisis cinemático:}
+\begin{itemize}
+    \item \textbf{Punto $P$:}
+    \begin{align*}
+        \vec{r}_P &= \ell\, \vec{e}_r \\
+        {}^{\mathcal{N}}\vec{v}_P &= \dot{\ell}\, \vec{e}_r + \ell \dot{\theta}\, \vec{e}_\theta \\
+        {}^{\mathcal{N}}\vec{a}_P &= (\ddot{\ell} - \ell \dot{\theta}^2)\, \vec{e}_r + (2\dot{\ell}\dot{\theta} + \ell\ddot{\theta})\, \vec{e}_\theta
+    \end{align*}
+
+    \item \textbf{Punto $C/P$:}
+    \begin{align*}
+        \vec{r}_{C/P} &= r_0\, \vec{E}_r \\
+        {}^{\mathcal{N}}\vec{v}_{C/P} &= r_0 \dot{\varphi}\, \vec{E}_\varphi \\
+        {}^{\mathcal{N}}\vec{a}_{C/P} &= r_0(-\dot{\varphi}^2\, \vec{E}_r + \ddot{\varphi}\, \vec{E}_\varphi)
+    \end{align*}
+
+    \item \textbf{Punto $C$:}
+    \begin{align*}
+        \vec{r}_C &= \ell\, \vec{e}_r + r_0\, \vec{E}_r \\
+        {}^{\mathcal{N}}\vec{v}_C &= \dot{\ell}\, \vec{e}_r + \ell \dot{\theta}\, \vec{e}_\theta + r_0 \dot{\varphi}\, \vec{E}_\varphi \\
+        {}^{\mathcal{N}}\vec{a}_C &= (\ddot{\ell} - \ell \dot{\theta}^2)\, \vec{e}_r + (2\dot{\ell}\dot{\theta} + \ell\ddot{\theta})\, \vec{e}_\theta - r_0 (\dot{\varphi}^2\, \vec{E}_r - \ddot{\varphi}\, \vec{E}_\varphi)
+    \end{align*}
+\end{itemize}
+
+\textbf{Análisis cinético:}
+\begin{align*}
+    \vec{F}_g &= m g\, \vec{e}_x \\
+    \vec{F}_s &= -k(\ell - \ell_0)\, \vec{e}_r
+\end{align*}
+
+\subsubsection*{Pregunta 2: Momento de inercia}
+
+Podemos caracterizar la barra sin ancho ni alto, solo con largo $2 r_0$. Por ende, su densidad de masa lineal es:
+\[
+\rho = \frac{m}{2 r_0}
+\]
+Su diferencial de masa es $dm = \rho\, da$.
+\begin{equation*}
+I = I_{zz} = \int_B (a^2 + \cancelto{0}{b^2})\, dm = \int_0^{2r_0} a^2 \frac{m}{2r_0}\, da = \frac{m}{2r_0} \cdot \left. \frac{a^3}{3} \right|_{a=0}^{a=2r_0} = \frac{m}{2r_0} \frac{(2r_0)^3}{3}
+\end{equation*}
+\respuesta{$\displaystyle I = \frac{4}{3} m r_0^2$}
+
+\subsubsection*{Pregunta 3: Ecuaciones diferenciales}
+
+Notemos que ${}^{\mathcal{N}}\vec{a} = {}^{\mathcal{N}}\vec{a}_C$. Aplicando la primera ley de Euler:
+
+\underline{En $\vec{e}_r$:}
+\begin{align*}
+(\vec{F}_g + \vec{F}_s) \cdot \vec{e}_r &= m\, {}^{\mathcal{N}}\vec{a}_C \cdot \vec{e}_r \\
+(mg\, \vec{e}_x - k(\ell-\ell_0)\vec{e}_r) \cdot \vec{e}_r &= m \left[ (\ddot{\ell} - \ell\dot{\theta}^2)\vec{e}_r + (2\dot{\ell}\dot{\theta} + \ell\ddot{\theta})\vec{e}_\theta - r_0 (\dot{\varphi}^2\, \vec{E}_r - \ddot{\varphi}\, \vec{E}_\varphi) \right] \cdot \vec{e}_r
+\end{align*}
+\begin{align*}
+\vec{e}_x &= \cos\theta\, \vec{e}_r - \sin\theta\, \vec{e}_\theta & \vec{E}_r &= \cos(\varphi-\theta)\vec{e}_r + \sin(\varphi-\theta)\vec{e}_\theta \\
+\vec{e}_y &= \sin\theta\, \vec{e}_r + \cos\theta\, \vec{e}_\theta & \vec{E}_\varphi &= -\sin(\varphi-\theta)\vec{e}_r + \cos(\varphi-\theta)\vec{e}_\theta
+\end{align*}
+\begin{equation*}
+\Rightarrow mg\cos\theta - k(\ell-\ell_0) = m \left[ \ddot{\ell} - \ell\dot{\theta}^2 - r_0 \left\{ \dot{\varphi}^2 \cos(\varphi - \theta) + \ddot{\varphi} \sin(\varphi - \theta) \right\} \right]
+\end{equation*}
+
+\underline{En $\vec{e}_\theta$:} análogo a lo hecho con $\vec{e}_r$:
+\begin{equation*}
+\Rightarrow -mg\sin\theta = m \left[ 2\dot{\ell}\dot{\theta} + \ell\ddot{\theta} - r_0 \left\{ \dot{\varphi}^2 \sin(\varphi - \theta) - \ddot{\varphi} \cos(\varphi - \theta) \right\} \right]
+\end{equation*}
+
+Para la tercera EDO vamos a usar la segunda ley de Euler
+$\frac{{}^{\mathcal{N}} d}{dt} ({}^{\mathcal{N}}\vec{H}_P) = \vec{M}_P + (\vec{r}_P - \vec{r}_C) \times m\, {}^{\mathcal{N}}\vec{a}_P$
+(en $P$ porque es el punto donde actúa la fuerza del resorte).
+\begin{align*}
+\{ \vec{E}_r, \vec{E}_\varphi, \vec{E}_z \} \rightarrow \text{ejes principales} \implies {}^{\mathcal{N}}\vec{H}_P &= I\, {}^{\mathcal{N}}\vec{\omega}^{\mathcal{B}} = \frac{4}{3} m r_0^2 \dot{\varphi}\, \vec{E}_z \\
+\vec{M}_P = \vec{r}_{C/P} \times \vec{F}_g + \overset{\text{Origen}}{\vec{0}} \times (-\vec{F}_s) &= r_0\, \vec{E}_r \times mg\, \vec{e}_x = -mg r_0 \sin\varphi\, \vec{E}_z
+\end{align*}
+Entonces:
+\begin{equation*}
+\frac{{}^{\mathcal{N}} d}{dt} ({}^{\mathcal{N}}\vec{H}_P) = \vec{M}_P + (\underbrace{\vec{r}_P - \vec{r}_C}_{-r_0 \vec{E}_r}) \times m\, {}^{\mathcal{N}}\vec{a}_P
+\end{equation*}
+\begin{align*}
+\Rightarrow \frac{4}{3} m r_0^2 \ddot{\varphi}\, \vec{E}_z &= -mg r_0 \sin\varphi\, \vec{E}_z + (-r_0\, \vec{E}_r) \times m \left\{ (\ddot{\ell} - \ell\dot{\theta}^2)\, \vec{e}_r + (2\dot{\ell}\dot{\theta} + \ell\ddot{\theta})\, \vec{e}_\theta \right\} \\[6pt]
+\Rightarrow \frac{4}{3}\, \cancel{m}\, r_0^{\cancel{2}} \ddot{\varphi}\, \vec{E}_z &= -\cancel{m}g\, \cancel{r_0} \sin\varphi\, \vec{E}_z + \cancel{m}\,\cancel{r_0} (\ddot{\ell} - \ell\dot{\theta}^2) \sin(\varphi - \theta)\, \vec{E}_z \\
+& \quad - \cancel{m}\,\cancel{r_0} (2\dot{\ell}\dot{\theta} + \ell\ddot{\theta}) \cos(\varphi - \theta)\, \vec{E}_z
+\end{align*}
+\respuesta{$\displaystyle \frac{4}{3} r_0 \ddot{\varphi} + g \sin\varphi - (\ddot{\ell} - \ell\dot{\theta}^2) \sin(\varphi - \theta) + (2\dot{\ell}\dot{\theta} + \ell\ddot{\theta}) \cos(\varphi - \theta) = 0$}
+Ya con esas tres ecuaciones podemos despejar $\ddot\varphi$, $\ddot\theta$ y $\ddot\ell$.
+\end{solucion}

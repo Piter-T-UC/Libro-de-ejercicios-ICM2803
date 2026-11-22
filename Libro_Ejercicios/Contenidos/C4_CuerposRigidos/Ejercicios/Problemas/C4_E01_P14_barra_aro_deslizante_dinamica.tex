@@ -1,0 +1,184 @@
+% =========================================================================
+% Capítulo 4: Cuerpo rígido
+% Tema 01: Cuerpo rígido
+% Problema 14: Barra articulada a un aro deslizante (dinámica)
+% Origen: Ayudantía final (Última ayudantía), 2026
+% =========================================================================
+\subsubsection{Barra articulada a un aro deslizante}
+
+Una barra delgada de masa $m$ y de longitud $l$ está articulada a un aro como se muestra en la
+Figura \ref{fig:c4_e01_p14_barra_aro}. El aro de masa $M$ se desliza libremente a lo largo de una
+pista horizontal fija. Si se sabe que $x$ es el desplazamiento horizontal del aro y que $\theta$
+describe la orientación de la barra en relación con la dirección vertical, determine
+\begin{enumerate}
+    \item El vector aceleración del centro de masa.
+    \item La ecuación diferencial que modela el comportamiento de $\theta$.
+\end{enumerate}
+La cinemática de este sistema se estudia en el Problema C1 ``Barra en aro deslizante''; aquí nos
+interesa la dinámica.
+
+% --- FIGURA PRINCIPAL -------------------------------------------------------
+\begin{figure}[!ht]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.5]
+        % --- PARÁMETROS ---
+        \def\L{2.5}         % longitud de la barra l
+        \def\ThetaAng{45}   % ángulo theta
+
+        % --- PISTA HORIZONTAL (FIJA) ---
+        \fill[pattern=north east lines, pattern color=gray!60] (-2.5, -0.3) rectangle (-2.3, 0.3);
+        \draw[thick] (-2.3,-0.3) -- ++(0,0.6);
+        \fill[pattern=north east lines, pattern color=gray!60] (2.3, -0.3) rectangle (2.5, 0.3);
+        \draw[thick] (2.3,-0.3) -- ++(0,0.6);
+        \draw[thick, fill=gray!10] (-2.3, -0.08) rectangle (2.3, 0.08);
+
+        % --- ARO DESLIZANTE (PUNTO O) ---
+        \coordinate (O) at (0,0);
+        \shadedraw[inner color=white, outer color=gray!60, rounded corners=2pt] (-0.2,-0.15) rectangle (0.2,0.15);
+        \filldraw (O) circle (1.5pt) node[below left, yshift=-2pt] {$O$};
+
+        % --- BARRA DELGADA (O A P) ---
+        \coordinate (P) at ({\L*sin(\ThetaAng)}, {\L*cos(\ThetaAng)});
+        \draw[line width=5pt, line cap=round, black] (O) -- (P);
+        \draw[line width=4pt, line cap=round, gray!30] (O) -- (P);
+        \node[below right] at ($(O)!0.5!(P)$) {$l$};
+        \filldraw (P) circle (0.8pt) node[above right] {$P$};
+
+        % --- REFERENCIAS Y ÁNGULO ---
+        \draw[dashed, thick] (O) -- (0, 1.5);
+        \draw[->] (0, 1.0) arc (90:{90-\ThetaAng}:1.0);
+        \node at (70:1.2) {$\theta$};
+
+        % --- DESPLAZAMIENTO Y GRAVEDAD ---
+        \draw[|->, thick] (0, -0.5) -- (1.0, -0.5) node[right] {$x$};
+        \draw[->, thick] (-1, 1) -- (-1.0, 0.5) node[right] {$\vec{g}$};
+    \end{tikzpicture}
+    \caption{Barra de longitud $l$ articulada a un aro que se desplaza horizontalmente una distancia $x$.}
+    \label{fig:c4_e01_p14_barra_aro}
+\end{figure}
+
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Aro deslizante con barra articulada (por energía y momentum lineal)}
+
+\textbf{Planteamiento}\\
+Dos grados de libertad, $x$ y $\theta$. Según la figura la barra está \emph{sobre} el aro y $\theta$ se mide desde la vertical hacia arriba, creciendo en sentido horario: $\theta=0$ es la posición invertida, un equilibrio inestable, y $\theta=\pi$ la posición colgando, un equilibrio estable. Sea $G$ el centro de masa de la barra, en $l/2$, con $I_G = \tfrac{1}{12}ml^2$. La pista es lisa, así que no hay fuerzas externas horizontales sobre el sistema.
+
+\patoojo[squareglasses,shovel]{\textbf{Con la figura:} la barra apunta hacia \emph{arriba}. $\theta=0$ es la posición invertida (inestable) y $\theta=\pi$ es la barra colgando.}
+
+Resolveremos la ecuación en $\theta$ por dos caminos independientes: \textbf{(A) energía $+$ momentum lineal} y \textbf{(B) fuerzas (Newton--Euler)}. Esta primera caja desarrolla el camino A.
+
+\textbf{Cinemática}\\
+Con $O=(x,0)$:
+\[
+\vec{r}_G = \Big(x+\tfrac l2\sin\theta,\ \tfrac l2\cos\theta\Big),\qquad
+\vec{v}_G = \Big(\dot x + \tfrac l2\dot\theta\cos\theta,\ -\tfrac l2\dot\theta\sin\theta\Big),
+\]
+\[
+\vec{a}_G = \Big(\ddot x + \tfrac l2(\ddot\theta\cos\theta - \dot\theta^2\sin\theta)\Big)\vec{e}_x
+\;-\;\tfrac l2\big(\ddot\theta\sin\theta + \dot\theta^2\cos\theta\big)\vec{e}_y .
+\]
+La velocidad angular de la barra es $\vec{\omega} = -\dot\theta\,\vec{e}_z$ (horaria).
+
+\textbf{Momentum lineal horizontal (ecuación en $x$)}\\
+\begin{equation*}
+p_x = M\dot x + m\big(\dot x + \tfrac l2\dot\theta\cos\theta\big) = \text{cte.}
+\;\Rightarrow\;
+(M+m)\ddot x + \tfrac{ml}{2}\big(\ddot\theta\cos\theta - \dot\theta^2\sin\theta\big) = 0
+\tag{X}
+\end{equation*}
+
+\textbf{1) Aceleración del centro de masa}\\
+La expresión de $\vec{a}_G$ de arriba es la respuesta en función de $(\ddot x,\theta,\dot\theta,\ddot\theta)$. Eliminando $\ddot x$ con (X), $\ddot x = -\dfrac{m}{M+m}\dfrac l2(\ddot\theta\cos\theta-\dot\theta^2\sin\theta)$:
+\respuesta{$\displaystyle
+\vec{a}_G = \frac{M}{M+m}\,\frac l2\big(\ddot\theta\cos\theta - \dot\theta^2\sin\theta\big)\,\vec{e}_x
+\;-\;\frac l2\big(\ddot\theta\sin\theta + \dot\theta^2\cos\theta\big)\,\vec{e}_y
+$}
+El centro de masa del \emph{sistema} completo no tiene aceleración horizontal (no hay fuerzas externas horizontales); sólo acelera en vertical:
+$\ \vec{a}_{CM}=\dfrac{m}{M+m}\,a_{Gy}\,\vec{e}_y$.
+
+\textbf{2-A) Ecuación en $\theta$ por energía}\\
+\[
+T = \tfrac12 M\dot x^2 + \tfrac12 m v_G^2 + \tfrac12 I_G\dot\theta^2
+= \tfrac12(M+m)\dot x^2 + \tfrac12 ml\,\dot x\dot\theta\cos\theta + \tfrac16 ml^2\dot\theta^2,
+\qquad V = mg\tfrac l2\cos\theta .
+\]
+La energía se conserva: la pista es lisa y su normal es perpendicular al movimiento del aro, y la articulación es ideal (las fuerzas del pasador son internas y actúan sobre un mismo punto). Entonces $\dot E=0$:
+\[
+\dot x\underbrace{\Big[(M+m)\ddot x + \tfrac{ml}{2}(\ddot\theta\cos\theta-\dot\theta^2\sin\theta)\Big]}_{=0\ \text{por (X)}}
++ \tfrac{ml}{2}\dot\theta\Big[\tfrac{2l}{3}\ddot\theta + \ddot x\cos\theta - g\sin\theta\Big] = 0
+\]
+\begin{equation*}
+\Rightarrow\quad \tfrac{2l}{3}\,\ddot\theta + \ddot x\cos\theta - g\sin\theta = 0
+\tag{$\Theta$}
+\end{equation*}
+
+\end{solucion}
+
+\begin{solucion}{Aro deslizante con barra articulada (por Newton-Euler)}
+
+\textbf{2-B) Ecuación en $\theta$ por fuerzas}\\
+Obtenemos ahora la ecuación en $\theta$ sin usar energía, con la misma cinemática de la caja anterior.
+
+\begin{center}
+\begin{tikzpicture}[>=Latex, scale=1.1]
+  % --- DCL DE LA BARRA ---
+  \coordinate (O) at (0,0);
+  \coordinate (P) at ({3*sin(40)},{3*cos(40)});
+  \coordinate (G) at ($(O)!0.5!(P)$);
+  \draw[line width=4pt, gray!40] (O) -- (P);
+  \draw[thick] (O) -- (P);
+  \fill (G) circle (1.5pt) node[left=2pt] {$G$};
+  \fill (O) circle (1.5pt) node[below right] {$O$};
+  \draw[->, thick, myred] (G) -- ++(0,-1.0) node[below] {$mg$};
+  \draw[->, thick, myred] (-1.1,0) -- (O) node[pos=0, left] {$H$};
+  \draw[->, thick, myred] (0,-1.1) -- (O) node[pos=0, below] {$V$};
+  \draw[dashed, gray] (O) -- (0,2.2);
+  \draw[->, gray] (0,1.6) arc (90:50:1.6) node[midway, above] {$\theta$};
+  \node at (0.9,-1.7) {Barra};
+  % --- DCL DEL ARO ---
+  \begin{scope}[xshift=5.5cm]
+    \draw[thick, fill=gray!20, rounded corners=2pt] (-0.4,-0.3) rectangle (0.4,0.3);
+    \fill (0,0) circle (1.5pt);
+    \draw[->, thick, myred] (-0.4,0) -- ++(-1,0) node[left] {$H$};
+    \draw[->, thick, myred] (0,1.2) -- (0,0.3) node[pos=0, above] {$V$};
+    \draw[->, thick, myred] (0.2,-0.3) -- ++(0,-1.0) node[below right] {$Mg$};
+    \draw[->, thick, myred] (-0.2,-1.3) -- (-0.2,-0.3) node[pos=0, below left] {$N_p$};
+    \node at (1.3,0.9) {Aro};
+  \end{scope}
+\end{tikzpicture}
+\end{center}
+
+\emph{Aro} (horizontal, pista lisa): $M\ddot x = -H$.
+
+\emph{Barra}, traslación: $H = m\,a_{Gx}$, $\ V - mg = m\,a_{Gy}$.
+
+\emph{Barra}, rotación (momento angular respecto a $G$): $\dot{\vec{H}}_G = I_G\dot{\vec{\omega}}=\sum\vec{\tau}_G$, con $\vec{r}_{O/G} = -\tfrac l2(\sin\theta,\cos\theta)$:
+\[
+-\tfrac{1}{12}ml^2\ddot\theta = -\tfrac l2 V\sin\theta + \tfrac l2 H\cos\theta
+\;\Rightarrow\;
+\tfrac{1}{12}ml^2\ddot\theta = \tfrac l2\big(V\sin\theta - H\cos\theta\big).
+\]
+Reemplazando $H$ y $V$ (los términos en $\dot\theta^2$ se cancelan):
+\[
+V\sin\theta - H\cos\theta = m\Big[g\sin\theta - \ddot x\cos\theta - \tfrac l2\ddot\theta\Big]
+\;\Rightarrow\;
+\tfrac{1}{12}l^2\ddot\theta = \tfrac l2\Big[g\sin\theta - \ddot x\cos\theta - \tfrac l2\ddot\theta\Big],
+\]
+que es exactamente $(\Theta)$. Además, $M\ddot x=-H=-m a_{Gx}$ es exactamente (X): ambos caminos coinciden.
+
+\textbf{Resultados}\\
+Eliminando $\ddot x$ entre (X) y $(\Theta)$ y multiplicando por $6(M+m)$:
+\respuesta{$\displaystyle
+l\,\big[4M + m + 3m\sin^2\theta\big]\,\ddot\theta \;+\; 3ml\,\dot\theta^2\sin\theta\cos\theta \;-\; 6(M+m)\,g\sin\theta = 0
+$\\[2mm]
+$\displaystyle\ddot\theta = \frac{3\sin\theta\,\big[2(M+m)g - ml\,\dot\theta^2\cos\theta\big]}{l\,\big(4M+m+3m\sin^2\theta\big)}$}
+(Se usó $4(M+m)-3m\cos^2\theta = 4M+m+3m\sin^2\theta$.)
+
+Fuerzas en el pasador, por si se piden: $H = -M\ddot x = \dfrac{Mm}{M+m}\dfrac l2(\ddot\theta\cos\theta-\dot\theta^2\sin\theta)$, $\ V = mg - m\tfrac l2(\ddot\theta\sin\theta+\dot\theta^2\cos\theta)$.
+
+\emph{Integral primera.} Desde el reposo en $\theta_0$ ($p_x=0$):
+$\ \dot\theta^2 = \dfrac{12(M+m)\,g\,(\cos\theta_0-\cos\theta)}{l\,\big[4(M+m)-3m\cos^2\theta\big]}$.
+
+\patotip[book]{Mi recomendacion ahora que tienen muchas herramientas para obtener ecuaciones diferenciales, depende del problema pero tener en cuenta varias cosas, por ejemplo de energia siempre siempre obtendran solo 1 ecuacion puede que necesiten mas de una  ($x,\theta$), entonces tendran que usar energia mas otra cosa, tambien aprovechen la ecuacion de momentum lineal ($\vec{F}=m\vec{a}$) es una ecuacion muy potente, las incognitas que ustedes necesitan generalmente estan al lado derecho (cinematico) por ende si puede ocupar una direccion (hacer prodocto punto con esa dirección), les puede simplificar mucho toda la algebra que tienen que hacer despues, tambien sepan que si estan trabajando con cuerpos rigidos, es muy probable que no puedan trabajar solo con momentum lineal y tengan que trabajar con momentum angular (segunda ley de Euler) o aveces de la energia puede ayudar a no usar segunda ley de euler.}
+
+\end{solucion}
