@@ -1,0 +1,131 @@
+% =========================================================================
+% Capítulo 3: Cinética de sistemas de partículas
+% Tema 01: Sistemas de partículas
+% Problema 17: Impacto de una partícula contra una cuña
+% Origen: Ayudantía 3, 2026
+% =========================================================================
+\subsubsection{Impacto de una partícula contra una cuña}
+
+Una cuña de masa $M$ y ángulo $\beta$ se encuentra inicialmente en reposo sobre una superficie horizontal cuando es golpeada por una partícula de masa $m$, como se muestra en la Figura \ref{fig:c3_e01_p17_cuna}. La velocidad de la partícula al golpear la cuña es $\vec{v}_0$ en una dirección perpendicular a la superficie de la cuña. Sabiendo que el coeficiente de restitución entre la partícula y la cuña es $e$ y que la cuña está obligada a permanecer en la superficie horizontal después del impacto, determine la velocidad de la cuña y de la partícula inmediatamente después del impacto.
+
+\begin{figure}[!ht]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.1]
+        % --- PARÁMETROS ---
+        \def\Bw{4.5}     % base de la cuña [u]
+        \def\bet{30}     % ángulo beta [°]
+        \def\dist{1.4}   % distancia de la partícula a la cuña [u]
+        \pgfmathsetmacro{\Ht}{\Bw*tan(\bet)}   % altura de la cuña
+
+        % --- SUELO ---
+        \draw[thick] (-1,0) -- (6.2,0);
+        \fill[pattern=north east lines] (-1,-0.25) rectangle (6.2,0);
+
+        % --- CUÑA ---
+        \coordinate (A) at (0,0);
+        \coordinate (B) at (0,\Ht);
+        \coordinate (C) at (\Bw,0);
+        \draw[thick, fill=gray!20] (A) -- (B) -- (C) -- cycle;
+        \node at (0.55,0.55) {$M$};
+        \draw[->] ($(C)+(-1.0,0)$) arc (180:{180-\bet}:1.0);
+        \node at ($(C)+({180-\bet/2}:1.3)$) {$\beta$};
+
+        % --- PARTÍCULA Y VELOCIDAD ---
+        % punto de impacto sobre la hipotenusa y normal exterior (sin b, cos b)
+        \coordinate (Q) at ($(B)!0.55!(C)$);
+        \coordinate (P) at ($(Q)+({\dist*sin(\bet)},{\dist*cos(\bet)})$);
+        \draw[->, thick, azul] (P) -- (Q) node[midway, right] {$\vec{v}_0$};
+        \shadedraw[ball color=gray!30] (P) circle (0.25) node[font=\footnotesize] {$m$};
+    \end{tikzpicture}
+    \caption{Partícula que impacta perpendicularmente la cara inclinada de una cuña.}
+    \label{fig:c3_e01_p17_cuna}
+\end{figure}
+
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Impacto de una partícula contra una cuña}
+Se analiza el impacto de una partícula de masa $m$ que incide perpendicularmente con velocidad $v_0$ sobre una cuña de masa $M$ y ángulo $\beta$, la cual descansa sobre una superficie horizontal lisa.
+
+\subsubsection*{Diagrama de cuerpo libre y coordenadas}
+Definimos un sistema de coordenadas donde el eje $x$ es horizontal (positivo hacia la izquierda) y el eje $n$ es normal a la superficie de la cuña.
+
+\begin{center}
+\begin{tikzpicture}[>=Latex, scale=1.1]
+    % --- PARÁMETROS ---
+    \def\Bw{4.0}     % base de la cuña [u]
+    \def\bet{30}     % ángulo beta [°]
+    \pgfmathsetmacro{\Ht}{\Bw*tan(\bet)}
+
+    % --- SUELO Y CUÑA ---
+    \draw[thick] (-1,0) -- (5.2,0);
+    \fill[pattern=north east lines] (-1,-0.25) rectangle (5.2,0);
+    \coordinate (A) at (0,0);
+    \coordinate (B) at (0,\Ht);
+    \coordinate (C) at (\Bw,0);
+    \draw[thick, fill=gray!20] (A) -- (B) -- (C) -- cycle;
+    \node at (0.45,0.45) {$M$};
+    \draw[->] ($(C)+(-0.9,0)$) arc (180:{180-\bet}:0.9);
+    \node at ($(C)+({180-\bet/2}:1.15)$) {$\beta$};
+
+    % --- PARTÍCULA, VELOCIDAD Y EJES n, t ---
+    \coordinate (Q) at ($(B)!0.55!(C)$);
+    \coordinate (P) at ($(Q)+({1.5*sin(\bet)},{1.5*cos(\bet)})$);
+    \draw[->, thick, azul] (P) -- (Q) node[midway, right] {$\vec{v}_0$};
+    \shadedraw[ball color=gray!30] (P) circle (0.2) node[above right, xshift=2pt] {$m$};
+    \draw[->, thick, myred] (Q) -- ++({-sin(\bet)},{-cos(\bet)}) node[below left] {$\vec{n}$};
+    \draw[->, thick, myred] (Q) -- ++({-cos(\bet)},{sin(\bet)}) node[above left] {$\vec{t}$};
+    \filldraw (Q) circle (1.2pt);
+
+    % --- EJE x ---
+    \draw[->, thick] (3.2,-0.7) -- (2.0,-0.7) node[midway, below] {$x$};
+\end{tikzpicture}
+\end{center}
+
+\textbf{Conservación del momentum lineal en el eje $x$}\\
+Dado que no existen fuerzas externas impulsivas en la dirección horizontal, el momentum lineal del sistema partícula-cuña se conserva en el eje $x$:
+\begin{equation}
+    m v_{1x} + M V_1 = m v_{2x} + M V_2
+\end{equation}
+donde:
+\begin{itemize}
+    \item $v_{1x} = v_0 \sin\beta$: componente horizontal inicial de la partícula.
+    \item $V_1 = 0$: velocidad inicial de la cuña.
+    \item $V_2 = V$: velocidad final de la cuña hacia la izquierda.
+    \item $v_{2x} = v_{2n} \sin\beta$: componente horizontal final de la partícula (asumiendo impacto liso, $v_{2t} = 0$).
+\end{itemize}
+Sustituyendo:
+\begin{equation}
+    m v_0 \sin\beta = m (v_{2n} \sin\beta) + M V \label{eq:c3_e01_p17_momentum}
+\end{equation}
+
+\textbf{Coeficiente de restitución}\\
+El coeficiente de restitución se define según la línea de impacto (eje normal $n$):
+\begin{equation}
+    e = \frac{V_{2n} - v_{2n}}{v_{1n} - V_{1n}}
+\end{equation}
+donde las velocidades normales son:
+\begin{itemize}
+    \item $v_{1n} = v_0$ (impacto perpendicular).
+    \item $V_{1n} = 0$.
+    \item $V_{2n} = V \sin\beta$ (proyección de la velocidad de la cuña en la normal).
+\end{itemize}
+Reemplazando:
+\begin{equation}
+    e = \frac{V \sin\beta - v_{2n}}{v_0} \quad\Longrightarrow\quad v_{2n} = V \sin\beta - e v_0 \label{eq:c3_e01_p17_restitucion}
+\end{equation}
+
+Sustituimos la ecuación \eqref{eq:c3_e01_p17_restitucion} en la ecuación \eqref{eq:c3_e01_p17_momentum}:
+\begin{align*}
+    m v_0 \sin\beta &= m (V \sin\beta - e v_0) \sin\beta + M V \\
+    m v_0 \sin\beta &= m V \sin^2\beta - m e v_0 \sin\beta + M V
+\end{align*}
+Agrupamos los términos de $V$ y $v_0$:
+$$m v_0 \sin\beta (1 + e) = V (M + m \sin^2\beta)$$
+Finalmente, despejamos la velocidad de la cuña:
+\respuesta{$\displaystyle V = \frac{m v_0 (1+e) \sin\beta}{M + m \sin^2\beta}$}
+Para obtener la velocidad de la partícula, sustituimos $V$ de regreso en \eqref{eq:c3_e01_p17_restitucion}:
+\respuesta{$\displaystyle v_{2n} = v_0 \left[ \frac{m (1+e) \sin^2\beta}{M + m \sin^2\beta} - e \right]$}
+
+\patoojo{En un impacto sin roce el impulso entre la partícula y la cuña es \emph{normal} a la superficie, por eso la velocidad tangencial de la partícula no cambia ($v_{2t}=0$ porque $\vec{v}_0$ era normal). El momentum lineal se conserva solo en la dirección horizontal, donde el suelo no aporta impulso: en la vertical el suelo sí empuja de forma impulsiva.}
+
+\patotruco{Siempre usa dos ecuaciones en un choque: una de conservación de momentum en la dirección donde no hay impulsos externos, y la de restitución sobre la línea de impacto. Si $e=1$ y $M\to\infty$, la cuña no se mueve y la partícula rebota con $v_{2n}=-v_0$.}
+\end{solucion}

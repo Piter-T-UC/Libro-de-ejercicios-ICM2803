@@ -2,6 +2,7 @@
 % Capítulo 3: Cinética de sistemas de partículas
 % Tema 01: Sistemas de partículas
 % Problema 02: Péndulo de mancuerna en forma de T
+% Origen: Ayudantía 29, 2026
 % =========================================================================
 \subsubsection{Péndulo de mancuerna en forma de T}
 
@@ -73,3 +74,129 @@ Una mancuerna de masa $2m$ y largo $2a$, compuesta por dos partículas de masa $
     \caption{Esquema de una mancuerna rígida en rotación suspendida de un punto fijo $O$.}
     \label{fig:mancuerna_T}
 \end{figure}
+
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Péndulo de mancuerna en forma de T (por momento angular)}
+\textbf{Marcos de referencia y Sistemas de Coordenadas}
+\begin{itemize}
+    \item $\mathcal{F}$: inercial $\longrightarrow\{\vec{e}_x;\vec{e}_y;\vec{e}_z\}$
+    \item $\mathcal{A}$: ligado a la barra, con rotación en $\vec{e}_z$ $\longrightarrow\{\vec{e}_r;\vec{e}_\theta;\vec{e}_z\}$
+\end{itemize}
+
+\begin{center}
+\begin{tikzpicture}[>=Latex, scale=1.2]
+    % --- PARÁMETROS ---
+    \def\ang{30}   % ángulo theta [°]
+    \def\len{1.6}  % largo de los vectores [u]
+
+    % --- BASE FIJA (e_x hacia abajo, e_y hacia la izquierda, e_z entrando) ---
+    \draw[->, thick, azul] (0,0) -- (0,-\len) node[below] {$\vec{e}_x$};
+    \draw[->, thick, azul] (0,0) -- (-\len,0) node[left] {$\vec{e}_y$};
+    \draw[gray] (0,0) circle (0.12);
+    \draw[gray] (-0.085,-0.085) -- (0.085,0.085) (-0.085,0.085) -- (0.085,-0.085);
+    \node[gray, above right] at (0.05,0.12) {$\vec{e}_z$};
+
+    % --- BASE MÓVIL ---
+    \draw[->, thick, myred] (0,0) -- ({-90-\ang}:\len) node[below left] {$\vec{e}_r$};
+    \draw[->, thick, myred] (0,0) -- ({180-\ang}:\len) node[above left] {$\vec{e}_\theta$};
+
+    % --- ÁNGULO ---
+    \draw[->] (0,-0.8) arc (-90:{-90-\ang}:0.8);
+    \node at ({-90-\ang/2}:1.05) {$\theta$};
+    \node[below right] at (0.05,-0.05) {$O$};
+\end{tikzpicture}
+\end{center}
+
+Relaciones cinemáticas en coordenadas polares (en el plano $x\!-\!y$):
+$$\dot{\vec{e}}_r=\dot\theta\,\vec{e}_\theta,\qquad \dot{\vec{e}}_\theta=-\dot\theta\,\vec{e}_r,\qquad \vec{e}_x=\cos\theta\,\vec{e}_r-\sin\theta\,\vec{e}_\theta .$$
+Geometría de las masas (dos partículas de masa $m$):
+$$\vec{r}_1= \ell\,\vec{e}_r - a\,\vec{e}_\theta, \qquad \vec{r}_2= \ell\,\vec{e}_r + a\,\vec{e}_\theta .$$
+
+\subsubsection*{Análisis cinemático}
+Velocidades (derivando en $\mathcal{F}$ y usando $\dot{\vec{e}}_r,\dot{\vec{e}}_\theta$):
+$$\begin{aligned}
+\vec{v}_1 &= \frac{d}{dt}\big(\ell\,\vec{e}_r - a\,\vec{e}_\theta\big) = \ell\dot\theta\,\vec{e}_\theta + a\dot\theta\,\vec{e}_r,\\[2mm]
+\vec{v}_2 &= \frac{d}{dt}\big(\ell\,\vec{e}_r + a\,\vec{e}_\theta\big) = \ell\dot\theta\,\vec{e}_\theta - a\dot\theta\,\vec{e}_r.
+\end{aligned}$$
+
+\subsubsection*{Análisis cinético}
+Momento angular respecto de $O$ en el marco $\mathcal{F}$:
+$$\begin{aligned}
+\marc{\vec{H}_O}{F}{}
+&= \sum_{i=1}^{2} \vec{r}_i \times m\,\vec{v}_i \\[1mm]
+&= (\ell\,\vec{e}_r - a\,\vec{e}_\theta)\times m(\ell\dot\theta\,\vec{e}_\theta + a\dot\theta\,\vec{e}_r)
+ \;+\; (\ell\,\vec{e}_r + a\,\vec{e}_\theta)\times m(\ell\dot\theta\,\vec{e}_\theta - a\dot\theta\,\vec{e}_r)\\[1mm]
+&= m\dot\theta\Big[\ell^2\,\vec{e}_r\!\times\!\vec{e}_\theta + a^2\,\vec{e}_\theta\!\times\!\vec{e}_r\Big]
+ + m\dot\theta\Big[\ell^2\,\vec{e}_r\!\times\!\vec{e}_\theta + a^2\,\vec{e}_\theta\!\times\!\vec{e}_r\Big] \\[1mm]
+&= 2m\dot\theta\,(\ell^2+a^2)\,\vec{e}_z .
+\end{aligned}$$
+De aquí se lee directamente el momento de inercia respecto de $O$, ya que $\marc{\vec{H}_O}{F}{}=I_O\dot\theta\,\vec{e}_z$:
+$$I_O = 2m(\ell^2+a^2)$$
+Como $O$ es fijo en el inercial,
+$$\der{\marc{\vec{H}_O}{F}{}}{F}{} = 2m\ddot\theta\,(\ell^2+a^2)\,\vec{e}_z.$$
+
+Diagrama de cuerpos libres: las únicas fuerzas externas relevantes son los pesos $m\vec{g}$ de cada partícula. Sus momentos respecto de $O$:
+$$\marc{\vec{M}_O}{F}{} = \vec{r}_1\times m\vec{g} + \vec{r}_2\times m\vec{g}.$$
+Tomando $\vec{g} = -g\,\vec{e}_x$ y usando $\vec{e}_x=\cos\theta\,\vec{e}_r-\sin\theta\,\vec{e}_\theta$:
+$$\begin{aligned}
+\vec{r}_1\times m\vec{g}
+&= (\ell\,\vec{e}_r - a\,\vec{e}_\theta)\times\big[-mg(\cos\theta\,\vec{e}_r-\sin\theta\,\vec{e}_\theta)\big]
+= mg(-\ell\sin\theta + a\cos\theta)\,\vec{e}_z,\\[1mm]
+\vec{r}_2\times m\vec{g}
+&= (\ell\,\vec{e}_r + a\,\vec{e}_\theta)\times\big[-mg(\cos\theta\,\vec{e}_r-\sin\theta\,\vec{e}_\theta)\big]
+= mg(-\ell\sin\theta - a\cos\theta)\,\vec{e}_z.
+\end{aligned}$$
+Por lo tanto,
+$$\marc{\vec{M}_O}{F}{}
+= \big[mg(-\ell\sin\theta + a\cos\theta) + mg(-\ell\sin\theta - a\cos\theta)\big]\vec{e}_z
+= -2mg\ell\sin\theta\,\vec{e}_z .$$
+
+\subsubsection*{Ecuación de movimiento}
+Balance de momento angular en $O$:
+$$\der{\marc{\vec{H}_O}{F}{}}{F}{} = \marc{\vec{M}_O}{F}{}
+\quad\Longrightarrow\quad
+2m\ddot\theta(\ell^2+a^2)\,\vec{e}_z = -2mg\ell\sin\theta\,\vec{e}_z.$$
+Cancelando factores comunes y proyectando en $\vec{e}_z$:
+\respuesta{$\displaystyle \ddot\theta + \frac{g\ell}{\ell^2+a^2}\,\sin\theta = 0$}
+
+\patotruco{Cuando todo el cuerpo gira alrededor de un punto fijo $O$, el balance de momento angular se reduce a $I_O\ddot\theta=M_O$. Aquí $I_O=\sum m_i d_i^2$ con $d_i^2=\ell^2+a^2$ para ambas masas: nos ahorramos todos los productos cruz.}
+\end{solucion}
+
+\begin{solucion}{Péndulo de mancuerna en forma de T (por trabajo y energía)}
+\textbf{Balance por teorema de trabajo y energía}\\
+Con los mismos marcos y las mismas velocidades $\vec{v}_1,\vec{v}_2$ de la solución anterior, la energía cinética total en $\mathcal{F}$ es
+$$\marc{T}{F}{}=\sum_{i=1}^{2}\frac{1}{2}\,m\,\vec{v}_i\!\cdot\!\vec{v}_i .$$
+Teorema de trabajo y energía en $\mathcal{F}$: la variación de la energía cinética es la potencia de las fuerzas internas y externas,
+$$\frac{d}{dt}\big(\marc{T}{F}{}\big)=\sum_{i=1}^{2}\vec{R}_i\!\cdot\!\vec{v}_i .$$
+
+\textbf{Cálculo de la energía cinética}\\
+Con $\vec{v}_1=\ell\dot\theta\,\vec{e}_\theta + a\dot\theta\,\vec{e}_r$ y $\vec{v}_2=\ell\dot\theta\,\vec{e}_\theta - a\dot\theta\,\vec{e}_r$,
+$$\begin{aligned}
+\marc{T}{F}{}
+&= \tfrac12 m\,(\ell\dot\theta\,\vec{e}_\theta + a\dot\theta\,\vec{e}_r)\!\cdot\!(\ell\dot\theta\,\vec{e}_\theta + a\dot\theta\,\vec{e}_r)
+   + \tfrac12 m\,(\ell\dot\theta\,\vec{e}_\theta - a\dot\theta\,\vec{e}_r)\!\cdot\!(\ell\dot\theta\,\vec{e}_\theta - a\dot\theta\,\vec{e}_r)\\[1mm]
+&= \tfrac12 m\,\dot\theta^2\,[\ell^2 + a^2] + \tfrac12 m\,\dot\theta^2\,[\ell^2 + a^2]
+= m\dot\theta^2\,[\ell^2+a^2].
+\end{aligned}$$
+Por lo tanto,
+$$\frac{d}{dt}\,\marc{T}{F}{} = 2\,\dot\theta\,\ddot\theta\,m\,[\ell^2+a^2].$$
+
+\textbf{Cálculo de la potencia de las partículas}\\
+Sean $\vec{r}_1=\ell\,\vec{e}_r-a\,\vec{e}_\theta$ y $\vec{r}_2=\ell\,\vec{e}_r+a\,\vec{e}_\theta$. La única fuerza externa que trabaja sobre cada partícula es el peso, con $\vec{g}=-g\,\vec{e}_x$ y $\vec{e}_x=\cos\theta\,\vec{e}_r-\sin\theta\,\vec{e}_\theta$. Así,
+$$\sum_{i=1}^{2}\vec{R}_i\!\cdot\!\vec{v}_i
+= m g(\cos\theta\,\vec{e}_r-\sin\theta\,\vec{e}_\theta)\!\cdot\!(\ell\dot\theta\,\vec{e}_\theta + a\dot\theta\,\vec{e}_r)
+ + m g(\cos\theta\,\vec{e}_r-\sin\theta\,\vec{e}_\theta)\!\cdot\!(\ell\dot\theta\,\vec{e}_\theta - a\dot\theta\,\vec{e}_r).$$
+Evaluando los productos escalares:
+$$\sum_{i=1}^{2}\vec{R}_i\!\cdot\!\vec{v}_i
+= mg\,[a\dot\theta\cos\theta-\ell\dot\theta\sin\theta]
+ + mg\,[-a\dot\theta\cos\theta-\ell\dot\theta\sin\theta]
+= 2mg\,\ell\,\dot\theta\,\sin\theta .$$
+
+\textbf{Igualando}\\
+Aplicando el teorema de trabajo y energía:
+$$2\,\dot\theta\,\ddot\theta\,m\,[\ell^2+a^2] \;=\; -\,2\,m g\,\ell\,\dot\theta\,\sin\theta.$$
+Si $\dot\theta\neq 0$, se simplifica y queda la ecuación de movimiento:
+\respuesta{$\displaystyle \ddot\theta+\frac{g\,\ell}{\ell^2+a^2}\,\sin\theta=0$}
+
+\patoojo{Este método solo da \emph{una} ecuación escalar, que es justo lo que necesitamos porque el sistema tiene un único grado de libertad. Pero ojo con el paso final: dividimos por $\dot\theta$, así que la ecuación resultante vale también cuando $\dot\theta=0$ solo porque coincide con la del balance de momento angular.}
+\end{solucion}

@@ -2,6 +2,7 @@
 % Capítulo 3: Cinética de sistemas de partículas
 % Tema 01: Sistemas de partículas
 % Problema 05: Mancuerna deslizante en pista circular
+% Origen: Ayudantía 28, 2026
 % =========================================================================
 \subsubsection{Mancuerna deslizante en pista circular}
 
@@ -83,3 +84,64 @@ Una mancuerna está constituida por dos partículas $A$ y $B$, cada una de masa 
     \caption{Sistema de mancuerna deslizante dentro de una pista circular vertical.}
     \label{fig:mancuerna_circular}
 \end{figure}
+
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Mancuerna deslizante en pista circular}
+Dado que no hay fricción y el sistema está sujeto únicamente a la fuerza de gravedad (que es conservativa) y a las fuerzas normales (que no realizan trabajo al ser perpendiculares a la trayectoria), la energía mecánica total del sistema se conserva ($\frac{dE}{dt} = 0$). Este es el enfoque más directo para obtener la ecuación de movimiento.
+
+\subsubsection*{Geometría del sistema}
+El triángulo formado por el origen $O$ y las partículas $A$ y $B$ es isósceles, ya que los lados $OA$ y $OB$ equivalen al radio $R$. El centro de la varilla es el punto $C$, y la distancia desde $A$ a $C$ es $l$.
+
+\begin{center}
+\begin{tikzpicture}[>=Latex, scale=1.4]
+    % --- PARÁMETROS ---
+    \def\R{2.5}    % radio de la pista [u]
+    \def\l{1.5}    % mitad de la varilla [u]
+    \def\a{2.0}    % distancia OC [u]
+
+    % --- GEOMETRÍA ---
+    \coordinate (O) at (0,0);
+    \coordinate (C) at (0,-\a);
+    \coordinate (A) at (-\l,-\a);
+    \coordinate (B) at (\l,-\a);
+    \draw[thick] (A) -- (B);
+    \draw[dashed] (O) -- (C) node[midway, left] {$a$};
+    \draw (O) -- (A) node[midway, above left] {$R$};
+    \draw (O) -- (B) node[midway, above right] {$R$};
+    \draw (-0.2,-\a) -- (-0.2,-\a+0.2) -- (0,-\a+0.2);
+
+    % --- PUNTOS ---
+    \foreach \P/\pos in {A/left, B/right}
+        \shadedraw[ball color=gray!30] (\P) circle (0.13) node[\pos=4pt, yshift=-3pt] {$\P$};
+    \filldraw (O) circle (1.2pt) node[above] {$O$};
+    \filldraw (C) circle (1.2pt) node[below] {$C$};
+    \draw[|<->|] ($(A)+(0,-0.45)$) -- ($(C)+(0,-0.45)$) node[midway, below] {$l$};
+\end{tikzpicture}
+\end{center}
+
+La distancia perpendicular desde el centro $O$ a la varilla $AB$ (segmento $OC$) se denota por $a$. Aplicando el teorema de Pitágoras en el triángulo rectángulo $OCA$:
+$$a = \sqrt{R^2 - l^2}$$
+Como la varilla es rígida y sus extremos siempre tocan el círculo, la distancia $OC = a$ permanece constante durante todo el movimiento. El conjunto entero (las dos masas y la varilla) rota de manera rígida alrededor del punto $O$.
+
+\subsubsection*{Energía del sistema}
+\textbf{Energía cinética ($T$)}\\
+El sistema gira como un cuerpo rígido alrededor de $O$ con una velocidad angular $\dot{\theta}$. Como las partículas $A$ y $B$ se encuentran siempre a una distancia $R$ del origen, la magnitud de la velocidad tangencial de ambas es $v_A = v_B = R\dot{\theta}$. La energía cinética total es la suma de las energías cinéticas de ambas partículas:
+$$T = \frac{1}{2}m v_A^2 + \frac{1}{2}m v_B^2 = \frac{1}{2}m(R\dot{\theta})^2 + \frac{1}{2}m(R\dot{\theta})^2 = m R^2 \dot{\theta}^2$$
+
+\textbf{Energía potencial gravitacional ($V$)}\\
+Fijamos el nivel de referencia gravitacional ($V = 0$) en el eje horizontal que pasa por $O$, y consideramos el eje vertical hacia abajo como positivo. La posición del centro de masa del sistema compuesto por las dos partículas idénticas se ubica exactamente en el punto $C$. La coordenada vertical del centro de masa es $y_C = a\cos\theta$. La energía potencial de ambas masas en conjunto es equivalente a concentrar toda la masa ($2m$) en su centro de masa $C$:
+$$V = -(2m)g y_C = -2mg a\cos\theta = -2mg\sqrt{R^2 - l^2}\cos\theta$$
+
+\subsubsection*{Conservación de la energía y ecuación de movimiento}
+La energía mecánica total del sistema es $E = T + V$:
+$$E = m R^2 \dot{\theta}^2 - 2mg\sqrt{R^2 - l^2}\cos\theta = \text{constante}$$
+Para encontrar la ecuación diferencial de movimiento, derivamos $E$ con respecto al tiempo $t$ y la igualamos a cero:
+$$\frac{dE}{dt} = 2m R^2 \dot{\theta} \ddot{\theta} - 2mg\sqrt{R^2 - l^2}(-\sin\theta)\dot{\theta} = 0$$
+$$2m\dot{\theta} \left( R^2\ddot{\theta} + g\sqrt{R^2 - l^2}\sin\theta \right) = 0$$
+Para un movimiento general ($\dot{\theta} \neq 0$), el término entre paréntesis debe ser nulo. Al dividir todo entre $R^2$, obtenemos la ecuación diferencial que describe el movimiento de la mancuerna:
+\respuesta{$\displaystyle \ddot{\theta} + \frac{g\sqrt{R^2 - l^2}}{R^2}\sin\theta = 0$}
+
+\patotruco{Fíjate que las normales de la pista no aparecen en ningún momento: son perpendiculares a la velocidad y no trabajan. Cuando el problema pide solo la ecuación de movimiento y no las reacciones, la energía te ahorra proyectar fuerzas.}
+
+\patotip[squareglasses]{Comprobación rápida: si $l\to0$ la mancuerna colapsa en una partícula doble de masa $2m$ que cae por una pista de radio $R$, y la ecuación se reduce a la del péndulo simple $\ddot\theta+\frac{g}{R}\sin\theta=0$.}
+\end{solucion}

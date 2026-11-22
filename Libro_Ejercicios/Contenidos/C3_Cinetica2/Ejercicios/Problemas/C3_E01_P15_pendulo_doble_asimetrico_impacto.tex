@@ -1,0 +1,109 @@
+% =========================================================================
+% Capítulo 3: Cinética de sistemas de partículas
+% Tema 01: Sistemas de partículas
+% Problema 15: Péndulo doble asimétrico impactado por partícula
+% Origen: Ayudantía 2 (10), 2026
+% =========================================================================
+\subsubsection{Péndulo doble asimétrico impactado por partícula}
+
+Una mancuerna consta de dos partículas de masa $m$ conectadas por una varilla rígida sin masa de longitud $l$. La mancuerna está articulada en un punto fijo $O$ de manera que la bisagra se encuentra a una distancia $x$ de la masa superior y a una distancia $l - x$ de la masa inferior, como se muestra en la Figura \ref{fig:c3_e01_p15_pendulo_doble}. La mancuerna está inicialmente en reposo en una orientación vertical cuando su extremo inferior es golpeado por una partícula de masa $m_0$. Sabiendo que la velocidad de la partícula antes del impacto es $\vec{v}_0$ formando un ángulo $\theta$ con la vertical y asumiendo un impacto perfectamente inelástico, determine:
+
+\begin{enumerate}
+    \item La velocidad angular de la mancuerna en el instante inmediatamente posterior al impacto.
+    \item La deflexión angular máxima alcanzada por la mancuerna después del impacto.
+\end{enumerate}
+
+\begin{figure}[!ht]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.3]
+        % --- PARÁMETROS ---
+        \def\xs{1.2}      % distancia O - masa superior (x) [u]
+        \def\xi{2.2}      % distancia O - masa inferior (l-x) [u]
+        \def\ang{40}      % ángulo theta de v0 con la vertical [°]
+        \def\dist{1.5}    % distancia de m0 al impacto [u]
+
+        % --- SOPORTE FIJO O ---
+        \fill[pattern=north east lines] (-0.5,0.1) rectangle (0.5,0.35);
+        \draw[thick] (-0.5,0.1) -- (0.5,0.1);
+        \draw[thick, fill=gray!20] (-0.2,0.1) arc (0:-180:-0.2) -- cycle;
+
+        % --- MANCUERNA ---
+        \draw[line width=4pt] (0,\xs) -- (0,-\xi);
+        \draw[line width=3pt, gray!40, line cap=round] (0,\xs) -- (0,-\xi);
+        \shadedraw[ball color=gray!30] (0,\xs) circle (0.2) node[font=\footnotesize] {$m$};
+        \shadedraw[ball color=gray!30] (0,-\xi) circle (0.2) node[font=\footnotesize] {$m$};
+        \filldraw (0,0) circle (1.2pt) node[left, xshift=-6pt] {$O$};
+
+        % --- COTAS ---
+        \draw[|<->|] (0.7,0) -- (0.7,\xs) node[midway, right] {$x$};
+        \draw[|<->|] (0.7,0) -- (0.7,-\xi) node[midway, right] {$l-x$};
+        \draw[dotted] (0,\xs) -- (0.8,\xs);
+        \draw[dotted] (0,-\xi) -- (0.8,-\xi);
+
+        % --- PARTÍCULA INCIDENTE ---
+        \coordinate (P) at (0,-\xi);
+        \coordinate (Q) at ($(P)+({\dist*sin(\ang)},{-\dist*cos(\ang)})$);
+        \shadedraw[ball color=gray!50] (Q) circle (0.14);
+        \node[below right, font=\footnotesize] at (Q) {$m_0$};
+        \draw[->, thick, azul] ($(Q)+({-0.17*sin(\ang)},{0.17*cos(\ang)})$) -- ($(P)+({0.25*sin(\ang)},{-0.25*cos(\ang)})$)
+            node[midway, below left, xshift=2pt] {$\vec{v}_0$};
+
+        % --- ÁNGULO THETA ---
+        \draw[dashed, gray] (Q) -- ($(Q)+(0,1.1)$);
+        \draw[->] ($(Q)+(0,0.7)$) arc (90:{90+\ang}:0.7);
+        \node at ($(Q)+({90+\ang/2}:0.95)$) {$\theta$};
+
+        % --- GRAVEDAD ---
+        \draw[->, thick] (-1.3,1.0) -- (-1.3,0.0) node[midway, left] {$\mathbf{g}$};
+    \end{tikzpicture}
+    \caption{Mancuerna articulada en $O$ golpeada en su extremo inferior.}
+    \label{fig:c3_e01_p15_pendulo_doble}
+\end{figure}
+
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Péndulo doble asimétrico impactado por partícula}
+\textbf{Marcos de referencia y Sistemas de Coordenadas}
+\begin{itemize}
+    \item $\mathcal{F}$: inercial con origen en el pivote fijo $O$ $\longrightarrow\{\vec{E}_x;\vec{E}_y;\vec{E}_z\}$, con $\vec{E}_x$ horizontal hacia la derecha, $\vec{E}_y$ verticalmente hacia arriba y $\vec{E}_z=\vec{E}_x\times\vec{E}_y$ saliendo de la página.
+\end{itemize}
+Sea $\phi$ el ángulo de deflexión de la mancuerna en sentido horario respecto a la vertical (de modo que el extremo inferior se mueve hacia la izquierda y hacia arriba tras el impacto), con velocidad angular $\vec{\omega} = -\dot{\phi}\,\vec{E}_z$.
+
+\subsubsection*{(a) Velocidad angular inmediatamente después del impacto}
+Consideramos el sistema completo de tres partículas conformado por la mancuerna y la partícula incidente $\{m_{\text{sup}}, m_{\text{inf}}, m_0\}$. Durante el intervalo infinitesimal de colisión $\Delta t = t_1^+ - t_1^- \to 0$, en el pivote $O$ aparece una fuerza de reacción impulsiva desconocida. Sin embargo, dicha reacción pasa exactamente por $O$, por lo que no genera torque ni impulso angular respecto a $O$ ($\hat{\vec{M}}_O = \vec{0}$). En consecuencia, el momentum angular total del sistema respecto al punto fijo $O$ se conserva:
+$$\marc{\vec{H}_O(t_1^-)}{F}{} = \marc{\vec{H}_O(t_1^+)}{F}{}$$
+
+\textbf{Instante previo al impacto ($t_1^-$)}\\
+La mancuerna está en reposo y la partícula $m_0$ impacta el extremo inferior en $\vec{r}_{\text{inf}} = -(l - x)\,\vec{E}_y$ con velocidad $\vec{v}_0 = -v_0\sin\theta\,\vec{E}_x + v_0\cos\theta\,\vec{E}_y$:
+$$\marc{\vec{H}_O(t_1^-)}{F}{} = \vec{r}_{\text{inf}} \times (m_0\vec{v}_0) = \left[-(l - x)\,\vec{E}_y\right] \times m_0\left(-v_0\sin\theta\,\vec{E}_x + v_0\cos\theta\,\vec{E}_y\right)$$
+$$\marc{\vec{H}_O(t_1^-)}{F}{}= -m_0 v_0 (l - x)\sin\theta\,\vec{E}_z$$
+
+\textbf{Instante posterior al impacto ($t_1^+$)}\\
+Al ser un choque perfectamente inelástico, $m_0$ queda adherida a la masa inferior, formando una masa concentrada $(m + m_0)$ a distancia $(l - x)$ de $O$, mientras la masa superior $m$ gira a distancia $x$ de $O$. Con velocidad angular $\vec{\omega}_1 = -\dot{\phi}_1\,\vec{E}_z$, las rapideces tangenciales son $v_{\text{sup}} = x\dot{\phi}_1$ y $v_{\text{inf}} = (l - x)\dot{\phi}_1$:
+$$\marc{\vec{H}_O(t_1^+)}{F}{} = -\left[ m x^2 + (m + m_0)(l - x)^2 \right] \dot{\phi}_1\,\vec{E}_z$$
+Igualando ambos momentos angulares, obtenemos la velocidad angular inmediatamente después del impacto:
+\respuesta{$\displaystyle \dot{\phi}_1 = \frac{m_0 v_0 (l - x)\sin\theta}{m x^2 + (m + m_0)(l - x)^2} \qquad \left(\vec{\omega}_1 = -\frac{m_0 v_0 (l - x)\sin\theta}{m x^2 + (m + m_0)(l - x)^2}\,\vec{E}_z\right)$}
+\emph{Nota: si el enunciado considera partículas idénticas ($m_0 = m$), la expresión se reduce a:}
+$$\dot{\phi}_1 = \frac{v_0 (l - x)\sin\theta}{x^2 + 2(l - x)^2}$$
+
+\patotruco{En un choque con un pivote fijo \emph{no} se conserva el momentum lineal (la reacción en $O$ es impulsiva), pero sí el momentum angular respecto a $O$ porque esa reacción tiene brazo cero. Por eso solo cuenta la componente de $\vec{v}_0$ perpendicular a la mancuerna: $v_0\sin\theta$.}
+
+\subsubsection*{(b) Deflexión angular máxima $\phi_{\max}$ después del impacto}
+Para $t > t_1^+$, la reacción en el pivote fijo $O$ no realiza trabajo y la única fuerza activa es la gravedad (conservativa). Por lo tanto, la energía mecánica total $E = T + V$ del conjunto se conserva entre el estado inmediatamente posterior al choque ($\phi_1 = 0$, $\dot{\phi} = \dot{\phi}_1$) y el punto de deflexión máxima ($\phi_2 = \phi_{\max}$, $\dot{\phi}_2 = 0$).
+
+Tomando el nivel de referencia gravitacional $V = 0$ a la altura del pivote $O$ ($y = 0$):
+
+\textbf{Estado $1^+$ (posición vertical, $\phi = 0$)}
+$$T_{1^+} = \frac{1}{2}\left[ m x^2 + (m + m_0)(l - x)^2 \right] \dot{\phi}_1^2 = \frac{m_0^2 v_0^2 (l - x)^2 \sin^2\theta}{2\left[ m x^2 + (m + m_0)(l - x)^2 \right]}$$
+$$V_{1^+} = mg(x) - (m + m_0)g(l - x)$$
+
+\textbf{Estado $2$ (deflexión máxima $\phi = \phi_{\max}$, $\dot{\phi}_2 = 0$)}
+$$T_2 = 0, \qquad V_2 = mg(x\cos\phi_{\max}) - (m + m_0)g(l - x)\cos\phi_{\max}$$
+Aplicando conservación de la energía ($T_{1^+} + V_{1^+} = T_2 + V_2$):
+$$T_{1^+} = V_2 - V_{1^+} = g\left[ (m + m_0)(l - x) - mx \right] (1 - \cos\phi_{\max})$$
+Despejando $\cos\phi_{\max}$ y luego el ángulo máximo $\phi_{\max}$:
+\respuesta{$\displaystyle \phi_{\max} = \cos^{-1}\left( 1 - \frac{m_0^2 v_0^2 (l - x)^2 \sin^2\theta}{2g\left[ (m + m_0)(l - x) - mx \right]\left[ m x^2 + (m + m_0)(l - x)^2 \right]} \right)$}
+\emph{(Para el caso particular $m_0 = m$):}
+$$\phi_{\max} = \cos^{-1}\left( 1 - \frac{v_0^2 (l - x)^2 \sin^2\theta}{2g(2l - 3x)\left[ x^2 + 2(l - x)^2 \right]} \right)$$
+
+\patoojo{No uses conservación de momentum angular en la parte (b): una vez terminado el choque la gravedad sí hace torque respecto a $O$. Ahí el camino es la energía, porque la reacción en el pivote no trabaja.}
+\end{solucion}

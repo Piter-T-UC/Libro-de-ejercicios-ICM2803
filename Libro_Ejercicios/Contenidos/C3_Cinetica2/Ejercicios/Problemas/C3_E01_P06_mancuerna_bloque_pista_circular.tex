@@ -2,6 +2,7 @@
 % Capítulo 3: Cinética de sistemas de partículas
 % Tema 01: Sistemas de partículas
 % Problema 06: Mancuerna en bloque con pista circular
+% Origen: Ayudantía 5 (Sólido rígido), 2026
 % =========================================================================
 \subsubsection{Mancuerna en bloque con pista circular}
 
@@ -10,7 +11,7 @@ Una mancuerna constituida por dos partículas $A$ y $B$, de masa $m$ cada una, s
 \begin{enumerate}
     \item Defina los marcos de referencia y sistemas de coordenadas adecuados (fijo y móvil).
     \item Analice la cinemática del sistema para expresar la posición y velocidad de las partículas en función de las coordenadas generalizadas $x$ y $\theta$.
-    \item Analice la cinética del sistema para determinar las ecuaciones diferenciales del movimiento utilizando el formalismo de Lagrange.
+    \item Analice la cinética del sistema para determinar las ecuaciones diferenciales del movimiento utilizando las leyes de Newton (balance de momentum lineal y angular).
 \end{enumerate}
 
 \begin{figure}[!ht]
@@ -91,3 +92,206 @@ Una mancuerna constituida por dos partículas $A$ y $B$, de masa $m$ cada una, s
     \caption{Sistema de mancuerna deslizante dentro de un bloque móvil con cavidad circular.}
     \label{fig:mancuerna_bloque_movil}
 \end{figure}
+
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Mancuerna en bloque con pista circular (por Newton)}
+\textbf{Marcos de referencia y Sistemas de Coordenadas}\\
+Para este caso podemos darnos cuenta de que tenemos dos cuerpos rígidos, el bloque y la mancuerna.
+\begin{itemize}
+    \item $\mathcal{N}$: suelo (marco inercial) $\longrightarrow\{\vec{e}_x;\vec{e}_y;\vec{e}_z\}$ cartesiano fijo en $\mathcal{N}$.
+    \item $\mathcal{A}$: barra / mancuerna $\longrightarrow\{\vec{e}_r;\vec{e}_\theta;\vec{e}_z\}$ cilíndrico, fijo en la barra y usado para $A$ y $B$.
+\end{itemize}
+
+\begin{center}
+\begin{tikzpicture}[>=Latex, scale=1.2]
+    % --- PARÁMETROS ---
+    \def\R{1.6}    % radio de la pista [u]
+    \def\ang{35}   % ángulo theta [°]
+    \def\len{1.0}  % largo de los vectores [u]
+
+    % --- PISTA Y CENTRO ---
+    \draw[thick] (0,0) circle (\R);
+    \filldraw (0,0) circle (1.2pt) node[above left] {$O$};
+    \draw[dashed, gray] (0,0) -- (0,-\R);
+
+    % --- BASE FIJA (e_x hacia abajo, e_y hacia la derecha) ---
+    \draw[->, thick, myred] (0,0) -- (0,-\len) node[below left] {$\vec{e}_x$};
+    \draw[->, thick, myred] (0,0) -- (\len,0) node[right] {$\vec{e}_y$};
+
+    % --- BASE MÓVIL ---
+    \draw[->, thick, azul] (0,0) -- ({-90+\ang}:\len) node[below right] {$\vec{e}_r$};
+    \draw[->, thick, azul] (0,0) -- ({\ang}:\len) node[above right] {$\vec{e}_\theta$};
+    \draw[dashed] (0,0) -- ({-90+\ang}:\R);
+
+    % --- ÁNGULO ---
+    \draw[->] (0,-0.5) arc (-90:{-90+\ang}:0.5);
+    \node at ({-90+\ang/2}:0.72) {$\theta$};
+\end{tikzpicture}
+\end{center}
+
+\subsubsection*{Análisis cinemático}
+\textbf{Bloque}
+$$\marc{\vec{r}_O}{N}{} = x\,\vec{e}_y, \qquad
+\marc{\vec{v}_O}{N}{} = \dot{x}\,\vec{e}_y, \qquad
+\marc{\vec{a}_O}{N}{} = \ddot{x}\,\vec{e}_y$$
+
+\textbf{Partícula $A$}
+$$\begin{aligned}
+\marc{\vec{r}_A}{N}{} &= \marc{\vec{r}_O}{N}{}+\vec{r}_{A/O} = x\,\vec{e}_y + a\,\vec{e}_r - \ell\,\vec{e}_\theta,\\
+\marc{\vec{v}_A}{N}{} &= \dot{x}\,\vec{e}_y + a\dot{\theta}\,\vec{e}_\theta - \ell\dot{\theta}\,\vec{e}_r,\\
+\marc{\vec{a}_A}{N}{} &= \ddot{x}\,\vec{e}_y + \left(-a\dot{\theta}^2+\ell\ddot{\theta}\right)\vec{e}_r + \left(a\ddot{\theta}+\ell\dot{\theta}^2\right)\vec{e}_\theta.
+\end{aligned}$$
+
+\textbf{Partícula $B$}
+$$\begin{aligned}
+\marc{\vec{r}_B}{N}{} &= x\,\vec{e}_y + a\,\vec{e}_r + \ell\,\vec{e}_\theta,\\
+\marc{\vec{v}_B}{N}{} &= \dot{x}\,\vec{e}_y + a\dot{\theta}\,\vec{e}_\theta + \ell\dot{\theta}\,\vec{e}_r,\\
+\marc{\vec{a}_B}{N}{} &= \ddot{x}\,\vec{e}_y + \left(-a\dot{\theta}^2-\ell\ddot{\theta}\right)\vec{e}_r + \left(a\ddot{\theta}-\ell\dot{\theta}^2\right)\vec{e}_\theta.
+\end{aligned}$$
+
+\textbf{Otra forma de obtener las mismas aceleraciones: matrices de rotación}\\
+En el espacio tridimensional, la orientación de un sistema de referencia respecto a un marco inercial fijo $\mathcal{N}$ se describe mediante una matriz de rotación ortogonal $\mathbf{R} \in SO(3)$. Una de sus propiedades fundamentales es que su derivada temporal multiplicada por su transpuesta define la matriz antisimétrica de la velocidad angular:
+$$\dot{\mathbf{R}}\mathbf{R}^T = [\boldsymbol{\omega}]_\times, \qquad
+[\boldsymbol{\omega}]_\times = \begin{bmatrix} 0 & -\omega_z & \omega_y \\ \omega_z & 0 & -\omega_x \\ -\omega_y & \omega_x & 0 \end{bmatrix}$$
+Multiplicando por la derecha por $\mathbf{R}$ y sabiendo que $\mathbf{R}^T\mathbf{R} = \mathbf{I}$, obtenemos $\dot{\mathbf{R}} = [\boldsymbol{\omega}]_\times \mathbf{R}$. Para la segunda derivada diferenciamos con la regla del producto, y con $\boldsymbol{\alpha} = \dot{\boldsymbol{\omega}}$:
+$$\ddot{\mathbf{R}} = \left( [\boldsymbol{\alpha}]_\times + [\boldsymbol{\omega}]_\times^2 \right) \mathbf{R}$$
+Para una rotación exclusivamente alrededor del eje inercial $z$ con ángulo variable $\theta(t)$, $\boldsymbol{\omega} = [0, 0, \dot{\theta}]^T$ y $\boldsymbol{\alpha} = [0, 0, \ddot{\theta}]^T$, de modo que
+$$[\boldsymbol{\omega}]_\times = \begin{bmatrix} 0 & -\dot{\theta} & 0 \\ \dot{\theta} & 0 & 0 \\ 0 & 0 & 0 \end{bmatrix}, \quad
+[\boldsymbol{\alpha}]_\times = \begin{bmatrix} 0 & -\ddot{\theta} & 0 \\ \ddot{\theta} & 0 & 0 \\ 0 & 0 & 0 \end{bmatrix}, \quad
+[\boldsymbol{\omega}]_\times^2 = \begin{bmatrix} -\dot{\theta}^2 & 0 & 0 \\ 0 & -\dot{\theta}^2 & 0 \\ 0 & 0 & 0 \end{bmatrix}$$
+Con $\mathbf{r}_O = x\,\mathbf{e}_y$ y la posición de cada partícula en el marco local del cuerpo ($\mathbf{r}'_{A/O}=[a,-\ell,0]^T$ y $\mathbf{r}'_{B/O}=[a,\ell,0]^T$), para $P=A,B$:
+$$\mathbf{r}_P = \mathbf{r}_O + \mathbf{R}\,\mathbf{r}'_{P/O}, \qquad
+\mathbf{v}_P = \mathbf{v}_O + [\boldsymbol{\omega}]_\times \mathbf{R}\,\mathbf{r}'_{P/O}, \qquad
+\mathbf{a}_P = \mathbf{a}_O + \left( [\boldsymbol{\alpha}]_\times + [\boldsymbol{\omega}]_\times^2 \right) \mathbf{R}\,\mathbf{r}'_{P/O}$$
+
+\subsubsection*{Análisis cinético}
+\begin{center}
+\begin{tikzpicture}[>=Latex, scale=0.75]
+    % --- PARÁMETROS ---
+    \def\R{2.2}        % radio de la pista [u]
+    \def\halfL{1.4}    % mitad de la varilla [u]
+    \def\distA{1.7}    % distancia a [u]
+    \def\ang{35}       % ángulo theta [°]
+    \def\BlockSize{3.0}% semilado del bloque [u]
+
+    % --- DCL DEL BLOQUE M ---
+    \begin{scope}
+        \node[font=\bfseries] at (0, \BlockSize + 0.8) {DCL: Bloque $M$};
+        \draw[thick, gray!70] (-\BlockSize, -\BlockSize) rectangle (\BlockSize, \BlockSize);
+        \draw[thick, gray!70] (0,0) circle (\R);
+        \filldraw (0,0) circle (1.5pt) node[above left] {$O$};
+        \draw[->, gray, dashed] (0,0) -- (0, -1.5) node[right] {$\vec{e}_x$};
+        \draw[->, gray, dashed] (0,0) -- (1.5, 0) node[above] {$\vec{e}_y$};
+        \draw[thick, ->, myred] (0,0) -- (0, -2.2) node[right] {$\vec{F}_g^O$};
+        \draw[thick, ->, myred] (-0.5, -\BlockSize) -- (-0.5, -\BlockSize+2) node[left] {$\vec{N}_O$};
+        \begin{scope}[rotate=-\ang]
+            \coordinate (posA) at (-\halfL, -\distA);
+            \coordinate (posB) at (\halfL, -\distA);
+        \end{scope}
+        \draw[thick, ->, myred] (posA) -- ($(posA)!-1.3cm!(0,0)$) node[left] {$-\vec{N}_A$};
+        \draw[dashed, gray] (0,0) -- (posA);
+        \draw[thick, ->, myred] (posB) -- ($(posB)!-1.3cm!(0,0)$) node[right] {$-\vec{N}_B$};
+        \draw[dashed, gray] (0,0) -- (posB);
+    \end{scope}
+
+    % --- DCL DE LA PARTÍCULA A ---
+    \begin{scope}[xshift=-6cm, yshift=-8cm]
+        \node[font=\bfseries] at (0, 2.5) {DCL: Partícula $A$};
+        \coordinate (A) at (0,0);
+        \shadedraw[ball color=gray!40] (A) circle (0.3) node[above right, xshift=5pt] {$A$};
+        \draw[thick, ->, myred] (A) -- (0, -2) node[right] {$\vec{F}_g^A$};
+        \begin{scope}[rotate=-\ang]
+            \coordinate (dirOA) at (\halfL, \distA);
+            \draw[dashed, gray] (A) -- ($(A)!2cm!(dirOA)$) node[above] {hacia $O$};
+            \draw[thick, ->, myred] (A) -- ($(A)!1.5cm!(dirOA)$) node[right] {$\vec{N}_A$};
+            \draw[dashed, gray] (1.5, 0) -- (-2, 0);
+            \draw[thick, ->, myred] (A) -- (-1.8, 0) node[above] {$\vec{R}_A$};
+        \end{scope}
+    \end{scope}
+
+    % --- DCL DE LA PARTÍCULA B ---
+    \begin{scope}[xshift=6cm, yshift=-8cm]
+        \node[font=\bfseries] at (0, 2.5) {DCL: Partícula $B$};
+        \coordinate (B) at (0,0);
+        \shadedraw[ball color=gray!40] (B) circle (0.3) node[above left, xshift=-5pt] {$B$};
+        \draw[thick, ->, myred] (B) -- (0, -2) node[right] {$\vec{F}_g^B$};
+        \begin{scope}[rotate=-\ang]
+            \coordinate (dirOB) at (-\halfL, \distA);
+            \draw[dashed, gray] (B) -- ($(B)!2cm!(dirOB)$) node[below right] {hacia $O$};
+            \draw[thick, ->, myred] (B) -- ($(B)!1.5cm!(dirOB)$) node[left] {$\vec{N}_B$};
+            \draw[dashed, gray] (1.5, 0) -- (-2, 0);
+            \draw[thick, ->, myred] (B) -- (1.8, 0) node[above] {$\vec{R}_B$};
+        \end{scope}
+    \end{scope}
+\end{tikzpicture}
+\end{center}
+
+\textbf{Conjunto de fuerzas externas}\\
+En este caso, al analizar el bloque, tiene 4 fuerzas: el peso, ejercido por la tierra; la normal ejercida por la superficie; y las dos normales que ejercen las masas de la mancuerna.
+
+\textbf{Bloque}
+$$\begin{aligned}
+\text{a) }&\vec{F}^{\,O}_g = M g\,\vec{e}_x, \qquad
+\text{b) } \vec{N}_O = -N_O\,\vec{e}_x,\\
+\text{c) }&-\vec{N}_A = N_A\,\frac{a\vec{e}_x-\ell\vec{e}_y}{R}, \qquad
+\text{d) } -\vec{N}_B = N_B\,\frac{a\vec{e}_x+\ell\vec{e}_y}{R}.
+\end{aligned}$$
+Para conocer la dirección de la fuerza normal de la mancuerna nos podemos recordar que es un círculo, por ende tiene una dirección radial; para la partícula usamos la posición de la partícula relativa al punto $O$ normalizada.
+
+\textbf{Partícula $A$}
+$$\begin{aligned}
+\text{a) }&\vec{F}^{\,A}_g = m g\,\vec{e}_x = m g\cos\theta\,\vec{e}_r - m g\sin\theta\,\vec{e}_\theta,\\
+\text{b) }&\vec{N}_A = -N_A\,\frac{a\vec{e}_x-\ell\vec{e}_y}{R},\qquad
+\text{c) } \vec{R}_A= R\,\vec{e}_\theta.
+\end{aligned}$$
+Mismo análisis para la partícula $B$:
+$$\begin{aligned}
+\text{a) }&\vec{F}^{\,B}_g = m g\,\vec{e}_x = m g\cos\theta\,\vec{e}_r - m g\sin\theta\,\vec{e}_\theta,\\
+\text{b) }&\vec{N}_B = -N_B\,\frac{a\vec{e}_x+\ell\vec{e}_y}{R},\qquad
+\text{c) } \vec{R}_B= -R\,\vec{e}_\theta.
+\end{aligned}$$
+
+Ahora podemos hacer Newton, pero tenemos muchos Newton por hacer. Podemos hacer varios DCL (diagramas de cuerpo libre); ¿cuál tiene ventaja sobre otro? Aquel en el que conozcamos todas las fuerzas sobre ese eje. En este caso el sistema completo tiene 0 fuerzas externas en la dirección $\vec{e}_y$.
+
+\textbf{Balance de fuerzas del CM en $\vec{e}_y$ para $(A+B+\text{bloque})$}
+$$0 = \left( m\,\marc{\vec{a}_A}{N}{} + m\,\marc{\vec{a}_B}{N}{} + M\,\marc{\vec{a}_O}{N}{} \right)\!\cdot\!\vec{e}_y,$$
+$$0 = (2m+M)\,\ddot{x} - 2ma\,\dot{\theta}^2\sin\theta + 2ma\,\ddot{\theta}\cos\theta,$$
+\respuesta{$\displaystyle \ddot{x}=\frac{2ma}{2m+M}\Big(\dot{\theta}^2\sin\theta-\ddot{\theta}\cos\theta\Big)$}
+
+Ahora necesitamos otra ecuación. ¿Cómo la obtenemos? De otro balance de fuerzas, pero en otra dirección o sobre otro sistema. Lamentablemente, en todo otro sistema hay fuerzas que no conocemos; podemos despejarlas y así resolver, pero hay una manera más fácil que en este caso calza por ser circular: si calculamos el momento angular de la mancuerna, las únicas fuerzas son el peso y las normales, y en el balance de momento angular respecto a $O$ la dirección de $\vec{r}_{A\text{ o }B}$ es la misma que la de su normal, por ende su producto cruz es 0. Esto ya viene con muchos años de análisis, pero es bueno que comiencen a trabajar para tener ese entendimiento de cuáles caminos son más fáciles (de todos modos cualquier forma de obtenerlo es válida, solo que es medio complejo). Ahora, si lo hacemos respecto a $O$ tenemos un problema: es un punto que acelera, por ende nos sale el cochino término de la aceleración del punto.
+
+\textbf{Ecuación de torques respecto de $O$ para el sistema $(A+B)$}
+$$\der{\marc{\vec{H}_O}{N}{}}{N}{} = 2mR^2\,\ddot{\theta}\,\vec{e}_z,$$
+$$\begin{aligned}
+\marc{\vec{M}_O}{N}{}
+&= (\vec{r}_A-\vec{r}_O)\times\vec{F}^{\,A}_g + (\vec{r}_B-\vec{r}_O)\times\vec{F}^{\,B}_g + (\vec{r}_O-\vec{r})\times 2m\,\marc{\vec{a}_O}{N}{}\\
+&= -2mga\sin\theta\,\vec{e}_z - 2ma\,\ddot{x}\cos\theta\,\vec{e}_z,
+\end{aligned}$$
+$$2mR^2\,\ddot{\theta} = -2mga\sin\theta - 2ma\,\ddot{x}\cos\theta,$$
+\respuesta{$\displaystyle \ddot{\theta}=\frac{a}{R^2}\Big[-g\sin\theta-\ddot{x}\cos\theta\Big]$}
+
+\textbf{Derivada del momento angular respecto a un punto acelerado}\\
+El momento angular respecto a un punto $Q$ se define como
+$$\marc{\vec{H}_Q}{N}{}=(\vec{r}-\vec{r}_Q)\times m(\marc{\vec{v}}{N}{}-\marc{\vec{v}_Q}{N}{})$$
+Si derivamos este vector:
+$$\der{\marc{\vec{H}_Q}{N}{}}{N}{}=\der{(\vec{r}-\vec{r}_Q)}{N}{}\times m(\marc{\vec{v}}{N}{}-\marc{\vec{v}_Q}{N}{})+(\vec{r}-\vec{r}_Q)\times m\,\der{(\marc{\vec{v}}{N}{}-\marc{\vec{v}_Q}{N}{})}{N}{}$$
+El primer término es el producto cruz de un vector consigo mismo, luego es nulo:
+$$\der{\marc{\vec{H}_Q}{N}{}}{N}{}=(\vec{r}-\vec{r}_Q)\times m(\marc{\vec{a}}{N}{}-\marc{\vec{a}_Q}{N}{})=(\vec{r}-\vec{r}_Q)\times \vec{F}-(\vec{r}-\vec{r}_Q)\times m\,\marc{\vec{a}_Q}{N}{}$$
+$$\der{\marc{\vec{H}_Q}{N}{}}{N}{}=\vec{M}_Q-(\vec{r}-\vec{r}_Q)\times m\,\marc{\vec{a}_Q}{N}{}$$
+
+\subsubsection*{Ecuaciones diferenciales del movimiento}
+Eliminando $\ddot{x}$ mediante la expresión anterior:
+$$\left(1+\frac{2ma^2}{(2m+M)R^2}\cos^2\theta\right)\ddot{\theta}
+= \frac{a}{R^2}\left(-g\sin\theta+\frac{2ma}{2m+M}\dot{\theta}^2\sin\theta\cos\theta\right),$$
+por lo que
+\respuesta{$\displaystyle \ddot{\theta}
+= \frac{a}{R^2}\,
+  \frac{-g\sin\theta+\dfrac{2ma}{2m+M}\dot{\theta}^2\sin\theta\cos\theta}
+        {1+\dfrac{2ma^2}{(2m+M)R^2}\cos^2\theta}
+\qquad\text{y}\qquad
+\ddot{x}=\frac{2ma}{2m+M}\Big(\dot{\theta}^2\sin\theta-\ddot{\theta}\cos\theta\Big)$}
+
+\patotruco{Para elegir el sistema de Newton conviene mirar qué fuerzas \emph{no} actúan en cierta dirección. Con todo el conjunto (bloque + mancuerna), en la dirección horizontal no hay fuerzas externas: la primera ecuación sale gratis y sin incógnitas de reacción.}
+
+\patoojo{Cuando tomas momento angular respecto a un punto que acelera (como $O$, que se mueve con el bloque), no basta con $\dot{\vec{H}}_O=\vec{M}_O$: aparece el término extra $-(\vec{r}-\vec{r}_O)\times m\,\vec{a}_O$. Es el que da el $-2ma\ddot{x}\cos\theta$ en la ecuación de torques.}
+\end{solucion}
