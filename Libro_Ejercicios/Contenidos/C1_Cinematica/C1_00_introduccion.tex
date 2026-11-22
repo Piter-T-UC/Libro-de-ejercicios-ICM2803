@@ -235,7 +235,8 @@ $$\Vec{e}_{\theta}=(-\sin(\theta),\cos(\theta),0)$$
 $$\Vec{e}_z=(0,0,1)$$
 Y todos los puntos del espacio se pueden determinar como
 $$\Vec{r}=r\Vec{e}_r+z\Vec{e}_z$$
-En las coordenadas cilíndricas esta lo que se llama el trucazo (es derivar el vector en el tiempo pero aumenta la eficiencia)\\
+\ifMostrarTruco
+En las coordenadas cilíndricas esta lo que se llama el trucazo (es derivar el vector en el tiempo pero aumenta la eficiencia, solo puede ser usando para mas adelante no se puede usar en el capitulo)\\
 Pero primero debemos obtener derivadas respecto a parámetros en este caso solo $\theta$
 $$\dfrac{\partial}{\partial\theta}(\Vec{e}_r)=(-\sin(\theta),\cos(\theta),0)=\Vec{e}_{\theta}$$
 $$\dfrac{\partial}{\partial\theta}(\Vec{e}_{\theta})=(-\cos(\theta),-\sin(\theta),0)=-\Vec{e}_r$$
@@ -247,6 +248,7 @@ $$\dfrac{d}{dt}(\Vec{e}_{\theta})=\dfrac{\partial(\Vec{e}_{\theta})}{\partial\th
 De esto lo mas importante es 
 $$\dfrac{d}{dt}(\Vec{e}_r)=\dot{\theta}\Vec{e}_{\theta}$$
 $$\dfrac{d}{dt}(\Vec{e}_{\theta})=-\dot{\theta}\Vec{e}_r$$
+\fi
 \subsubsection{Coordenadas esféricas}
 Las coordenadas esfericas son muy utilizadas en objetos que pueden medir una distancia lineal y este pivotea respecto a dos angulos, un ejemplo de esto es una antena la cual gira arriba y abajo, y de lado a lado
 \{$\Vec{e}_r,\Vec{e}_{\phi},\vec{e}_{\theta}$\}
@@ -314,6 +316,7 @@ $$\Vec{e}_\phi=(\cos(\phi)\cos(\theta),\cos(\phi)\sin(\theta),-\sin(\phi))=\cos(
 $$\Vec{e}_{\theta}=(-\sin(\theta),\cos(\theta),0)=-\sin(\theta)\Vec{e}_x+\cos(\theta)\vec{e}_y$$
 Y todos los puntos del espacio se pueden determinar como
 $$\Vec{r}=r\Vec{e}_r$$
+\ifMostrarTruco
 Al igual que se hizo en coordenadas cilíndricas podemos obtener las derivadas temporales de la base de vectores, y al igual que antes comenzaremos con las derivadas parciales de los vectores unitarios respecto a los parámetros tempo dependiente (que dependen el tiempo como $\theta$ y $\phi$)\\
 Partiendo del vector $\vec{e}_r$
 $$\dfrac{\partial(\Vec{e}_r)}{\partial\theta}=\sin(\phi)\cdot\Vec{e}_\theta$$
@@ -335,13 +338,13 @@ Todo esto para finalmente obtener que la derivada de la base es:
 \begin{equation}
     \dfrac{d}{dt}(\Vec{e}_{\theta})=\dfrac{\partial(\Vec{e}_{\theta})}{\partial\theta}\dfrac{d\theta}{dt}=\sin(\phi)\dot{\theta}\cdot\Vec{e}_r-\cos(\phi)\dot{\theta}\Vec{e}_{\phi}
 \end{equation}
-
+\fi
 
 
 \subsubsection{Coordenadas Intrínsecas}
 Uff estas coordenadas son medias raras, ya que dependen del pasado y futuro, sip asi como lo escuchas, estas coordenadas se definen como una partícula se mueve por una curva (están mas relacionadas a la curva que a la partícula pero también ayuda).
-$$\Vec{e}_t=\dfrac{\der{r}{A}}{\left|\left|\der{r}{A} \hspace{4px}\right|\right|}$$
-$$\Vec{e}_n=\dfrac{\der{e_t}{A}}{\left|\left|\der{e_t}{A} \hspace{4px}\right|\right|}$$
+$$\Vec{e}_t=\dfrac{\der{\vec{r}}{A}}{\left|\left|\der{\vec{r}}{A} \hspace{4px}\right|\right|}$$
+$$\Vec{e}_n=\dfrac{\der{\vec{e}_t}{A}}{\left|\left|\der{\vec{e}-_t}{A} \hspace{4px}\right|\right|}$$
 $$\Vec{e}_{b}=\Vec{e}_t\times\Vec{e}_n$$
 \begin{figure}[!ht]
     \centering

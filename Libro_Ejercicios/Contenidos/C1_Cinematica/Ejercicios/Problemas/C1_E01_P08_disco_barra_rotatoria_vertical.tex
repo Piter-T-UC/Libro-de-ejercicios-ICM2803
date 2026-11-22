@@ -73,10 +73,178 @@ Considerando que se conocen las magnitudes $\dot{\phi}$, $\theta$ y $\ddot{\thet
 \end{figure}
 
 \ifmostrarSolucion
-\begin{tcolorbox}[title=Disco en barra rotatoria vertical,breakable]
+\begin{tcolorbox}[% Borde gris oscuro
+        title= Solucion Disco en barra rotatoria vertical, breakable]
 
+\textbf{Marcos de referencia y Sistemas de Coordenadas}
 
+Al igual que en siempre, partimos por los marcos de referencia
 
+\begin{itemize}
+    \item $\mathcal{N}$ El suelo $\longrightarrow\{\vec{e}_x;\vec{e}_y;\vec{e}_z\}$
+    \item $\mathcal{B}$ Brazo OA $\longrightarrow\{\vec{E}_r;\vec{E}_\phi;\vec{E}_z\}$
+    \item $\mathcal{D}$ Disco $\longrightarrow\{\vec{e}_r;\vec{e}_\theta;\vec{e}_z\}$
+\end{itemize}
+\vspace{1cm}
+Una vez decidido como hago los vectores, los dibujo y hago la asociacion de cada uno (recordar el que este asociado no significa que solo lo pueda usar en ese cuerpo)
+\begin{center}
+    \begin{tikzpicture}[>=Latex, scale=1.5]
+        % --- Parámetros Geométricos ---
+        \def\L{3.5}      % Longitud de la barra
+        \def\R{1.2}      % Radio del disco
+        \def\thetaAng{40} % Ángulo theta de P
+
+        % --- Coordenadas principales ---
+        \coordinate (A) at (0,0);
+        \coordinate (O) at (\L,0);
+        \coordinate (P) at ($ (O) + ({90-\thetaAng}:\R) $);
+
+        % --- 1. Soporte y Eje en A ---
+        % Sombreado de la base
+        \fill[pattern=north east lines] (-0.4, 0.3) rectangle (-0.1, 0.7);
+        \fill[pattern=north west lines] (0.1, 0.3) rectangle (0.4, 0.7);
+        \fill[pattern=north east lines] (-0.4, -0.3) rectangle (-0.1, -0.7);
+        \fill[pattern=north west lines] (0.1, -0.3) rectangle (0.4, -0.7);
+        
+        \draw[thick] (-0.4, 0.3) -- (-0.1, 0.3) -- (-0.1, 0.7);
+        \draw[thick] (0.4, 0.3) -- (0.1, 0.3) -- (0.1, 0.7);
+        \draw[thick] (-0.4, -0.3) -- (-0.1, -0.3) -- (-0.1, -0.7);
+        \draw[thick] (0.4, -0.3) -- (0.1, -0.3) -- (0.1, -0.7);
+
+        % Eje vertical
+        \shadedraw[left color=gray!10, right color=gray!40, draw=black, rounded corners=2pt] (-0.1, 1.2) -- (0.1, 1.2)--(0.1,0.27)--(0.4,0.27)--(0.4,-0.27)--(0.1,-0.27)--(0.1, -1.2)--(-0.1, -1.2)--(-0.1,-0.27)--(-0.4,-0.27)--(-0.4,0.27)--(-0.1,0.27)--cycle;
+        \draw[dashed, thin] (0, 1.2) -- (0, -1.2);
+        \draw[->, thick] (-0.2, 0.9) arc (120:420:0.4 and 0.15);
+        \node[right] at (0.3, 1.0) {$\dot{\phi} = \text{cte}$};
+    % --- 3. El Disco (R) ---
+        \shadedraw[inner color=gray!5, outer color=gray!30, draw=black, thick] (O) circle (\R);
+        \draw[dashed] (O) -- ($(O) + (0, \R)$); % Línea vertical de referencia en disco
+        % --- 2. La Barra (L) ---
+        \shadedraw[left color=gray!10, right color=gray!40, draw=black, rounded corners=2pt] 
+            (-0.15, -0.12) rectangle (\L+0.1, 0.12);
+        
+        % Dimensión L
+        \draw[<->] (0, -0.8) -- (\L, -0.8) node[midway, fill=white] {$L$};
+        \draw[dotted] (0, -0.15) -- (0, -0.9);
+        \draw[dotted] (\L, -0.15) -- (\L, -0.9);
+
+       
+        
+        % Radio R y Ángulo Theta
+        \draw[->] (O) -- (P) node[midway, right, xshift=2pt] {$R$};
+        \draw[->] ($(O) + (0, 0.6)$) arc (90:{90-\thetaAng}:0.6);
+        \node at ($ (O) + (72:0.8) $) {$\theta$};
+
+        % --- 4. Puntos y Etiquetas ---
+        \filldraw (A) circle (1.5pt) node[below right, xshift=2pt] {$A$};
+        \filldraw (O) circle (1.5pt) node[right] {$O$};
+        \filldraw (P) circle (1.8pt) node[right] {$P$};
+
+        %Aqui van los vectores
+        
+        
+
+    \end{tikzpicture}
+\end{center}
+
+Nos falta lo más importante del paso 1: relacionar cada base con la anterior en la cadena. El
+brazo $\mathcal{B}$ gira en torno al eje vertical (compartido con el suelo, $\vec{E}_z=\vec{e}_z$)
+con ángulo $\phi$, así que
+\begin{equation*}
+\begin{split}
+    \vec{E}_r&=\cos(\phi)\vec{e}_x+\sin(\phi)\vec{e}_y\\
+    \vec{E}_\phi&=-\sin(\phi)\vec{e}_x+\cos(\phi)\vec{e}_y\\
+    \vec{E}_z&=\vec{e}_z
+\end{split}
+\end{equation*}
+
+El disco, en cambio, gira respecto al brazo en torno al eje $\vec{E}_\phi$ —el eje ortogonal a la
+barra— con ángulo $\theta$ medido desde $\vec{E}_z$ (la línea punteada vertical de la figura), por
+lo que
+\begin{equation*}
+\begin{split}
+    \vec{e}_r&=\sin(\theta)\vec{E}_r+\cos(\theta)\vec{E}_z\\
+    \vec{e}_\theta&=\cos(\theta)\vec{E}_r-\sin(\theta)\vec{E}_z\\
+    \vec{e}_z&=\vec{E}_\phi
+\end{split}
+\end{equation*}
+
+Vale la pena detenerse en la última línea: el $\vec{e}_z$ del disco —su propio eje de giro— no es
+la vertical, sino que coincide con $\vec{E}_\phi$. Esto es justamente lo que dice el enunciado:
+el disco gira sobre un eje ortogonal a la barra, no sobre su eje vertical.
+
+\subsubsection*{Vector posición}
+
+\textbf{Posicion}\\
+Anclamos en $A$, que está quieto en el marco inercial, y sumamos hasta llegar a $P$ pasando por
+$O$:
+$$\vec{r}_{P/A}=\vec{r}_{O/A}+\vec{r}_{P/O}=L\vec{E}_r+R\vec{e}_r$$
+Conviene dejarlo todo expresado en la base del brazo $\mathcal{B}$, reemplazando $\vec{e}_r$ por
+la transformación de arriba:
+$$\vec{r}_{P/A}=L\vec{E}_r+R\left(\sin(\theta)\vec{E}_r+\cos(\theta)\vec{E}_z\right)=(L+R\sin(\theta))\,\vec{E}_r+R\cos(\theta)\,\vec{E}_z$$
+
+\subsubsection*{Velocidades y aceleraciones angulares}
+
+Antes de derivar cualquier vector conviene tener a mano las velocidades angulares de la cadena,
+ya que van a aparecer una y otra vez en el transporte.
+
+La velocidad angular del brazo respecto al suelo es directa, pues $\phi$ se mide justo en torno a
+$\vec{e}_z=\vec{E}_z$:
+$$\velang{N}{B}=\dot\phi\,\vec{E}_z$$
+Como $\dot\phi$ es constante y $\vec{E}_z$ nunca cambia (coincide siempre con la vertical fija),
+la aceleración angular del brazo respecto al suelo es nula:
+$$\accang{N}{B}=\vec{0}$$
+
+El disco gira respecto al brazo en torno a $\vec{E}_\phi$:
+$$\velang{B}{D}=\dot\theta\,\vec{E}_\phi$$
+Como las velocidades angulares se suman a lo largo de la cadena de marcos, la velocidad angular
+del disco respecto al suelo es
+$$\velang{N}{D}=\velang{N}{B}+\velang{B}{D}=\dot\phi\,\vec{E}_z+\dot\theta\,\vec{E}_\phi$$
+
+Para la aceleración angular del disco respecto al suelo hay que derivar $\velang{N}{D}$ vista
+desde $\mathcal{N}$; como está expresada en vectores de $\mathcal{B}$, transportamos hacia
+$\mathcal{B}$:
+$$\accang{N}{D}=\der{}{N}\velang{N}{D}=\der{}{B}\velang{N}{D}+\velang{N}{B}\times\velang{N}{D}$$
+El primer término es directo, ya que $\dot\phi$ es constante y $\vec{E}_z,\vec{E}_\phi$ no cambian
+vistos desde $\mathcal{B}$:
+$$\der{}{B}\velang{N}{D}=\ddot\theta\,\vec{E}_\phi$$
+El segundo término es el producto cruz
+$$\velang{N}{B}\times\velang{N}{D}=\dot\phi\vec{E}_z\times\left(\dot\phi\vec{E}_z+\dot\theta\vec{E}_\phi\right)=\dot\phi\dot\theta\left(\vec{E}_z\times\vec{E}_\phi\right)=-\dot\phi\dot\theta\,\vec{E}_r$$
+usando que $\{\vec{E}_r,\vec{E}_\phi,\vec{E}_z\}$ es una base derecha ($\vec{E}_z\times\vec{E}_r=\vec{E}_\phi$, y por lo tanto $\vec{E}_z\times\vec{E}_\phi=-\vec{E}_r$). Sumando ambos términos:
+$$\accang{N}{D}=-\dot\phi\dot\theta\,\vec{E}_r+\ddot\theta\,\vec{E}_\phi$$
+
+\subsubsection*{Cinemática del punto $P$}
+
+\textbf{Velocidad}\\
+La velocidad inercial de $P$ se obtiene derivando la posición. Como $\vec{r}_{P/A}$ está escrito
+en la base de $\mathcal{B}$, no podemos derivar directo y aplicamos el teorema del transporte
+entre $\mathcal{N}$ y $\mathcal{B}$:
+$$\marc{\vec{v}_P}{N}=\der{\vec{r}_{P/A}}{N}=\transporta{\vec{r}_{P/A}}{N}{B}$$
+con $\velang{N}{B}=\dot\phi\,\vec{E}_z$ ya obtenido, y la derivada vista desde $\mathcal{B}$ —donde
+$\vec{E}_r,\vec{E}_z$ son constantes, así que basta derivar las componentes—:
+$$\der{\vec{r}_{P/A}}{B}=R\dot\theta\cos(\theta)\,\vec{E}_r-R\dot\theta\sin(\theta)\,\vec{E}_z$$
+El producto cruz que falta es
+$$\dot\phi\vec{E}_z\times\left[(L+R\sin(\theta))\vec{E}_r+R\cos(\theta)\vec{E}_z\right]=\dot\phi(L+R\sin(\theta))\,\vec{E}_\phi$$
+Sumando ambos términos obtenemos la velocidad de $P$ respecto al suelo:
+$$\marc{\vec{v}_P}{N}=R\dot\theta\cos(\theta)\,\vec{E}_r+\dot\phi(L+R\sin(\theta))\,\vec{E}_\phi-R\dot\theta\sin(\theta)\,\vec{E}_z$$
+
+\textbf{Aceleración}\\
+Repetimos el procedimiento sobre la velocidad recién obtenida, transportando otra vez entre
+$\mathcal{N}$ y $\mathcal{B}$:
+$$\marc{\vec{a}_P}{N}=\transporta{\marc{\vec{v}_P}{N}{}}{N}{B}$$
+La derivada vista desde $\mathcal{B}$ sale de derivar cada componente de $\marc{\vec{v}_P}{N}{}$
+(recordando que $\dot\phi$ es constante):
+$$\der{}{B}\marc{\vec{v}_P}{N}{}=\left(R\ddot\theta\cos(\theta)-R\dot\theta^2\sin(\theta)\right)\vec{E}_r+\dot\phi R\dot\theta\cos(\theta)\,\vec{E}_\phi+\left(-R\ddot\theta\sin(\theta)-R\dot\theta^2\cos(\theta)\right)\vec{E}_z$$
+y el producto cruz que falta es
+$$\dot\phi\vec{E}_z\times\marc{\vec{v}_P}{N}{}=-\dot\phi^2(L+R\sin(\theta))\,\vec{E}_r+\dot\phi R\dot\theta\cos(\theta)\,\vec{E}_\phi$$
+Sumando ambos términos, la aceleración de $P$ respecto al suelo es
+$$\marc{\vec{a}_P}{N}=\Big[R\ddot\theta\cos(\theta)-R\dot\theta^2\sin(\theta)-\dot\phi^2(L+R\sin(\theta))\Big]\vec{E}_r+2\dot\phi R\dot\theta\cos(\theta)\,\vec{E}_\phi+\Big[-R\ddot\theta\sin(\theta)-R\dot\theta^2\cos(\theta)\Big]\vec{E}_z$$
+
+Vale la pena mirar de dónde viene cada pieza: el término $-\dot\phi^2(L+R\sin\theta)$ en
+$\vec{E}_r$ es el centrípeto de girar a distancia $L+R\sin\theta$ del eje vertical; el término en
+$\vec{E}_\phi$, $2\dot\phi R\dot\theta\cos\theta$, es el de Coriolis y trae su factor 2 como
+corresponde; y los términos restantes en $\vec{E}_r,\vec{E}_z$ son exactamente la aceleración
+tangencial y centrípeta del movimiento circular de $P$ en torno a $O$ dentro del disco.
 
 \end{tcolorbox}
 \fi

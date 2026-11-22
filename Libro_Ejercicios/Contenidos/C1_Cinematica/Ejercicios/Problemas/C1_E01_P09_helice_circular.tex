@@ -11,76 +11,89 @@ Una partícula $P$ se desplaza siguiendo una trayectoria helicoidal sobre la sup
 
 \begin{figure}[!ht]
     \centering
-    \begin{tikzpicture}[>=Latex, x={(1cm,-0.2cm)}, y={(1cm,0.1cm)}, z={(0cm,1cm)}, scale=2]
-        % --- Parámetros Geométricos ---
-        \def\R{1.5}      % Radio
-        \def\H{3.0}      % Altura
-        \def\pitch{0.4}  % Paso de la hélice (proporcional a tan(phi))
-        \def\pAng{120}   % Ángulo theta para la posición de P
+  \begin{tikzpicture}[
+    % Configuramos la perspectiva simulada en 3D
+    x={(1cm,0cm)},
+    y={(0cm,0.25cm)}, 
+    z={(0cm,1cm)},
+    >=Stealth
+]
 
-        % --- 1. Ejes de Coordenadas ---
-        \draw[->, thin, gray] (0,0,0) -- (2.5,0,0) node[right] {$x$};
-        \draw[->, thin, gray] (0,0,0) -- (0,2.5,0) node[above right] {$y$};
-        \draw[->, thick] (0,0,0) -- (0,0,3.5) node[above] {$z$};
-        \node[below left] at (0,0,0) {$O$};
+% --- Parámetros de la figura ---
+\def\R{3.5}       % Radio del cilindro
+\def\H{7}         % Altura del cilindro
+\def\pitch{0.8}   % Paso de la hélice (altura que sube por media vuelta)
 
-        % --- 2. Cilindro (Estructura) ---
-        % Base inferior (parte trasera oculta)
-        \draw[dashed, gray] (\R,0,0) arc (0:180:\R);
-        % Base inferior (parte delantera)
-        \draw[thick] (\R,0,0) arc (0:-180:\R);
-        
-        % Líneas laterales
-        \draw[gray!50] (-\R,0,0) -- (-\R,0,\H);
-        \draw[gray!50] (\R,0,0) -- (\R,0,\H);
+% --- Cilindro Base ---
+% Borde trasero de la base (punteado)
+\draw[thick, dotted] (\R,0,0) arc (0:180:\R\space and \R);
 
-        % Tapa superior (Elipse)
-        \draw[thick, fill=gray!5, fill opacity=0.3] (0,0,\H) circle [radius=\R];
+% Sombreado del cilindro para dar efecto de volumen
+\path[left color=black!50, right color=black!50, middle color=black!10, opacity=0.85]
+    (\R,0,0) -- (\R,0,\H) arc (0:180:\R\space and \R) -- (-\R,0,0) arc (180:360:\R\space and \R);
 
-        % --- 3. Trayectoria Helicoidal ---
-        % Hélice trasera (punteada)
-        \draw[blue!50, dashed, domain=0:pi, samples=50, variable=\t] 
-            plot ({\R*cos(\t r)}, {\R*sin(\t r)}, {\pitch*\t});
-        \draw[blue!50, dashed, domain=2*pi:2.5*pi, samples=50, variable=\t] 
-            plot ({\R*cos(\t r)}, {\R*sin(\t r)}, {\pitch*\t});
+% Contornos principales del cilindro
+\draw[thick] (0,0,\H) circle [x radius=\R, y radius=\R]; % Tapa superior
+\draw[thick] (-\R,0,0) -- (-\R,0,\H);                    % Generatriz izquierda
+\draw[thick] (\R,0,0) -- (\R,0,\H);                      % Generatriz derecha
+\draw[thick] (-\R,0,0) arc (180:360:\R\space and \R);    % Borde frontal de la base
 
-        % Hélice delantera (continua)
-        \draw[ultra thick, blue!80!black, domain=pi:2*pi, samples=50, variable=\t] 
-            plot ({\R*cos(\t r)}, {\R*sin(\t r)}, {\pitch*\t});
-        \draw[ultra thick, blue!80!black, domain=-0.5*pi:0, samples=50, variable=\t] 
-            plot ({\R*cos(\t r)}, {\R*sin(\t r)}, {\pitch*\t});
+% --- Curva de la Hélice ---
+\foreach \n in {0,1,2} {
+    % Parte trasera (línea discontinua)
+    \draw[thick, dashed] plot[domain=0:180, samples=40, smooth]
+        ({\R*cos(\x)}, {\R*sin(\x)}, {\pitch*(\x/180 + 2*\n)});
+    % Parte delantera (línea continua y más gruesa)
+    \draw[very thick] plot[domain=180:360, samples=40, smooth]
+        ({\R*cos(\x)}, {\R*sin(\x)}, {\pitch*(\x/180 + 2*\n)});
+}
+% Último tramo trasero superior para cerrar la hélice
+\draw[thick, dashed] plot[domain=0:180, samples=40, smooth]
+    ({\R*cos(\x)}, {\R*sin(\x)}, {\pitch*(\x/180 + 6)});
 
-        % --- 4. Partícula P y Parámetros ---
-        % Coordenadas de la partícula
-        \pgfmathsetmacro{\Px}{\R*cos(\pAng)}
-        \pgfmathsetmacro{\Py}{\R*sin(\pAng)}
-        \pgfmathsetmacro{\Pz}{\pitch*\pAng*pi/180}
-        
-        \coordinate (P) at (\Px, \Py, \Pz);
-        \coordinate (Pbase) at (\Px, \Py, 0);
+% --- Coordenadas y Puntos Especiales ---
+\coordinate (O) at (0,0,0);
+\coordinate (A) at (-\R,0,0);
 
-        % Líneas de proyección
-        \draw[dashed, thin] (0,0,0) -- (Pbase);
-        \draw[dashed, thin] (Pbase) -- (P);
-        \draw[dashed, thin] (P) -- (0,0,\Pz);
+% Posición de la partícula P
+\def\ang{285} % Ángulo en el plano xy
+\coordinate (P) at ({\R*cos(\ang)}, {\R*sin(\ang)}, {\pitch*(\ang/180)});
+\coordinate (Pxy) at ({\R*cos(\ang)}, {\R*sin(\ang)}, 0); % Proyección de P en la base
 
-        % Partícula
-        \filldraw[shading=ball, ball color=black] (P) circle (1.2pt) node[above right] {$P$};
+% --- Etiquetas y Vectores en la Base ---
+\fill (O) circle (2pt) node[above right, inner sep=3pt] {$O$};
+\fill (A) circle (2pt) node[left] {$A$};
 
-        % Radio R y Ángulo Theta
-        \draw[<->] (0,0,0) -- ({\R*cos(210)}, {\R*sin(210)}, 0) node[midway, below left] {$R$};
-        \draw[->] (0.5,0,0) arc (0:\pAng:0.5);
-        \node at (0.24, 0.32, 0) {$\theta$};
+% Radio R
+\draw[<->] (A) -- (O) node[midway, above] {$R$};
 
-        % Ángulo de inclinación Phi
-        \begin{scope}[shift={(1.5,0)}]
-            \draw[dashed] (0,0,0) -- (0, 1.2, 0);
-            \draw[->] (0, 0.4, 0) arc (20:90:0.4);
-            \node[right] at (0.4, 0, 0.3) {$\phi$};
-        \end{scope}
+% Vector hacia la proyección de P y ángulo theta
+\draw[->] (O) -- (Pxy);
+\draw[->] (-1.5,0,0) arc (180:\ang:1.5 and 1.5) node[midway, below] {$\theta$};
+
+% --- Partícula P y altura z ---
+% Dibujamos la masa "m" como un pequeño rectángulo redondeado
+\fill[black!80, rounded corners=1pt] ([xshift=-4pt,yshift=-2pt]P) rectangle ([xshift=4pt,yshift=2pt]P);
+\node[above=2pt] at (P) {$P$};
 
 
-    \end{tikzpicture}
+% Línea punteada para la altura z y su flecha indicadora
+\draw[dashed] (Pxy) -- (P);
+\draw[<-] ($(Pxy)!0.5!(P)$) -- ++(0.7cm,-0.4cm) node[right, inner sep=1pt] {$z$};
+
+% --- Ángulo phi (Inclinación de la hélice en P) ---
+% Usamos un scope para crear un canvas 2D local en el punto P
+\begin{scope}[shift={(P)}, x={(1cm,0cm)}, y={(0cm,1cm)}]
+    % Línea horizontal de referencia
+    \draw[dashed, thin] (0,0) -- (1.5, 0);
+    % Línea tangente simulada a la trayectoria
+    \draw[dashed, thin] (0,0) -- (1.4, 0.45);
+    % Arco del ángulo phi (atan(0.45/1.4) es aprox 17.8 grados)
+    \draw[->] (0.9, 0) arc (0:17.8:0.9) node[midway, right, yshift=1pt] {$\phi$};
+\end{scope}
+
+\end{tikzpicture}
+
     
     \caption{Análisis tridimensional de la cinemática de una partícula en trayectoria helicoidal.}
     \label{fig:helice_3d}
@@ -88,5 +101,88 @@ Una partícula $P$ se desplaza siguiendo una trayectoria helicoidal sobre la sup
 
 \ifmostrarSolucion
 \begin{tcolorbox}[title=Barra articulada a argolla circular,breakable]
+
+\begin{tikzpicture}[
+    % Configuramos la perspectiva simulada en 3D
+    x={(1cm,0cm)},
+    y={(0cm,0.25cm)}, 
+    z={(0cm,1cm)},
+    >=Stealth
+]
+
+% --- Parámetros de la figura ---
+\def\R{3.5}       % Radio del cilindro
+\def\H{7}         % Altura del cilindro
+\def\pitch{0.8}   % Paso de la hélice (altura que sube por media vuelta)
+
+% --- Cilindro Base ---
+% Borde trasero de la base (punteado)
+\draw[thick, dotted] (\R,0,0) arc (0:180:\R\space and \R);
+
+% Sombreado del cilindro para dar efecto de volumen
+\path[left color=black!50, right color=black!50, middle color=black!10, opacity=0.85]
+    (\R,0,0) -- (\R,0,\H) arc (0:180:\R\space and \R) -- (-\R,0,0) arc (180:360:\R\space and \R);
+
+% Contornos principales del cilindro
+\draw[thick] (0,0,\H) circle [x radius=\R, y radius=\R]; % Tapa superior
+\draw[thick] (-\R,0,0) -- (-\R,0,\H);                    % Generatriz izquierda
+\draw[thick] (\R,0,0) -- (\R,0,\H);                      % Generatriz derecha
+\draw[thick] (-\R,0,0) arc (180:360:\R\space and \R);    % Borde frontal de la base
+
+% --- Curva de la Hélice ---
+\foreach \n in {0,1,2} {
+    % Parte trasera (línea discontinua)
+    \draw[thick, dashed] plot[domain=0:180, samples=40, smooth]
+        ({\R*cos(\x)}, {\R*sin(\x)}, {\pitch*(\x/180 + 2*\n)});
+    % Parte delantera (línea continua y más gruesa)
+    \draw[very thick] plot[domain=180:360, samples=40, smooth]
+        ({\R*cos(\x)}, {\R*sin(\x)}, {\pitch*(\x/180 + 2*\n)});
+}
+% Último tramo trasero superior para cerrar la hélice
+\draw[thick, dashed] plot[domain=0:180, samples=40, smooth]
+    ({\R*cos(\x)}, {\R*sin(\x)}, {\pitch*(\x/180 + 6)});
+
+% --- Coordenadas y Puntos Especiales ---
+\coordinate (O) at (0,0,0);
+\coordinate (A) at (-\R,0,0);
+
+% Posición de la partícula P
+\def\ang{285} % Ángulo en el plano xy
+\coordinate (P) at ({\R*cos(\ang)}, {\R*sin(\ang)}, {\pitch*(\ang/180)});
+\coordinate (Pxy) at ({\R*cos(\ang)}, {\R*sin(\ang)}, 0); % Proyección de P en la base
+
+% --- Etiquetas y Vectores en la Base ---
+\fill (O) circle (2pt) node[above right, inner sep=3pt] {$O$};
+\fill (A) circle (2pt) node[left] {$A$};
+
+% Radio R
+\draw[<->] (A) -- (O) node[midway, above] {$R$};
+
+% Vector hacia la proyección de P y ángulo theta
+\draw[->] (O) -- (Pxy);
+\draw[->] (-1.5,0,0) arc (180:\ang:1.5 and 1.5) node[midway, below] {$\theta$};
+
+% --- Partícula P y altura z ---
+% Dibujamos la masa "m" como un pequeño rectángulo redondeado
+\fill[black!80, rounded corners=1pt] ([xshift=-4pt,yshift=-2pt]P) rectangle ([xshift=4pt,yshift=2pt]P);
+\node[above=2pt] at (P) {$P$};
+
+
+% Línea punteada para la altura z y su flecha indicadora
+\draw[dashed] (Pxy) -- (P);
+\draw[<-] ($(Pxy)!0.5!(P)$) -- ++(0.7cm,-0.4cm) node[right, inner sep=1pt] {$z$};
+
+% --- Ángulo phi (Inclinación de la hélice en P) ---
+% Usamos un scope para crear un canvas 2D local en el punto P
+\begin{scope}[shift={(P)}, x={(1cm,0cm)}, y={(0cm,1cm)}]
+    % Línea horizontal de referencia
+    \draw[dashed, thin] (0,0) -- (1.5, 0);
+    % Línea tangente simulada a la trayectoria
+    \draw[dashed, thin] (0,0) -- (1.4, 0.45);
+    % Arco del ángulo phi (atan(0.45/1.4) es aprox 17.8 grados)
+    \draw[->] (0.9, 0) arc (0:17.8:0.9) node[midway, right, yshift=1pt] {$\phi$};
+\end{scope}
+
+\end{tikzpicture}
 \end{tcolorbox}
 \fi
