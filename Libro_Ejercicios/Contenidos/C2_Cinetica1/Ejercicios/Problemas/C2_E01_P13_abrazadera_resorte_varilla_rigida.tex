@@ -2,6 +2,7 @@
 % Capítulo 2: Cinética de la partícula
 % Tema 01: Dinámica de la partícula
 % Problema 13: Abrazadera deslizante con resorte y varilla rígida
+% Origen: Ayudantía 2, 2026
 % =========================================================================
 \subsubsection{Abrazadera deslizante con resorte y varilla rígida}
 
@@ -61,3 +62,63 @@ Una abrazadera de masa $m$ se desliza sin fricción a lo largo de una varilla r�
     \caption{Sistema de una abrazadera de masa $m$ bajo la acción de un resorte lineal en una guía horizontal.}
     \label{fig:abrazadera_resorte}
 \end{figure}
+
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Abrazadera deslizante con resorte y varilla rígida}
+
+\textbf{Marcos de referencia y Sistemas de Coordenadas}
+\begin{itemize}
+    \item $\mathcal{N}$ (inercial): el suelo/guía.
+    \item Base cartesiana $\{\vec{e}_x, \vec{e}_y\}$ con origen en la proyección vertical de $O$ sobre la varilla. La coordenada $x$ mide el desplazamiento horizontal de la masa.
+\end{itemize}
+
+\subsubsection*{Cinemática de la partícula}
+La posición de la partícula $P$ (abrazadera) es:
+$$\vec{r}_P = x\vec{e}_x \quad\Longrightarrow\quad \vec{v}_P = \dot{x}\vec{e}_x$$
+La longitud actual del resorte $l$ se obtiene por Pitágoras:
+$$l(x) = \sqrt{x^2 + L^2}$$
+Dado que la longitud natural es $L$, la deformación del resorte es:
+$$\delta = l(x) - L = \sqrt{x^2 + L^2} - L$$
+
+\subsubsection*{Cinética (método de energía)}
+\textbf{Diagrama de cuerpo libre}
+\begin{center}
+    \begin{tikzpicture}[>=Latex, scale=2]
+        % --- PARÁMETROS ---
+        \def\thetaang{51.34} % ángulo atan(x/L)
+
+        % --- PARTÍCULA ---
+        \shadedraw[ball color=gray!30] (0,0) circle (0.15);
+        \node[below, yshift=-5pt] at (0,0) {$m$};
+
+        % --- EJES LOCALES ---
+        \draw[->, dashed, gray] (0,0) -- (1,0) node[right] {$x$};
+        \draw[->, dashed, gray] (0,0) -- (0,1) node[above] {$y$};
+
+        % --- FUERZAS ---
+        % Fuerza del resorte: apunta hacia el punto O (arriba a la izquierda)
+        \draw[->, ultra thick, myred] (0,0) -- ({cos(90+\thetaang)}, {sin(90+\thetaang)}) node[above left] {$\vec{F}_k$};
+        \draw[thin] (0, 0.4) arc (90:{90+\thetaang}:0.4);
+        \node at (115:0.55) {$\alpha$};
+        % Normal: la varilla es horizontal, la normal es vertical
+        \draw[->, ultra thick, azul] (0,0) -- (0,0.8) node[right] {$\vec{N}$};
+    \end{tikzpicture}
+\end{center}
+Consideraciones: $\vec{g} = 0$ (sin peso) y sin roce horizontal.
+
+Como la potencia no conservativa es ${}^{nc}\mathcal{P}\equiv\sum\vec{F}_i\cdot\marc{\vec{v}_i}{N}{}=0$, la energía mecánica $E$ se conserva ($dE/dt = 0$).
+
+\textbf{Energía cinética ($T$):}
+$$T = \frac{1}{2}m v_P^2 = \frac{1}{2}m\dot{x}^2$$
+\textbf{Energía potencial elástica ($V$):}
+$$V = \frac{1}{2}K\delta^2 = \frac{1}{2}K\left(\sqrt{x^2 + L^2} - L\right)^2$$
+\textbf{Ecuación de movimiento:}\\
+Derivamos $E = T + V$ respecto al tiempo:
+$$\frac{d}{dt} \left[ \frac{1}{2}m\dot{x}^2 + \frac{1}{2}K\left(\sqrt{x^2 + L^2} - L\right)^2 \right] = 0$$
+$$m\dot{x}\ddot{x} + K\left(\sqrt{x^2 + L^2} - L\right) \cdot \frac{d}{dt}\left(\sqrt{x^2 + L^2} - L\right) = 0$$
+Calculando la derivada interna $\frac{d}{dt}\sqrt{x^2+L^2} = \frac{x\dot{x}}{\sqrt{x^2+L^2}}$:
+$$m\dot{x}\ddot{x} + K\left(\sqrt{x^2 + L^2} - L\right) \frac{x\dot{x}}{\sqrt{x^2 + L^2}} = 0$$
+Factorizando $\dot{x}$ (asumiendo $\dot{x} \neq 0$):
+\respuesta{$\displaystyle m\ddot{x} + Kx \left( 1 - \frac{L}{\sqrt{x^2 + L^2}} \right) = 0$}
+
+\end{solucion}

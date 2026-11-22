@@ -1,0 +1,77 @@
+% =========================================================================
+% Capítulo 2: Cinética de la partícula
+% Tema 01: Dinámica de la partícula
+% Problema 24: Partícula con cuerda inelástica y doble impulso
+% Origen: Ayudantía 2, 2026
+% =========================================================================
+\subsubsection{Partícula con cuerda inelástica y doble impulso}
+
+Una partícula de masa $m$ está conectada a una cuerda inelástica de longitud $\ell$, como se muestra en la Figura \ref{fig:c2_e01_p24_cuerda_inelastica}. La cuerda está conectada en su otro extremo a un soporte fijo en el punto $O$. La cuerda está inicialmente holgada y la partícula se encuentra a una distancia $\ell_0$ directamente por encima del soporte cuando es golpeada por un impulso horizontal $\hat{P}$. Después de ser golpeada por el impulso, la partícula viaja hacia la derecha hasta que la cuerda se tensa. Asumiendo que no hay gravedad, determine las siguientes cantidades en el instante en que la cuerda se tensa:
+
+\begin{enumerate}
+    \item La velocidad de la partícula.
+    \item El impulso aplicado por la cuerda sobre la partícula.
+\end{enumerate}
+
+\begin{figure}[!ht]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.1]
+        % --- PARÁMETROS ---
+        \def\lz{2.4}      % altura inicial l0 [u]
+        \def\L{3.2}       % largo de la cuerda l [u]
+
+        % --- SOPORTE ---
+        \fill[pattern=north east lines] (-0.5,-0.25) rectangle (0.5,0);
+        \draw[thick] (-0.5,0) -- (0.5,0);
+        \draw[thick, fill=gray!30] (-0.3,0) arc (180:0:0.3) -- cycle;
+        \filldraw (0,0.12) circle (1pt) node[below=6pt] {$O$};
+
+        % --- CUERDA HOLGADA Y PARTÍCULA INICIAL ---
+        \draw[thick, decorate, decoration={snake, amplitude=2pt, segment length=8pt}] (0,0.3) -- (0,{\lz-0.15});
+        \shadedraw[ball color=gray!20] (0,\lz) circle (0.15);
+        \node[right=4pt] at (0.1,{\lz+0.25}) {$m$};
+        \draw[->, very thick, myred] (-1.1,\lz) -- (-0.2,\lz) node[midway, above] {$\hat{P}$};
+
+        % --- POSICIÓN AL TENSARSE ---
+        \pgfmathsetmacro{\xf}{sqrt(\L*\L-\lz*\lz)}
+        \draw[dashed] (0,0.12) -- (\xf,\lz) node[midway, below right] {$\ell$};
+        \shadedraw[ball color=gray!10] (\xf,\lz) circle (0.15);
+
+        % --- COTA l0 ---
+        \draw[<->] (-1.8,0.12) -- (-1.8,\lz) node[midway, left] {$\ell_0$};
+        \draw[thin, gray] (-1.9,\lz) -- (-1.5,\lz);
+    \end{tikzpicture}
+    \caption{Partícula con cuerda inelástica, inicialmente holgada, golpeada por un impulso.}
+    \label{fig:c2_e01_p24_cuerda_inelastica}
+\end{figure}
+
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Partícula con cuerda inelástica y doble impulso}
+
+\textbf{Estado inicial luego del primer impulso}\\
+Al recibir el impulso horizontal $\hat{P}$, la partícula adquiere instantáneamente una velocidad inicial horizontal:
+$$\hat{P}\,\vec{i} = m\vec{v}_1 \implies \vec{v}_1 = \frac{\hat{P}}{m}\vec{i}$$
+
+\textbf{Geometría en el instante de tensión}\\
+La cuerda se tensa cuando la partícula alcanza una distancia radial $\ell$ desde el origen $O$. Se ha movido horizontalmente una distancia $x$, manteniendo la altura $y = \ell_0$. Geométricamente: $x = \sqrt{\ell^2 - \ell_0^2}$. Definiendo $\theta$ como el ángulo que forma la cuerda con el eje vertical:
+$$\cos\theta = \frac{\ell_0}{\ell} \quad \text{y} \quad \sin\theta = \frac{\sqrt{\ell^2 - \ell_0^2}}{\ell}$$
+Proyectamos la velocidad $\vec{v}_1$ en coordenadas polares (radial $\vec{e}_r$ y transversal $\vec{e}_\theta$):
+\begin{itemize}
+    \item Radial: $v_{1r} = v_1 \sin\theta = \dfrac{\hat{P}}{m} \sin\theta$
+    \item Transversal: $v_{1\theta} = v_1 \cos\theta = \dfrac{\hat{P}}{m} \cos\theta$
+\end{itemize}
+
+\textbf{a) Velocidad de la partícula al tensarse la cuerda}\\
+Al tensarse, la cuerda inelástica ejerce un tirón brusco hacia $O$ (fuerza impulsiva radial). La componente radial de la velocidad se anula instantáneamente, mientras que el momentum transversal se conserva:
+$$v_{2r} = 0 \qquad v_{2\theta} = v_{1\theta} = \frac{\hat{P}}{m} \cos\theta = \frac{\hat{P}\ell_0}{m\ell}$$
+\respuesta{$\displaystyle \vec{v}_2 = \frac{\hat{P}\ell_0}{m\ell}\, \vec{e}_\theta$}
+
+\patoojo{Un impulso solo cambia la velocidad en la dirección en que actúa: la cuerda tira en la dirección radial, así que la componente transversal de la velocidad se conserva.}
+
+\textbf{b) Impulso aplicado por la cuerda}\\
+Sea $\hat{T}$ el impulso ejercido por la cuerda. Aplicando impulso--momentum en el eje radial:
+$$\hat{\vec{T}} = m(v_{2r} - v_{1r})\vec{e}_r = m\left(0 - \frac{\hat{P}}{m}\sin\theta\right)\vec{e}_r$$
+\respuesta{$\displaystyle \hat{\vec{T}} = -\hat{P}\sin\theta\, \vec{e}_r = -\hat{P} \frac{\sqrt{\ell^2 - \ell_0^2}}{\ell}\, \vec{e}_r$}
+El impulso tiene magnitud $\hat{P} \dfrac{\sqrt{\ell^2 - \ell_0^2}}{\ell}$ y apunta hacia el origen a lo largo de la cuerda.
+
+\end{solucion}

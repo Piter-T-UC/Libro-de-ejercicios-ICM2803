@@ -1,0 +1,105 @@
+% =========================================================================
+% Capítulo 2: Cinética de la partícula
+% Tema 01: Dinámica de la partícula
+% Problema 22: Partícula en cuenco hemisférico
+% Origen: Ayudantía 2, 2026
+% =========================================================================
+\subsubsection{Partícula en cuenco hemisférico}
+
+Una partícula de masa $m$ se desliza sin fricción a lo largo del interior de un cuenco hemisférico fijo de radio $R$ como se muestra en la Figura \ref{fig:c2_e01_p22_cuenco}. Además, el ángulo $\theta$ se mide desde la dirección $\vec{E}_x$ hasta la dirección $OQ$, donde el punto $Q$ se encuentra en el borde del cuenco, mientras que el ángulo $\phi$ se mide desde la dirección $OQ$ hasta la posición de la partícula. Sabiendo que la gravedad actúa hacia abajo:
+
+\begin{enumerate}
+    \item Determine un sistema de dos ecuaciones diferenciales en términos de los ángulos $\theta$ y $\phi$ que describa el movimiento de la partícula.
+    \item Demuestre que el momento angular con respecto a la dirección $\vec{E}_z$ se conserva.
+\end{enumerate}
+
+\begin{figure}[!ht]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.3]
+        % --- PARÁMETROS ---
+        \def\R{2.0}        % radio del cuenco [u]
+        \def\th{35}        % ángulo theta (E_x -> OQ) [°]
+        \def\ph{40}        % ángulo phi (OQ -> partícula) [°]
+        \def\kx{0}         % sesgo de E_y en x (oblicua)
+        \def\ky{-0.35}     % aplastamiento del borde (perspectiva)
+
+        % --- COORDENADAS (proyección oblicua) ---
+        \coordinate (O) at (0,0);
+        \coordinate (Q) at ({\R*(cos(\th)+\kx*sin(\th))},{\R*\ky*sin(\th)});
+        \coordinate (M) at ({\R*cos(\ph)*(cos(\th)+\kx*sin(\th))},{\R*(cos(\ph)*\ky*sin(\th)-sin(\ph))});
+
+        % --- CUENCO ---
+        \shade[inner color=gray!5, outer color=gray!35] (-\R,0) arc (180:360:\R) -- cycle;
+        \draw[thick] (-\R,0) arc (180:360:\R);
+        \draw[thick, domain=0:360, samples=60, smooth, variable=\t]
+            plot ({\R*(cos(\t)+\kx*sin(\t))},{\R*\ky*sin(\t)}) -- cycle;
+
+        % --- EJES ---
+        \draw[->, thick] (O) -- (3.0,0) node[right] {$\vec{E}_x$};
+        \draw[->, thick] (O) -- (-0.9,-0.75) node[below left] {$\vec{E}_y$};
+        \draw[->, thick] (O) -- (0,-2.9) node[below] {$\vec{E}_z$};
+
+        % --- ÁNGULOS ---
+        \draw[dashed] (O) -- (Q);
+        \draw[->] (1.0,0) arc (0:-10:1.0);
+        \node at (1.25,-0.12) {$\theta$};
+        \draw[->, dotted, thick] (O) -- (M);
+        \draw[->] ($(O)!0.45!(Q)$) to[bend left=25] ($(O)!0.45!(M)$);
+        \node at ($(O)!0.62!(Q)+(0.15,-0.28)$) {$\phi$};
+
+        % --- PUNTOS Y PARTÍCULA ---
+        \filldraw (O) circle (1.2pt) node[above left] {$O$};
+        \filldraw (Q) circle (1.2pt) node[right] {$Q$};
+        \shadedraw[ball color=gray!20] (M) circle (3.5pt);
+        \node[right=3pt] at (M) {$m$};
+        \node[left=2pt, xshift=-4pt] at ($(O)!0.5!(M)$) {$R$};
+
+        % --- GRAVEDAD ---
+        \draw[->, very thick] (3.4,1.0) -- (3.4,0.2) node[midway, right] {$\vec{g}$};
+    \end{tikzpicture}
+    \caption{Partícula dentro de un cuenco hemisférico fijo.}
+    \label{fig:c2_e01_p22_cuenco}
+\end{figure}
+
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Partícula en cuenco hemisférico}
+
+Para resolver el problema utilizando la Segunda Ley de Newton, definimos un triedro móvil (coordenadas esféricas) centrado en $O$ con los siguientes vectores unitarios:
+\begin{itemize}
+    \item $\vec{e}_R$: dirección radial, desde $O$ hacia la partícula.
+    \item $\vec{e}_\theta$: dirección transversal o azimutal, tangente al borde del cuenco.
+    \item $\vec{e}_\phi$: dirección tangencial a la pared del cuenco, apuntando hacia abajo a lo largo del meridiano.
+\end{itemize}
+
+\subsubsection*{Cinemática de la partícula}
+\textbf{Posición, velocidad y aceleración}\\
+La posición de la partícula es $\vec{r} = R \vec{e}_R$. Derivando respecto al tiempo, considerando la rotación del marco móvil, la velocidad es:
+$$\vec{v} = R\dot{\phi}\, \vec{e}_\phi + R\dot{\theta}\cos\phi\, \vec{e}_\theta$$
+Volviendo a derivar, la aceleración de la partícula descompuesta en este triedro es:
+$$\vec{a} = (-R\dot{\phi}^2 - R\cos^2\phi\,\dot{\theta}^2)\vec{e}_R + (R\ddot{\phi} + R\sin\phi\cos\phi\,\dot{\theta}^2)\vec{e}_\phi + (R\cos\phi\,\ddot{\theta} - 2R\sin\phi\,\dot{\phi}\dot{\theta})\vec{e}_\theta$$
+
+\patoojo{Ojo con la convención: aquí $\phi$ se mide desde el borde del cuenco (como una latitud), no desde la vertical (como una colatitud). Por eso en la velocidad azimutal aparece $\cos\phi$ y no $\sin\phi$.}
+
+\subsubsection*{Cinética}
+\textbf{a) Sistema de ecuaciones diferenciales}\\
+Las fuerzas que actúan sobre la masa $m$ son la fuerza normal del cuenco $\vec{N} = -N \vec{e}_R$ y el peso $\vec{W} = mg\, \vec{E}_z$. Proyectando el vector unitario vertical $\vec{E}_z$ (que apunta hacia abajo) en nuestro triedro local: $\vec{E}_z = \sin\phi\, \vec{e}_R + \cos\phi\, \vec{e}_\phi$. Por lo tanto, el peso es:
+$$\vec{W} = mg(\sin\phi\, \vec{e}_R + \cos\phi\, \vec{e}_\phi)$$
+Aplicando la Segunda Ley de Newton ($\sum \vec{F} = m\vec{a}$):
+$$(-N + mg\sin\phi)\vec{e}_R + (mg\cos\phi)\vec{e}_\phi + (0)\vec{e}_\theta = m(a_R\vec{e}_R + a_\phi\vec{e}_\phi + a_\theta\vec{e}_\theta)$$
+Igualando las componentes $\theta$ y $\phi$ (las direcciones tangentes donde hay movimiento), obtenemos el sistema de ecuaciones:
+\begin{itemize}
+    \item \textbf{Eje azimutal ($\vec{e}_\theta$):}
+    $$0 = m(R\cos\phi\,\ddot{\theta} - 2R\sin\phi\,\dot{\phi}\dot{\theta}) \implies R\cos\phi\,\ddot{\theta} - 2R\sin\phi\,\dot{\phi}\dot{\theta} = 0$$
+    \item \textbf{Eje tangencial ($\vec{e}_\phi$):}
+    $$mg\cos\phi = m(R\ddot{\phi} + R\sin\phi\cos\phi\,\dot{\theta}^2) \implies R\ddot{\phi} + R\sin\phi\cos\phi\,\dot{\theta}^2 - g\cos\phi = 0$$
+\end{itemize}
+
+\textbf{b) Conservación del momento angular respecto a $\vec{E}_z$}\\
+El momento angular respecto al origen es $\vec{H}_O = \vec{r} \times m\vec{v}$. La componente en el eje vertical $\vec{E}_z$ es:
+$$H_z = \vec{E}_z \cdot (\vec{r} \times m\vec{v}) = m R^2 \dot{\theta} \cos^2\phi$$
+Para demostrar que se conserva, calculamos su derivada temporal:
+$$\frac{d H_z}{dt} = m R^2 (\ddot{\theta}\cos^2\phi - 2\dot{\theta}\dot{\phi}\sin\phi\cos\phi) = m R\cos\phi\, (R\cos\phi\,\ddot{\theta} - 2R\sin\phi\,\dot{\phi}\dot{\theta})$$
+Del balance de fuerzas en el eje azimutal obtuvimos que $R\cos\phi\,\ddot{\theta} - 2R\sin\phi\,\dot{\phi}\dot{\theta} = 0$. Reemplazando este término:
+\respuesta{$\displaystyle \frac{d H_z}{dt} = 0 \implies H_z = \text{constante}$}
+
+\end{solucion}

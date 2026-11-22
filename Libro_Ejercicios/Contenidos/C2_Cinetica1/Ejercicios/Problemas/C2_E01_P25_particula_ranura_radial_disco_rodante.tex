@@ -1,0 +1,147 @@
+% =========================================================================
+% Capítulo 2: Cinética de la partícula
+% Tema 01: Dinámica de la partícula
+% Problema 25: Partícula en ranura radial de un disco que rueda
+% Origen: Ayudantía 6, 2026
+% =========================================================================
+\subsubsection{Partícula en ranura radial de un disco que rueda}
+
+Un disco sin masa de radio $R$ rueda sin resbalar con velocidad angular constante $\omega$ a lo largo de una superficie horizontal, como se muestra en la Figura \ref{fig:c2_e01_p25_disco_ranura}. Una partícula de masa $m$ se desliza en una ranura cortada a lo largo de una dirección radial del disco, la cual se encuentra llena de un fluido que genera fricción en el movimiento de la partícula, cuyo coeficiente de fricción es $\nu$. Unido a la partícula hay un resorte lineal de constante $K$ y largo natural $r_0$, con punto de unión $O$ ubicado en el centro del disco. La ranura forma un ángulo $\omega t$ con la vertical y $r$ es la distancia de la partícula a $O$.
+
+\begin{enumerate}
+    \item Determine marcos de referencia y defina sistemas de coordenadas.
+    \item Realice un análisis cinético de las fuerzas que actúan sobre la partícula. Para esto, haga un diagrama de cuerpo libre de la partícula y especifique las fuerzas actuantes sobre ella (incluyendo la fuerza de fricción viscosa $\vec{F}_f = -\nu\,\dot{r}\,\vec{e}_r$).
+    \item Determine la ecuación diferencial de movimiento de la partícula en términos de la variable $r$ usando la Segunda Ley de Newton.
+\end{enumerate}
+
+\begin{figure}[!ht]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.5]
+        % --- PARÁMETROS ---
+        \def\R{2.4}       % radio del disco [u]
+        \def\ang{35}      % ángulo wt desde la vertical [°]
+        \def\rr{1.2}      % distancia r de la partícula a O [u]
+
+        % --- SUELO ---
+        \fill[pattern=north east lines] (-3,-0.25) rectangle (3,0);
+        \draw[thick] (-3,0) -- (3,0);
+        \node[font=\small, anchor=west] at (3.1,0.35) {sin deslizar};
+        \draw (3.1,0.3) -- (0.9,0.0);
+
+        % --- DISCO ---
+        \coordinate (O) at (0,\R);
+        \shadedraw[inner color=white, outer color=gray!25, draw=black, thick] (O) circle (\R);
+        \draw[dashed] (O) -- ++(0,2.1);
+
+        % --- RANURA, RESORTE Y PARTÍCULA ---
+        \begin{scope}[shift={(O)}, rotate={90-\ang}]
+            \draw[thick, fill=white] (0,-0.12) rectangle (1.7,0.12);
+            \draw[decoration={coil, aspect=0.5, segment length=3pt, amplitude=2.5pt}, decorate] (0,0) -- (\rr,0);
+            \shadedraw[ball color=gray!20] (\rr,0) circle (4pt);
+            \node[above=5pt] at (\rr,0) {$m$};
+            \node[above] at (0.55,0.1) {$K$};
+            \draw[|<->|, thin] (0,-0.4) -- (\rr,-0.4) node[midway, below] {$r$};
+        \end{scope}
+        \filldraw (O) circle (1.5pt) node[left=3pt] {$O$};
+
+        % --- ÁNGULO wt ---
+        \draw[->] (0,{\R+1.9}) arc (90:{90-\ang}:1.9);
+        \node at ({2.15*cos(90-\ang/2)},{\R+2.15*sin(90-\ang/2)}) {$\omega t$};
+
+        % --- RADIO R Y GRAVEDAD ---
+        \draw[<->] (O) -- ({-\R*cos(40)},{\R-\R*sin(40)}) node[midway, below left] {$R$};
+        \draw[->, very thick] (3.2,3.9) -- (3.2,3.1) node[midway, right] {$\vec{g}$};
+    \end{tikzpicture}
+    \caption{Partícula en una ranura radial con fluido y resorte, en un disco que rueda sin deslizar.}
+    \label{fig:c2_e01_p25_disco_ranura}
+\end{figure}
+
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Partícula en ranura radial de un disco que rueda}
+
+\textbf{Marcos de referencia y Sistemas de Coordenadas}\\
+Lo primero, como en todo ejercicio, es definir los marcos de referencia.
+\begin{itemize}
+    \item $\mathcal{N}$: el suelo $\longrightarrow\{\vec{e}_x;\vec{e}_y;\vec{e}_z\}$
+    \item $\mathcal{D}$: disco $\longrightarrow\{\vec{e}_r;\vec{e}_\theta;\vec{e}_z\}$
+\end{itemize}
+
+\begin{center}
+\begin{tikzpicture}[>=Latex, scale=1.1]
+    \def\ang{35}   % ángulo wt desde la vertical [°]
+    \draw[thin] (0,0) circle (1.9);
+    \draw[azul, ultra thick, -{Latex}] (0,0) -- (0,1.5) node[above] {$\vec{e}_x$};
+    \draw[azul, ultra thick, -{Latex}] (0,0) -- (1.5,0) node[right] {$\vec{e}_y$};
+    \draw[myred, ultra thick, -{Latex}] (0,0) -- ({90-\ang}:1.5) node[above right] {$\vec{e}_r$};
+    \draw[myred, ultra thick, -{Latex}] (0,0) -- ({-\ang}:1.5) node[below right] {$\vec{e}_\theta$};
+    \draw[->] (0,0.8) arc (90:{90-\ang}:0.8) node[left=2pt, pos=0.4] {$\omega t$};
+    \draw (0,0) circle (0.14); \draw (-0.1,-0.1) -- (0.1,0.1); \draw (-0.1,0.1) -- (0.1,-0.1);
+    \node[below left] at (0,0) {$\vec{e}_z$ (entra)};
+    \fill ({90-\ang}:1.9) circle (1.5pt);
+\end{tikzpicture}
+\end{center}
+
+\subsubsection*{Cinemática de la partícula}
+\textbf{Posición}\\
+Primero se define la posición de la partícula respecto a un punto estático; nuestro punto $O$ está a una distancia $y$ de un punto fijo:
+$$ \vec{r}_P = y\,\vec{e}_y + r\,\vec{e}_r $$
+$$ \vec{v}_P = \dot{y}\,\vec{e}_y + \dot{r}\,\vec{e}_r + r\dot{\theta}\,\vec{e}_\theta $$
+
+Definamos $C$ como el punto de contacto entre el disco y la superficie. La condición de rodar sin resbalar nos da:
+$$ \marc{\vec{v}_O}{N} = \marc{\vec{v}_C}{N} + \velang{N}{D} \times (\vec{r}_O - \vec{r}_C) $$
+con
+$$ \marc{\vec{v}_O}{N} = \dot{y}\,\vec{e}_y,
+\quad \marc{\vec{v}_C}{N} = 0,
+\quad \velang{N}{D} = \omega \vec{e}_z,
+\quad \vec{r}_O - \vec{r}_C = R \vec{e}_x $$
+Entonces:
+$$ \Rightarrow \dot{y} = \omega R $$
+Podría haberse obtenido analíticamente.
+
+\textbf{Velocidad}\\
+Las velocidades y aceleraciones se escriben como:
+$$ \marc{\vec{v}_P}{N} = \omega R\, \vec{e}_y + \dot{r}\,\vec{e}_r + r\omega\, \vec{e}_\theta $$
+
+\patotruco{Con el trucazo la derivación sale súper fácil: $\vec{e}_r$ y $\vec{e}_\theta$ giran en torno a $\vec{e}_z$ con $\dot\theta=\omega$, así que $\dot{\vec{e}}_r=\omega\vec{e}_\theta$ y $\dot{\vec{e}}_\theta=-\omega\vec{e}_r$; $\vec{e}_y$ es constante.}
+
+\textbf{Aceleración}\\
+$$ \marc{\vec{a}_P}{N} = \ddot{r}\,\vec{e}_r + \dot{r}\omega\, \vec{e}_\theta + r\dot{\omega}\,\vec{e}_\theta - r\omega^2\, \vec{e}_r $$
+Agrupando términos (con $\dot\omega=0$):
+$$ \marc{\vec{a}_P}{N} = \big(\ddot{r} - r\omega^2\big)\vec{e}_r + 2\dot{r}\omega\, \vec{e}_\theta $$
+
+\subsubsection*{Cinética}
+\textbf{Diagrama de cuerpo libre}
+\begin{center}
+\begin{tikzpicture}[>=Latex, scale=1.8]
+    \def\ang{35}
+    % Partícula
+    \shadedraw[ball color=gray!30] (0,0) circle (0.1);
+    % Fuerzas
+    \draw[->, thick, myred] (0,0) -- (0,-0.9) node[below] {$\vec{F}_g$};
+    \draw[->, thick, myred] (0,0) -- ({-\ang}:0.8) node[right] {$\vec{N}$};
+    \draw[->, thick, myred] (0,0) -- ({90-\ang+180}:0.9) node[below left] {$\vec{F}_s$};
+    \draw[->, thick, myred, shift={(0.05,0.12)}] (0,0) -- ({90-\ang+180}:0.55) node[above left] {$\vec{F}_f$};
+    % Ejes del disco
+    \draw[->, dashed, gray] (0,0) -- ({90-\ang}:0.7) node[above right] {$\vec{e}_r$};
+\end{tikzpicture}
+\end{center}
+$$ \vec{F}_g = -mg\,\vec{e}_z $$
+$$ \vec{N} = N \vec{e}_\theta $$
+$$ \vec{F}_s = -K(r-r_0)\,\vec{e}_r $$
+$$ \vec{F}_f = -\nu \dot{r}\,\vec{e}_r \quad \text{(roce viscoso)} $$
+% NOTA PARA REVISIÓN (agente B): el zip escribe F_g = -mg e_z, pero en este problema la vertical es e_x
+% (r_O - r_C = R e_x); con e_x vertical las componentes de abajo serían -mg cos(wt) en e_r y +mg sin(wt) en e_theta.
+$$ \vec{F}_g + \vec{N} + \vec{F}_s + \vec{F}_f = m \, \vec{a}_P $$
+
+Por lo tanto sí podemos usar la ley de Newton por cada eje (lo que en realidad se usa es la ley de Newton vectorial, pero se hace producto punto con esos vectores).
+
+En la dirección $\vec{e}_r$:
+$$ -mg\cos(\omega t) - K(r-r_0) - \nu \dot{r} = m\left(\ddot{r} - r\omega^2\right) $$
+En la dirección $\vec{e}_\theta$:
+% NOTA PARA REVISIÓN (agente B): en el zip falta la masa m en el lado derecho; se deja tal cual.
+$$ mg\sin(\omega t) - N = 2\dot{r}\omega $$
+
+Por lo tanto, la ecuación buscada es:
+\respuesta{$\displaystyle \ddot{r} = r\omega^2 - g\cos(\omega t) - \frac{K}{m}(r-r_0) - \frac{\nu}{m}\dot{r}$}
+
+\end{solucion}

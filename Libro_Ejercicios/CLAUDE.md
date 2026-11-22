@@ -206,17 +206,18 @@ Detailed explanation if needed.
 
 ## Chapter Summary
 
-| Capítulo | Tema | Status | Ejercicios |
-|----------|------|--------|-----------|
-| C0 | Repaso (Álgebra & Cálculo) | Migrated | 12 (not yet wired into main.tex) |
-| C1 | Cinemática | Migrated | ~30 across 5 temas |
-| C2 | Cinética 1 (Partícula) | Migrated | 20 (P01–P20) |
-| C3 | Cinética 2 (Sistema) | Migrated | 14 (P01–P14) |
-| C4 | Cuerpo Rígido | Populated | 10 (P01–P10) |
-| C5 | Mecánica Lagrangiana | Populated | 8 (P01–P08) |
+| Capítulo | Tema | Problemas | Con solución |
+|----------|------|-----------|--------------|
+| C0 | Repaso (Álgebra & Cálculo) | 12 | 12 |
+| C1 | Cinemática | 28 | 20 |
+| C2 | Cinética 1 (Partícula) | 25 | 12 |
+| C3 | Cinética 2 (Sistema) | 19 | 10 |
+| C4 | Cuerpo Rígido | 21 | 21 |
+| C5 | Mecánica Lagrangiana | 9 | 8 |
 
-**Solutions coverage**: inline in each problem file (`solucion` env). C3 has none yet
-(Ayudantías 2026 import pending at the time of writing).
+All chapters C0–C5 are wired in `main.tex` (C0_02 and C1_00 intro still commented).
+Imported material carries `% NOTA PARA REVISIÓN` / `% TODO(Pedro)` comments where the source
+had doubts; grep for them before publishing.
 
 ## Key Files to Know
 
@@ -253,7 +254,7 @@ Remember to update:
 
 1. **Wire C0 into main.tex**: C0 Repaso is only partially included (C0_02 is commented).
 2. **Expand solution coverage** for C1–C3 (inline `solucion` boxes).
-3. **Chapters C2–C5 are commented out in `main.tex`**; uncomment when ready.
+3. **Resolve `% NOTA PARA REVISIÓN` / `% TODO` comments** left during the 2026 import.
 
 ---
 

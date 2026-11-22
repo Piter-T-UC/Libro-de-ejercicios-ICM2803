@@ -1,0 +1,52 @@
+% =========================================================================
+% Capítulo 2: Cinética de la partícula
+% Tema 01: Dinámica de la partícula
+% Problema 23: Bloque con impulso y pista circular
+% Origen: Ayudantía 2, 2026
+% =========================================================================
+\subsubsection{Bloque con impulso y pista circular}
+
+Un bloque de masa $m$ está inicialmente en reposo sobre una superficie horizontal sin fricción cuando es golpeado por un impulso horizontal $\hat{P}$, como se muestra en la Figura \ref{fig:c2_e01_p23_bloque_impulso}. Después de aplicar el impulso, el bloque se desliza a lo largo de la superficie hasta llegar a una pista circular sin fricción de radio $r$. Sabiendo que la gravedad actúa hacia abajo, determine la velocidad del bloque inmediatamente después de la aplicación del impulso $\hat{P}$.
+
+\begin{figure}[!ht]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.0]
+        % --- PARÁMETROS ---
+        \def\r{1.5}      % radio de la pista [u]
+        \def\xc{4.0}     % posición del centro de la pista [u]
+
+        % --- SUELO ---
+        \fill[pattern=north east lines] (-0.5,-0.25) rectangle (7.5,0);
+        \draw[thick] (-0.5,0) -- (7.5,0);
+
+        % --- PISTA CIRCULAR ---
+        \draw[thick] (\xc,\r) circle (\r);
+        \filldraw (\xc,\r) circle (1.2pt);
+        \draw[->] (\xc,\r) -- ({\xc+\r*cos(35)},{\r+\r*sin(35)}) node[midway, above left] {$r$};
+        \node[font=\small] at (1.8,2.9) {pista circular};
+        \draw (2.5,2.75) -- (3.2,2.4);
+
+        % --- BLOQUE E IMPULSO ---
+        \draw[thick, fill=gray!20] (0.9,0) rectangle (1.5,0.6);
+        \node at (1.2,0.3) {$m$};
+        \draw[->, very thick, myred] (0.0,0.3) -- (0.85,0.3) node[midway, above] {$\hat{P}$};
+
+        % --- GRAVEDAD ---
+        \draw[->, very thick] (6.8,2.8) -- (6.8,2.0) node[midway, right] {$\vec{g}$};
+    \end{tikzpicture}
+    \caption{Bloque golpeado por un impulso, frente a una pista circular.}
+    \label{fig:c2_e01_p23_bloque_impulso}
+\end{figure}
+
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Bloque con impulso y pista circular}
+
+\textbf{Velocidad inmediatamente después del impulso}\\
+Aplicando el teorema del impulso y la cantidad de movimiento lineal sobre el bloque en reposo:
+$$\int \sum \vec{F}\, dt = \Delta \vec{p}$$
+$$\hat{P} = m v_1 - m(0) \implies v_1 = \frac{\hat{P}}{m}$$
+\respuesta{$\displaystyle v_1 = \frac{\hat{P}}{m}$}
+
+\patoojo{La pista circular y la gravedad no intervienen en esta parte: el impulso es horizontal, el bloque está sobre una superficie sin fricción y las fuerzas finitas (peso, normal) no aportan impulso durante el golpe.}
+
+\end{solucion}
