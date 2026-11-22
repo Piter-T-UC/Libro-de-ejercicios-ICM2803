@@ -1,0 +1,173 @@
+% =========================================================================
+% Capítulo 4: Cuerpo rígido
+% Tema 01: Cuerpo rígido
+% Problema 16: Actuador articulado con camisa y pistón-vástago
+% Origen: Ayudantía 6, 2026
+% =========================================================================
+\subsubsection{Actuador articulado con camisa y pistón-vástago}
+
+El mecanismo de la figura consiste en un pistón hidráulico articulado en un soporte fijo en el
+punto $O$. Al pistón se le permite rotar ($\theta$) respecto al eje global horizontal. El sistema
+está compuesto por una camisa (cilindro) de masa $M$ y longitud total $L_c$, cuyo centro de masa
+$GE$ está a una distancia $l_{GE}$ de $O$, y un conjunto móvil de pistón-vástago que se desliza a
+través de un rodamiento sin fricción ubicado en $B$. La posición del efector final respecto al
+pivote se define mediante la variable $x$. El vástago tiene una masa uniformemente distribuida $m$
+y largo total $\ell$, y su centro de masa $GM$ se ubica a una distancia constante $l_{GM}=\ell/2$
+medida desde el extremo libre. En el interior de la camisa, un resorte lineal de rigidez $k$ y
+longitud natural $L_0$ ejerce una fuerza de restitución sobre el pistón. Sobre la tapa
+semiesférica del extremo del vástago actúa una fuerza externa $P$ con dirección vertical (hacia
+abajo). Se conocen las inercias de la camisa y del pistón-vástago, $I_{Czz}$ (respecto a $O$) e
+$I_{Vzz}$ (respecto a $GM$), como se muestra en la Figura \ref{fig:c4_e01_p16_actuador}.
+
+\begin{enumerate}
+    \item Calcule las fuerzas de reacción en $O$.
+\end{enumerate}
+
+\begin{figure}[!ht]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.0]
+
+        % --- PARAMETROS ---
+        \def\inc{25}     % Inclinación de la camisa [°]
+
+        % --- EJE GLOBAL HORIZONTAL Y ARCO theta ---
+        \pgfmathsetmacro{\tint}{(-1.8+0.7*cos(\inc))/sin(\inc)}
+        \pgfmathsetmacro{\xint}{0.7*sin(\inc)+\tint*cos(\inc)}
+        \coordinate (Int) at (\xint,-1.8);
+        \draw[dashed, thick] (-3.0,-1.8) -- (7.5,-1.8);
+        \draw[dashed] (Int) -- ({0.7*sin(\inc)},{-0.7*cos(\inc)});
+        \draw[->] ($(Int)+(1.5,0)$) arc (0:\inc:1.5) node[midway, right] {$\theta$};
+
+        % --- SOPORTE FIJO ---
+        \draw[thick, fill=gray!15] (0,0) -- (0.75,-1.8) -- (-0.75,-1.8) -- cycle;
+
+        % --- SISTEMA ROTADO ---
+        \begin{scope}[rotate=\inc]
+            % Camisa
+            \draw[thick, fill=gray!10] (0,0.7) -- (4.5,0.7) -- (4.5,-0.7) -- (0,-0.7) arc (270:90:0.7) -- cycle;
+            \draw[thick] (0.4,0.7) -- (0.4,-0.7);
+
+            % Pistón, resorte y vástago
+            \draw[thick, fill=gray!30] (2,-0.6) rectangle (2.4,0.6);
+            \draw[thick, decoration={coil, segment length=2.5mm, amplitude=2mm, aspect=0.5}, decorate] (0.4,0) -- (2,0);
+            \draw[thick, fill=gray!30] (2.4,-0.08) rectangle (6.5,0.08);
+
+            % Rodamiento B
+            \draw[thick, fill=gray!40] (3.6,0.15) rectangle (4.5,0.7);
+            \draw[thick, fill=gray!40] (3.6,-0.15) rectangle (4.5,-0.7);
+            \node at (4.05,0.425) {$B$};
+
+            % Efector final (tapa semiesférica)
+            \draw[thick] (6.5,0.4) -- (6.5,-0.4);
+            \draw[thick] (6.5,0.4) arc (90:-90:0.4);
+
+            % Puntos
+            \filldraw (0,0) circle (1.5pt) node[anchor=north west, inner sep=2pt] {$O$};
+            \filldraw (5.3,0) circle (1pt) node[below=2pt] {$GM$};
+            \filldraw (6.9,0) circle (1pt);
+
+            % Cotas
+            \draw (0,0.9) -- (0,2.8);
+            \draw (6.5,0.6) -- (6.5,2.8);
+            \draw[<->] (0,2.5) -- (6.5,2.5) node[midway, fill=white] {$x$};
+            \draw (5.3,-0.2) -- (5.3,-1.2);
+            \draw (6.5,-0.5) -- (6.5,-1.2);
+            \draw[<->] (5.3,-1) -- (6.5,-1) node[midway, fill=white] {$l_{GM}$};
+        \end{scope}
+
+        % --- FUERZA P (vertical hacia abajo) ---
+        \coordinate (Pt) at ({6.9*cos(\inc)},{6.9*sin(\inc)});
+        \draw[->, very thick, myred] ($(Pt)+(0,1.4)$) -- (Pt) node[midway, right] {$P$};
+    \end{tikzpicture}
+    \caption{Actuador articulado en $O$: camisa, resorte y pistón-vástago.}
+    \label{fig:c4_e01_p16_actuador}
+\end{figure}
+
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Actuador articulado con camisa y pistón-vástago}
+% TODO(Pedro): solución provisoria, revisar
+\textbf{Marcos de referencia}\\
+
+Definimos dos marcos de referencia para el análisis:
+\begin{itemize}
+    \item \textbf{Marco inercial:} $O_{XY}$ con origen en $O$. Sus vectores unitarios son $\vec{I}$ (horizontal) y $\vec{J}$ (vertical hacia arriba).
+    \item \textbf{Camisa:} $O_{xy}$ solidario a la camisa del cilindro, que rota un ángulo $\theta$ respecto a la horizontal.
+\end{itemize}
+
+\begin{center}
+\begin{tikzpicture}[>=Latex, scale=1.0]
+    \def\inc{25}
+    \fill[pattern=north east lines] (-0.4,-0.2) rectangle (0.4,0);
+    \draw[thick] (-0.4,0) -- (0.4,0);
+    \draw[azul, ultra thick, -{Latex}] (0,0) -- (1.6,0) node[below right] {$\vec{I}$};
+    \draw[azul, ultra thick, -{Latex}] (0,0) -- (0,1.6) node[left] {$\vec{J}$};
+    \draw[myred, ultra thick, -{Latex}] (0,0) -- (\inc:2.4) node[above right] {$\vec{\imath}$};
+    \draw[myred, ultra thick, -{Latex}] (0,0) -- (\inc+90:1.6) node[left] {$\vec{\jmath}$};
+    \draw[->] (1.0,0) arc (0:\inc:1.0) node[midway, right, xshift=2pt] {$\theta$};
+    \filldraw (0,0) circle (1.5pt) node[below left] {$O$};
+\end{tikzpicture}
+\end{center}
+
+Sabiendo que la gravedad y la fuerza $P$ son verticales hacia abajo ($-\vec{J}$), proyectamos el vector unitario $\vec{J}$ en el marco móvil:
+\begin{equation}
+    \vec{J} = \sin\theta\, \vec{\imath} + \cos\theta\, \vec{\jmath}
+\end{equation}
+Los vectores de velocidad angular y aceleración angular del marco móvil son $\vec{\omega} = \dot{\theta}\, \vec{k}$ y $\vec{\alpha} = \ddot{\theta}\, \vec{k}$.
+
+\textbf{Análisis cinemático}\\
+
+A continuación, calculamos la aceleración de los centros de masa de ambos cuerpos, expresados en el marco móvil.
+
+\textbf{a) Centro de masa de la camisa ($GE$):}\\
+Al ser parte del cuerpo rígido en rotación pura, su vector posición es constante respecto al marco móvil: $\vec{r}_{GE} = l_{GE}\, \vec{\imath}$. Aplicando las derivadas espaciales:
+\begin{align}
+    \vec{v}_{GE} &= \vec{\omega} \times \vec{r}_{GE} = l_{GE}\dot{\theta}\, \vec{\jmath} \\
+    \vec{a}_{GE} &= \vec{\alpha} \times \vec{r}_{GE} + \vec{\omega} \times (\vec{\omega} \times \vec{r}_{GE}) = -\dot{\theta}^2 l_{GE}\, \vec{\imath} + \ddot{\theta} l_{GE}\, \vec{\jmath}
+\end{align}
+
+\textbf{b) Centro de masa del pistón-vástago ($GM$):}\\
+El extremo del vástago se ubica en la coordenada $x$. Sabiendo que $GM$ está a una distancia constante $l_{GM}$ respecto al extremo, su vector posición es $\vec{r}_{GM} = (x - l_{GM})\, \vec{\imath}$. Calculamos su aceleración usando la derivada total en un marco rotatorio:
+\begin{align}
+    \vec{v}_{GM} &= \dot{x}\, \vec{\imath} + \vec{\omega} \times \vec{r}_{GM} = \dot{x}\, \vec{\imath} + (x - l_{GM})\dot{\theta}\, \vec{\jmath} \\
+    \vec{a}_{GM} &= \ddot{x}\, \vec{\imath} + \vec{\alpha} \times \vec{r}_{GM} + \vec{\omega} \times (\vec{\omega} \times \vec{r}_{GM}) + 2\vec{\omega} \times (\dot{x}\, \vec{\imath}) \nonumber \\
+    \vec{a}_{GM} &= \left( \ddot{x} - \dot{\theta}^2(x - l_{GM}) \right) \vec{\imath} + \left( \ddot{\theta}(x - l_{GM}) + 2\dot{x}\dot{\theta} \right) \vec{\jmath}
+\end{align}
+
+\textbf{Análisis cinético (fuerzas externas)}\\
+
+Las fuerzas externas que actúan sobre el sistema completo son:
+\begin{itemize}
+    \item \textbf{Reacciones en el soporte $O$:} $\vec{R}_O = R_{Ox}\, \vec{\imath} + R_{Oy}\, \vec{\jmath}$
+    \item \textbf{Peso de la camisa ($M$):} $\vec{W}_M = -Mg\, \vec{J} = -Mg\sin\theta\, \vec{\imath} - Mg\cos\theta\, \vec{\jmath}$
+    \item \textbf{Peso del vástago ($m$):} $\vec{W}_m = -mg\, \vec{J} = -mg\sin\theta\, \vec{\imath} - mg\cos\theta\, \vec{\jmath}$
+    \item \textbf{Fuerza externa vertical $P$:} $\vec{P} = -P\, \vec{J} = -P\sin\theta\, \vec{\imath} - P\cos\theta\, \vec{\jmath}$
+\end{itemize}
+
+\textbf{Leyes de Newton}\\
+
+Aplicamos la segunda ley de Newton para un sistema de cuerpos:
+\begin{equation}
+    \sum \vec{F}_{ext} = M\, \vec{a}_{GE} + m\, \vec{a}_{GM}
+\end{equation}
+Sustituyendo los vectores de fuerza y aceleración obtenidos, y descomponiendo en las componentes $\vec{\imath}$ y $\vec{\jmath}$:
+
+\textbf{Ecuación en el eje longitudinal ($\vec{\imath}$):}
+\begin{align*}
+    R_{Ox} - Mg\sin\theta - mg\sin\theta - P\sin\theta &= M(-\dot{\theta}^2 l_{GE}) + m\left(\ddot{x} - \dot{\theta}^2(x - l_{GM})\right) \\
+    R_{Ox} &= (M + m)g\sin\theta + P\sin\theta - M\dot{\theta}^2 l_{GE} + m\left(\ddot{x} - \dot{\theta}^2(x - l_{GM})\right)
+\end{align*}
+
+\textbf{Ecuación en el eje transversal ($\vec{\jmath}$):}
+\begin{align*}
+    R_{Oy} - Mg\cos\theta - mg\cos\theta - P\cos\theta &= M(\ddot{\theta} l_{GE}) + m\left(\ddot{\theta}(x - l_{GM}) + 2\dot{x}\dot{\theta}\right) \\
+    R_{Oy} &= (M + m)g\cos\theta + P\cos\theta + M\ddot{\theta} l_{GE} + m\left(\ddot{\theta}(x - l_{GM}) + 2\dot{x}\dot{\theta}\right)
+\end{align*}
+
+Finalmente, las componentes del vector de reacción $\vec{R}_O$ expresado en las coordenadas de la camisa, son:
+\begin{equation}
+    \vec{R}_O = \begin{bmatrix}
+    (M + m)g\sin\theta + P\sin\theta - M\dot{\theta}^2 l_{GE} + m\left(\ddot{x} - \dot{\theta}^2(x - l_{GM})\right) \\
+    (M + m)g\cos\theta + P\cos\theta + M\ddot{\theta} l_{GE} + m\left(\ddot{\theta}(x - l_{GM}) + 2\dot{x}\dot{\theta}\right)
+    \end{bmatrix}
+\end{equation}
+\end{solucion}

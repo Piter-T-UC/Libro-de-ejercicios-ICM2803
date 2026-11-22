@@ -1,3 +1,8 @@
+% =========================================================================
+% Capítulo 1: Cinemática
+% Tema 01: Coordenadas cilíndricas
+% Problema 02: Movimiento en coordenadas cilíndricas
+% =========================================================================
 \subsubsection{Movimiento en coordenadas cilíndricas}
 
 Se observa una partícula en movimiento con respecto a un sistema de referencia inercial. La trayectoria está dada por las siguientes funciones:
@@ -11,10 +16,8 @@ donde $r, \theta$ y $z$ son coordenadas cilíndricas, siendo $A, k$ y $h$ valore
     \item Encuentre una expresión para $\theta(t)$.
 \end{enumerate}
 
-\ifmostrarSolucion
-
-\begin{tcolorbox}[colframe=black!50!white, % Borde gris oscuro
-        title= Movimiento en coordenadas cilindricas, breakable]
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Movimiento en coordenadas cilíndricas}
 \textbf{Planteamiento Inicial}
 
 El vector de posición de la partícula $P$ respecto al sistema de referencia inercial $\mathcal{F}$ en coordenadas cilíndricas $(r, \theta, z)$ es:
@@ -157,6 +160,4 @@ e^{k\theta(t)} = e^{k\theta_0} + \frac{k v_0 t}{A \sqrt{k^2 + 1 + h^2 k^2}}
 \[
 \theta(t) = \frac{1}{k} \ln \left( 1 + \frac{k v_0 t}{A \sqrt{k^2 + 1 + h^2 k^2}} \right)
 \]
-
-\end{tcolorbox}
-\fi
+\end{solucion}

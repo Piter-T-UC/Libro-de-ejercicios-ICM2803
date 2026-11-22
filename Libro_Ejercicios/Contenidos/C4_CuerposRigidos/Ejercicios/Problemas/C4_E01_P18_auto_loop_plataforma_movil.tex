@@ -1,0 +1,305 @@
+% =========================================================================
+% Capítulo 4: Cuerpo rígido
+% Tema 01: Cuerpo rígido
+% Problema 18: Auto en un loop sobre una plataforma móvil
+% Origen: Ayudantía 24, 2026
+% =========================================================================
+\subsubsection{Auto en un loop sobre una plataforma móvil}
+
+Un auto, modelado como un cuerpo rígido de masa $m$ con cuatro ruedas idénticas de radio $r$, se
+desplaza por el interior de una pista circular (un loop) de radio $R$ (donde $R \gg r$) cortada en
+el interior de una plataforma móvil de masa $M$. La plataforma móvil se desliza sin fricción a lo
+largo de una superficie horizontal, y su posición está dada por la coordenada $x$. El auto rueda
+sin resbalar sobre la pista circular de la plataforma. El movimiento del auto se describe mediante
+el ángulo $\theta$, medido desde la vertical hasta la línea que une el centro del loop $O$ con el
+centro de masa del auto $C$ (que se asume está a una distancia $R$ del centro), como se muestra en
+la Figura \ref{fig:c4_e01_p18_auto_loop}. $\vec{g}$ es la aceleración de gravedad y está dirigida
+verticalmente hacia abajo.
+
+\begin{enumerate}
+    \item Definición de marcos y coordenadas.
+    \item Análisis cinemático.
+    \item Análisis cinético y ecuaciones de movimiento (Newton).
+    \item Ahora nos enfocamos en solo un neumático del loop, el resto es despreciable. La rueda
+          rueda sin resbalar por el loop. Calcule la cinemática y el análisis cinético de la rueda.
+\end{enumerate}
+
+\textit{Hint: pueden aproximar la forma o el comportamiento del auto.}
+
+\begin{figure}[!ht]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.2]
+
+        % --- PARAMETROS ---
+        \def\R{2.2}          % Radio de la pista
+        \def\ang{35}         % Ángulo theta [°]
+        \def\BlockSize{3.0}  % Semilado del bloque
+
+        \coordinate (O) at (0,0);
+
+        % --- SUELO ---
+        \draw[thick] (-4,-\BlockSize) -- (4,-\BlockSize);
+        \fill[pattern=north east lines] (-4,-\BlockSize-0.2) rectangle (4,-\BlockSize);
+
+        % --- BLOQUE M CON PISTA CIRCULAR ---
+        \fill[gray!20, even odd rule] (-\BlockSize,-\BlockSize) rectangle (\BlockSize,\BlockSize) (0,0) circle (\R);
+        \draw[thick] (-\BlockSize,-\BlockSize) rectangle (\BlockSize,\BlockSize);
+        \draw[thick] (0,0) circle (\R);
+        \node at (-\BlockSize+0.5,\BlockSize-0.5) {$M$};
+
+        % --- AUTO (masa puntual en C) ---
+        \begin{scope}[rotate=-\ang]
+            \coordinate (C) at (0,-\R);
+            \draw[dashed] (O) -- (C) node[midway, left] {$R$};
+            \shadedraw[ball color=gray!40] (C) circle (0.25);
+            \node[font=\footnotesize] at ($(C)+(-0.1,-0.55)$) {$C\ (m)$};
+        \end{scope}
+
+        % --- REFERENCIAS Y COTAS ---
+        \filldraw (O) circle (1.5pt) node[above left] {$O$};
+        \draw[dashed, gray] (O) -- (0,-2.5);
+        \draw[->] (0,-1.2) arc (-90:{-90-\ang}:1.2);
+        \node at (-0.4,-1.5) {$\theta$};
+        \draw[|->, thick] (0.5,-\BlockSize-0.5) -- (1.5,-\BlockSize-0.5) node[midway, above] {$x$};
+        \draw[->, thick] (3.5,0.5) -- (3.5,-0.5) node[midway, right] {$\vec{g}$};
+    \end{tikzpicture}
+    \caption{Auto de masa $m$ en un loop de radio $R$ sobre una plataforma de masa $M$.}
+    \label{fig:c4_e01_p18_auto_loop}
+\end{figure}
+
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Auto en un loop sobre una plataforma móvil}
+\textbf{Marcos de referencia y sistemas de coordenadas}\\
+
+Para este caso modelamos el auto como una partícula de masa $m$ ubicada en $C$, y la plataforma como un bloque de masa $M$.
+\begin{itemize}
+  \item $\mathcal{N}$: suelo (marco inercial).
+  \item $\mathcal{P}$: plataforma móvil (bloque de masa $M$).
+\end{itemize}
+
+Sistemas de coordenadas:
+\begin{itemize}
+  \item $\{\vec{e}_x;\vec{e}_y;\vec{e}_z\}$ cartesiano fijo en $\mathcal{N}$ y utilizado para la traslación de $\mathcal{P}$.
+  \item $\{\vec{e}_t;\vec{e}_n;\vec{e}_b\}$ coordenadas intrínsecas, móvil con la partícula $C$. $\vec{e}_t$ es tangente a la trayectoria relativa, $\vec{e}_n$ normal apuntando al centro $O$.
+\end{itemize}
+
+\begin{center}
+    \begin{tikzpicture}[>=Latex, scale=1.0]
+        \def\R{2.2}
+        \def\ang{35}
+        \def\BlockSize{3.0}
+        \coordinate (O) at (0,0);
+
+        \draw[thick] (-4,-\BlockSize) -- (4,-\BlockSize);
+        \fill[pattern=north east lines] (-4,-\BlockSize-0.2) rectangle (4,-\BlockSize);
+        \fill[gray!20, even odd rule] (-\BlockSize,-\BlockSize) rectangle (\BlockSize,\BlockSize) (0,0) circle (\R);
+        \draw[thick] (-\BlockSize,-\BlockSize) rectangle (\BlockSize,\BlockSize);
+        \draw[thick] (0,0) circle (\R);
+        \node at (-\BlockSize+0.5,\BlockSize-0.5) {$M$};
+        \draw[thick, ->, gris1] (O) -- (1.5,0) node[right] {$\vec{e}_x$};
+        \draw[thick, ->, gris1] (O) -- (0,1.5) node[above] {$\vec{e}_y$};
+
+        \begin{scope}[rotate=-\ang]
+            \coordinate (C) at (0,-\R);
+            \draw[dashed] (O) -- (C) node[midway, left] {$R$};
+            \draw[thick, ->, azul] (C) -- (0,-\R+1.2) node[right] {$\vec{e}_n$};
+            \draw[thick, ->, myred] (C) -- (1.2,-\R) node[below] {$\vec{e}_t$};
+            \shadedraw[ball color=gray!40] (C) circle (0.25);
+            \node[font=\footnotesize] at ($(C)+(-0.2,-0.55)$) {$C\ (m)$};
+        \end{scope}
+
+        \filldraw (O) circle (1.5pt) node[above left] {$O$};
+        \draw[dashed, gray] (O) -- (0,-2.5);
+        \draw[->] (0,-1.2) arc (-90:{-90-\ang}:1.2);
+        \node at (-0.4,-1.5) {$\theta$};
+        \draw[|->, thick] (0.5,-\BlockSize-0.5) -- (1.5,-\BlockSize-0.5) node[midway, above] {$x$};
+        \draw[->, thick] (3.5,0.5) -- (3.5,-0.5) node[midway, right] {$\vec{g}$};
+    \end{tikzpicture}
+\end{center}
+
+\subsubsection*{Análisis cinemático}
+
+Proyección de vectores base (del dibujo deducimos):
+\begin{align}
+    \vec{e}_x &= \cos\theta\,\vec{e}_t + \sin\theta\,\vec{e}_n \\
+    \vec{e}_y &= \sin\theta\,\vec{e}_t - \cos\theta\,\vec{e}_n
+\end{align}
+
+\textbf{Bloque (plataforma):}
+\begin{align}
+\vec{r}_O &= x\,\vec{e}_x, \\
+\vec{v}_O &= \dot{x}\,\vec{e}_x, \\
+\vec{a}_O &= \ddot{x}\,\vec{e}_x.
+\end{align}
+
+\textbf{Auto (partícula $C$):}
+Aplicamos el teorema de transporte entre el marco inercial $\mathcal{N}$ y el marco de la plataforma $\mathcal{P}$. Como la plataforma solo se traslada, su velocidad angular es nula ($\vec{\omega}_{\mathcal{P}/\mathcal{N}} = \vec{0}$).
+\begin{align}
+\vec{v}_C &= \vec{v}_O + (\vec{v}_{C/O})_{\mathcal{P}} \\
+\vec{a}_C &= \vec{a}_O + (\vec{a}_{C/O})_{\mathcal{P}}
+\end{align}
+En coordenadas intrínsecas, la velocidad y aceleración relativa de la partícula dentro de la pista circular de radio $R$ son:
+\begin{align}
+(\vec{v}_{C/O})_{\mathcal{P}} &= R\dot{\theta}\,\vec{e}_t \\
+(\vec{a}_{C/O})_{\mathcal{P}} &= \frac{d}{dt}(R\dot{\theta}\,\vec{e}_t) = R\ddot{\theta}\,\vec{e}_t + R\dot{\theta}^2\,\vec{e}_n
+\end{align}
+Por lo tanto, la cinemática absoluta de la partícula resulta:
+\begin{align}
+\vec{v}_C &= \dot{x}\,\vec{e}_x + R\dot{\theta}\,\vec{e}_t \\
+\vec{a}_C &= \ddot{x}\,\vec{e}_x + R\ddot{\theta}\,\vec{e}_t + R\dot{\theta}^2\,\vec{e}_n
+\end{align}
+Proyectando la aceleración de arrastre $\ddot{x}\,\vec{e}_x$ en los ejes intrínsecos:
+\begin{equation}
+\vec{a}_C = \left(\ddot{x}\cos\theta + R\ddot{\theta}\right)\vec{e}_t + \left(\ddot{x}\sin\theta + R\dot{\theta}^2\right)\vec{e}_n
+\end{equation}
+
+\subsubsection*{Análisis cinético}
+
+Fuerzas sobre el \textbf{bloque}:
+\begin{align*}
+\vec{F}_g^M &= -Mg\,\vec{e}_y, \quad \vec{N}_{suelo} = N_{suelo}\,\vec{e}_y \\
+\vec{N}_{auto} &= -N\,\vec{e}_n
+\end{align*}
+Fuerzas sobre el \textbf{auto} (modelado como partícula sin inercia rotacional, el roce tangencial es nulo):
+\begin{align*}
+\vec{F}_g^m &= -mg\,\vec{e}_y = -mg\sin\theta\,\vec{e}_t + mg\cos\theta\,\vec{e}_n \\
+\vec{N} &= N\,\vec{e}_n
+\end{align*}
+
+\textbf{1. Balance de fuerzas en dirección horizontal ($\vec{e}_x$) para el sistema completo (auto + bloque):}
+Dado que no hay fricción entre el bloque y el suelo, la normal interna $\vec{N}$ se cancela:
+\begin{align}
+0 &= M(\vec{a}_O \cdot \vec{e}_x) + m(\vec{a}_C \cdot \vec{e}_x) \\
+0 &= M\ddot{x} + m\left[\ddot{x} + \frac{d}{dt}(R\dot{\theta}\cos\theta)\right] \\
+0 &= (M+m)\ddot{x} + mR(\ddot{\theta}\cos\theta - \dot{\theta}^2\sin\theta) \tag{1}
+\end{align}
+\respuesta{$\displaystyle \ddot{x} = \frac{mR}{M+m}\left(\dot{\theta}^2\sin\theta - \ddot{\theta}\cos\theta\right)$}
+
+\textbf{2. Dinámica de la partícula $C$ (Newton):}
+Balance de fuerzas en la dirección tangencial $\vec{e}_t$:
+\begin{align}
+\sum F_t &= m(\vec{a}_C \cdot \vec{e}_t) \notag \\
+-mg\sin\theta &= m(\ddot{x}\cos\theta + R\ddot{\theta}) \notag \\
+-g\sin\theta &= \ddot{x}\cos\theta + R\ddot{\theta} \tag{2}
+\end{align}
+
+\subsubsection*{Ecuaciones diferenciales}
+
+Reemplazando la expresión de $\ddot{x}$ en la ecuación (2):
+\begin{equation*}
+-g\sin\theta = \left[ \frac{mR}{M+m}\left(\dot{\theta}^2\sin\theta - \ddot{\theta}\cos\theta\right) \right]\cos\theta + R\ddot{\theta}
+\end{equation*}
+Desarrollando:
+\begin{equation*}
+-g\sin\theta = \frac{mR}{M+m}\dot{\theta}^2\sin\theta\cos\theta - \frac{mR}{M+m}\ddot{\theta}\cos^2\theta + R\ddot{\theta}
+\end{equation*}
+Agrupando los términos con $\ddot{\theta}$:
+\begin{equation*}
+\ddot{\theta} \left( R - \frac{mR}{M+m}\cos^2\theta \right) = -g\sin\theta - \frac{mR}{M+m}\dot{\theta}^2\sin\theta\cos\theta
+\end{equation*}
+Finalmente, despejando obtenemos el sistema acoplado:
+\respuesta{$\displaystyle \ddot{\theta} = \frac{-g\sin\theta - \frac{mR}{M+m}\dot{\theta}^2\sin\theta\cos\theta}{R\left(1 - \frac{m}{M+m}\cos^2\theta\right)}$}
+\respuesta{$\displaystyle \ddot{x} = \frac{mR}{M+m}\Big(\dot{\theta}^2\sin\theta - \ddot{\theta}\cos\theta\Big)$}
+
+\subsubsection*{Rueda: restricción cinemática de rodadura}
+
+\textbf{Definición del sistema y notación de marcos.}
+Un neumático, modelado como un cuerpo rígido $\mathcal{R}$ de radio $r$ y centro $Q$, se mueve por el interior de una pista circular de radio $R$ (donde $R > r$) tallada en un bloque móvil. El bloque se modela como el cuerpo rígido $\mathcal{S}$, que se traslada horizontalmente sobre el suelo. El suelo se define como el marco de referencia inercial $\mathcal{A}$. Determinamos la restricción cinemática sabiendo que $\mathcal{R}$ rueda sin resbalar sobre $\mathcal{S}$ en el punto de contacto $C$.
+\begin{itemize}
+  \item $\mathcal{A}$: marco inercial (suelo). Base vectorial $\{\vec{E}_x;\vec{E}_y;\vec{E}_z\}$.
+  \item $\mathcal{S}$: cuerpo rígido (bloque/plataforma móvil).
+  \item $\mathcal{R}$: cuerpo rígido (neumático).
+  \item $Q$: punto ubicado en el centro geométrico del cuerpo $\mathcal{R}$.
+  \item $C$: punto de contacto instantáneo entre $\mathcal{R}$ y $\mathcal{S}$.
+  \item $\theta$: ángulo polar de la posición de $Q$ medido respecto al centro del loop $O$.
+\end{itemize}
+
+\begin{center}
+    \begin{tikzpicture}[>=Latex, scale=1.0]
+        \def\R{2.2}
+        \def\r{0.5}
+        \def\ang{35}
+        \def\BlockSize{3.0}
+        \pgfmathsetmacro{\rhoef}{\R-\r}
+        \coordinate (O) at (0,0);
+
+        \draw[thick] (-4,-\BlockSize) -- (4,-\BlockSize);
+        \fill[pattern=north east lines] (-4,-\BlockSize-0.2) rectangle (4,-\BlockSize);
+        \node at (-3.4,-\BlockSize+0.3) {Marco $\mathcal{A}$};
+        \fill[gray!20, even odd rule] (-\BlockSize,-\BlockSize) rectangle (\BlockSize,\BlockSize) (0,0) circle (\R);
+        \draw[thick] (-\BlockSize,-\BlockSize) rectangle (\BlockSize,\BlockSize);
+        \draw[thick] (0,0) circle (\R);
+        \node at (-\BlockSize+0.5,\BlockSize-0.5) {$\mathcal{S}$};
+        \draw[thick, ->, gris1] (O) -- (1.5,0) node[right] {$\vec{E}_x$};
+        \draw[thick, ->, gris1] (O) -- (0,1.5) node[above] {$\vec{E}_y$};
+
+        \begin{scope}[rotate=-\ang]
+            \draw[thick, ->, azul] (O) -- (0,-1.0) node[right] {$\vec{e}_r$};
+            \draw[thick, ->, azul] (O) -- (-1.0,0) node[above] {$\vec{e}_\theta$};
+            \coordinate (Q) at (0,-\rhoef);
+            \coordinate (C) at (0,-\R);
+            \draw[dashed] (O) -- (Q) node[pos=0.55, right] {$\rho$};
+            \draw[thick, fill=gray!40] (Q) circle (\r);
+            \filldraw (Q) circle (1pt) node[left=2pt] {$Q$};
+            \filldraw[myred] (C) circle (1.5pt) node[below=2pt] {$C$};
+            \draw[->, thick, myred] (Q) -- (C) node[midway, right] {$r$};
+        \end{scope}
+
+        \filldraw (O) circle (1.5pt) node[above left] {$O$};
+        \draw[dashed, gray] (O) -- (0,-2.5);
+        \draw[->] (0,-1.2) arc (-90:{-90-\ang}:1.2);
+        \node at (-0.4,-1.5) {$\theta$};
+        \draw[|->, thick] (0.5,-\BlockSize-0.5) -- (1.5,-\BlockSize-0.5) node[midway, above] {$x$};
+    \end{tikzpicture}
+\end{center}
+
+Definimos los vectores unitarios cilíndricos $\{\vec{e}_r;\vec{e}_\theta;\vec{E}_z\}$ dependientes del ángulo $\theta$. Sea $\rho = R - r$ la distancia desde el centro del loop al centro de la rueda.
+
+\textbf{1. Velocidad del punto $Q$ respecto al marco $\mathcal{A}$:}
+El vector posición del centro $Q$ respecto al origen fijo en el espacio es:
+\begin{equation*}
+    \vec{r}_Q = x\,\vec{E}_x + \rho\,\vec{e}_r
+\end{equation*}
+Derivando respecto al tiempo en el marco inercial $\mathcal{A}$ (recordando que $\dot{\vec{e}}_r = \dot{\theta}\vec{e}_\theta$):
+\begin{equation*}
+    {}^{\mathcal{A}}\vec{v}_Q = \dot{x}\,\vec{E}_x + \rho\dot{\theta}\,\vec{e}_\theta
+\end{equation*}
+
+\textbf{2. Velocidad del punto $C$ en el cuerpo $\mathcal{S}$ respecto al marco $\mathcal{A}$:}
+Dado que el cuerpo rígido $\mathcal{S}$ (el bloque) experimenta una traslación pura, todos los puntos materiales que lo componen tienen la misma velocidad. Por lo tanto, el punto material de la pista ubicado exactamente en la posición $C$ se mueve a la misma velocidad que el bloque:
+\begin{equation*}
+    {}^{\mathcal{A}}\vec{v}_C^{\mathcal{S}} = \dot{x}\,\vec{E}_x
+\end{equation*}
+
+\textbf{3. Cinemática rotacional del cuerpo $\mathcal{R}$:}
+Definimos la velocidad angular del neumático $\mathcal{R}$ respecto al marco $\mathcal{A}$ como:
+\begin{equation*}
+    {}^{\mathcal{A}}\vec{\omega}^{\mathcal{R}} = \omega\,\vec{E}_z
+\end{equation*}
+El vector de posición relativa desde el punto $Q$ al punto $C$ (como se observa en la figura) recae sobre la dirección radial:
+\begin{equation*}
+    (\vec{r}_C - \vec{r}_Q) = r\,\vec{e}_r
+\end{equation*}
+
+\textbf{Condición de rodadura pura.}
+Aplicamos la definición alternativa para \emph{rodar sin resbalar} entre dos cuerpos en movimiento:
+\begin{equation*}
+    {}^{\mathcal{A}}\vec{v}_Q + {}^{\mathcal{A}}\vec{\omega}^{\mathcal{R}} \times (\vec{r}_C - \vec{r}_Q) = {}^{\mathcal{A}}\vec{v}_C^{\mathcal{S}}
+\end{equation*}
+Reemplazando los términos calculados previamente:
+\begin{equation*}
+    (\dot{x}\,\vec{E}_x + \rho\dot{\theta}\,\vec{e}_\theta) + (\omega\,\vec{E}_z) \times (r\,\vec{e}_r) = \dot{x}\,\vec{E}_x
+\end{equation*}
+Resolvemos el producto cruz, sabiendo que $\vec{E}_z \times \vec{e}_r = \vec{e}_\theta$:
+\begin{equation*}
+    \dot{x}\,\vec{E}_x + \rho\dot{\theta}\,\vec{e}_\theta + \omega r\,\vec{e}_\theta = \dot{x}\,\vec{E}_x
+\end{equation*}
+Restando $\dot{x}\,\vec{E}_x$ a ambos lados de la igualdad, se agrupan los términos en la dirección tangencial $\vec{e}_\theta$:
+\begin{equation*}
+    (\rho\dot{\theta} + \omega r)\vec{e}_\theta = \vec{0}
+\end{equation*}
+Dado que el vector base $\vec{e}_\theta$ no es nulo, su componente debe ser cero. Esto nos entrega la restricción cinemática final:
+\respuesta{$\displaystyle \rho\dot{\theta} + \omega r = 0 \quad \Longrightarrow \quad \omega = -\frac{\rho}{r}\dot{\theta}$}
+
+\textit{Conclusión:} El signo negativo indica que, si el centro geométrico $Q$ avanza con una velocidad angular $\dot{\theta}$ en sentido positivo (antihorario en el dibujo), el neumático debe rotar físicamente sobre su propio eje en sentido horario ($\omega$ negativo) para no resbalar sobre la pista.
+\end{solucion}

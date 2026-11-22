@@ -1,0 +1,97 @@
+% =========================================================================
+% Capítulo 3: Cinética de sistemas de partículas
+% Tema 01: Sistemas de partículas
+% Problema 18: Bloques en ranura circular unidos por un resorte
+% Origen: Ayudantía 28, 2026
+% =========================================================================
+\subsubsection{Bloques en ranura circular unidos por un resorte}
+
+Un sistema consiste en dos pequeños bloques de masa $m_1$ y $m_2$. Los bloques se deslizan sin fricción dentro de una ranura circular de radio $R$ cortada de un disco de radio $R$, como se muestra en la Figura \ref{fig:c3_e01_p18_ranura_resorte}. Además, un resorte lineal con constante elástica $K$ y longitud natural $\ell_0$ está unido entre los dos bloques. Sabiendo que el ángulo $\theta_1$ describe la posición de $m_1$ mientras que el ángulo $\theta_2$ describe la posición de $m_2$, que el resorte no se puede curvar (actúa en línea recta) y que la gravedad actúa hacia abajo, determine un sistema de dos ecuaciones diferenciales de movimiento para los bloques.
+
+\begin{figure}[!ht]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.3,
+        resorte/.style={thick, decorate, decoration={coil, aspect=0.5, segment length=4pt, amplitude=3pt, pre length=3pt, post length=3pt}}]
+        % --- PARÁMETROS ---
+        \def\R{2.0}       % radio de la ranura [u]
+        \def\tuno{25}     % ángulo theta_1 desde la vertical descendente [°]
+        \def\tdos{72}     % ángulo theta_2 desde la vertical descendente [°]
+
+        % --- DISCO Y SOPORTES ---
+        \draw[thick, fill=gray!10] (0,0) circle (\R+0.15);
+        \draw[thick] (0,0) circle (\R-0.1);
+        \fill[pattern=north east lines] (-0.6,\R+0.15) rectangle (0.6,\R+0.4);
+        \draw[thick] (-0.6,\R+0.15) -- (0.6,\R+0.15);
+        \fill[pattern=north east lines] (-0.6,-\R-0.15) rectangle (0.6,-\R-0.4);
+        \draw[thick] (-0.6,-\R-0.15) -- (0.6,-\R-0.15);
+
+        % --- PUNTOS Y BLOQUES ---
+        \coordinate (O) at (0,0);
+        \coordinate (A) at ({-90+\tuno}:\R);
+        \coordinate (B) at ({-90+\tdos}:\R);
+        \filldraw (O) circle (1.2pt) node[above left] {$O$};
+        \draw[thick] (O) -- (A);
+        \draw[thick] (O) -- (B) node[midway, above] {$R$};
+        \shadedraw[ball color=gray!40] (A) circle (0.11) node[below right, xshift=2pt] {$m_1$};
+        \shadedraw[ball color=gray!40] (B) circle (0.11) node[above right, xshift=2pt] {$m_2$};
+
+        % --- RESORTE ---
+        \draw[resorte] (A) -- (B);
+        \node[right, xshift=4pt] at ($(A)!0.5!(B)$) {$K$};
+
+        % --- ÁNGULOS ---
+        \draw[dashed, gray] (O) -- (0,-\R);
+        \draw[->] (0,-1.0) arc (-90:{-90+\tuno}:1.0);
+        \node at ({-90+\tuno/2}:0.72) {$\theta_1$};
+        \draw[->] (0,-1.5) arc (-90:{-90+\tdos}:1.5);
+        \node at ({-90+8}:1.75) {$\theta_2$};
+
+        % --- GRAVEDAD ---
+        \draw[->, thick] (2.7,1.2) -- (2.7,0.3) node[midway, right] {$\mathbf{g}$};
+    \end{tikzpicture}
+    \caption{Dos bloques en una ranura circular unidos por un resorte recto.}
+    \label{fig:c3_e01_p18_ranura_resorte}
+\end{figure}
+
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Bloques en ranura circular unidos por un resorte}
+\textbf{Marcos de referencia y Sistemas de Coordenadas}
+\begin{itemize}
+    \item $\mathcal{F}$: inercial, fijo al disco, con su origen $O$ en el centro.
+    \item $\mathcal{A}_1$ y $\mathcal{A}_2$: marcos móviles (no inerciales) que rotan junto con las posiciones de $m_1$ y $m_2$ respectivamente $\longrightarrow\{\vec{e}_{r1};\vec{e}_{\theta1};\vec{k}\}$ y $\{\vec{e}_{r2};\vec{e}_{\theta2};\vec{k}\}$.
+\end{itemize}
+Los ángulos se miden positivamente en sentido antihorario desde la vertical inferior, que es la dirección de la gravedad $\vec{g}$.
+
+\subsubsection*{Cinemática mediante el Teorema de Transporte}
+Para el bloque 1, el marco $\mathcal{A}_1$ tiene una velocidad angular respecto a $\mathcal{F}$ dada por $\velang{F}{A_1}=\dot{\theta}_1 \vec{k}$. El vector de posición es $\vec{r}_1 = R\,\vec{e}_{r1}$, el cual es estático visto desde $\mathcal{A}_1$. Aplicando el Teorema de Transporte para obtener la velocidad absoluta en $\mathcal{F}$:
+$$\marc{\vec{v}_1}{F}{} = \der{\vec{r}_1}{F}{} = \der{\vec{r}_1}{A_1}{} + \velang{F}{A_1}\times\vec{r}_1 = \vec{0} + (\dot{\theta}_1 \vec{k}) \times (R\,\vec{e}_{r1}) = R\dot{\theta}_1 \vec{e}_{\theta 1}$$
+Aplicando nuevamente el Teorema de Transporte sobre la velocidad para hallar la aceleración absoluta:
+$$\marc{\vec{a}_1}{F}{} = \der{\marc{\vec{v}_1}{F}{}}{F}{} = \der{(R\dot{\theta}_1 \vec{e}_{\theta 1})}{A_1}{} + \velang{F}{A_1}\times\marc{\vec{v}_1}{F}{}$$
+$$\marc{\vec{a}_1}{F}{} = R\ddot{\theta}_1 \vec{e}_{\theta 1} + (\dot{\theta}_1 \vec{k}) \times (R\dot{\theta}_1 \vec{e}_{\theta 1}) = -R\dot{\theta}_1^2 \vec{e}_{r1} + R\ddot{\theta}_1 \vec{e}_{\theta 1}$$
+De forma completamente análoga para el bloque 2, usando el marco $\mathcal{A}_2$:
+$$\marc{\vec{a}_2}{F}{} = -R\dot{\theta}_2^2 \vec{e}_{r2} + R\ddot{\theta}_2 \vec{e}_{\theta 2}$$
+
+\subsubsection*{Geometría y fuerza del resorte}
+El vector que va desde la masa 1 a la masa 2 es $\vec{r}_{12} = \vec{r}_2 - \vec{r}_1$. La longitud instantánea del resorte $L$ se obtiene mediante el teorema del coseno en el triángulo isósceles $O$-$m_1$-$m_2$:
+$$L = \|\vec{r}_2 - \vec{r}_1\| = \sqrt{R^2 + R^2 - 2R^2\cos(\theta_2 - \theta_1)} = 2R\sin\left(\frac{\theta_2 - \theta_1}{2}\right)$$
+(asumiendo $\theta_2 > \theta_1$). La fuerza elástica sobre la masa 1 ($\vec{F}_{s1}$) apunta hacia $m_2$:
+$$\vec{F}_{s1} = K(L - \ell_0) \frac{\vec{r}_2 - \vec{r}_1}{L} = K\left(1 - \frac{\ell_0}{L}\right)(R\vec{e}_{r2} - R\vec{e}_{r1})$$
+Para proyectar esta fuerza en la dirección tangencial $\vec{e}_{\theta 1}$, notamos que $\vec{e}_{r1} \cdot \vec{e}_{\theta 1} = 0$ y que el ángulo entre $\vec{e}_{r2}$ y $\vec{e}_{\theta 1}$ es $90^\circ - (\theta_2 - \theta_1)$, por lo que $\vec{e}_{r2} \cdot \vec{e}_{\theta 1} = \sin(\theta_2 - \theta_1)$. Así, la componente tangencial sobre $m_1$ es:
+$$F_{s1,\theta} = K\left(1 - \frac{\ell_0}{2R\sin\left(\frac{\theta_2 - \theta_1}{2}\right)}\right)R\sin(\theta_2 - \theta_1)$$
+Por acción y reacción, la fuerza sobre $m_2$ es $\vec{F}_{s2} = -\vec{F}_{s1}$, y su proyección en $\vec{e}_{\theta 2}$ es $-F_{s1,\theta}$.
+
+\subsubsection*{Ecuaciones de movimiento (Segunda Ley de Newton)}
+Evaluamos $\sum \vec{F} = m\,\marc{\vec{a}}{F}{}$ en la dirección transversal $\vec{e}_\theta$ para cada masa, considerando que la fuerza de gravedad $\vec{g}$ tiene una componente tangencial $-mg\sin\theta$.
+
+\textbf{Para el bloque 1}
+$$m_1 R \ddot{\theta}_1 = -m_1 g \sin\theta_1 + K\left(1 - \frac{\ell_0}{2R\sin\left(\frac{\theta_2 - \theta_1}{2}\right)}\right)R\sin(\theta_2 - \theta_1)$$
+\textbf{Para el bloque 2}
+$$m_2 R \ddot{\theta}_2 = -m_2 g \sin\theta_2 - K\left(1 - \frac{\ell_0}{2R\sin\left(\frac{\theta_2 - \theta_1}{2}\right)}\right)R\sin(\theta_2 - \theta_1)$$
+Ordenando los términos, obtenemos el sistema de dos ecuaciones diferenciales acopladas para el movimiento:
+\respuesta{$\displaystyle \ddot{\theta}_1 + \frac{g}{R}\sin\theta_1 - \frac{K}{m_1}\left(1 - \frac{\ell_0}{2R\sin\left(\frac{\theta_2 - \theta_1}{2}\right)}\right)\sin(\theta_2 - \theta_1) = 0$\\[6pt]
+$\displaystyle \ddot{\theta}_2 + \frac{g}{R}\sin\theta_2 + \frac{K}{m_2}\left(1 - \frac{\ell_0}{2R\sin\left(\frac{\theta_2 - \theta_1}{2}\right)}\right)\sin(\theta_2 - \theta_1) = 0$}
+
+\patoojo{El resorte \emph{no se curva}: su longitud es la cuerda $L=2R\sin\frac{\theta_2-\theta_1}{2}$ y no el arco $R(\theta_2-\theta_1)$. Además su fuerza no es tangente a la ranura, por eso hay que proyectarla sobre $\vec{e}_\theta$ (la componente normal la absorbe la ranura).}
+
+\patotip[squareglasses]{Una comprobación útil: multiplica cada ecuación de Newton por $R$ y súmalas. El resorte desaparece, y queda $m_1R^2\ddot\theta_1+m_2R^2\ddot\theta_2=-gR\,(m_1\sin\theta_1+m_2\sin\theta_2)$. Es el balance de momento angular respecto a $O$: la fuerza del resorte es interna y central, así que no genera torque neto.}
+\end{solucion}

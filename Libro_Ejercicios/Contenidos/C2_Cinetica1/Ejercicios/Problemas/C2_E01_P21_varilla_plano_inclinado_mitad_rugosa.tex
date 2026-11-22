@@ -1,0 +1,213 @@
+% =========================================================================
+% Capítulo 2: Cinética de la partícula
+% Tema 01: Dinámica de la partícula
+% Problema 21: Varilla articulada sobre plano inclinado con mitad rugosa
+% Origen: Ayudantía 27, 2026
+% =========================================================================
+\subsubsection{Varilla articulada sobre plano inclinado con mitad rugosa}
+
+Una partícula $A$ de masa $m$ está unida al extremo de una varilla rígida de masa despreciable y largo $R$, cuyo otro extremo está articulado sin roce en el punto $O$ de un plano inclinado un ángulo $\phi$ con la horizontal (Figura \ref{fig:c2_e01_p21_cuna_roce_parcial}). La varilla permanece siempre contenida en el plano, de modo que $A$ recorre una circunferencia de radio $R$ con centro en $O$. La posición de $A$ se mide con el ángulo $\theta$ desde el punto $B$, el más alto de la circunferencia (sobre la línea de máxima pendiente), creciendo en sentido antihorario en la vista normal al plano.
+
+La recta horizontal que pasa por $O$ divide al plano en dos mitades. La mitad \emph{inferior} (pendiente abajo) es rugosa, con coeficiente de roce cinético $\mu_c$ entre $A$ y la superficie; la mitad \emph{superior} es perfectamente lisa. La gravedad $g$ actúa verticalmente hacia abajo. La partícula pasa por $B$ con rapidez $v_0$ tangente a la circunferencia, en el sentido de $\theta$ creciente.
+
+Resuelva usando trabajo y energía:
+\begin{enumerate}
+    \item Determine la ecuación diferencial de $\theta(t)$ en la mitad rugosa y en la mitad lisa, indicando los valores de $\theta$ donde cambia.
+    \item Obtenga la rapidez angular $\dot\theta$ como función de $\theta$ durante una vuelta, en términos de $v_0$.
+    \item Calcule la menor rapidez $v_0$ con que $A$ puede volver a pasar por $B$.
+\end{enumerate}
+
+\begin{figure}[!ht]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.05]
+        % --- PARÁMETROS ---
+        \def\R{2.0}       % radio de la trayectoria [u]
+        \def\Ang{55}      % ángulo theta de A [grados]
+        \def\W{3.0}       % semiancho del plano dibujado [u]
+        \def\Hh{2.9}      % semialto del plano dibujado [u]
+        \def\Ph{30}       % ángulo phi del plano en la vista lateral [grados]
+        \def\Ls{4.4}      % largo del plano en la vista lateral [u]
+        \def\Rs{1.2}      % radio R dibujado sobre la pendiente (vista lateral) [u]
+
+        % --- VISTA NORMAL AL PLANO: MITAD INFERIOR RUGOSA, MITAD SUPERIOR LISA ---
+        \fill[pattern=dots, pattern color=gray!80] (-\W,-\Hh) rectangle (\W,0);
+        \draw[thick] (-\W,-\Hh) rectangle (\W,\Hh);
+        \draw[dashed, gray] (-\W,0) -- (\W,0);
+        \node[fill=white, inner sep=2pt, font=\small] at ({-\W+1.0},{-\Hh+0.45}) {rugoso, $\mu_c$};
+        \node[fill=white, inner sep=2pt, font=\small] at ({-\W+0.6},{\Hh-0.45}) {liso};
+
+        % --- TRAYECTORIA, VARILLA Y PARTÍCULA ---
+        \coordinate (O) at (0,0);
+        \coordinate (A) at ({\R*cos(90+\Ang)},{\R*sin(90+\Ang)});
+        \draw[dashed] (O) circle (\R);
+        \draw[very thick] (O) -- (A);
+        \filldraw (O) circle (1.5pt) node[below right] {$O$};
+        \filldraw (0,\R) circle (1.5pt) node[above right] {$B$};
+        \shadedraw[ball color=gray!30] (A) circle (4pt) node[above left] {$A$};
+
+        % --- ÁNGULO THETA, VELOCIDAD Y PENDIENTE ---
+        \draw[->] (0,0.8) arc (90:{90+\Ang}:0.8);
+        \node at ({1.15*cos(90+\Ang/2)},{1.15*sin(90+\Ang/2)}) {$\theta$};
+        \draw[->, thick, azul] (0,\R) -- (-1.3,\R) node[midway, above] {$\vec{v}_0$};
+        \draw[->] ({\W-0.4},0.4) -- ({\W-0.4},2.7) node[midway, above, sloped, font=\footnotesize] {pendiente arriba};
+        \draw[dashed] (0,0)--(0,\R);
+
+        % --- VISTA LATERAL ---
+        \begin{scope}[shift={({\W+2.4},-1.5)}]
+            \coordinate (P0) at (0,0);
+            \coordinate (P1) at ({\Ls*cos(\Ph)},0);
+            \coordinate (P2) at ({\Ls*cos(\Ph)},{\Ls*sin(\Ph)});
+            \coordinate (Om) at ({0.5*\Ls*cos(\Ph)},{0.5*\Ls*sin(\Ph)});
+            \coordinate (Bs) at ($(Om)+(\Ph:\Rs)$);
+            \draw[thick] (P0) -- (P1) -- (P2);
+            \draw[thick, decorate, decoration={zigzag, segment length=4pt, amplitude=1.2pt}] (P0) -- (Om);
+            \draw[thick] (Om) -- (P2);
+            \draw[->] (1.0,0) arc (0:\Ph:1.0);
+            \node at ({1.4*cos(\Ph/2)},{1.4*sin(\Ph/2)}) {$\phi$};
+            \filldraw (Om) circle (1.5pt) node[below right] {$O$};
+            \filldraw (Bs) circle (1.5pt) node[below right] {$B$};
+            \draw[<->, gray] ($(Om)+({\Ph+90}:0.35)$) -- ($(Bs)+({\Ph+90}:0.35)$) node[midway, above, sloped] {$R$};
+            \node[sloped, above=6pt, font=\small] at ($(P0)!0.5!(Om)$) {rugoso};
+            \node[sloped, above, font=\small] at ($(Bs)!0.55!(P2)$) {liso};
+            \draw[->>, thick, green!50!black] (-0.45,1.9) -- (-0.45,0.9) node[midway, left] {$\vec{g}$};
+        \end{scope}
+    \end{tikzpicture}
+    \caption{Plano inclinado con mitad inferior rugosa y superior lisa.}
+    \label{fig:c2_e01_p21_cuna_roce_parcial}
+\end{figure}
+
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Varilla articulada sobre plano inclinado con mitad rugosa}
+
+\textbf{Marcos de referencia y Sistemas de Coordenadas}\\
+Lo primero, como en todo ejercicio, es definir los marcos de referencia.
+\begin{itemize}
+    \item $\mathcal{N}$: la cuña $\longrightarrow\{\vec{e}_x;\vec{e}_y;\vec{e}_z\}$
+    \item $\mathcal{A}$: brazo centro--partícula $A$ $\longrightarrow\{\vec{e}_r;\vec{e}_\theta;\vec{e}_z\}$
+\end{itemize}
+
+\begin{center}
+\begin{tikzpicture}[>=Latex, scale=0.8]
+    % --- PARÁMETROS ---
+    \def\R{3}      % radio de la trayectoria [u]
+    \def\L{2}      % largo de los vectores [u]
+    \def\th{30}    % ángulo theta [°]
+
+    % --- TRAYECTORIA Y MARCO z ---
+    \draw (0,0) circle (\R);
+    \draw (0,0) circle (0.35);
+
+    % --- BASE FIJA (e_x hacia arriba, e_y hacia la izquierda) ---
+    \draw[azul, ultra thick, -{Latex}] (0,0) -- (0,\L)  node[right=2pt] {$\vec{e}_x$};
+    \draw[azul, ultra thick, -{Latex}] (0,0) -- (-\L,0) node[left=2pt]  {$\vec{e}_y$};
+
+    % --- BASE MÓVIL (e_r y e_theta) ---
+    \draw[myred, ultra thick, -{Latex}] (0,0) -- ({90+\th}:\L)  node[above right=1pt] {$\vec{e}_r$};
+    \draw[myred, ultra thick, -{Latex}] (0,0) -- ({180+\th}:\L) node[left=2pt] {$\vec{e}_\theta$};
+
+    % --- PUNTO A Y ÁNGULO THETA ---
+    \fill ({90+\th}:\R) circle (1.8pt) coordinate (P);
+    \node[below] at (P) {$A$};
+    \draw[->] (0,0.55) arc[start angle=90,end angle={90+\th},radius=0.55];
+    \node at ({90+0.5*\th}:0.85) {$\theta$};
+    \node[anchor=west] at (0.45,-0.7) {$\vec{e}_z$ (sale de la hoja)};
+\end{tikzpicture}
+\end{center}
+
+Hay que tener en cuenta que en este caso los sistemas de coordenadas están inclinados:
+\begin{equation*}
+\begin{split}
+    \vec{e}_r&=\cos\theta\,\vec{e}_x+\sin\theta\,\vec{e}_y\\
+    \vec{e}_\theta&=-\sin\theta\,\vec{e}_x+\cos\theta\,\vec{e}_y\\
+    \vec{e}_z&=\vec{e}_z
+\end{split}
+\end{equation*}
+
+\subsubsection*{Cinemática de la partícula}
+\textbf{Posición}\\
+Como siempre, para obtener la velocidad de algún punto respecto a un marco de referencia inercial partimos por la posición; en este caso la de la partícula $A$ es
+$$\vec{r}_A=R\,\vec{e}_r$$
+
+\textbf{Velocidad}\\
+La velocidad es la derivada temporal de la posición desde un punto fijo:
+$$\marc{\vec{v}_A}{N}=\der{\vec{r}_{A}}{N}=\der{(R\vec{e}_r)}{N}= R\der{\vec{e}_r}{N}{}$$
+
+\patotruco{No es necesario el teorema del transporte completo: con el trucazo basta derivar la base, $\dot{\vec{e}}_r=\dot\theta\vec{e}_\theta$ y $\dot{\vec{e}}_\theta=-\dot\theta\vec{e}_r$, porque solo giran en torno a $\vec{e}_z$.}
+
+Derivadas temporales de $\vec{e}_r$ y $\vec{e}_\theta$:
+$$\transport{\vec{e}_r}{N}{A}=\dot\theta\vec{e}_z\times\vec{e}_r=\dot\theta\vec{e}_\theta$$
+$$\transport{\vec{e}_\theta}{N}{A}=\dot\theta\vec{e}_z\times\vec{e}_\theta=-\dot\theta\vec{e}_r$$
+y finalmente
+$$\marc{\vec{v}_A}{N}=R\dot\theta\,\vec{e}_\theta$$
+
+\textbf{Aceleración}\\
+Al igual que antes, podemos simplemente derivar la velocidad:
+$$\marc{\vec{a}_A}{N}=\der{\marc{\vec{v}_A}{N}{}}{N}{}=\der{\left(R\dot\theta\vec{e}_\theta\right)}{N}{}=(-R\dot\theta^2)\vec{e}_r+ R\ddot\theta\,\vec{e}_{\theta}$$
+
+\subsubsection*{Cinética}
+\begin{itemize}
+    \item El \textbf{peso} es conservativo: lo llevamos a un potencial.
+    \item La \textbf{fuerza de la varilla} apunta según $\vec{e}_r$ y la \textbf{normal} según $\vec{e}_z$; ambas son perpendiculares a la velocidad y no trabajan.
+    \item El \textbf{roce} $\vec{f}=-\mu_c N\,\vec{e}_\theta$ se opone al movimiento, pero solo existe mientras $A$ está en la mitad rugosa, es decir, para $\pi/2<\theta<3\pi/2$.
+\end{itemize}
+
+\textbf{Diagrama de cuerpo libre}
+\begin{center}
+    \begin{tikzpicture}[>=Latex, scale=1.05]
+        % --- PARÁMETROS ---
+        \def\R{2.0}       % radio de la trayectoria [u]
+        \def\Ang{135}     % ángulo theta de A (mitad rugosa) [grados]
+
+        % --- GEOMETRÍA ---
+        \coordinate (O) at (0,0);
+        \coordinate (A) at ({\R*cos(90+\Ang)},{\R*sin(90+\Ang)});
+        \draw[dashed, gray] (O) circle (\R);
+        \draw[dashed, gray] ({-\R-0.5},0) -- ({\R+0.5},0);
+        \draw[very thick] (O) -- (A);
+        \filldraw (O) circle (1.5pt) node[above right] {$O$};
+        \node[font=\footnotesize, gray] at ({\R+0.55},0.25) {rugoso abajo};
+
+        % --- FUERZAS Y VELOCIDAD EN A ---
+        \draw[->, thick, myred] (A) -- ++(135:1.0) node[left] {$\vec{f}$};
+        \draw[->, thick, myred] (A) -- ++(270:1.1) node[below] {$mg\sin\phi$};
+        \draw[->, thick, myred] (A) -- ++(45:1.0) node[above left, xshift=-2pt] {$\vec{F}_v$};
+        \draw[->, thick, azul] (A) -- ++(315:1.2) node[right] {$\vec{v}$};
+        \shadedraw[ball color=gray!30] (A) circle (4pt);
+        \node[below left] at (A) {$A$};
+    \end{tikzpicture}
+\end{center}
+En la figura se ven las fuerzas en el plano; además actúan $N$ (normal, saliendo del plano) y la componente $mg\cos\phi$ del peso (entrando), que se anulan y dan
+$$N=mg\cos\phi$$
+
+\textbf{Energía}
+$$T=\frac{1}{2}m\left|\vec{v}_A\right|^2=\frac{1}{2}mR^2\dot\theta^2$$
+Medimos la altura desde el nivel de $O$. La proyección de $\vec{r}_A$ sobre la línea de máxima pendiente es $R\cos\theta$, y cada unidad pendiente arriba eleva a la partícula $\sin\phi$ en vertical:
+$$h=R\cos\theta\sin\phi\qquad\Longrightarrow\qquad V=mgR\sin\phi\cos\theta$$
+El teorema de trabajo y energía, escrito como potencia, dice que la energía mecánica cambia solo por lo que disipa el roce:
+$$\frac{d}{dt}\left(T+V\right)=\vec{f}\cdot\vec{v}_A=\begin{cases}-\mu_c mg\cos\phi\,R\dot\theta & \pi/2<\theta<3\pi/2\\[2pt] 0 & \text{en el resto}\end{cases}$$
+
+\textbf{a) Ecuación diferencial}\\
+Derivando el lado izquierdo, $mR^2\dot\theta\ddot\theta-mgR\sin\phi\sin\theta\,\dot\theta$, y simplificando el factor $mR\dot\theta$ (distinto de cero mientras la partícula se mueve) queda
+$$\ddot\theta=\frac{g}{R}\left(\sin\phi\sin\theta-\mu_c\cos\phi\right)\quad\text{si }\frac{\pi}{2}<\theta<\frac{3\pi}{2}\;\text{(rugosa)}$$
+$$\ddot\theta=\frac{g}{R}\sin\phi\sin\theta\quad\text{si }0\le\theta<\frac{\pi}{2}\;\text{o}\;\frac{3\pi}{2}<\theta\le2\pi\;\text{(lisa)}$$
+Ambas valen mientras $\dot\theta>0$. Al cruzar $\theta=\pi/2$ y $\theta=3\pi/2$ la rapidez angular es continua, pero $\ddot\theta$ da un salto de magnitud $\mu_c g\cos\phi/R$.
+\respuesta{$\displaystyle \ddot\theta=\dfrac{g}{R}\left(\sin\phi\sin\theta-\mu_c\cos\phi\right)\ \text{(mitad rugosa)},\qquad \ddot\theta=\dfrac{g}{R}\sin\phi\sin\theta\ \text{(mitad lisa)}$}
+
+\textbf{b) Rapidez angular durante una vuelta}\\
+Integramos el balance de energía desde $B$ ($\theta=0$, rapidez $v_0$) hasta un $\theta$ cualquiera. El roce solo disipa mientras la partícula recorre la mitad rugosa, así que su trabajo depende del arco rugoso recorrido, $s(\theta)$, que vale $0$ para $\theta<\pi/2$, $\theta-\pi/2$ en la mitad rugosa y $\pi$ después de $3\pi/2$:
+$$\dot\theta^2=\frac{v_0^2}{R^2}+\frac{2g}{R}\left[\sin\phi\left(1-\cos\theta\right)-\mu_c\cos\phi\;s(\theta)\right]$$
+Por tramos,
+$$\dot\theta^2=\frac{v_0^2}{R^2}+\frac{2g}{R}\begin{cases}\sin\phi\left(1-\cos\theta\right) & 0\le\theta\le\pi/2\\[2pt] \sin\phi\left(1-\cos\theta\right)-\mu_c\cos\phi\left(\theta-\pi/2\right) & \pi/2\le\theta\le3\pi/2\\[2pt] \sin\phi\left(1-\cos\theta\right)-\pi\mu_c\cos\phi & 3\pi/2\le\theta\le2\pi\end{cases}$$
+\respuesta{$\displaystyle \dot\theta^2(\theta)\ \text{es la expresión por tramos de arriba}$}
+
+\textbf{c) Menor rapidez para volver a $B$}\\
+Para pasar de nuevo por $B$ ($\theta=2\pi$) se necesita $\dot\theta^2(2\pi)\ge0$. En $\theta=2\pi$ el término del peso se anula ($\cos2\pi=1$): la gravedad no gasta energía en una vuelta completa y solo importa el roce sobre media circunferencia, de largo $\pi R$:
+$$\frac{v_0^2}{R^2}-\frac{2g}{R}\,\pi\mu_c\cos\phi\ge0\quad\Longrightarrow\quad\frac{1}{2}mv_0^2\ge\mu_c mg\cos\phi\,(\pi R)$$
+$$v_0\ge\sqrt{2\pi\mu_c gR\cos\phi}$$
+Falta comprobar que la partícula no se detiene antes. Con este valor,
+$$\dot\theta^2=\frac{2g}{R}\left[\mu_c\cos\phi\left(\frac{3\pi}{2}-\theta\right)+\sin\phi\left(1-\cos\theta\right)\right]>0\quad\text{para }\frac{\pi}{2}\le\theta\le\frac{3\pi}{2}$$
+$$\dot\theta^2=\frac{2g}{R}\sin\phi\left(1-\cos\theta\right)>0\quad\text{para }\frac{3\pi}{2}\le\theta<2\pi$$
+y la rapidez angular solo se anula en $\theta=2\pi$.
+\respuesta{$\displaystyle v_{0,\min}=\sqrt{2\pi\mu_c gR\cos\phi}$}
+
+\end{solucion}

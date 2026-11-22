@@ -1,3 +1,8 @@
+% =========================================================================
+% Capítulo 4: Cuerpo rígido
+% Tema 01: Cuerpo rígido
+% Problema 02: Péndulo físico: barra uniforme pivotada
+% =========================================================================
 \subsubsection{Péndulo físico: barra uniforme pivotada}
 
 Una barra delgada y uniforme de masa $m$ y longitud $L$ está articulada sin fricción en uno de sus extremos a un pivote fijo $O$, como se muestra en la Figura \ref{fig:c4_e01_p02_pendulo_fisico}. La barra se suelta desde el reposo con un ángulo inicial $\theta_0$ medido respecto a la vertical. Sea $\theta(t)$ el ángulo instantáneo de la barra respecto a la vertical.
@@ -46,3 +51,48 @@ Una barra delgada y uniforme de masa $m$ y longitud $L$ está articulada sin fri
     \caption{Barra uniforme de longitud $L$ pivotada en $O$, oscilando como péndulo físico.}
     \label{fig:c4_e01_p02_pendulo_fisico}
 \end{figure}
+
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Péndulo físico: barra uniforme pivotada}
+\subsubsection*{Pregunta 1: Ecuación de movimiento}
+
+El momento de inercia de una barra uniforme respecto a un eje perpendicular que pasa por uno de sus extremos es:
+$$I_O = \frac{1}{3}mL^2$$
+
+El torque respecto a $O$ debido al peso, aplicado en el centro de masa $G$ (a distancia $L/2$ de $O$), es restaurador:
+$$\tau_O = -mg\frac{L}{2}\sin\theta$$
+
+Aplicando $I_O\ddot{\theta} = \tau_O$:
+
+$$\frac{1}{3}mL^2\ddot{\theta} = -mg\frac{L}{2}\sin\theta$$
+
+$$\boxed{\ddot{\theta} + \frac{3g}{2L}\sin\theta = 0}$$
+
+\subsubsection*{Pregunta 2: Período para oscilaciones pequeñas}
+
+Para $\theta \ll 1$, $\sin\theta \approx \theta$, y la ecuación se reduce a un oscilador armónico simple:
+$$\ddot{\theta} + \omega_0^2\theta = 0, \qquad \omega_0^2 = \frac{3g}{2L}$$
+
+$$\boxed{T = 2\pi\sqrt{\frac{2L}{3g}}}$$
+
+Nótese que esto equivale a un péndulo simple de longitud efectiva $L_{ef} = \frac{2}{3}L$, menor que $L$ debido a la distribución de masa de la barra.
+
+\subsubsection*{Pregunta 3: Reacción en el pivote}
+
+Usando la base $\{\hat{e}_r, \hat{e}_\theta\}$ con $\hat{e}_r = (\sin\theta, -\cos\theta)$ (a lo largo de la barra, apuntando hacia $G$) y $\hat{e}_\theta = (\cos\theta, \sin\theta)$, la posición y aceleración de $G$ son:
+$$\vec{r}_G = \frac{L}{2}\hat{e}_r, \qquad \vec{a}_G = \frac{L}{2}\ddot{\theta}\,\hat{e}_\theta - \frac{L}{2}\dot{\theta}^2\,\hat{e}_r$$
+
+En componentes cartesianas ($x$ horizontal, $y$ vertical hacia arriba):
+$$a_{Gx} = \frac{L}{2}\left(\ddot{\theta}\cos\theta - \dot{\theta}^2\sin\theta\right), \qquad a_{Gy} = \frac{L}{2}\left(\ddot{\theta}\sin\theta + \dot{\theta}^2\cos\theta\right)$$
+
+Aplicando la segunda ley de Newton al centro de masa con reacción $\vec{R} = (R_x, R_y)$ en $O$:
+$$R_x = ma_{Gx}, \qquad R_y - mg = ma_{Gy}$$
+
+Sustituyendo $\ddot{\theta} = -\dfrac{3g}{2L}\sin\theta$ (de la Pregunta 1) se obtienen expresiones cerradas en términos de $\theta$ y $\dot\theta$ solamente:
+
+$$\boxed{R_x = -\frac{3}{4}mg\sin\theta\cos\theta - \frac{1}{2}mL\dot{\theta}^2\sin\theta}$$
+
+$$\boxed{R_y = mg - \frac{3}{4}mg\sin^2\theta + \frac{1}{2}mL\dot{\theta}^2\cos\theta}$$
+
+\paragraph{Verificación} En $\theta = 0$ con $\dot\theta = 0$ (equilibrio), $R_x = 0$ y $R_y = mg$, como se espera para una barra colgando en reposo.
+\end{solucion}

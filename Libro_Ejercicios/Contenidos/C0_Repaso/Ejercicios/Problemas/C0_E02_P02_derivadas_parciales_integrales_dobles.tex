@@ -1,5 +1,9 @@
-% --- PROBLEMA 2: MULTIVARIABLE (PURO) ---
-\subsection{Problema 2: Derivadas Parciales e Integrales Dobles (Cálculo 2)}
+% =========================================================================
+% Capítulo 0: Repaso
+% Tema 02: Cálculo vectorial
+% Problema 02: Derivadas Parciales e Integrales Dobles (Cálculo 2)
+% =========================================================================
+\subsubsection{Derivadas Parciales e Integrales Dobles (Cálculo 2)}
 Realice los cálculos indicados para funciones de varias variables:
 
 \begin{multicols}{2}
@@ -12,3 +16,18 @@ Realice los cálculos indicados para funciones de varias variables:
     \item Calcule $\int_0^a \int_0^{a-x} dy \, dx$.
 \end{enumerate}
 \end{multicols}
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Cálculo Multivariable}
+\begin{enumerate}
+    \item $\frac{\partial}{\partial x}(x^3 y^2 + \sin(xy))$: Se trata a $y$ como constante:
+    $3x^2 y^2 + \cos(xy) \cdot y = 3x^2 y^2 + y\cos(xy)$.
+    
+    \item $\frac{\partial^2}{\partial x \partial y} (e^{x^2+y^2})$: Primero derivamos respecto a $y$: $\frac{\partial}{\partial y} = 2y e^{x^2+y^2}$. Luego respecto a $x$: $2y (e^{x^2+y^2} \cdot 2x) = 4xy e^{x^2+y^2}$.
+    
+    \item $\int_0^1 \int_0^2 (x + 2y) \, dy \, dx$: 
+    $\int_0^1 [xy + y^2]_0^2 dx = \int_0^1 (2x + 4) dx = [x^2 + 4x]_0^1 = 1 + 4 = 5$.
+    
+    \item $\int_0^\pi \int_0^R r \, dr \, d\theta$: 
+    $\int_0^\pi [\frac{r^2}{2}]_0^R d\theta = \frac{R^2}{2} \int_0^\pi d\theta = \frac{\pi R^2}{2}$.
+\end{enumerate}
+\end{solucion}

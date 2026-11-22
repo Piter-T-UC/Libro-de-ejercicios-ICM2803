@@ -1,4 +1,9 @@
-\subsection{Productos Mixtos y Triples}
+% =========================================================================
+% Capítulo 0: Repaso
+% Tema 01: Álgebra de vectores
+% Problema 03: Productos Mixtos y Triples
+% =========================================================================
+\subsubsection{Productos Mixtos y Triples}
 En Dinámica, estas operaciones aparecen al calcular momentos de fuerza y potencias. Use las bases del Problema \ref{subsec:cilindrica}.
 
 \begin{multicols}{2}
@@ -15,3 +20,18 @@ En Dinámica, estas operaciones aparecen al calcular momentos de fuerza y potenc
     \item $(\vec{e}_x \cdot \vec{e}_r) \vec{e}_x + (\vec{e}_y \cdot \vec{e}_r) \vec{e}_y =$
 \end{enumerate}
 \end{multicols}
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Productos Mixtos y Triples}
+\begin{enumerate}
+    \item $(L\vec{e}_r) \times (F\vec{e}_\theta) = LF(\vec{e}_r \times \vec{e}_\theta) = LF\vec{e}_z$.
+    \item $\vec{e}_z \cdot (\vec{e}_r \times \vec{e}_\theta) = \vec{e}_z \cdot \vec{e}_z = 1$.
+    \item $(\dot{\theta}\vec{e}_z) \times (L\vec{e}_r) = L\dot{\theta}(\vec{e}_z \times \vec{e}_r) = L\dot{\theta}\vec{e}_\theta$.
+    \item $\vec{e}_r \cdot (a\vec{e}_x + b\vec{e}_y) = a(\vec{e}_r \cdot \vec{e}_x) + b(\vec{e}_r \cdot \vec{e}_y) = a\cos\theta + b\sin\theta$.
+    \item $(\vec{e}_r \times \vec{e}_z) \cdot \vec{e}_\theta = (-\vec{e}_\theta) \cdot \vec{e}_\theta = -1$.
+    \item $(\vec{e}_x + \vec{e}_r) \cdot \vec{e}_x = \vec{e}_x \cdot \vec{e}_x + \vec{e}_r \cdot \vec{e}_x = 1 + \cos\theta$.
+    \item $\| \vec{e}_x \times \vec{e}_r \| = \| \vec{e}_x \times (\cos\theta\vec{e}_x + \sin\theta\vec{e}_y) \| = \| \sin\theta\vec{e}_z \| = |\sin\theta|$.
+    \item $\vec{e}_z \cdot (\vec{e}_x \times \vec{e}_y) = \vec{e}_z \cdot \vec{e}_z = 1$.
+    \item $\vec{e}_r \cdot (\vec{e}_z \times \vec{e}_r) = \vec{e}_r \cdot \vec{e}_\theta = 0$.
+    \item $(\vec{e}_x \cdot \vec{e}_r) \vec{e}_x + (\vec{e}_y \cdot \vec{e}_r) \vec{e}_y = \cos\theta\vec{e}_x + \sin\theta\vec{e}_y = \vec{e}_r$.
+\end{enumerate}
+\end{solucion}

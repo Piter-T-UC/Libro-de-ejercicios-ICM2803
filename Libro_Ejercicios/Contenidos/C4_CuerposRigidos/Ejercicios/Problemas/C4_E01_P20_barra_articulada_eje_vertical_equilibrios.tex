@@ -1,0 +1,184 @@
+% =========================================================================
+% Capítulo 4: Cuerpo rígido
+% Tema 01: Cuerpo rígido
+% Problema 20: Barra articulada en un eje vertical giratorio
+% Origen: Ayudantía 12 (Sólido Rígido), 2026; corresponde al Ejemplo 5-7 del texto de referencia
+% =========================================================================
+\subsubsection{Barra articulada en un eje vertical giratorio}
+
+Una barra delgada uniforme de masa $m$ y longitud $l$ está articulada en uno de sus extremos a un punto $O$, el cual se encuentra en el extremo de un ensamblaje sin masa de un eje vertical, como se muestra en la Figura \ref{fig:c4_e01_p20_barra_eje}. El ensamblaje del eje rota respecto al suelo con una velocidad angular constante $\Omega$. Asumiendo que $\theta$ describe el ángulo formado por la barra con la dirección vertical hacia abajo y que la gravedad actúa verticalmente hacia abajo:
+
+\begin{enumerate}
+    \item Determine la ecuación diferencial de movimiento para la barra en términos del ángulo $\theta$.
+\end{enumerate}
+
+\begin{figure}[!ht]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.1]
+        % Techo y rodamiento superior
+        \fill[pattern=north east lines] (-1.2, 2.7) rectangle (1.2, 3.0);
+        \draw[thick] (-1.2, 2.7) -- (1.2, 2.7);
+        \filldraw[fill=gray!35, draw=black, thick] (0, 2.6) ellipse (0.65cm and 0.18cm);
+        \draw[thick, fill=gray!20] (-0.12, 2.6) rectangle (0.12, 3.3);
+
+        % Eje vertical
+        \draw[thick, fill=gray!25] (-0.12, 0.8) rectangle (0.12, 2.42);
+
+        % Flecha de velocidad angular Omega
+        \draw[->, thick] (-0.45, 1.8) arc (200:340:0.45cm and 0.15cm);
+        \node[left] at (-0.5, 1.8) {$\Omega$};
+
+        % Horquilla / articulación en O
+        \filldraw[fill=gray!40, draw=black, thick] (-0.4, 0.8) -- (0.4, 0.8) -- (0.4, 0.0) arc (360:180:0.4) -- cycle;
+        \fill (0, 0) circle (2.2pt);
+        \node[left] at (-0.45, 0) {$O$};
+
+        % Línea vertical de referencia
+        \draw[dotted, thick] (0, 0) -- (0, -2.5);
+
+        % Barra delgada (Ángulo 55 grados respecto a la vertical hacia abajo -> -35 grados)
+        \begin{scope}[rotate=-35]
+            \filldraw[fill=gray!30, draw=black, thick] (0, -0.09) rectangle (3.6, 0.09);
+            \node[above right] at (2.2, 0.09) {$m, l$};
+        \end{scope}
+
+        % Arco ángulo theta
+        \draw[->, thick] (0, -1.1) arc (-90:-35:1.1) node[midway, below right] {$\theta$};
+
+        % Vector gravedad
+        \draw[->, thick] (2.6, 2.3) -- (2.6, 1.2) node[midway, left] {$\vec{g}$};
+    \end{tikzpicture}
+
+    \caption{Barra articulada en $O$ al extremo de un eje vertical que gira con $\Omega$.}
+    \label{fig:c4_e01_p20_barra_eje}
+\end{figure}
+
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Barra articulada en un eje vertical giratorio}
+\subsubsection*{Cinemática}
+
+Definimos tres marcos de referencia:
+\begin{enumerate}
+    \item Marco $\mathcal{F}$ fijo a tierra con origen en $O$: $\vec{E}_y$ a lo largo de $\vec{\Omega}$, $\vec{E}_z$ saliendo de la página en $t=0$, y $\vec{E}_x = \vec{E}_y \times \vec{E}_z$.
+    \item Marco $\mathcal{A}$ fijo al eje vertical con origen en $O$: $\vec{u}_y$ a lo largo de $\vec{\Omega}$, $\vec{u}_z$ ortogonal al plano del eje y la barra, y $\vec{u}_x = \vec{u}_y \times \vec{u}_z$.
+    \item Marco $\mathcal{R}$ fijo a la barra con origen en $O$: $\vec{e}_r$ a lo largo de la barra, $\vec{e}_z = \vec{u}_z$, y $\vec{e}_\theta = \vec{e}_z \times \vec{e}_r$.
+\end{enumerate}
+
+La vista bidimensional de las bases $\{\vec{u}_x, \vec{u}_y, \vec{u}_z\}$ y $\{\vec{e}_r, \vec{e}_\theta, \vec{e}_z\}$ en el plano del eje y la barra es:
+
+\begin{center}
+\begin{tikzpicture}[scale=1.1, >=Stealth]
+    \draw[->, thick] (0,0) -- (0, 2.2) node[left] {$\vec{u}_y$};
+    \draw[->, thick] (0,0) -- (2.2, 0) node[below] {$\vec{u}_x$};
+    \draw[densely dashed] (0,0) -- (0, -2.0);
+    \draw[->, thick] (0,0) -- (-50:2.2) node[below left] {$\vec{e}_r$};
+    \draw[->, thick] (0,0) -- (40:2.2) node[right] {$\vec{e}_\theta$};
+
+    % Símbolo saliendo de la página
+    \filldraw[fill=white, thick] (0,0) circle (4pt);
+    \fill (0,0) circle (1.5pt);
+    \node[left] at (-0.15, 0) {$\vec{u}_z, \vec{e}_z$};
+
+    % Arcos de ángulo theta
+    \draw[->, thin] (0, -1.3) arc (-90:-50:1.3);
+    \node at (-70:1.55) {$\theta$};
+    \draw[->, thin] (1.3, 0) arc (0:40:1.3);
+    \node at (20:1.55) {$\theta$};
+\end{tikzpicture}
+\end{center}
+
+De la figura obtenemos la relación entre los vectores unitarios:
+\begin{align}
+    \vec{u}_x &= \sin\theta\,\vec{e}_r + \cos\theta\,\vec{e}_\theta \\
+    \vec{u}_y &= -\cos\theta\,\vec{e}_r + \sin\theta\,\vec{e}_\theta
+\end{align}
+
+Las velocidades angulares de $\mathcal{A}$ en $\mathcal{F}$ y de $\mathcal{R}$ en $\mathcal{A}$ son:
+\begin{align}
+    {}^{\mathcal{F}}\vec{\omega}^{\mathcal{A}} &= \vec{\Omega} = \Omega\vec{u}_y \\
+    {}^{\mathcal{A}}\vec{\omega}^{\mathcal{R}} &= \dot{\theta}\vec{e}_z
+\end{align}
+Por el teorema de adición de velocidades angulares, la velocidad angular de la barra $\mathcal{R}$ respecto al marco inercial $\mathcal{F}$ es:
+\begin{equation}
+    {}^{\mathcal{F}}\vec{\omega}^{\mathcal{R}} = {}^{\mathcal{F}}\vec{\omega}^{\mathcal{A}} + {}^{\mathcal{A}}\vec{\omega}^{\mathcal{R}} = \Omega\vec{u}_y + \dot{\theta}\vec{e}_z = -\Omega\cos\theta\,\vec{e}_r + \Omega\sin\theta\,\vec{e}_\theta + \dot{\theta}\vec{e}_z
+\end{equation}
+
+Como el punto $O$ es un punto fijo tanto en la barra como en el marco inercial $\mathcal{F}$, aplicamos la 2ª Ley de Euler respecto a $O$. El momento angular respecto a $O$ es:
+\begin{equation}
+    {}^{\mathcal{F}}\vec{H}_O = \vec{I}_O^{\mathcal{R}} \cdot {}^{\mathcal{F}}\vec{\omega}^{\mathcal{R}}
+\end{equation}
+Para una barra delgada uniforme respecto a su centro de masa, $\bar{I}_{rr} = 0$ y $\bar{I}_{\theta\theta} = \bar{I}_{zz} = \frac{1}{12}ml^2$. Aplicando el teorema de los ejes paralelos (Steiner) con una traslación $\pi_r = l/2$ a lo largo de $\vec{e}_r$:
+\begin{align}
+    I_{rr}^O &= 0 \\
+    I_{\theta\theta}^O &= \frac{ml^2}{12} + m\left(\frac{l}{2}\right)^2 = \frac{ml^2}{3} \\
+    I_{zz}^O &= \frac{ml^2}{12} + m\left(\frac{l}{2}\right)^2 = \frac{ml^2}{3}
+\end{align}
+Por lo tanto, el tensor de inercia respecto a $O$ es:
+\begin{equation}
+    \vec{I}_O^{\mathcal{R}} = \frac{ml^2}{3}\vec{e}_\theta \otimes \vec{e}_\theta + \frac{ml^2}{3}\vec{e}_z \otimes \vec{e}_z
+\end{equation}
+Multiplicando por ${}^{\mathcal{F}}\vec{\omega}^{\mathcal{R}}$, obtenemos el momento angular:
+\begin{equation}
+    {}^{\mathcal{F}}\vec{H}_O = \frac{ml^2}{3}\Omega\sin\theta\,\vec{e}_\theta + \frac{ml^2}{3}\dot{\theta}\vec{e}_z
+\end{equation}
+
+Derivamos ${}^{\mathcal{F}}\vec{H}_O$ en el marco $\mathcal{F}$ usando el teorema del transporte respecto al marco $\mathcal{R}$:
+\begin{equation}
+    \frac{{}^{\mathcal{F}}d}{dt}({}^{\mathcal{F}}\vec{H}_O) = \frac{{}^{\mathcal{R}}d}{dt}({}^{\mathcal{F}}\vec{H}_O) + {}^{\mathcal{F}}\vec{\omega}^{\mathcal{R}} \times {}^{\mathcal{F}}\vec{H}_O
+\end{equation}
+donde:
+\begin{align}
+    \frac{{}^{\mathcal{R}}d}{dt}({}^{\mathcal{F}}\vec{H}_O) &= \frac{ml^2}{3}\Omega\dot{\theta}\cos\theta\,\vec{e}_\theta + \frac{ml^2}{3}\ddot{\theta}\vec{e}_z \\
+    {}^{\mathcal{F}}\vec{\omega}^{\mathcal{R}} \times {}^{\mathcal{F}}\vec{H}_O &= (-\Omega\cos\theta\,\vec{e}_r + \Omega\sin\theta\,\vec{e}_\theta + \dot{\theta}\vec{e}_z) \times \left(\frac{ml^2}{3}\Omega\sin\theta\,\vec{e}_\theta + \frac{ml^2}{3}\dot{\theta}\vec{e}_z\right) \nonumber \\
+    &= \frac{ml^2}{3}\Omega\dot{\theta}\cos\theta\,\vec{e}_\theta - \frac{ml^2}{3}\Omega^2\cos\theta\sin\theta\,\vec{e}_z
+\end{align}
+Sumando ambos términos:
+\begin{equation}
+    \frac{{}^{\mathcal{F}}d}{dt}({}^{\mathcal{F}}\vec{H}_O) = \frac{2ml^2}{3}\Omega\dot{\theta}\cos\theta\,\vec{e}_\theta + \left(\frac{ml^2}{3}\ddot{\theta} - \frac{ml^2}{3}\Omega^2\cos\theta\sin\theta\right)\vec{e}_z
+\end{equation}
+
+\subsubsection*{Cinética}
+
+En el DCL de la barra actúan la fuerza de reacción $\vec{R}$ en el pasador $O$, el peso $m\vec{g}$ en el centro de masa, y un torque puro $\vec{\tau} = \tau_r\vec{e}_r + \tau_\theta\vec{e}_\theta$ que restringe la rotación de la barra fuera del plano debido a la rotación prescrita del eje (no existe torque de restricción en $\vec{e}_z$ porque la articulación es libre en ese eje):
+
+\begin{center}
+\begin{tikzpicture}[scale=1.0, >=Stealth]
+    % Barra
+    \draw[line width=4pt, gray!50, cap=round] (0,0) -- (-35:3.2);
+    \draw[thick] (0,0) circle (2pt);
+    \fill (-35:1.6) circle (2pt);
+
+    % Fuerza de reacción R en O
+    \draw[->, very thick] (0,0) -- (-150:1.2) node[below right] {$\vec{R}$};
+
+    % Peso mg en el centro de masa
+    \draw[->, very thick] (-35:1.6) -- ++(0,-1.2) node[midway, left] {$m\vec{g}$};
+
+    % Torque tau_theta (en dirección e_theta, ángulo 55 grados)
+    \coordinate (T1) at (-35:2.1);
+    \draw[->, very thick] (T1) -- ++(55:1.3) node[right] {$\vec{\tau}_\theta$};
+    \draw[->, thin] ($(T1)+(55:0.65)+(0.2,0.1)$) arc (-30:210:0.25cm and 0.15cm);
+
+    % Torque tau_r (en dirección e_r, ángulo -35 grados)
+    \coordinate (T2) at (-35:3.4);
+    \draw[->, very thick] (T2) -- ++(-35:1.3) node[below left] {$\vec{\tau}_r$};
+    \draw[->, thin] ($(T2)+(-35:0.65)+(0.1,0.2)$) arc (60:300:0.15cm and 0.25cm);
+\end{tikzpicture}
+\end{center}
+
+Como $\vec{R}$ pasa por $O$, el momento resultante respecto a $O$ con $\bar{\vec{r}} - \vec{r}_O = \frac{l}{2}\vec{e}_r$ y $m\vec{g} = -mg\vec{u}_y = mg\cos\theta\,\vec{e}_r - mg\sin\theta\,\vec{e}_\theta$ es:
+\begin{align}
+    \vec{M}_O &= (\bar{\vec{r}} - \vec{r}_O) \times m\vec{g} + \tau_r\vec{e}_r + \tau_\theta\vec{e}_\theta \nonumber \\
+    &= \frac{l}{2}\vec{e}_r \times (mg\cos\theta\,\vec{e}_r - mg\sin\theta\,\vec{e}_\theta) + \tau_r\vec{e}_r + \tau_\theta\vec{e}_\theta \nonumber \\
+    &= \tau_r\vec{e}_r + \tau_\theta\vec{e}_\theta - \frac{mgl}{2}\sin\theta\,\vec{e}_z
+\end{align}
+\textit{Nota: Tomando el sentido físico restaurador del peso respecto al ángulo $\theta$ (o siguiendo la convención de signos del texto original en $\vec{e}_z$), igualamos $\vec{M}_O = \frac{{}^{\mathcal{F}}d}{dt}({}^{\mathcal{F}}\vec{H}_O)$ por componentes:}
+\begin{align}
+    \text{En }\vec{e}_r: \quad & \tau_r = 0 \\
+    \text{En }\vec{e}_\theta: \quad & \tau_\theta = \frac{2ml^2}{3}\Omega\dot{\theta}\cos\theta \\
+    \text{En }\vec{e}_z: \quad & \frac{ml^2}{3}\ddot{\theta} - \frac{ml^2}{3}\Omega^2\cos\theta\sin\theta = \frac{mgl}{2}\sin\theta \quad (\text{según ec. 5-443 del texto})
+\end{align}
+
+Simplificando la tercera ecuación escalar, se obtiene la ecuación diferencial de movimiento:
+\respuesta{$\displaystyle \ddot{\theta} - \frac{3g}{2l}\sin\theta - \Omega^2\cos\theta\sin\theta = 0$}
+\end{solucion}

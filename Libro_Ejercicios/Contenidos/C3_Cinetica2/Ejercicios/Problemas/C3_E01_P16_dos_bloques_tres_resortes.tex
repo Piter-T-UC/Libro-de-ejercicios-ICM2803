@@ -1,0 +1,93 @@
+% =========================================================================
+% Capítulo 3: Cinética de sistemas de partículas
+% Tema 01: Sistemas de partículas
+% Problema 16: Sistema de dos bloques y tres resortes
+% Origen: Ayudantía 2 (10), 2026
+% =========================================================================
+\subsubsection{Sistema de dos bloques y tres resortes}
+
+Un sistema consta de dos bloques de masa $m_1$ y $m_2$ conectados a tres resortes con constantes elásticas $k_1$, $k_2$ y $k_3$, como se muestra en la Figura \ref{fig:c3_e01_p16_bloques_resortes}. Los bloques están restringidos a moverse horizontalmente y la superficie sobre la que se deslizan no tiene fricción. Además, las posiciones de $m_1$ y $m_2$ se denotan por $x_1$ y $x_2$, respectivamente. Sabiendo que los resortes están sin estirar cuando $x_1$ y $x_2$ son simultáneamente cero, determine un sistema de dos ecuaciones diferenciales de movimiento para los bloques.
+
+\begin{figure}[!ht]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.1,
+        resorte/.style={thick, decorate, decoration={coil, aspect=0.5, segment length=5pt, amplitude=4pt, pre length=3pt, post length=3pt}}]
+        % --- PARÁMETROS ---
+        \def\W{0.9}      % lado de los bloques [u]
+        \def\xa{2.3}     % posición del bloque 1 [u]
+        \def\xb{5.6}     % posición del bloque 2 [u]
+        \def\L{7.9}      % separación entre paredes [u]
+
+        % --- SOPORTES Y SUELO ---
+        \fill[pattern=north east lines] (-0.3,-0.2) rectangle (0,1.4);
+        \fill[pattern=north east lines] (\L,-0.2) rectangle (\L+0.3,1.4);
+        \fill[pattern=north east lines] (-0.3,-0.2) rectangle (\L+0.3,0);
+        \draw[thick] (0,1.4) -- (0,0) -- (\L,0) -- (\L,1.4);
+
+        % --- BLOQUES ---
+        \draw[thick, fill=gray!20] (\xa,0) rectangle (\xa+\W,\W);
+        \node at (\xa+\W/2,\W/2) {$m_1$};
+        \draw[thick, fill=gray!20] (\xb,0) rectangle (\xb+\W,\W);
+        \node at (\xb+\W/2,\W/2) {$m_2$};
+
+        % --- RESORTES ---
+        \draw[resorte] (0,\W/2) -- (\xa,\W/2);
+        \draw[resorte] (\xa+\W,\W/2) -- (\xb,\W/2);
+        \draw[resorte] (\xb+\W,\W/2) -- (\L,\W/2);
+        \node[above] at (1.15,\W/2+0.2) {$k_1$};
+        \node[above] at ({(\xa+\W+\xb)/2},\W/2+0.2) {$k_2$};
+        \node[above] at ({(\xb+\W+\L)/2},\W/2+0.2) {$k_3$};
+
+        % --- COORDENADAS ---
+        \draw[->, thick] (\xa+\W/2,1.8) -- ++(0.9,0) node[midway, above] {$x_1$};
+        \draw[->, thick] (\xb+\W/2,1.8) -- ++(0.9,0) node[midway, above] {$x_2$};
+        \draw[dashed, gray] (\xa+\W/2,\W) -- (\xa+\W/2,1.9);
+        \draw[dashed, gray] (\xb+\W/2,\W) -- (\xb+\W/2,1.9);
+    \end{tikzpicture}
+    \caption{Dos bloques unidos entre sí y a las paredes por tres resortes.}
+    \label{fig:c3_e01_p16_bloques_resortes}
+\end{figure}
+
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Sistema de dos bloques y tres resortes}
+\textbf{Marcos de referencia y Sistemas de Coordenadas}
+\begin{itemize}
+    \item $\mathcal{F}$: inercial, fijo a las paredes y al suelo $\longrightarrow\{\vec{E}_x;\vec{E}_y;\vec{E}_z\}$, con $\vec{E}_x$ apuntando horizontalmente hacia la derecha y $\vec{E}_y$ verticalmente hacia arriba.
+\end{itemize}
+
+\subsubsection*{Cinemática de los bloques}
+Dado que el movimiento es puramente rectilíneo a lo largo de la superficie horizontal y las coordenadas $x_1$ y $x_2$ se miden desde las posiciones de equilibrio natural de cada bloque, sus vectores de posición, velocidad y aceleración respecto al marco inercial $\mathcal{F}$ son:
+$$\begin{aligned}
+    \vec{r}_1 &= x_1\,\vec{E}_x, &\qquad \marc{\vec{v}_1}{F}{} &= \dot{x}_1\,\vec{E}_x, &\qquad \marc{\vec{a}_1}{F}{} &= \ddot{x}_1\,\vec{E}_x \\
+    \vec{r}_2 &= x_2\,\vec{E}_x, &\qquad \marc{\vec{v}_2}{F}{} &= \dot{x}_2\,\vec{E}_x, &\qquad \marc{\vec{a}_2}{F}{} &= \ddot{x}_2\,\vec{E}_x
+\end{aligned}$$
+
+\subsubsection*{Análisis de fuerzas elásticas (Ley de Hooke)}
+Analizamos la deformación de cada uno de los tres resortes lineales asumiendo desplazamientos generales $x_1$ y $x_2$ hacia la derecha:
+\begin{itemize}
+    \item \textbf{Resorte 1 ($k_1$):} conectado entre la pared izquierda fija y el bloque $m_1$. Su elongación es $\Delta l_1 = x_1$. Ejerce sobre $m_1$ una fuerza restauradora hacia la izquierda:
+    $$\vec{F}_{s1} = -k_1 x_1\,\vec{E}_x$$
+    \item \textbf{Resorte 2 ($k_2$):} conectado entre los bloques $m_1$ y $m_2$. Su elongación neta es $\Delta l_2 = x_2 - x_1$.
+    \begin{itemize}
+        \item Sobre el bloque $m_1$, ejerce una fuerza interna hacia la derecha: $\vec{f}_{12} = k_2(x_2 - x_1)\,\vec{E}_x$.
+        \item Sobre el bloque $m_2$, por Tercera Ley de Newton ($\vec{f}_{21} = -\vec{f}_{12}$), ejerce una fuerza hacia la izquierda: $\vec{f}_{21} = -k_2(x_2 - x_1)\,\vec{E}_x = k_2(x_1 - x_2)\,\vec{E}_x$.
+    \end{itemize}
+    \item \textbf{Resorte 3 ($k_3$):} conectado entre el bloque $m_2$ y la pared derecha fija. Al desplazarse $m_2$ una distancia $x_2$ hacia la derecha, el resorte se comprime en $\Delta l_3 = -x_2$, ejerciendo sobre $m_2$ una fuerza restauradora hacia la izquierda:
+    $$\vec{F}_{s3} = -k_3 x_2\,\vec{E}_x$$
+\end{itemize}
+Las fuerzas verticales (pesos $-m_1 g\,\vec{E}_y$, $-m_2 g\,\vec{E}_y$ y normales $N_1\,\vec{E}_y$, $N_2\,\vec{E}_y$) se equilibran exactamente en el eje $\vec{E}_y$ al no haber movimiento vertical.
+
+\subsubsection*{Ecuaciones de movimiento (Segunda Ley de Newton)}
+Aplicamos la Segunda Ley de Newton ($\vec{R}_i = m_i\,\marc{\vec{a}_i}{F}{}$) a cada partícula proyectando en la dirección $\vec{E}_x$:
+
+\textbf{Para el bloque $m_1$}
+$$\left(\vec{F}_{s1} + \vec{f}_{12}\right) \cdot \vec{E}_x = m_1 \ddot{x}_1 \quad\Longrightarrow\quad -k_1 x_1 + k_2(x_2 - x_1) = m_1 \ddot{x}_1$$
+\textbf{Para el bloque $m_2$}
+$$\left(\vec{f}_{21} + \vec{F}_{s3}\right) \cdot \vec{E}_x = m_2 \ddot{x}_2 \quad\Longrightarrow\quad -k_2(x_2 - x_1) - k_3 x_2 = m_2 \ddot{x}_2$$
+Reordenando y agrupando términos en función de $x_1$ y $x_2$, obtenemos el sistema de dos ecuaciones diferenciales lineales acopladas:
+\respuesta{$\displaystyle m_1\ddot{x}_1 + (k_1 + k_2)x_1 - k_2 x_2 = 0$\\[4pt] $\displaystyle m_2\ddot{x}_2 - k_2 x_1 + (k_2 + k_3)x_2 = 0$}
+
+\patoojo{El resorte del medio es el que acopla el movimiento: su elongación es $x_2-x_1$, no $x_2$. Un error clásico es olvidar que empuja a $m_1$ y a $m_2$ con fuerzas iguales y opuestas (tercera ley), con signos contrarios en cada ecuación.}
+
+\patotruco{Este sistema se escribe en forma matricial como $\begin{bmatrix}m_1&0\\0&m_2\end{bmatrix}\ddot{\vec{x}}+\begin{bmatrix}k_1+k_2&-k_2\\-k_2&k_2+k_3\end{bmatrix}\vec{x}=\vec{0}$. La matriz de rigidez es simétrica: si te sale una asimétrica, revisa los signos del resorte central.}
+\end{solucion}

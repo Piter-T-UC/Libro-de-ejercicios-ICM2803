@@ -1,4 +1,9 @@
-\subsection{Problema 5: Identidades y Teorema del Transporte}
+% =========================================================================
+% Capítulo 0: Repaso
+% Tema 01: Álgebra de vectores
+% Problema 05: Identidades y Teorema del Transporte
+% =========================================================================
+\subsubsection{Identidades y Teorema del Transporte}
 Calcule los siguientes terminos. Considere $\vec{\omega} = \omega\vec{e}_3$ y $\vec{r} = r\vec{e}_1$ donde $\{\vec{e}_1,\vec{e}_2,\vec{e}_3\}$ es una base ortonormal.
 
 \begin{multicols}{2}
@@ -15,3 +20,18 @@ Calcule los siguientes terminos. Considere $\vec{\omega} = \omega\vec{e}_3$ y $\
     \item $\vec{e}_1 \cdot (\vec{e}_2 \times \vec{e}_1) =$
 \end{enumerate}
 \end{multicols}
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Identidades y Teorema del Transporte}
+\begin{enumerate}
+    \item $\vec{\omega} \times \vec{r} = (\omega\vec{e}_3) \times (r\vec{e}_1) = \omega r \vec{e}_2$.
+    \item $\vec{\omega} \times (\vec{\omega} \times \vec{r}) = \vec{\omega} \times (\omega r \vec{e}_2) = \omega^2 r (\vec{e}_3 \times \vec{e}_2) = -\omega^2 r \vec{e}_1$.
+    \item $\vec{r} \cdot (\vec{\omega} \times \vec{r}) = (r\vec{e}_1) \cdot (\omega r \vec{e}_2) = 0$.
+    \item $(\vec{\omega} \times \vec{r}) \cdot \vec{\omega} = (\omega r \vec{e}_2) \cdot (\omega\vec{e}_3) = 0$.
+    \item $\| \vec{\omega} \times \vec{r} \| = \| \omega r \vec{e}_2 \| = |\omega r|$.
+    \item $\vec{e}_1 \times (\vec{e}_1 \times \vec{e}_2) = \vec{e}_1 \times \vec{e}_3 = -\vec{e}_2$.
+    \item $(\vec{e}_1 + \vec{e}_2) \times (\vec{e}_1 - \vec{e}_2) = \vec{e}_1 \times \vec{0} - \vec{e}_1 \times \vec{e}_2 + \vec{e}_2 \times \vec{e}_1 - \vec{e}_2 \times \vec{e}_2 = -2\vec{e}_3$.
+    \item $\| \vec{e}_1 + \vec{e}_2 \| = \sqrt{(\vec{e}_1 + \vec{e}_2) \cdot (\vec{e}_1 + \vec{e}_2)} = \sqrt{1 + 1} = \sqrt{2}$.
+    \item $(\vec{e}_1 \cdot \vec{e}_2) + (\vec{e}_2 \cdot \vec{e}_3) + (\vec{e}_3 \cdot \vec{e}_1) = 0 + 0 + 0 = 0$.
+    \item $\vec{e}_1 \cdot (\vec{e}_2 \times \vec{e}_1) = \vec{e}_1 \cdot (-\vec{e}_3) = 0$.
+\end{enumerate}
+\end{solucion}

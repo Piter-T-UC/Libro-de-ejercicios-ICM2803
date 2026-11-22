@@ -1,0 +1,102 @@
+% =========================================================================
+% Capítulo 0: Repaso
+% Tema 02: Cálculo vectorial
+% Problema 07: Hélice y triedro de Frenet-Serret
+% Origen: Ayudantía 24, 2026
+% =========================================================================
+\subsubsection{Hélice y triedro de Frenet-Serret}
+Una partícula de masa $m$ describe una trayectoria espiral ascendente (hélice circular recta). Su vector de posición respecto a un marco inercial fijo $\mathcal{N}$ está dado en coordenadas cartesianas por:
+$$\vec{r}(t) = R \cos(\omega t)\vec{e}_x + R \sin(\omega t)\vec{e}_y + c t \vec{e}_z$$
+donde $R$, $\omega$ y $c$ son constantes positivas. Determine:
+\begin{enumerate}
+    \item El triedro de Frenet-Serret $(\vec{e}_t, \vec{e}_n, \vec{e}_b)$, la velocidad y la aceleración.
+    \item La ecuación del plano osculador.
+    \item La curvatura $\kappa$, la torsión $\tau$ y la verificación de las fórmulas de Serret-Frenet.
+\end{enumerate}
+
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Hélice y triedro de Frenet-Serret}
+\textbf{Marcos de referencia y Sistemas de coordenadas}
+\begin{itemize}
+  \item $\{\vec{e}_x,\vec{e}_y,\vec{e}_z\}$: Marco inercial cartesiano fijo $\mathcal{N}$.
+  \item $\{\vec{e}_t,\vec{e}_n,\vec{e}_b\}$: Marco móvil intrínseco (Triedro de Frenet-Serret).
+\end{itemize}
+
+\begin{center}
+    % Dibujo 3D de la hélice y el triedro
+    \begin{tikzpicture}[>=Latex, x={(0.7cm, 0.4cm)}, y={(-0.8cm, 0.4cm)}, z={(0cm, 1.2cm)}, scale=1.3]
+        % Ejes cartesianos
+        \draw[->, gray!80, thick] (0,0,0) -- (3.5,0,0) node[right] {$x$};
+        \draw[->, gray!80, thick] (0,0,0) -- (0,3.5,0) node[left] {$y$};
+        \draw[->, gray!80, thick] (0,0,0) -- (0,0,3) node[above] {$z$};
+
+        % Hélice 3D
+        \draw[thick, blue, smooth, samples=100, domain=0:4.5*pi] 
+            plot ({2*cos(\x r)}, {2*sin(\x r)}, {0.15*\x});
+
+        % Punto P (evaluado en un t especifico, ej. 2.5 pi)
+        \coordinate (P) at ({2*cos(2.5*pi r)}, {2*sin(2.5*pi r)}, {0.15*2.5*pi});
+        \filldraw[black] (P) circle (1.5pt) node[right, xshift=2pt] {$m$};
+
+        % Triedro de Frenet (vectores)
+        % Tangente (derivada de la curva)
+        \draw[->, thick, red] (P) -- ++({-1.5*sin(2.5*pi r)}, {1.5*cos(2.5*pi r)}, {0.5}) node[above right] {$\vec{e}_t$};
+        % Normal (hacia el eje z)
+        \draw[->, thick, green!60!black] (P) -- ++({-1.5*cos(2.5*pi r)}, {-1.5*sin(2.5*pi r)}, {0}) node[below left] {$\vec{e}_n$};
+        % Binormal (producto cruz)
+        \draw[->, thick, orange] (P) -- ++({0.5*cos(2.5*pi r)}, {0.5*sin(2.5*pi r)}, {1.2}) node[above left] {$\vec{e}_b$};
+    \end{tikzpicture}
+\end{center}
+
+\subsubsection*{Coordenadas intrínsecas: cinemática y plano osculador}
+\textbf{Velocidad y Vector Tangente ($\vec{e}_t$):}
+Derivando el vector posición respecto al tiempo:
+$$\vec{v}(t) = \dot{\vec{r}}(t) = -R\omega\sin(\omega t)\vec{e}_x + R\omega\cos(\omega t)\vec{e}_y + c\vec{e}_z$$
+La rapidez (módulo de la velocidad) es constante:
+$$v = \|\vec{v}\| = \sqrt{(-R\omega\sin(\omega t))^2 + (R\omega\cos(\omega t))^2 + c^2} = \sqrt{R^2\omega^2 + c^2} \equiv v_0$$
+El vector unitario tangente se define como la dirección de la velocidad:
+$$\vec{e}_t = \frac{\vec{v}}{v_0} = \frac{1}{v_0}\Big(-R\omega\sin(\omega t)\vec{e}_x + R\omega\cos(\omega t)\vec{e}_y + c\vec{e}_z \Big)$$
+
+\textbf{Aceleración y Vector Normal ($\vec{e}_n$):}
+Derivando la velocidad respecto al tiempo:
+$$\vec{a}(t) = \dot{\vec{v}}(t) = -R\omega^2\cos(\omega t)\vec{e}_x - R\omega^2\sin(\omega t)\vec{e}_y + 0\vec{e}_z$$
+En coordenadas intrínsecas, sabemos que $\vec{a} = \dot{v}\vec{e}_t + \frac{v^2}{\rho}\vec{e}_n$. Como $v_0$ es constante, la aceleración tangencial es nula ($\dot{v}=0$). Toda la aceleración es centrípeta (normal):
+$$a = \|\vec{a}\| = R\omega^2 \quad \Rightarrow \quad \vec{e}_n = \frac{\vec{a}}{a} = -\cos(\omega t)\vec{e}_x - \sin(\omega t)\vec{e}_y$$
+
+\textbf{Vector Binormal ($\vec{e}_b$):}
+Completa el triedro ortonormal diestro mediante el producto cruz $\vec{e}_b = \vec{e}_t \times \vec{e}_n$:
+$$\vec{e}_b = \frac{1}{v_0}\Big( c\sin(\omega t)\vec{e}_x - c\cos(\omega t)\vec{e}_y + R\omega\vec{e}_z \Big)$$
+
+\textbf{Plano Osculador:}
+El plano osculador contiene instantáneamente a los vectores $\vec{e}_t$ y $\vec{e}_n$, por lo que su vector normal es $\vec{e}_b$. Su ecuación para un punto genérico $(X,Y,Z)$ en un instante $t$ se define imponiendo que el vector relativo sea ortogonal a $\vec{e}_b$:
+\begin{align*}
+    (\vec{R} - \vec{r}(t)) \cdot \vec{e}_b &= 0  \\
+    c\sin(\omega t)\big[X - R\cos(\omega t)\big] - c\cos(\omega t)\big[Y - R\sin(\omega t)\big] + R\omega\big[Z - ct\big] &= 0
+\end{align*}
+
+
+\subsubsection*{Curvatura, torsión y fórmulas de Serret-Frenet}
+Las fórmulas de Serret-Frenet describen cómo rota el triedro respecto a la longitud de arco $s$. Usando la regla de la cadena, $\frac{d}{ds} = \frac{1}{v_0} \frac{d}{dt}$:
+\begin{align*}
+    \dot{\vec{e}}_t &= v_0 \kappa \vec{e}_n \tag{I} \\
+    \dot{\vec{e}}_n &= -v_0 \kappa \vec{e}_t + v_0 \tau \vec{e}_b \tag{II} \\
+    \dot{\vec{e}}_b &= -v_0 \tau \vec{e}_n \tag{III}
+\end{align*}
+
+\textbf{Cálculo de la Curvatura ($\kappa$):}
+Usando la expresión intrínseca de la aceleración normal $a_n = \kappa v^2$:
+$$R\omega^2 = \kappa (v_0)^2$$
+\respuesta{$\displaystyle\kappa = \frac{R\omega^2}{R^2\omega^2 + c^2}$}
+\textit{Verificación Serret-Frenet (I):} 
+$\dot{\vec{e}}_t = \frac{1}{v_0}(-R\omega^2\cos(\omega t)\vec{e}_x - R\omega^2\sin(\omega t)\vec{e}_y) = \left(\frac{R\omega^2}{v_0}\right) \vec{e}_n$. 
+Como $v_0 \kappa = \sqrt{R^2\omega^2 + c^2} \left(\frac{R\omega^2}{R^2\omega^2 + c^2}\right) = \frac{R\omega^2}{v_0}$, la ecuación se cumple.
+
+\textbf{Cálculo de la Torsión ($\tau$):}
+La torsión mide cuánto se sale la curva del plano osculador. La calculamos derivando $\vec{e}_b$ en el tiempo y usando la fórmula (III):
+$$\dot{\vec{e}}_b = \frac{1}{v_0} \Big( c\omega\cos(\omega t)\vec{e}_x + c\omega\sin(\omega t)\vec{e}_y \Big) = -\left(\frac{c\omega}{v_0}\right) \vec{e}_n$$
+Igualando con la ecuación (III) que indica $\dot{\vec{e}}_b = -v_0 \tau \vec{e}_n$:
+$$-v_0 \tau = -\frac{c\omega}{v_0}$$
+\respuesta{$\displaystyle\tau = \frac{c\omega}{v_0^2} = \frac{c\omega}{R^2\omega^2 + c^2}$}
+
+\textit{Conclusión Geométrica:} Dado que $R$, $\omega$ y $c$ son constantes, la trayectoria tiene \textbf{curvatura constante} (la espiral no se ensancha) y \textbf{torsión constante} (el "paso" o elevación de la rosca es uniforme), siendo un ejemplo clásico del teorema de Lancret.
+\end{solucion}

@@ -1,3 +1,8 @@
+% =========================================================================
+% Capítulo 5: Mecánica Lagrangiana
+% Tema 01: Mecánica Lagrangiana
+% Problema 02: Péndulo suspendido de un carro móvil
+% =========================================================================
 \subsubsection{Péndulo suspendido de un carro móvil}
 
 Un carro de masa $M$ puede deslizar sin fricción a lo largo de un riel horizontal. De un punto fijo al carro cuelga un péndulo simple: una partícula de masa $m$ unida al carro mediante una varilla rígida ideal (sin masa) de longitud $\ell$, como se muestra en la Figura \ref{fig:c5_e01_p02_pendulo_carro}. Sea $x$ la posición horizontal del carro y $\theta$ el ángulo de la varilla respecto a la vertical. No hay fricción en ninguna parte del sistema.
@@ -51,3 +56,54 @@ Un carro de masa $M$ puede deslizar sin fricción a lo largo de un riel horizont
     \caption{Péndulo de masa $m$ suspendido de un carro de masa $M$ que desliza sin fricción sobre un riel horizontal.}
     \label{fig:c5_e01_p02_pendulo_carro}
 \end{figure}
+
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Péndulo suspendido de un carro móvil}
+\subsubsection*{Pregunta 1: Grados de libertad}
+
+El sistema tiene $2$ grados de libertad: la posición del carro a lo largo del riel y la orientación del péndulo. Las coordenadas generalizadas naturales son $q_1 = x$ (posición horizontal del carro) y $q_2 = \theta$ (ángulo de la varilla respecto a la vertical).
+
+\subsubsection*{Pregunta 2: Lagrangiano}
+
+Posición de la masa pendular respecto a un origen fijo, con $O$ (el pivote en el carro) a altura de referencia $y=0$:
+$$X = x + \ell\sin\theta, \qquad Y = -\ell\cos\theta$$
+
+Velocidades:
+$$\dot{X} = \dot{x} + \ell\dot\theta\cos\theta, \qquad \dot{Y} = \ell\dot\theta\sin\theta$$
+
+Energía cinética (carro + partícula):
+$$T = \frac{1}{2}M\dot{x}^2 + \frac{1}{2}m\left(\dot{X}^2+\dot{Y}^2\right)$$
+
+Expandiendo $\dot{X}^2+\dot{Y}^2 = \dot{x}^2 + 2\ell\dot{x}\dot\theta\cos\theta + \ell^2\dot\theta^2$:
+
+$$T = \frac{1}{2}(M+m)\dot{x}^2 + m\ell\dot{x}\dot\theta\cos\theta + \frac{1}{2}m\ell^2\dot\theta^2$$
+
+Energía potencial (el carro no cambia de altura):
+$$V = mgY = -mg\ell\cos\theta$$
+
+$$\boxed{L = \frac{1}{2}(M+m)\dot{x}^2 + m\ell\dot{x}\dot\theta\cos\theta + \frac{1}{2}m\ell^2\dot\theta^2 + mg\ell\cos\theta}$$
+
+\subsubsection*{Pregunta 3: Ecuaciones de movimiento}
+
+\textbf{Respecto a $x$:}
+$$\frac{\partial L}{\partial\dot{x}} = (M+m)\dot{x} + m\ell\dot\theta\cos\theta, \qquad \frac{\partial L}{\partial x} = 0$$
+
+$$\boxed{(M+m)\ddot{x} + m\ell\left(\ddot\theta\cos\theta - \dot\theta^2\sin\theta\right) = 0}$$
+
+\textbf{Respecto a $\theta$:}
+$$\frac{\partial L}{\partial\dot\theta} = m\ell\dot{x}\cos\theta + m\ell^2\dot\theta, \qquad \frac{\partial L}{\partial\theta} = -m\ell\dot{x}\dot\theta\sin\theta - mg\ell\sin\theta$$
+
+Al aplicar Euler-Lagrange, los términos $\mp m\ell\dot{x}\dot\theta\sin\theta$ se cancelan, quedando:
+
+$$\boxed{\ell\ddot\theta + \ddot{x}\cos\theta + g\sin\theta = 0}$$
+
+Estas dos ecuaciones están acopladas: la aceleración del carro depende de $\theta$ y $\dot\theta$, y la aceleración angular depende de $\ddot{x}$.
+
+\subsubsection*{Pregunta 4: Coordenada cíclica y cantidad conservada}
+
+El Lagrangiano no depende explícitamente de $x$ (solo aparece $\dot{x}$), por lo que $x$ es una \textbf{coordenada cíclica}. Su momento canónico conjugado se conserva:
+
+$$p_x = \frac{\partial L}{\partial\dot{x}} = (M+m)\dot{x} + m\ell\dot\theta\cos\theta = \text{constante}$$
+
+\paragraph{Interpretación física} $p_x$ es exactamente el momento lineal horizontal total del sistema (carro más partícula): $p_x = M\dot x + m\dot X$. Su conservación refleja que no existe ninguna fuerza externa horizontal actuando sobre el sistema completo (el riel es sin fricción y la gravedad es vertical), consistente con el principio de conservación de momento lineal en ausencia de fuerzas externas netas en esa dirección.
+\end{solucion}

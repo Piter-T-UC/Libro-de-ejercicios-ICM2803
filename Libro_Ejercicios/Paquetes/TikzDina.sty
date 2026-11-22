@@ -65,3 +65,15 @@
     \node[below left, xshift=-2pt, yshift=-2pt] at (0,0) {$\vec{#2}_z = \vec{#3}_z$};
     \fill (0,0) circle (1pt);
 }
+% Apoyo articulado (semicírculo + base achurada).
+% \baseSoporte{(x,y)}{rotación}{} — #3 se reserva para compatibilidad con las ayudantías.
+\newcommand{\baseSoporte}[3]{
+  \begin{scope}[shift={#1}, rotate=#2]
+    \coordinate (localA) at (0,0);
+    \draw[fill=gray!40] (localA)++(-0.15,-0.1)
+      arc[start angle=180, end angle=0, radius=0.3] -- cycle;
+    \draw[thick] (localA)++(-0.15,-0.1) --++ (0.6,0);
+    \fill[pattern=north east lines]
+      ($(localA)+(-0.15,-0.1)$) rectangle ($(localA)+(0.45,-0.2)$);
+  \end{scope}
+}

@@ -70,10 +70,7 @@ CN_NombreCapitulo/
 │   ├── Problemas/
 │   │   ├── CN_E01_problema_01.tex
 │   │   ├── CN_E01_problema_02.tex
-│   │   └── ... (problemas agrupados por tema)
-│   └── Soluciones/
-│       ├── CN_E01_solucion.tex
-│       └── ...
+│   │   └── ... (enunciado + solución en el mismo archivo)
 ├── Figuras/
 │   ├── CN_F01_descripcion.tikz.tex
 │   └── manifest.json          # Registro de figuras
@@ -90,8 +87,14 @@ CN_NombreCapitulo/
   - Ejemplo: `C1_E01_P03_hormiga_velocista.tex`
 
 ### Soluciones
-- `CN_E[YY]_solucion.tex` - Soluciones del tema YY
-  - Ejemplo: `C1_E01_solucion.tex`
+- La solución va **al final del archivo del problema**, dentro de
+  `\begin{solucion}{Título} ... \end{solucion}`. No hay archivos de solución aparte.
+
+### Patos e interruptores
+- `\patotip`, `\patoojo`, `\patotruco` y el entorno `resumen` (ver `Paquetes/Patos.sty`).
+- En `main.tex`, el bloque *PANEL DE CONTROL* permite ocultar soluciones, tips, ojos,
+  trucazos y resúmenes (`\mostrarSolucionfalse`, `\mostrarTipsfalse`, ...).
+- Planilla para problemas nuevos: `Plantillas/CN_EYY_PZZ_plantilla.tex`.
 
 ### Figuras
 - `CN_FYY_descripcion.tikz.tex` - Figura YY (TikZ)

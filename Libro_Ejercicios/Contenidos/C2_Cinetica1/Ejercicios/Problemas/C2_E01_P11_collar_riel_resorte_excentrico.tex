@@ -1,11 +1,19 @@
+% =========================================================================
+% Capítulo 2: Cinética de la partícula
+% Tema 01: Dinámica de la partícula
+% Problema 11: Collar en riel circular con resorte excéntrico
+% Origen: Ayudantía 27, 2026
+% =========================================================================
 \subsubsection{Collar en riel circular con resorte excéntrico}
 
-Un collar de masa $m$ desliza sin fricción sobre un riel circular de radio $R$ contenido en un plano horizontal, como se muestra en la Figura \ref{fig:collar_riel}. El collar se encuentra unido a un punto fijo $A$ mediante un resorte de constante de elasticidad $K$ y de largo natural nulo. El punto $A$ se encuentra a una distancia $2R$ del centro del círculo $O$. Asumiendo que no hay gravedad y considerando condiciones iniciales $\phi_0$ y $\dot{\phi}_0$, realice lo siguiente:
+Un collar de masa $m$ desliza sin roce sobre un riel circular de radio $R$ contenido en un plano horizontal, como se muestra en la Figura \ref{fig:collar_riel}. El collar está unido a un punto fijo $A$ mediante un resorte de constante elástica $K$ y largo natural nulo. El punto $A$ está a una distancia $2R$ del centro $O$ del riel, sobre la recta horizontal de referencia. La posición del collar se mide con el ángulo $\phi$ desde esa recta, en sentido antihorario. No hay gravedad, y las condiciones iniciales son $\phi_0$ y $\dot\phi_0$.
 
+Resuelva usando trabajo y energía:
 \begin{enumerate}
-    \item Defina los marcos de referencia y sistemas de coordenadas adecuados.
-    \item Analice la cinemática de la partícula utilizando el ángulo $\phi$ para describir su posición.
-    \item Analice la cinética de la partícula para determinar la ecuación diferencial del movimiento y la fuerza de reacción sobre el collar en función de $\phi$.
+    \item Obtenga la ecuación diferencial del movimiento de $\phi(t)$.
+    \item Determine $\dot\phi$ como función de $\phi$.
+    \item Calcule la fuerza de reacción del riel sobre el collar en función de $\phi$.
+    \item Encuentre las posiciones de equilibrio, determine su estabilidad y la frecuencia de las oscilaciones pequeñas alrededor de la estable.
 \end{enumerate}
 
 \begin{figure}[!ht]
@@ -39,7 +47,7 @@ Un collar de masa $m$ desliza sin fricción sobre un riel circular de radio $R$ 
         % --- 4. Resorte ---
         \draw[decoration={aspect=0.3, segment length=3pt, amplitude=2.5pt, coil}, decorate] 
             (A) -- (M);
-        \node[above] at ($(A)!0.5!(M)$) {$k$};
+        \node[above] at ($(A)!0.5!(M)$) {$K$};
 
         % --- 5. Masa m (Collar) ---
         \shadedraw[ball color=gray!30] (M) circle (0.15);
@@ -54,3 +62,120 @@ Un collar de masa $m$ desliza sin fricción sobre un riel circular de radio $R$ 
     \caption{Diagrama de un collar de masa $m$ deslizando en un riel circular con vínculo elástico desde un punto exterior.}
     \label{fig:collar_riel}
 \end{figure}
+
+% --- SOLUCIÓN ---------------------------------------------------------------
+% NOTA PARA REVISIÓN (agente B): el ítem 4 (equilibrios, estabilidad y frecuencia de pequeñas
+% oscilaciones) NO está resuelto en Ay27S.tex ni en Ay3S.tex; se mantiene en el enunciado sin solución.
+\begin{solucion}{Collar en riel circular con resorte excéntrico}
+
+\textbf{Marcos de referencia y Sistemas de Coordenadas}\\
+Lo primero, como en todo ejercicio, es definir los marcos de referencia.
+\begin{itemize}
+    \item $\mathcal{N}$: el suelo $\longrightarrow\{\vec{e}_x;\vec{e}_y;\vec{e}_z\}$
+    \item $\mathcal{A}$: cilíndrico $OM$ $\longrightarrow\{\vec{e}_r;\vec{e}_\theta;\vec{e}_z\}$
+\end{itemize}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+    \Polaresrtz{\phi}{e}{e}{azul}{myred}
+    \node[below right] at (35:2) {$m$};
+\end{tikzpicture}
+\end{center}
+
+\begin{equation*}
+\begin{split}
+    \vec{e}_r&=\cos\phi\,\vec{e}_x+\sin\phi\,\vec{e}_y\\
+    \vec{e}_\theta&=-\sin\phi\,\vec{e}_x+\cos\phi\,\vec{e}_y\\
+    \vec{e}_z&=\vec{e}_z
+\end{split}
+\end{equation*}
+
+\subsubsection*{Cinemática de la partícula}
+\textbf{Posición}\\
+Como siempre, para obtener la velocidad de algún punto respecto a un marco de referencia inercial partimos por la posición; en este caso la de la masa $m$ es
+$$\vec{r}_m=R\,\vec{e}_r$$
+
+\textbf{Velocidad}\\
+La velocidad es la derivada temporal de la posición:
+$$\marc{\vec{v}_m}{N}=\der{\vec{r}_{m}}{N}=\der{(R\vec{e}_r)}{N}=R\der{\vec{e}_r}{N}{}$$
+
+\patotruco{No es necesario usar el teorema del transporte completo: usamos el trucazo (la demostración está en la Ayudantía 5). Basta con derivar la base: $\dot{\vec{e}}_r=\dot\phi\,\vec{e}_\theta$ y $\dot{\vec{e}}_\theta=-\dot\phi\,\vec{e}_r$.}
+
+Derivadas temporales de $\vec{e}_r$ y $\vec{e}_\theta$:
+$$\transport{\vec{e}_r}{N}{A}=\dot\phi\vec{e}_z\times\vec{e}_r=\dot\phi\vec{e}_\theta$$
+$$\transport{\vec{e}_\theta}{N}{A}=\dot\phi\vec{e}_z\times\vec{e}_\theta=-\dot\phi\vec{e}_r$$
+y finalmente
+$$\marc{\vec{v}_m}{N}=R\dot\phi\,\vec{e}_\theta$$
+
+\textbf{Aceleración}\\
+Al igual que antes, podemos simplemente derivar la velocidad:
+% NOTA PARA REVISIÓN (agente B): el zip escribe +R*phi'^2 e_r; el signo correcto es -R*phi'^2 e_r
+% (y es el que se usa más abajo en Newton). Se deja tal cual.
+$$\marc{\vec{a}_m}{N}=\der{\marc{\vec{v}_m}{N}{}}{N}{}=\der{\left(R\dot\phi\,\vec{e}_\theta\right)}{N}{}=(R\dot\phi^2)\vec{e}_r+ R\ddot\phi\,\vec{e}_{\theta}$$
+
+\subsubsection*{Cinética}
+\textbf{Diagrama de cuerpo libre}\\
+Siempre se parte por un DCL:
+\begin{center}
+\begin{tikzpicture}[>=Latex, scale=1.1]
+    \def\R{1.5}
+    \def\ang{35}
+    \draw[thick] (0,0) circle (\R);
+    \coordinate (A) at ({-2*\R},0);
+    \coordinate (M) at ({\R*cos(\ang)},{\R*sin(\ang)});
+    \filldraw (A) circle (1.5pt) node[below] {$A$};
+    \filldraw (0,0) circle (1pt) node[below] {$O$};
+    \draw[dashed, gray] (A) -- (M);
+    \draw[->, very thick, orange!80!black] (M) -- ($(M)!0.45!(A)$) node[below, pos=0.9] {$\vec{F}_s$};
+    \draw[->, very thick, violet!80!black] (M) -- ++(\ang:0.9) node[above right] {$\vec{N}$};
+    \shadedraw[ball color=gray!30] (M) circle (4pt);
+\end{tikzpicture}
+\end{center}
+Después del DCL se caracteriza cada fuerza vectorialmente:
+$$\vec{F}_s=-K(\ell-\ell_0)\vec{u}_s;\quad \ell=\|R\vec{e}_r+2R\vec{e}_x\|;\quad\ell_0=0;\quad\vec{r}-\vec{r}_A=(R\vec{e}_r)-(-2R\vec{e}_x)$$
+$$\vec{u}_s = \frac{\vec{r} - \vec{r}_A}{\left\lVert \vec{r} - \vec{r}_A \right\rVert}=\frac{R\vec{e}_r+2R\vec{e}_x}{\|R\vec{e}_r+2R\vec{e}_x\|}$$
+$$\vec{F}_s=-K\|R\vec{e}_r+2R\vec{e}_x\|\frac{\vec{r} - \vec{r}_A}{\left\lVert \vec{r} - \vec{r}_A \right\rVert}=-K(R\vec{e}_r+2R\vec{e}_x)$$
+En este caso tenemos dos normales, pero como el problema es 2D una de ellas desaparece, y la dirección se obtiene mediante intuición o matemáticamente con las coordenadas intrínsecas de la curva, en este caso un círculo:
+$$\vec{N}=N\vec{e}_r$$
+
+\textbf{Energía}\\
+Si lo hacemos con energía tenemos
+$$T=\frac{1}{2}m\left|\vec{v}_P\right|^2=\frac{1}{2}mR^2\dot\phi^2$$
+El punto $A$ está fijo en $\vec{r}_A=-2R\,\vec{e}_x$. El vector que va de $A$ al collar es $R\vec{e}_r+2R\vec{e}_x$, y como $\vec{e}_x=\cos\phi\,\vec{e}_r-\sin\phi\,\vec{e}_\theta$,
+$$\vec{r}_P-\vec{r}_A=R\left(1+2\cos\phi\right)\vec{e}_r-2R\sin\phi\,\vec{e}_\theta$$
+$$\ell^2=R^2\left[\left(1+2\cos\phi\right)^2+4\sin^2\phi\right]=R^2\left(5+4\cos\phi\right)$$
+Como el largo natural es nulo, la elongación es el propio $\ell$ y
+$$V=\frac{1}{2}K\ell^2=\frac{1}{2}KR^2\left(5+4\cos\phi\right)$$
+La conservación de la energía mecánica, con $\phi_0$ y $\dot\phi_0$ como condiciones iniciales, es
+$$\frac{1}{2}mR^2\dot\phi^2+\frac{1}{2}KR^2\left(5+4\cos\phi\right)=\frac{1}{2}mR^2\dot\phi_0^2+\frac{1}{2}KR^2\left(5+4\cos\phi_0\right)$$
+Derivando respecto al tiempo, $mR^2\dot\phi\ddot\phi-2KR^2\sin\phi\,\dot\phi=0$, y simplificando $mR^2\dot\phi$:
+\respuesta{$\displaystyle \ddot\phi=\frac{2K}{m}\sin\phi$}
+
+\textbf{Segunda ley de Newton}
+$$\sum \vec{F} = m \vec{a}$$
+$$\sum \vec{F} = \vec{N} + \vec{F}_s = \left[ N - KR(1 + 2\cos\phi) \right] \vec{e}_r + 2KR \sin\phi \, \vec{e}_\theta$$
+$$\sum F_{\vec{e}_r} = N - KR(1 + 2\cos\phi) = m(-R\dot{\phi}^2)$$
+$$\sum F_{\vec{e}_\theta} = 2KR \sin\phi = m(R\ddot{\phi})\quad\Longrightarrow\quad\ddot{\phi} - \frac{2K}{m} \sin\phi = 0$$
+que coincide con lo obtenido por energía. De la ecuación en $\vec{e}_r$:
+$$N = -mR\dot{\phi}^2 + KR(1 + 2\cos\phi)$$
+
+\textbf{Fuerza de reacción en función de $\phi$}\\
+Queremos la expresión en función de $\phi$, no de $\dot{\phi}$. De la segunda EDO tenemos $\ddot{\phi} = \frac{2K}{m} \sin\phi$. Usamos el truco
+$$\ddot{\phi} = \frac{d\dot{\phi}}{dt} = \frac{d\dot{\phi}}{d\phi} \cdot \frac{d\phi}{dt} = \dot{\phi} \frac{d\dot{\phi}}{d\phi}$$
+(que deja el diferencial en función de $\phi$). Sustituimos e integramos ambos lados:
+$$\dot{\phi} \frac{d\dot{\phi}}{d\phi} = \frac{2K}{m} \sin\phi\quad\Longrightarrow\quad\int_{\dot{\phi}_0}^{\dot{\phi}} \dot{\phi} \, d\dot{\phi} = \int_{\phi_0}^{\phi} \frac{2K}{m} \sin\phi \, d\phi$$
+$$\frac{\dot{\phi}^2}{2} - \frac{\dot{\phi}_0^2}{2} = -\frac{2K}{m} (\cos\phi - \cos\phi_0)$$
+y reordenando:
+\respuesta{$\displaystyle \dot{\phi}^2 = \dot{\phi}_0^2 + \frac{4K}{m} (\cos\phi_0 - \cos\phi)$}
+Reemplazando en la ecuación de $N$:
+% NOTA PARA REVISIÓN (agente B): en el zip el resultado final conserva -mR*phi'^2 (debería ser -mR*phi'_0^2
+% tras sustituir). Se deja tal cual.
+\begin{align*}
+N &= -mR\left[ \dot{\phi}^2_0 + \frac{4K}{m}(\cos \phi_0 - \cos \phi) \right] + KR(1 + 2\cos\phi) \\
+  &= -mR\dot{\phi}^2 - 4KR(\cos \phi_0 - \cos \phi) + KR(1 + 2\cos\phi) \\
+  &= -mR\dot{\phi}^2 - 4KR\cos \phi_0 + 6KR\cos \phi + KR
+\end{align*}
+Por lo tanto, la fuerza de reacción ejercida sobre la partícula es:
+\respuesta{$\displaystyle \vec{N} = \left[ -mR\dot{\phi}^2 - 4KR\cos \phi_0 + 6KR\cos \phi + KR \right] \vec{e}_r$}
+
+\end{solucion}

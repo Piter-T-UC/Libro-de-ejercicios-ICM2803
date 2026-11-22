@@ -1,5 +1,9 @@
-% --- PROBLEMA 5: INTEGRALES TRIPLES (APLICADO) ---
-\subsection{Problema 5: Distribución de Masa y Volúmenes}
+% =========================================================================
+% Capítulo 0: Repaso
+% Tema 02: Cálculo vectorial
+% Problema 05: Distribución de Masa y Volúmenes
+% =========================================================================
+\subsubsection{Distribución de Masa y Volúmenes}
 Calcule las siguientes integrales triples sobre los volúmenes indicados (asuma densidad $\rho$ constante):
 
 \begin{enumerate}
@@ -8,3 +12,11 @@ Calcule las siguientes integrales triples sobre los volúmenes indicados (asuma 
     \item Evalúe $I_0 = \rho \iiint_V (x^2 + y^2 + z^2) \, dV$ para una esfera de radio $R$.
     \item Calcule el volumen de un sólido definido por $x^2 + y^2 \le z \le H$.
 \end{enumerate}
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Integrales Triples}
+\begin{enumerate}
+    \item $J = \rho \int_0^H \int_0^{2\pi} \int_0^R r^2 (r \, dr \, d\theta \, dz)$: 
+    $J = \rho \cdot H \cdot 2\pi \cdot \frac{R^4}{4} = \frac{1}{2} (\rho \pi R^2 H) R^2 = \frac{1}{2} M R^2$.
+    \item $P_{xy} = \rho \int_0^L x \, dx \int_0^L y \, dy \int_0^L dz = \rho (\frac{L^2}{2})(\frac{L^2}{2})(L) = \frac{1}{4} \rho L^5 = \frac{1}{4} ML^2$.
+\end{enumerate}
+\end{solucion}

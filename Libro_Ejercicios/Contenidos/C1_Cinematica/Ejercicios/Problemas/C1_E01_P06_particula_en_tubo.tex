@@ -1,4 +1,9 @@
-\subsubsection{Particula En tubo}
+% =========================================================================
+% Capítulo 1: Cinemática
+% Tema 01: Coordenadas cilíndricas
+% Problema 06: Partícula en un tubo
+% =========================================================================
+\subsubsection{Partícula en un tubo}
 
 Una partícula se mueve por el interior de un tubo de largo $2R$ que gira con una velocidad angular constante $\omega_0$. La partícula inicia su movimiento desde el punto medio del tubo, desplazándose por su interior con una rapidez constante $v_0$ respecto al mismo. Determine:
 
@@ -61,9 +66,8 @@ Una partícula se mueve por el interior de un tubo de largo $2R$ que gira con un
     \label{fig:particula_tubo_giratorio}
 \end{figure}
 
-\ifmostrarSolucion
-\begin{tcolorbox}[title=Barra articulada a argolla circular,breakable]
-
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Partícula en un tubo}
 \noindent\textbf{1) Definamos marcos de referencia:}
 \begin{itemize}
     \item $\mathcal{F}$: Suelo.
@@ -180,5 +184,5 @@ B &= \int_{R\omega_0}^{2R\omega_0} \frac{v_0^2 + x^2 - v_0^2}{\sqrt{v_0^2 + x^2}
 \[
 {d = \frac{1}{2 v_0 \omega_0} \left[ R^2 \omega_0^2 \left( 4 \sqrt{\left(\frac{v_0}{2R\omega_0}\right)^2 + 1} - \sqrt{\left(\frac{v_0}{R\omega_0}\right)^2 + 1} \right) + v_0^2 \ln \left( 2 \frac{1 + \sqrt{\left(\frac{v_0}{2R\omega_0}\right)^2 + 1}}{1 + \sqrt{\left(\frac{v_0}{R\omega_0}\right)^2 + 1}} \right) \right]}
 \]
-\end{tcolorbox}
-\fi
+\end{solucion}
+

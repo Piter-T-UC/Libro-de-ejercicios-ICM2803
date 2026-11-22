@@ -1,3 +1,8 @@
+% =========================================================================
+% Capítulo 4: Cuerpo rígido
+% Tema 01: Cuerpo rígido
+% Problema 06: Momentos de inercia de figuras 2D y tensor de inercia 3D
+% =========================================================================
 \subsubsection{Momentos de inercia de figuras 2D y tensor de inercia 3D}
 
 El cálculo de momentos y productos de inercia es la base del análisis dinámico de cuerpos
@@ -29,3 +34,38 @@ Recuerde que el tensor de inercia se define como
 \displaystyle -\int_V \rho\, x z\, dV & \displaystyle -\int_V \rho\, y z\, dV & \displaystyle\int_V \rho(x^2 + y^2)\, dV
 \end{bmatrix}.
 \]
+
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Momentos de inercia de figuras 2D y tensor de inercia 3D}
+\subsubsection*{Pregunta 1: Figuras 2D}
+
+\textbf{Circunferencia (aro delgado) de radio $R$.} Toda la masa está a distancia $R$ del
+eje central perpendicular al plano:
+$$I = \int R^2\,dm = R^2\!\int dm = \boxed{MR^2}.$$
+
+\textbf{Disco de radio $R$.} Con densidad superficial $\sigma=M/(\pi R^2)$ y $dm=\sigma\,2\pi\rho\,d\rho$:
+$$I = \int_0^R \rho^2\,\sigma\,2\pi\rho\,d\rho = \sigma\,2\pi\frac{R^4}{4}
+= \frac{M}{\pi R^2}\,\frac{\pi R^4}{2} = \boxed{\tfrac12 MR^2}.$$
+
+\textbf{Barra delgada de largo $L$.} Con densidad lineal $\lambda=M/L$, respecto a un eje
+perpendicular que pasa por su centro:
+$$I = \int_{-L/2}^{L/2} x^2\,\lambda\,dx = \frac{M}{L}\,\frac{2}{3}\left(\frac{L}{2}\right)^3
+= \boxed{\tfrac{1}{12}ML^2}.$$
+(Por el teorema de Steiner, respecto a un extremo, $I=\tfrac13 ML^2$.)
+
+\subsubsection*{Pregunta 2: Tensor de inercia 3D}
+
+\textbf{Cascarón esférico de radio $R$.} Por simetría todos los productos de inercia se
+anulan y los tres momentos principales son iguales. Como $x^2+y^2+z^2=R^2$ sobre el cascarón,
+$$I_{xx}+I_{yy}+I_{zz} = \int 2(x^2+y^2+z^2)\,dm = 2R^2 M \;\Rightarrow\; I_{xx}=I_{yy}=I_{zz}=\tfrac23 MR^2,$$
+de modo que
+$$\mathbf{I} = \frac{2}{3}MR^2
+\begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix}.$$
+
+\textbf{Paralelepípedo $L\times H\times W$.} Con los ejes centrados y paralelos a las aristas
+($L$ en $x$, $H$ en $y$, $W$ en $z$), los productos de inercia se anulan por simetría y
+$$\int_V x^2\,dV = \frac{L^2}{12}M,\quad \int_V y^2\,dV = \frac{H^2}{12}M,\quad \int_V z^2\,dV = \frac{W^2}{12}M,$$
+por lo que
+$$\mathbf{I} = \frac{M}{12}
+\begin{bmatrix} H^2+W^2 & 0 & 0 \\ 0 & L^2+W^2 & 0 \\ 0 & 0 & L^2+H^2 \end{bmatrix}.$$
+\end{solucion}

@@ -1,0 +1,164 @@
+% =========================================================================
+% Capítulo 1 - Solución modelo: esquema de trabajo de referencia
+% =========================================================================
+\begin{solucion}{Solución modelo}
+Para los problemas siempre partimos definiendo los marcos de referencia y los sistemas de coordenadas a usar, también es de utilidad tener en cuenta la transformación de un sistema a otro sistema.
+\textbf{Marcos de referencia y Sistemas de Coordenadas}\\
+A continuación presentare los marcos de referencia (a los objetos que están asociados) y los sistemas de coordenadas asociados a ellos
+    \begin{itemize}
+    \item $\mathcal{N}$ Inercial (Suelo) $\longrightarrow\{\vec{E}_x;\vec{E}_y;\vec{E}_z\}$
+    \item $\mathcal{D}$ Gira con el disco $\longrightarrow\{\vec{e}_x;\vec{e}_y;\vec{e}_z\}$
+    \item $\mathcal{A}$ Gira con el disco $\longrightarrow\{\vec{e}_r;\vec{e}_\phi;\vec{e}_\theta\}$
+    \item $\mathcal{B}$ Gira con el disco $\longrightarrow\{\vec{u}_x;\vec{u}_y;\vec{u}_z\}$
+    \item $\mathcal{C}$ Gira con el disco $\longrightarrow\{\vec{e}_r;\vec{e}_\theta;\vec{e}_z\}$
+\end{itemize}
+\begin{center}
+    % Primera minipage (lado izquierdo)
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \begin{tikzpicture}[scale=1.2] % Ajusta el escala si es necesario
+            \Polaresxyz{\theta}{E}{e}{blue}{green!60!black}
+        \end{tikzpicture}
+    \end{minipage}
+    \hfill % Esto añade espacio elástico entre las dos imágenes
+    % Segunda minipage (lado derecho)
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \begin{tikzpicture}[scale=1.2]
+            \Polaresrtz{\phi}{E}{e}{red}{orange} % Ejemplo con otros valores
+        \end{tikzpicture}
+    \end{minipage}
+\end{center}
+$$\vec{e}_x=\cos{(\theta)}\vec{E}_x+\sin{(\theta)}\vec{E}_y$$
+$$\vec{e}_y=-\sin{(\theta)}\vec{E}_x+\cos{(\theta)}\vec{E}_y$$
+$$\vec{e}_z=\vec{E}_z$$
+
+
+\subsubsection*{Análisis Cinemático del Punto P}
+        El análisis cinemático, tiene en consideración el movimiento de la partícula, solo el movimiento no las causas, ni nada externo por ende primero tenemos que definir los vectores que nos ayudaran a analizar.
+
+        
+        \textbf{Posición y Velocidades Angulares}\\
+        Siempre que nosotros queremos definir la posición lo que nos importa es que sepamos que el punto del cual la definimos es un punto el cual no se mueve, osea velocidad $\vec{0}$, dado que asi no nos generara problemas en un futuro
+        \begin{equation}
+            \vec{r}_P=
+        \end{equation}
+        Y para el caso de las velocidades angulares de los marcos de referencia se pueden obtener mediante la regla de la mano derecha y ver en que dirección gira. Con esto se llega a lo siguiente
+        \begin{itemize}
+            \item $\velang{N}{A}=\Omega\vec{e}_z$
+        \end{itemize}
+
+        \textbf{Velocidad}\\ % <--- Aquí creamos la separación interna
+        Siempre que nosotros queremos calcular la velocidad inercial de una partícula tenemos que derivar respecto a un observador en el marco de referencia inercial, un vector el cual sea respecto a un punto inercial.
+        \begin{equation}
+            \marc{}{N}\vec{v}_P=\der{}{N}\vec{r}_p=\der{}{N}\left(\right)
+        \end{equation}
+        Mediante el uso del teorema del trasporte podemos resolver y llega a 
+        \begin{equation}
+            \marc{}{N}\vec{v}_P=\transportad{\vec{r}_P}{N}{A}
+        \end{equation}
+        
+        
+        
+        \begin{equation}
+            \marc{}{N}\vec{v}_P=\transD{r\vec{e}_r}{\Omega\vec{e}_z}{N}{A}{\vec{t}_p}
+        \end{equation}
+        Desarrollando el teorema del transporte el termino 1
+        \begin{align}
+            \der{}{A}\left(r\vec{e}_r\right)=
+        \end{align}
+        Por otro lado el segundo termino del teorema del transporte
+        \begin{align}
+            \Omega\vec{e}_z\times r\vec{e}_r=
+        \end{align}
+
+        \textbf{Aceleración}\\ % <--- Otra separación interna
+        Para calcular la aceleración basta simplemente con repetir el proceso y derivar la velocidad previamente calculada, respecto al marco de referencia inercial $\mathcal{N}$
+        \begin{equation}
+            \marc{}{N}\vec{a}_P=\der{}{N}\marc{}{N}\vec{v}_p=\der{}{N}\left(\right)
+        \end{equation}
+        Mediante el uso del teorema del trasporte podemos resolver y llega a 
+        \begin{equation}
+            \marc{}{N}\vec{a}_P=\transportad{\marc{}{N}\vec{v}_p}{N}{A}
+        \end{equation}
+        
+        
+        
+        \begin{equation}
+            \marc{}{N}\vec{a}_P=\transD{r\vec{e}_r}{\Omega\vec{e}_z}{N}{A}{\marc{}{N}\vec{v}_p}
+        \end{equation}
+        Desarrollando el teorema del transporte el termino 1
+        \begin{align}
+            \der{}{A}\left(r\vec{e}_r\right)=
+        \end{align}
+        Por otro lado el segundo termino del teorema del transporte
+        \begin{align}
+            \Omega\vec{e}_z\times r\vec{e}_r=
+        \end{align}
+
+    
+    \subsubsection*{Análisis de Fuerzas y Momentos}
+        En este apartado analizamos la cinética del sólido rígido. 
+        Utilizando la segunda ley de Newton:
+        
+        \begin{equation}
+            \sum \vec{F} = m \cdot \vec{a}_G
+        \end{equation}
+        
+        % Aquí puedes meter tu gráfico de Pgfplots si lo necesitas
+\begin{center}
+    \begin{tikzpicture}[
+        scale=1.2,       % Escala general para que se vea bien
+        >=latex,         % Puntas de flecha más bonitas
+        very thick       % Grosor de línea por defecto para vectores
+    ]
+
+        % --- Coordenada Central (La Partícula) ---
+        \coordinate (P) at (0,0);
+
+        % --- Marco de Referencia (Arriba a la derecha) ---
+        % Definimos una posición relativa a la partícula para el marco
+        \coordinate (RefOrigin) at (5, 3);
+
+        \begin{scope}[shift={(RefOrigin)}, rotate=30, thick, color=black!70]
+    % Ejes ortogonales (ahora sí rotarán 30 grados respecto a RefOrigin)
+    \draw[->] (0,0) -- (1.3, 0) node[right] {$\vec{e}_x$}; 
+    \draw[->] (0,0) -- (0, 1.3) node[above] {$\vec{e}_y$}; 
+    
+    % Símbolo de ángulo recto (se mantiene relativo a los ejes rotados)
+    \draw[thin] (0.3,0) -- (0.3,0.3) -- (0,0.3);
+    
+    % Etiqueta
+    \node[below left, font=\scriptsize, gray] at (0,0) {Referencia};
+\end{scope}
+
+
+        % --- Vectores de Fuerza del DCL (Distintos Colores) ---
+
+        % 1. Peso (Rojo, siempre vertical hacia abajo)
+        \draw[->, red] (P) -- (0,-3) node[right] {$\vec{W} = m\vec{g}$};
+
+        % 2. Fuerza Normal (Azul, perpendicular a una supuesta superficie inclinada)
+        % Usamos coordenadas polares (ángulo:longitud) para facilitar la dirección
+        \draw[->, blue] (P) -- (120:2.5) node[above left] {$\vec{N}$};
+
+        % 3. Fuerza de Tensión/Aplicada (Verde azulado - Teal)
+        \draw[->, teal] (P) -- (30:3) node[above right] {$\vec{T}$};
+
+        % 4. Fuerza de Fricción (Naranja, opuesta al posible movimiento o a la componente de T)
+        \draw[->, orange] (P) -- (210:1.5) node[below left] {$\vec{f}_k$};
+
+        % --- Dibujo de la Partícula al final para que quede encima ---
+        \shadedraw[
+        shading=ball,          % Activa el degradado tipo esfera
+        ball color=gray!30,    % El color base de la esfera (gris claro)
+        draw=black!80,         % Color del borde (gris muy oscuro casi negro)
+        semithick] (P) circle (5pt);        % Aumenté un poco el tamaño a 5pt para que se note más
+    
+    \node[below right, font=\bfseries] at (P) {$P$}; % Bajé un poco la etiqueta
+
+    \end{tikzpicture}
+\end{center}
+    
+
+\end{solucion}

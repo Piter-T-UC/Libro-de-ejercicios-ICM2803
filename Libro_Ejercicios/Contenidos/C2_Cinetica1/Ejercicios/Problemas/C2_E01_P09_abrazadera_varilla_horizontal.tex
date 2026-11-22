@@ -1,50 +1,104 @@
-\subsubsection{Abrazadera en varilla horizontal}
+% =========================================================================
+% Capítulo 2: Cinética de la partícula
+% Tema 01: Dinámica de la partícula
+% Problema 09: Abrazadera en varilla horizontal con anclaje móvil
+% Origen: Ayudantía 27, 2026
+% =========================================================================
+\subsubsection{Abrazadera en varilla horizontal con anclaje móvil}
 
-Una abrazadera de masa $m$ se desliza sin fricción a lo largo de una varilla rígida, horizontal, fija y sin masa, como se muestra en la Figura \ref{fig:abrazadera}. La abrazadera está unida a un resorte lineal con constante elástica $k$ y longitud natural $l_0$. Sabiendo que $q(t)$ representa el desplazamiento prescrito del punto de anclaje del resorte, y que $x$ es el desplazamiento de la abrazadera relativo al resorte, y asumiendo que no hay gravedad, analice la ecuación diferencial de movimiento suponiendo que la fuerza del resorte es conservativa y no conservativa y use:
+Una abrazadera $P$ de masa $m$ desliza sin roce a lo largo de una varilla rígida, horizontal y fija (Figura \ref{fig:abrazadera}). Está unida a un resorte lineal de constante $k$ y largo natural $l_0$, cuyo otro extremo $Q$ se mueve con una ley prescrita $q(t)$. Tanto $q$ como la posición $x$ de la abrazadera se miden desde la pared izquierda, y $P$ se mantiene a la derecha de $Q$. No hay gravedad.
+
+Resuelva usando trabajo y energía:
 \begin{enumerate}
-    \item La segunda ley de Newton.
-    \item El teorema trabajo--energía para un cuerpo rígido.
+    \item Trate la fuerza del resorte como una fuerza externa (no conservativa) y obtenga la ecuación diferencial de $x(t)$ con el teorema de trabajo y energía.
+    \item Trate el resorte como conservativo, con energía potencial $V(x,t)$. Calcule $dE/dt$ para $E=T+V$ y obtenga nuevamente la ecuación diferencial.
+    \item Determine la potencia que debe entregar el mecanismo que mueve $Q$ y compárela con $dE/dt$.
 \end{enumerate}
 
 \begin{figure}[!ht]
     \centering
-    \begin{tikzpicture}[>=Latex, scale=1.5]
-        % --- Varilla con bordes redondeados ---
-        \draw[line width=5pt] (-2.5,0) -- (2.5,0);
-        \draw[line width=4pt, gray!30] (-2.5,0) -- (2.5,0);
-        \draw[thick] (-2.5,0) -- (2.5,0);
-        
-        % Paredes laterales
-        \fill[pattern=north east lines] (-2.7,-0.4) rectangle (-2.5,0.4);
-        \draw[thick] (-2.5,-0.4) -- (-2.5,0.4);
-        \fill[pattern=north east lines] (2.5, -0.4) rectangle (2.7,0.4);
-        \draw[thick] (2.5,-0.4) -- (2.5,0.4);
+    \begin{tikzpicture}[>=Latex, scale=1.2]
+        % --- PARÁMETROS ---
+        \def\Lv{6.0}      % largo de la varilla [u]
+        \def\xQ{1.9}      % posición del anclaje: q [u]
+        \def\xP{4.5}      % posición de la abrazadera: x [u]
 
-        % Abrazadera Q (Punto de anclaje móvil)
-        \coordinate (Q) at (-1,0);
-        \shadedraw[ball color=white!90] (Q) circle (0.15);
-        \node[below, yshift=-4pt, font=\small] at (Q) {$Q$};
-        
-        % Resorte K
-        \draw[decoration={aspect=0.4, segment length=3pt, amplitude=3pt, coil}, decorate, thick] 
-            (-1,0) -- (1,0);
-        \draw[fill=black] (-1,0) circle (1pt);
-        \node[above, yshift=6pt, font=\small] at (0,0) {$K$};
+        % --- VARILLA Y PAREDES ---
+        \draw[line width=4pt, gray!35] (0,0) -- (\Lv,0);
+        \fill[pattern=north east lines] (-0.2,-0.45) rectangle (0,0.45);
+        \draw[thick] (0,-0.45) -- (0,0.45);
+        \draw[thick] (\Lv,-0.45) -- (\Lv,0.45);
+        \fill[pattern=north east lines] (\Lv,-0.45) rectangle ({\Lv+0.2},0.45);
 
-        % Abrazadera P (Partícula de masa m)
-        \coordinate (P) at (1,0);
-        \shadedraw[ball color=gray!30] (P) circle (0.15) node[font=\footnotesize] {$m$};
-        \node[below, yshift=-4pt, font=\small] at (1,0) {$P$};
+        % --- RESORTE, ANCLAJE Q Y ABRAZADERA P ---
+        \draw[decorate, decoration={coil, aspect=0.4, segment length=3pt, amplitude=3pt}, thick] (\xQ,0) -- (\xP,0);
+        \shadedraw[ball color=white!90] (\xQ,0) circle (0.13);
+        \shadedraw[ball color=gray!30] (\xP,0) circle (0.13);
+        \node[below=5pt] at (\xQ,0) {$Q$};
+        \node[below=5pt] at (\xP,0) {$P$};
+        \node[above=4pt] at ({(\xQ+\xP)/2},0) {$k$};
+        \node[above=3pt, font=\small] at (\xP,0.02) {$m$};
 
-        % Vectores de posición y desplazamiento
-        \draw[|->, thick] (-2.5, 0.7) -- (-1, 0.7) node[midway, above, font=\small] {$q(t)$};
-        \draw[gray, thin] (-1, 0.5) -- (-1, 0.9);
-        
-        \draw[|->, thick] (-2.5, -0.7) -- (1, -0.7) node[midway, below, font=\small] {$x$};
-        \draw[gray, thin] (1, -0.5) -- (1, -0.9);
-
+        % --- COTAS ---
+        \draw[|->, thick, gray] (0,0.75) -- (\xQ,0.75) node[midway, above] {$q(t)$};
+        \draw[|-|, thick, gray] (\xQ,0.75) -- (\xP,0.75) node[midway, above] {$x-q$};
+        \draw[|->, thick, gray] (0,-0.85) -- (\xP,-0.85) node[midway, below] {$x$};
+        \draw[thin, gray] (\xQ,0.45) -- (\xQ,0.9);
+        \draw[thin, gray] (\xP,-0.5) -- (\xP,-1.0);
     \end{tikzpicture}
-    \caption{Sistema de abrazadera $P$ con anclaje móvil $Q$ y vínculo elástico lineal.}
+    \caption{Abrazadera $P$ con anclaje móvil $Q$ y resorte lineal.}
     \label{fig:abrazadera}
 \end{figure}
 
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Abrazadera en varilla horizontal con anclaje móvil}
+
+\textbf{Marcos de referencia y Sistemas de Coordenadas}\\
+Basta un marco inercial fijo a la varilla, con $\vec{e}_x$ a lo largo de ella y origen en la pared izquierda.
+
+\subsubsection*{Cinemática de la partícula}
+Como $\vec{e}_x$ es constante, las posiciones se derivan directamente:
+$$\vec{r}_P=x\vec{e}_x\qquad\vec{r}_Q=q\vec{e}_x\qquad\vec{v}_P=\dot{x}\vec{e}_x\qquad\vec{a}_P=\ddot{x}\vec{e}_x$$
+El largo del resorte es $x-q$, su elongación es $\delta=x-q-l_0$ y su rapidez de deformación es $\dot\delta=\dot{x}-\dot{q}$. La abrazadera solo se traslada, sin rotar, así que
+$$T=\frac{1}{2}m\dot{x}^2$$
+
+\subsubsection*{Cinética}
+Sobre la abrazadera actúan el resorte y la reacción de la varilla. La reacción es perpendicular a $\vec{e}_x$, o sea a la velocidad, y no trabaja: la única fuerza que trabaja es la del resorte.
+
+\textbf{Diagrama de cuerpo libre}
+\begin{center}
+    \begin{tikzpicture}[>=Latex, scale=1.2]
+        \draw[line width=4pt, gray!35] (-1.5,0) -- (2.5,0);
+        \shadedraw[ball color=gray!30] (0,0) circle (0.14);
+        \draw[->, thick, myred] (0,0) -- (-1.2,0) node[midway, above] {$k\delta$};
+        \draw[->, thick, myred] (0,0) -- (0,0.9) node[above] {$N$};
+        \draw[->, thick, azul] (0,-0.3) -- (1.2,-0.3) node[midway, below] {$\dot{x}$};
+    \end{tikzpicture}
+\end{center}
+La fuerza del resorte sobre $P$ vale $\vec{F}_s=-k\delta\,\vec{e}_x$ (en la figura, con $\delta>0$, tira hacia $Q$).
+
+\textbf{1) Resorte como fuerza no conservativa}\\
+La energía cinética cambia solo por la potencia que entrega el resorte:
+$$\frac{dT}{dt}=\vec{F}_s\cdot\vec{v}_P\quad\Longrightarrow\quad m\dot{x}\ddot{x}=-k\left(x-q-l_0\right)\dot{x}$$
+Simplificando $\dot{x}$ (distinto de cero mientras la abrazadera se mueve):
+\respuesta{$\displaystyle m\ddot{x}+k\left(x-q-l_0\right)=0$}
+
+\textbf{2) Resorte como fuerza conservativa}\\
+Incluimos el resorte en el potencial. Como el anclaje se mueve, $V$ depende explícitamente del tiempo:
+$$V(x,t)=\frac{1}{2}k\left(x-q(t)-l_0\right)^2$$
+Entonces $E=T+V$ no se conserva: su variación es la derivada parcial del potencial respecto al tiempo,
+$$\frac{dE}{dt}=\frac{\partial V}{\partial t}=-k\left(x-q-l_0\right)\dot{q}$$
+Desarrollando el lado izquierdo,
+$$m\dot{x}\ddot{x}+k\left(x-q-l_0\right)\left(\dot{x}-\dot{q}\right)=-k\left(x-q-l_0\right)\dot{q}$$
+los términos con $\dot{q}$ se cancelan y queda $m\dot{x}\ddot{x}+k\left(x-q-l_0\right)\dot{x}=0$. Al simplificar $\dot{x}$ resulta la misma ecuación:
+\respuesta{$\displaystyle m\ddot{x}+k\left(x-q-l_0\right)=0\quad\text{es decir}\quad m\ddot{x}+kx=k\left(q(t)+l_0\right)$}
+Es un oscilador de frecuencia natural $\omega_n=\sqrt{k/m}$ forzado por el anclaje. En la variable $\delta$ queda $\ddot\delta+\omega_n^2\delta=-\ddot{q}$: lo que excita al resorte es la \emph{aceleración} de $Q$.
+
+% NOTA PARA REVISIÓN (agente B): el ítem 3 (potencia del mecanismo) NO está resuelto en Ay27S.tex;
+% el desarrollo de abajo es una derivación propia del agente, consistente con el dE/dt de arriba.
+\textbf{3) Potencia del mecanismo que mueve $Q$}\\
+El resorte tira de $Q$ con $+k\delta\,\vec{e}_x$ (hacia $P$), de modo que el mecanismo debe ejercer $-k\delta\,\vec{e}_x$ para imponer $q(t)$. Su potencia es
+$$\mathcal{P}_{mec}=\left(-k\delta\,\vec{e}_x\right)\cdot\dot{q}\,\vec{e}_x=-k\left(x-q-l_0\right)\dot{q}$$
+que coincide con $dE/dt=\partial V/\partial t$: la energía de $E=T+V$ varía solo por lo que entrega (o absorbe) el mecanismo que mueve $Q$.
+
+\end{solucion}

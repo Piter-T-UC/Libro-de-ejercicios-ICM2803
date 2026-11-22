@@ -1,4 +1,9 @@
-\subsection{Problema 2: Transformación Cilíndrica-Cartesiana}
+% =========================================================================
+% Capítulo 0: Repaso
+% Tema 01: Álgebra de vectores
+% Problema 02: Transformación Cilíndrica-Cartesiana
+% =========================================================================
+\subsubsection{Transformación Cilíndrica-Cartesiana}
 Utilice la transformación de base entre $\{\vec{e}_x, \vec{e}_y, \vec{e}_z\}$ y $\{\vec{e}_r, \vec{e}_\theta, \vec{e}_z\}$ definida por:
 $\vec{e}_r = \cos\theta\vec{e}_x + \sin\theta\vec{e}_y$ y $\vec{e}_\theta = -\sin\theta\vec{e}_x + \cos\theta\vec{e}_y$.
 
@@ -18,7 +23,7 @@ $\vec{e}_r = \cos\theta\vec{e}_x + \sin\theta\vec{e}_y$ y $\vec{e}_\theta = -\si
     \item $a\vec{e}_r \cdot b\vec{e}_\theta =$
 \end{enumerate}
 \end{multicols}
-\subsection{Operaciones 2 Bases}\label{subsec:cilindrica}
+\textbf{Segunda parte: operaciones con dos bases.}\label{subsec:cilindrica}
 
 Se tienen 2 marcos de referencia a cada uno  se le fija una base orto-normal, al primero cartesiana $\{\Vec{e}_x,\Vec{e}_y,\Vec{e}_z\}$ y al segundo una cilíndrica $\{\Vec{e}_r,\Vec{e}_\theta,\Vec{e}_z\}$, se conoce la transformación de una base a otra: 
 \begin{equation*}
@@ -45,3 +50,67 @@ Se tienen 2 marcos de referencia a cada uno  se le fija una base orto-normal, al
     
 \end{enumerate}
 \end{multicols}
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Transformación Cilíndrica-Cartesiana}
+\begin{enumerate}
+    \item $\vec{e}_r \cdot \vec{e}_x = (\cos\theta\vec{e}_x + \sin\theta\vec{e}_y) \cdot \vec{e}_x = \cos\theta(1) + \sin\theta(0) = \cos\theta$.
+    \item $\vec{e}_r \cdot \vec{e}_y = (\cos\theta\vec{e}_x + \sin\theta\vec{e}_y) \cdot \vec{e}_y = \cos\theta(0) + \sin\theta(1) = \sin\theta$.
+    \item $\vec{e}_\theta \cdot \vec{e}_x = (-\sin\theta\vec{e}_x + \cos\theta\vec{e}_y) \cdot \vec{e}_x = -\sin\theta$.
+    \item $\vec{e}_\theta \cdot \vec{e}_y = (-\sin\theta\vec{e}_x + \cos\theta\vec{e}_y) \cdot \vec{e}_y = \cos\theta$.
+    \item $(\vec{e}_r \cdot \vec{e}_x)^2 + (\vec{e}_r \cdot \vec{e}_y)^2 = \cos^2\theta + \sin^2\theta = 1$.
+    \item $\vec{e}_x$Realizando la combinación lineal inversa, se obtiene $\vec{e}_x = \cos\theta\vec{e}_r - \sin\theta\vec{e}_\theta$.
+    \item $\vec{e}_y$Realizando la combinación lineal inversa, se obtiene $\vec{e}_y = \sin\theta\vec{e}_r + \cos\theta\vec{e}_\theta$.
+    \item $\vec{e}_z \times \vec{e}_r = \vec{e}_z \times (\cos\theta\vec{e}_x + \sin\theta\vec{e}_y) = \cos\theta\vec{e}_y - \sin\theta\vec{e}_x = \vec{e}_\theta$.
+    \item $\vec{e}_z \times \vec{e}_\theta = \vec{e}_z \times (-\sin\theta\vec{e}_x + \cos\theta\vec{e}_y) = \sin\theta\vec{e}_y - \cos\theta\vec{e}_x = -\vec{e}_r$.
+    \item $\vec{e}_r \times \vec{e}_\theta = \vec{e}_z$ (por ser base orto-normal derecha).
+    \item $\| \vec{e}_r \times \vec{e}_z \| = \| -\vec{e}_\theta \| = 1$.
+    \item $a\vec{e}_r \cdot b\vec{e}_\theta = ab(\vec{e}_r \cdot \vec{e}_\theta) = ab(0) = 0$.
+\end{enumerate}
+\end{solucion}
+
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Transformación cilíndrica-cartesiana (segunda parte)}
+\noindent a) exprese el vector $\vec{e}_z$ en la base $\mathcal{B}$\\
+En este caso uno puede analizar que ambos vectores son igual por ende el vector $\vec{e}_z=\vec{e}_z$\\
+b) exprese el vector $\vec{e}_x$ en la base $\mathcal{B}$\\
+Para este caso existen dos maneras de analizar esto una manera geométrica y una manera algebraica. Para este caso se demostraran de ambas maneras como se resuelve se recomienda trabajar geométrica ya que a lo largo del curso sera el alumno que defina las bases. pero cualquiera es útil.\\ 
+Geométrica
+%\input{Imagenes/TIKZ/CirculoPolar}
+\begin{center}
+    
+\begin{tikzpicture}
+    \Polaresrtz{\theta}{e}{e}{blue}{red}
+\end{tikzpicture}
+
+\end{center}
+
+
+
+Como se buscar el vector $\vec{e}_x$ en la base cilíndrica tenemos que proyectar el vector $\vec{e}_x$ en los 3 vectores de la base, vemos que $\vec{e}_z$ no esta en el plano que se esta trabajando por lo que no es necesario. Ahora al ver la imagen vemos la descomposición del vector
+$$\vec{e}_x=\cos(\theta)\vec{e}_r+\cos(90-\theta)(-\vec{e}_{\theta})=\cos(\theta)\vec{e}_r-\sin(\theta)\vec{e}_{\theta}$$
+c) exprese el vector $\vec{e}_y$ en la base $\mathcal{B}$ \\
+En este caso es igual al anterior, donde mediante trigonometría se puede llegar a la siguiente relación\\
+$$\vec{e}_y=\cos(90-\theta)\vec{e}_r+\cos(\theta)(\vec{e}_{\theta})=\sin(\theta)\vec{e}_r+\cos(\theta)\vec{e}_{\theta}$$
+
+Ahora que se analizo la manera geométrica (trigonométrica) Podemos pasar a la manera algebraica que a alguno le puede ayudar en algún momento. El vector que se busca "proyectado" en la otra base, se puede aplicar la formula de proyección.
+$$proy_{\vec{v}}\vec{u}=\dfrac{\vec{v}\cdot\vec{u}}{\|\vec{v}\|^2}\vec{v}$$
+La formula se lee como la proyección de $\vec{u}$ sobre el vector $\vec{v}$, lo bueno de trabajar con bases orto-normales es que la norma de todos los vectores es uno por ende el denominador de esa formula siempre sera 1, conociendo esto la manera de resolver el problema se transforma en 
+$$\vec{e}_x=\underbrace{(\vec{e}_x\cdot\vec{e}_r)}_{\cos(\theta)}\vec{e}_r+\underbrace{(\vec{e}_x\cdot\vec{e}_{\theta})}_{-\sin(\theta)}\vec{e}_{\theta}+\underbrace{(\vec{e}_x\cdot\vec{e}_z)}_{0}\vec{e}_z$$
+$$\vec{e}_y=\underbrace{(\vec{e}_y\cdot\vec{e}_r)}_{\sin(\theta)}\vec{e}_r+\underbrace{(\vec{e}_y\cdot\vec{e}_{\theta})}_{cos(\theta)}\vec{e}_{\theta}+\underbrace{(\vec{e}_y\cdot\vec{e}_z)}_{0}\vec{e}_z$$
+$$\vec{e}_z=\underbrace{(\vec{e}_z\cdot\vec{e}_r)}_{0}\vec{e}_r+\underbrace{(\vec{e}_z\cdot\vec{e}_{\theta})}_{0}\vec{e}_{\theta}+\underbrace{(\vec{e}_z\cdot\vec{e}_z)}_{1}\vec{e}_z$$
+
+
+\begin{multicols}{2}
+\begin{enumerate}[label=\alph*), start=4]
+    \item $\Vec{e}_z\times\Vec{e}_\theta=-\vec{e}_r$
+   % \item $a\Vec{e}_z\times b\Vec{e}_r=$
+    \item $a\Vec{e}_r\cdot b\Vec{e}_x=ab\cos\theta$
+    \item $l\Vec{e}_r\times(-mg\Vec{e}_y)=-lmg\cos(\theta)\vec{e}_z$
+    \item $\Vec{e}_z\cdot\Vec{e}_\theta=0$
+    \item $\|a\Vec{e}_y\times\Vec{e}_\theta+\Vec{e}_x\|=\sqrt{(a\sin \theta)^2+1^2}$
+   % \item $a\Vec{e}_x\times\Vec{e}_r=$
+   % \item $l\Vec{e}_r\times-mg\Vec{e}_y=$
+    
+\end{enumerate}
+\end{multicols}
+\end{solucion}

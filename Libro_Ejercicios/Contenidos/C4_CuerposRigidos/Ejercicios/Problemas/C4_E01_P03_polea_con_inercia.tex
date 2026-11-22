@@ -1,3 +1,8 @@
+% =========================================================================
+% Capítulo 4: Cuerpo rígido
+% Tema 01: Cuerpo rígido
+% Problema 03: Sistema de bloques con polea de masa no despreciable
+% =========================================================================
 \subsubsection{Sistema de bloques con polea de masa no despreciable}
 
 Dos bloques de masas $m_1$ y $m_2$ (con $m_1 > m_2$) cuelgan de los extremos de una cuerda ideal (inextensible y de masa despreciable) que pasa sin deslizar sobre una polea de radio $R$ y momento de inercia $I$ respecto a su eje, como se muestra en la Figura \ref{fig:c4_e01_p03_polea_inercia}. El eje de la polea es fijo y sin fricción. El sistema se suelta desde el reposo.
@@ -54,3 +59,48 @@ Dos bloques de masas $m_1$ y $m_2$ (con $m_1 > m_2$) cuelgan de los extremos de 
     \caption{Máquina de Atwood con polea de radio $R$ y momento de inercia $I$ no despreciable.}
     \label{fig:c4_e01_p03_polea_inercia}
 \end{figure}
+
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Sistema de bloques con polea de masa no despreciable}
+\subsubsection*{Planteamiento}
+
+Sea $a$ la magnitud de la aceleración común de ambos bloques (la cuerda es inextensible), con $m_1$ bajando y $m_2$ subiendo. Como la cuerda no desliza sobre la polea, la aceleración angular de la polea satisface $\alpha = a/R$.
+
+\textbf{Bloque 1} (bajando, positivo hacia abajo):
+$$m_1 g - T_1 = m_1 a$$
+
+\textbf{Bloque 2} (subiendo, positivo hacia arriba):
+$$T_2 - m_2 g = m_2 a$$
+
+\textbf{Polea} (rotación respecto a su eje fijo $O$, con $I$ dado): la tensión $T_1$ ejerce torque $T_1 R$ en el sentido de giro, y $T_2$ ejerce torque $T_2 R$ en sentido contrario:
+$$T_1 R - T_2 R = I\alpha = I\frac{a}{R}$$
+
+\subsubsection*{Pregunta 1: Aceleración}
+
+Sumando las dos primeras ecuaciones:
+$$m_1 g - m_2 g - (T_1 - T_2) = (m_1+m_2)a$$
+
+De la ecuación de la polea, $T_1 - T_2 = \dfrac{Ia}{R^2}$. Sustituyendo:
+
+$$(m_1 - m_2)g = (m_1+m_2)a + \frac{I}{R^2}a$$
+
+$$\boxed{a = \frac{(m_1-m_2)g}{m_1+m_2+\dfrac{I}{R^2}}}$$
+
+\subsubsection*{Pregunta 2: Tensiones}
+
+De las ecuaciones de cada bloque:
+$$\boxed{T_1 = m_1(g-a)}, \qquad \boxed{T_2 = m_2(g+a)}$$
+
+La diferencia es:
+$$T_1 - T_2 = \frac{Ia}{R^2}$$
+
+Como $I > 0$ y $a > 0$ (pues $m_1 > m_2$), se tiene $T_1 > T_2$: la tensión es mayor del lado que impulsa la rotación de la polea, porque parte de la fuerza neta se invierte en producir el torque necesario para acelerar angularmente la polea. Si $I = 0$, entonces $T_1 = T_2$.
+
+\subsubsection*{Pregunta 3: Límite de Atwood ideal}
+
+Cuando $I \to 0$ (polea sin masa o sin inercia rotacional apreciable):
+
+$$a \to \frac{(m_1-m_2)g}{m_1+m_2}, \qquad T_1 \to T_2 \to \frac{2m_1m_2}{m_1+m_2}g$$
+
+que es exactamente el resultado clásico de la máquina de Atwood con polea ideal (masa despreciable), como se esperaba.
+\end{solucion}

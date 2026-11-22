@@ -1,3 +1,8 @@
+% =========================================================================
+% Capítulo 1: Cinemática
+% Tema 03: Coordenadas intrínsecas
+% Problema 01: Árbol de navidad
+% =========================================================================
 \subsubsection{Árbol de navidad}
 
 Una partícula describe una trayectoria helicoidal cónica, donde el ángulo $\theta$
@@ -59,9 +64,8 @@ Una partícula describe una trayectoria helicoidal cónica, donde el ángulo $\t
     \item Determine la  velocidad y aceleración de $P$ según un observador fijo en el marco de referencia inercial. 
 \end{enumerate}
 
-
-\ifmostrarSolucion
-\begin{tcolorbox}[title=Arbol de Navidad,breakable]
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Árbol de navidad}
 \textbf{Defina marcos de referencia y sistemas de coordenadas.}
  \textbf{Respuesta:} Los marcos de referencia en este problema son:
     \begin{itemize}
@@ -140,10 +144,11 @@ Y de las relaciones se conoce que $\dot\theta=\dfrac{2\pi c}{R}$
                 \begin{equation}
              \leftidx{^{\mathcal{N}}}{\vec{a}}{_P}=\left(-r\left(\dfrac{2\pi c}{R}\right)^2\right)\vec{e}_r+\left(2c\dfrac{2\pi c}{R}\right)\vec{e}_{\theta}
         \end{equation}
-\end{tcolorbox}
-\fi
-\ifmostrarSolucion
-\begin{tcolorbox}[title=Arbol de Navidad(pero sin condicion de R y $\theta$),breakable]
+\end{solucion}
+
+
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Árbol de navidad (sin condición sobre $R$ y $\theta$)}
 \vspace{0.8em}
 \noindent\textbf{1. Definición de marcos de referencia y sistemas de coordenadas}
 
@@ -266,5 +271,5 @@ Sustituyendo el límite de integración, la expresión final para la longitud de
 \[
     s(t^*) = \int_{0}^{g^{-1}\left( \sqrt{8 - \frac{1}{\tan^2(\beta)}} \right)} \sqrt{ c^2 + (ct)^2\dot{\theta}^2 + \left( -\frac{c}{\tan(\beta)} \right)^2 } \, dt.
 \]
-\end{tcolorbox}
-\fi
+\end{solucion}
+

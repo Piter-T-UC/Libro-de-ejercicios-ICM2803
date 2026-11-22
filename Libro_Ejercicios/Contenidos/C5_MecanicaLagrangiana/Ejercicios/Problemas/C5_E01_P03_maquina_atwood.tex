@@ -1,3 +1,8 @@
+% =========================================================================
+% Capítulo 5: Mecánica Lagrangiana
+% Tema 01: Mecánica Lagrangiana
+% Problema 03: Máquina de Atwood vía formulación Lagrangiana
+% =========================================================================
 \subsubsection{Máquina de Atwood vía formulación Lagrangiana}
 
 Dos bloques de masas $m_1$ y $m_2$ están conectados por una cuerda ideal (inextensible, de masa despreciable) que pasa sin fricción sobre una polea fija de radio $R$ y masa despreciable, como se muestra en la Figura \ref{fig:c5_e01_p03_atwood}. Sea $x$ la distancia que ha descendido el bloque $1$ desde su posición inicial.
@@ -46,3 +51,36 @@ Dos bloques de masas $m_1$ y $m_2$ están conectados por una cuerda ideal (inext
     \caption{Máquina de Atwood: dos masas conectadas por una cuerda inextensible sobre una polea ideal.}
     \label{fig:c5_e01_p03_atwood}
 \end{figure}
+
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Máquina de Atwood vía formulación Lagrangiana}
+\subsubsection*{Pregunta 1: Vínculo y grados de libertad}
+
+Como la cuerda es inextensible, su longitud total $L_{\text{cuerda}}$ es constante. Si $x_1$ y $x_2$ son las distancias verticales de cada bloque a la polea, el vínculo holonómico es:
+$$x_1 + x_2 = L_{\text{cuerda}} - \pi R = \text{constante}$$
+
+Esto implica $\dot{x}_1 = -\dot{x}_2$: cuando un bloque baja, el otro sube exactamente la misma distancia. El sistema tiene por lo tanto $1$ grado de libertad. Tomamos $x \equiv x_1$ como coordenada generalizada (la distancia que ha descendido el bloque $1$), de modo que $x_2 = \text{const} - x$ y $\dot{x}_2 = -\dot{x}$.
+
+\subsubsection*{Pregunta 2: Lagrangiano}
+
+Energía cinética de ambos bloques (la polea es de masa despreciable, no contribuye):
+$$T = \frac{1}{2}m_1\dot{x}^2 + \frac{1}{2}m_2\dot{x}_2^2 = \frac{1}{2}m_1\dot{x}^2 + \frac{1}{2}m_2\dot{x}^2 = \frac{1}{2}(m_1+m_2)\dot{x}^2$$
+
+Energía potencial (tomando el nivel de la polea como referencia, con $x$ positivo hacia abajo para $m_1$, por lo que $m_2$ sube la misma cantidad $x$):
+$$V = -m_1gx + m_2gx = -(m_1-m_2)gx$$
+
+$$\boxed{L = \frac{1}{2}(m_1+m_2)\dot{x}^2 + (m_1-m_2)gx}$$
+
+\subsubsection*{Pregunta 3: Ecuación de movimiento}
+
+$$\frac{\partial L}{\partial\dot{x}} = (m_1+m_2)\dot{x} \quad\Rightarrow\quad \frac{d}{dt}\left(\frac{\partial L}{\partial\dot{x}}\right) = (m_1+m_2)\ddot{x}$$
+
+$$\frac{\partial L}{\partial x} = (m_1-m_2)g$$
+
+Euler-Lagrange:
+$$(m_1+m_2)\ddot{x} - (m_1-m_2)g = 0$$
+
+$$\boxed{\ddot{x} = \frac{(m_1-m_2)g}{m_1+m_2}}$$
+
+\paragraph{Comparación con el enfoque newtoniano} Este es exactamente el resultado clásico de la máquina de Atwood, obtenido usualmente planteando $T_1$ igual en ambos lados (polea ideal sin masa) y resolviendo el sistema $m_1g - T = m_1a$, $T - m_2g = m_2a$. La ventaja del método Lagrangiano es que la tensión $T$ —fuerza de vínculo que no realiza trabajo neto sobre el sistema— nunca aparece en el cálculo: el vínculo se incorpora directamente al reducir el problema a una única coordenada independiente $x$.
+\end{solucion}

@@ -1,3 +1,9 @@
+% =========================================================================
+% Capítulo 3: Cinética de sistemas de partículas
+% Tema 01: Sistemas de partículas
+% Problema 01: Péndulo invertido sobre bloque móvil
+% Origen: Ayudantía 2 (10), 2026
+% =========================================================================
 \subsubsection{Péndulo invertido sobre bloque móvil}
 
 Un bloque de masa $M$ se desplaza sin fricción a lo largo de una superficie horizontal bajo la acción de una fuerza externa horizontal $F$. Una barra rígida sin masa de longitud $l$ está conectada al bloque mediante una bisagra en el punto $O$, permitiéndole rotar libremente en el plano vertical. En el extremo opuesto de la barra se encuentra una partícula de masa $m$, como se ilustra en la \textbf{Figura \ref{fig:pendulo_bloque}}. Sabiendo que la gravedad actúa hacia abajo y que el sistema parte de una configuración definida por el desplazamiento $x$ del bloque y el ángulo $\theta$ de la barra respecto a la vertical, realice lo siguiente:
@@ -61,3 +67,72 @@ Un bloque de masa $M$ se desplaza sin fricción a lo largo de una superficie hor
     \caption{Diagrama de una partícula de masa $m$ acoplada a un bloque de masa $M$ con movimiento horizontal y rotación libre.}
     \label{fig:pendulo_bloque}
 \end{figure}
+
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Péndulo invertido sobre bloque móvil}
+\textbf{Marcos de referencia y Sistemas de Coordenadas}
+\begin{itemize}
+    \item $\mathcal{F}$: inercial, fijo al suelo, con origen en la posición inicial de la bisagra $O$ $\longrightarrow\{\vec{E}_x;\vec{E}_y;\vec{E}_z\}$, con $\vec{E}_x$ horizontal hacia la derecha, $\vec{E}_y$ vertical hacia arriba y $\vec{E}_z=\vec{E}_x\times\vec{E}_y$ saliendo de la página.
+    \item $\mathcal{A}$: solidario a la varilla $OP$ $\longrightarrow\{\vec{e}_r;\vec{e}_\theta;\vec{e}_z\}$, con $\vec{e}_r$ a lo largo de $OP$, $\vec{e}_z=\vec{E}_z$ y $\vec{e}_\theta=\vec{e}_z\times\vec{e}_r$.
+\end{itemize}
+
+\begin{center}
+\begin{tikzpicture}[>=Latex, scale=1.3]
+    % --- PARÁMETROS ---
+    \def\ang{35}   % ángulo theta [°]
+    \def\len{1.5}  % largo de los vectores [u]
+
+    % --- BASE FIJA ---
+    \draw[->, thick, azul] (0,0) -- (\len,0) node[right] {$\vec{E}_x$};
+    \draw[->, thick, azul] (0,0) -- (0,\len) node[above] {$\vec{E}_y$};
+    \draw[dashed, gray] (0,0) -- (0,-0.3);
+
+    % --- BASE MÓVIL ---
+    \draw[->, thick, myred] (0,0) -- ({90-\ang}:\len) node[above right] {$\vec{e}_r$};
+    \draw[->, thick, myred] (0,0) -- ({180-\ang}:\len) node[above left] {$\vec{e}_\theta$};
+
+    % --- ÁNGULO ---
+    \draw[->] (0,0.8) arc (90:{90-\ang}:0.8);
+    \node at ({90-\ang/2}:1.05) {$\theta$};
+    \filldraw (0,0) circle (1.2pt) node[below left] {$O$};
+\end{tikzpicture}
+\end{center}
+
+De la geometría de la Figura (donde $\theta$ se mide en sentido horario desde la vertical superior $\vec{E}_y$), la relación entre las bases y la velocidad angular de la varilla son:
+\begin{equation*}
+\begin{split}
+    \vec{e}_r &= \sin\theta\,\vec{E}_x + \cos\theta\,\vec{E}_y\\
+    \vec{e}_\theta &= -\cos\theta\,\vec{E}_x + \sin\theta\,\vec{E}_y
+\end{split}
+\end{equation*}
+$$\velang{F}{A} = -\dot{\theta}\,\vec{E}_z$$
+
+\subsubsection*{Cinemática del sistema de partículas}
+\textbf{Bloque de masa $M$ (punto $O$)}
+$$\vec{r}_M = x\,\vec{E}_x \quad\Longrightarrow\quad \marc{\vec{v}_M}{F} = \dot{x}\,\vec{E}_x \quad\Longrightarrow\quad \marc{\vec{a}_M}{F} = \ddot{x}\,\vec{E}_x$$
+
+\textbf{Partícula de masa $m$ (punto $P$)}\\
+La posición relativa es $\vec{r}_{P/O} = l\,\vec{e}_r$. Aplicando el Teorema de Transporte dos veces:
+$$\marc{\vec{v}_m}{F} = \marc{\vec{v}_M}{F} + \velang{F}{A}\times\vec{r}_{P/O} = \dot{x}\,\vec{E}_x + (-\dot{\theta}\,\vec{E}_z) \times (l\,\vec{e}_r) = \dot{x}\,\vec{E}_x - l\dot{\theta}\,\vec{e}_\theta$$
+$$\marc{\vec{a}_m}{F} = \marc{\vec{a}_M}{F} + \der{(-l\dot{\theta}\,\vec{e}_\theta)}{A}{} + \velang{F}{A} \times (-l\dot{\theta}\,\vec{e}_\theta) = \ddot{x}\,\vec{E}_x - l\ddot{\theta}\,\vec{e}_\theta - l\dot{\theta}^2\,\vec{e}_r$$
+Sustituyendo $\vec{e}_r$ y $\vec{e}_\theta$ en la base inercial $\{\vec{E}_x, \vec{E}_y\}$:
+$$\marc{\vec{a}_m}{F} = \left(\ddot{x} + l\ddot{\theta}\cos\theta - l\dot{\theta}^2\sin\theta\right)\vec{E}_x + \left(-l\ddot{\theta}\sin\theta - l\dot{\theta}^2\cos\theta\right)\vec{E}_y$$
+
+\subsubsection*{Cinética del sistema de partículas}
+\textbf{Primera ecuación: Newton para el conjunto $\{M, m\}$ en $\vec{E}_x$}\\
+Para el sistema completo $\{M, m\}$, la fuerza axial interna de la varilla se anula por acción y reacción. La única fuerza externa con componente horizontal es $\vec{F} = F\,\vec{E}_x$. Aplicando $\sum \vec{F}_{\text{ext}} \cdot \vec{E}_x = M a_{M,x} + m a_{m,x}$:
+$$F = M\ddot{x} + m\left(\ddot{x} + l\ddot{\theta}\cos\theta - l\dot{\theta}^2\sin\theta\right)$$
+\respuesta{$\displaystyle (M + m)\ddot{x} + ml\ddot{\theta}\cos\theta - ml\dot{\theta}^2\sin\theta = F$}
+
+\textbf{Segunda ecuación: Newton para $m$ en dirección transversal $\vec{e}_\theta$}\\
+Aislando la partícula $m$, las fuerzas que actúan sobre ella son la reacción axial de la varilla $\vec{R} = R\,\vec{e}_r$ y el peso $-mg\,\vec{E}_y$. Proyectando sobre $\vec{e}_\theta$ eliminamos la fuerza de reacción desconocida $R$:
+$$\sum \vec{F}_m \cdot \vec{e}_\theta = m\left(\marc{\vec{a}_m}{F}\cdot \vec{e}_\theta\right)$$
+Dado que $(-mg\,\vec{E}_y) \cdot \vec{e}_\theta = -mg\sin\theta$ y $\vec{E}_x \cdot \vec{e}_\theta = -\cos\theta$:
+$$-mg\sin\theta = m\left(\ddot{x}\,\vec{E}_x - l\ddot{\theta}\,\vec{e}_\theta - l\dot{\theta}^2\,\vec{e}_r\right) \cdot \vec{e}_\theta = m\left(-\ddot{x}\cos\theta - l\ddot{\theta}\right)$$
+Dividiendo por $-m$ y ordenando términos, se obtiene la segunda ecuación diferencial:
+\respuesta{$\displaystyle l\ddot{\theta} + \ddot{x}\cos\theta - g\sin\theta = 0$}
+
+\patoojo{Proyecta sobre la dirección perpendicular a la fuerza que no conoces. Aquí la varilla solo empuja en $\vec{e}_r$, así que al proyectar la ecuación de $m$ sobre $\vec{e}_\theta$ desaparece la reacción $R$ y no hay que despejarla.}
+
+\patotip{Fíjate en el signo de $g\sin\theta$: es un péndulo \emph{invertido} ($\theta$ medido desde la vertical hacia arriba), por eso la gravedad desestabiliza y el término aparece como $-g\sin\theta$, con el signo contrario al $+g\sin\theta$ del péndulo común.}
+\end{solucion}

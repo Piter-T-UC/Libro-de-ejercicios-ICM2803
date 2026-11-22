@@ -1,0 +1,202 @@
+% =========================================================================
+% Capítulo 4: Cuerpo rígido
+% Tema 01: Cuerpo rígido
+% Problema 15: Placa rectangular en una varilla apoyada en rodamientos
+% Origen: Ayudantía final (Última ayudantía), 2026 (problema MIT)
+% =========================================================================
+\subsubsection{Placa rectangular en una varilla apoyada en rodamientos}
+
+Una placa rectangular de masa $M$, longitud $b$ y altura $a$ está fijada a una varilla sin masa
+a través de su centro de masa y las esquinas de la placa, como se muestra en la Figura
+\ref{fig:c4_e01_p15_placa_diagonal}. La varilla está apoyada en dos puntos separados por una
+distancia $L$, como se muestra. La placa rota junto con la varilla con una velocidad angular
+$\omega$.
+
+% --- FIGURA PRINCIPAL -------------------------------------------------------
+\begin{figure}[!ht]
+    \centering
+    \begin{tikzpicture}[scale=0.95]
+        % --- COLORES ---
+        \colorlet{bodycolor}{cyan!15}
+        \colorlet{shaftcolor}{gray!50}
+        \colorlet{bearinggray}{gray!30}
+        \colorlet{housingcolor}{black!70}
+
+        % --- RODAMIENTO EN CORTE (pedestal) ---
+        \tikzset{
+          bearing/.pic={
+            % Base y soporte inferior (achurado)
+            \draw[thick, fill=white] (-0.8,-3) -- (0.8,-3) -- (0.5,-0.7) -- (-0.5,-0.7) -- cycle;
+            \fill[pattern=north east lines, pattern color=housingcolor] (-0.8,-3) -- (0.8,-3) -- (0.5,-0.7) -- (-0.5,-0.7) -- cycle;
+            % Soporte superior (achurado)
+            \draw[thick, fill=white] (-0.5,0.7) rectangle (0.5,1.2);
+            \fill[pattern=north east lines, pattern color=housingcolor] (-0.5,0.7) rectangle (0.5,1.2);
+            % Anillos exteriores
+            \draw[thick, fill=bearinggray] (-0.3,0.5) rectangle (0.3,0.7);
+            \draw[thick, fill=bearinggray] (-0.3,-0.5) rectangle (0.3,-0.7);
+            % Anillos interiores
+            \draw[thick, fill=bearinggray!50] (-0.3,0.2) rectangle (0.3,0.3);
+            \draw[thick, fill=bearinggray!50] (-0.3,-0.2) rectangle (0.3,-0.3);
+            % Elementos rodantes
+            \draw[thick, fill=white] (0, 0.4) circle (0.1);
+            \draw[thick, fill=white] (0,-0.4) circle (0.1);
+            % Eje vertical central
+            \draw[dash dot, thin, gray!80] (0, 1.5) -- (0, -3.2);
+          }
+        }
+
+        % --- SUELO ---
+        \fill[pattern=north east lines, pattern color=gray] (-4.5, -2.5) rectangle (5.5, -3);
+        \draw[thick] (-4.5, -2.5) -- (5.5, -2.5);
+
+        % --- RODAMIENTOS ---
+        \pic at (-2.5, 0) {bearing};
+        \pic at (2.5, 0) {bearing};
+
+        % --- EJE DE ROTACIÓN (varilla) ---
+        \draw[thick, fill=shaftcolor] (-3.5, -0.2) rectangle (4.5, 0.2);
+
+        % --- PLACA (cuerpo rígido M) ---
+        \begin{scope}[rotate=33.5]
+            \draw[thick, fill=bodycolor, fill opacity=0.9] (-1.8, -1.2) rectangle (1.8, 1.2);
+            \node at (-1.2, -0.7) {\Large $\mathbf{M}$};
+        \end{scope}
+
+        % --- Detalles del eje pasando a través de la masa ---
+        \draw[thick, dashed, opacity=0.6] (-1.7, 0.2) -- (1.7, 0.2);
+        \draw[thick, dashed, opacity=0.6] (-1.7, -0.2) -- (1.7, -0.2);
+
+        % --- EJE GEOMÉTRICO DE ROTACIÓN ---
+        \draw[dash dot, thick] (-4.5, 0) -- (6, 0);
+
+        % --- SISTEMA DE COORDENADAS ---
+        \draw[thick, -{Stealth[length=3mm]}] (0,0) -- (0, 3.5) node[right] {\Large $\mathbf{y}$};
+        \draw[thick, -{Stealth[length=3mm]}] (4.5, 0) -- (5.5, 0) node[below right] {\Large $\mathbf{x}$};
+
+        % --- VELOCIDAD ANGULAR ---
+        \draw[thick, dashed] (4.8, 0.8) arc (90:270:0.3 and 0.8);
+        \draw[thick, -{Stealth[length=3mm]}] (4.8, -0.8) arc (-90:90:0.3 and 0.8);
+        \node at (5.3, 0.7) {\Large $\vec{\omega}$};
+
+        % --- COTAS Y ETIQUETAS ---
+        \draw[dashed, thick, gray] (-2.5, -3) -- (-2.5, -4.2);
+        \draw[dashed, thick, gray] (2.5, -3) -- (2.5, -4.2);
+        \draw[{Stealth[length=2.5mm]}-{Stealth[length=2.5mm]}, thick] (-2.5, -3.9) -- (2.5, -3.9) node[midway, fill=white] {\Large $\mathbf{L}$};
+        \node at (-1.5, -1.2) {\Large $\mathbf{a}$};
+        \node at (1.1, -1.2) {\Large $\mathbf{b}$};
+    \end{tikzpicture}
+    \caption{Placa rectangular montada en su diagonal (problema MIT).}
+    \label{fig:c4_e01_p15_placa_diagonal}
+\end{figure}
+
+\begin{enumerate}
+  \item ¿Es el eje de rotación un eje principal?
+  \item ¿Cuál es el momento angular de la placa? Haz un boceto del vector momento angular en relación con la posición de la placa.
+  \item ¿Qué fuerzas deben ejercer los soportes? Da una fórmula para las fuerzas en los dos soportes en función del tiempo.
+  \item Si la varilla no careciera de masa, sino que tuviera una masa $M_r$, un radio $R_0$ y una longitud $L_2$, ¿cómo cambiaría tu respuesta?
+\end{enumerate}
+
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Placa montada en su diagonal}
+
+\textbf{Planteamiento}\\
+Ejes principales de la placa en su centro de masa $G$ (placa delgada):
+\[
+\vec{e}_1 \parallel b:\ I_1 = \tfrac{1}{12}Ma^2,\qquad
+\vec{e}_2 \parallel a:\ I_2 = \tfrac{1}{12}Mb^2,\qquad
+\vec{e}_3 \perp \text{placa}:\ I_3 = \tfrac{1}{12}M(a^2+b^2).
+\]
+La varilla va por la diagonal. Sea $d=\sqrt{a^2+b^2}$ y $\alpha$ el ángulo entre la diagonal y el lado $b$: $\cos\alpha=b/d$, $\sin\alpha=a/d$. Usamos una base que gira con la placa: $\vec{e}_x$ a lo largo de la varilla (fija en el espacio), $\vec{e}_s$ en el plano de la placa y perpendicular a la varilla, y $\vec{e}_n=\vec{e}_x\times\vec{e}_s$ normal a la placa. Según la figura (lado $b$ inclinado hacia arriba a la derecha):
+\[
+\vec{e}_x = \frac{b\,\vec{e}_1 - a\,\vec{e}_2}{d},\qquad
+\vec{e}_s = \frac{a\,\vec{e}_1 + b\,\vec{e}_2}{d}.
+\]
+
+\textbf{a) ¿Es la varilla un eje principal?}\\
+El tensor de inercia en la base $(\vec{e}_x,\vec{e}_s,\vec{e}_n)$ es
+\[
+[I_G] = \frac{M}{12d^2}
+\begin{pmatrix}
+2a^2b^2 & ab(a^2-b^2) & 0\\
+ab(a^2-b^2) & a^4+b^4 & 0\\
+0 & 0 & d^4
+\end{pmatrix}.
+\]
+El término cruzado $I_{xs}=\dfrac{Mab(a^2-b^2)}{12(a^2+b^2)}$ es distinto de cero salvo que $a=b$.
+\respuesta{No. La diagonal sólo es eje principal si la placa es cuadrada ($a=b$). En un rectángulo los ejes principales en el plano son paralelos a los lados.}
+\patotip[squareglasses,shovel]{La diagonal no es eje de simetría del rectángulo; reflejar la placa respecto de la diagonal no la deja igual.}
+
+\textbf{b) Momento angular}\\
+Con $\vec{\omega} = \omega\vec{e}_x$: $\omega_1 = \omega b/d$, $\omega_2 = -\omega a/d$, $\omega_3=0$. Entonces
+\[
+\vec{H}_G = I_1\omega_1\vec{e}_1 + I_2\omega_2\vec{e}_2
+= \frac{M\omega ab}{12d}\,\big(a\,\vec{e}_1 - b\,\vec{e}_2\big).
+\]
+En la base de la varilla:
+\respuesta{$\displaystyle
+\vec{H}_G = \underbrace{\frac{M a^2 b^2}{6(a^2+b^2)}\,\omega}_{H_\parallel}\vec{e}_x
+\;-\;\underbrace{\frac{M ab\,(b^2-a^2)}{12(a^2+b^2)}\,\omega}_{H_\perp}\vec{e}_s,
+\qquad |\vec{H}_G| = \frac{M ab\,\omega}{12}
+$}
+\begin{itemize}[nosep]
+  \item $\vec{H}_G$ está \textbf{en el plano de la placa}, no sobre la varilla.
+  \item Forma un ángulo $\beta$ con la varilla: $\cos\beta = \dfrac{2ab}{a^2+b^2}$, es decir $\beta = \tfrac{\pi}{2}-2\alpha$ (cero si $a=b$).
+  \item Para $b>a$ se inclina hacia el lado opuesto al que se inclina el lado largo: tiende a quedar perpendicular a la dimensión larga, como en una barra inclinada.
+  \item Está fijo a la placa, así que \textbf{gira con ella}: describe un cono de semiángulo $\beta$ alrededor de la varilla.
+\end{itemize}
+
+\begin{center}
+\begin{tikzpicture}[>=Latex, scale=1.0]
+  \def\b{3.6}\def\a{2.4}
+  \begin{scope}[rotate=33.69]
+    \draw[thick, fill=cyan!10] (-\b/2,-\a/2) rectangle (\b/2,\a/2);
+  \end{scope}
+  \draw[dash dot, thick] (-3.6,0) -- (3.8,0);
+  \draw[->, very thick, azul] (0,0) -- (2.6,0) node[above, xshift=-2pt] {$\vec{\omega}$};
+  % H: dirección 2ab x - (b^2-a^2) s  => ángulo atan(-7.2/17.28) = -22.6°
+  \draw[->, very thick, myred] (0,0) -- (-22.6:2.9) node[right] {$\vec{H}_G$};
+  \draw[gray, ->] (1.5,0) arc (0:-22.6:1.5) node[midway, right] {$\beta$};
+  \draw[->, gray] (0,0) -- (0,1.2) node[left] {$\vec{e}_s$};
+  \fill (0,0) circle (1.3pt) node[above left] {$G$};
+  % fuerzas en los descansos
+  \draw[->, thick, myred] (-3.0,-1.3) -- (-3.0,-0.05) node[pos=0, below] {$\vec{F}_A$};
+  \draw[->, thick, myred] (3.3,1.3) -- (3.3,0.05) node[pos=0, above] {$\vec{F}_B$};
+  \node[font=\small, align=center] at (0,-2.4) {Vista normal a la placa en $t=0$ ($\vec{e}_s=\vec{e}_y$).\\
+  $\dot{\vec{H}}_G$ apunta hacia dentro del papel.};
+\end{tikzpicture}
+\end{center}
+
+\textbf{c) Fuerzas en los soportes}\\
+\emph{Fuerza neta.} $G$ está sobre el eje y no se mueve: $\sum\vec{F} = \vec{0}$. Con gravedad, cada soporte sólo carga $Mg/2$ (placa centrada entre soportes, como en la figura).
+
+\emph{Momento.} $\vec{e}_x$ es fijo y $\vec{e}_s$ gira: $\dot{\vec{e}}_s = \vec{\omega}\times\vec{e}_s = \omega\,\vec{e}_n$. Con $\omega$ constante:
+\[
+\vec{\tau}_G = \dot{\vec{H}}_G = \vec{\omega}\times\vec{H}_G = -H_\perp\,\omega\,\vec{e}_n
+= -\frac{M ab\,(b^2-a^2)}{12(a^2+b^2)}\,\omega^2\,\vec{e}_n.
+\]
+El momento es \textbf{normal a la placa} y gira con ella. Lo aplican los soportes con un par: $\vec{F}_A=-\vec{F}_B$, ambos perpendiculares a la varilla. Con $A$ en $x=-L/2$ y $B$ en $x=+L/2$:
+\[
+\vec{\tau}_G = \tfrac L2\vec{e}_x\times\vec{F}_B - \tfrac L2\vec{e}_x\times\vec{F}_A = L\,\vec{e}_x\times\vec{F}_B
+\;\Rightarrow\;
+\vec{F}_B = -\frac{H_\perp\omega}{L}\,\vec{e}_s.
+\]
+Las fuerzas dinámicas están \textbf{en el plano de la placa}. Tomando $t=0$ en la posición de la figura (placa en el plano $xy$, $\vec{e}_z$ saliendo del papel), $\vec{e}_s(t)=\cos\omega t\,\vec{e}_y+\sin\omega t\,\vec{e}_z$:
+\respuesta{$\displaystyle
+\vec{F}_A(t) = \frac{Mg}{2}\vec{e}_y + F_0\big(\cos\omega t\,\vec{e}_y+\sin\omega t\,\vec{e}_z\big),\qquad
+\vec{F}_B(t) = \frac{Mg}{2}\vec{e}_y - F_0\big(\cos\omega t\,\vec{e}_y+\sin\omega t\,\vec{e}_z\big)
+$\\[2mm]
+$\displaystyle F_0 = \frac{M ab\,(b^2-a^2)}{12\,L\,(a^2+b^2)}\,\omega^2$}
+\emph{Interpretación física.} Las ``fuerzas centrífugas'' sobre las dos mitades de la placa forman un par que tiende a girar la placa para poner su lado largo perpendicular al eje. Los soportes lo contrarrestan: el derecho empuja hacia $-\vec{e}_s$ y el izquierdo hacia $+\vec{e}_s$. El par dinámico es de magnitud constante pero gira con $\omega$: es una carga alternante sobre los rodamientos, y por eso se equilibran dinámicamente los rotores.
+
+\patotip[glasses,tie=blue!70!black]{\textbf{Regla de oro:} si $\vec{H}$ no es paralelo a $\vec{\omega}$, los rodamientos lo pagan en cada vuelta. Por eso se balancean dinámicamente los rotores.}
+
+\textbf{d) Varilla con masa $M_r$, radio $R_0$, longitud $L_2$}\\
+La varilla es un cilindro coaxial con $\vec{\omega}$: su eje \emph{sí} es principal y su centro de masa está sobre el eje. Por lo tanto:
+\begin{itemize}[nosep]
+  \item Agrega una componente axial al momento angular: $\vec{H} = \vec{H}_G^{\text{placa}} + \tfrac12 M_r R_0^2\,\omega\,\vec{e}_x$. Es paralela a $\vec{\omega}$ y constante, así que no aporta a $\dot{\vec{H}}$.
+  \item \textbf{Las fuerzas dinámicas en los soportes no cambian} ($F_0$ es la misma). $L_2$ y $R_0$ no aparecen en ellas.
+  \item Sólo cambia la parte estática: cada soporte carga $(M+M_r)g/2$ si la varilla está centrada. Si no lo está, el reparto del peso depende de dónde quede su centro de masa respecto de los soportes.
+  \item $I_{xx}$ total crece en $\tfrac12 M_rR_0^2$; esto sólo importaría si $\omega$ variara (par motor $=I_{xx}\dot\omega$).
+\end{itemize}
+
+\end{solucion}

@@ -1,0 +1,95 @@
+% =========================================================================
+% Capítulo 3: Cinética de sistemas de partículas
+% Tema 01: Sistemas de partículas
+% Problema 19: Collarín y péndulo con resorte horizontal
+% Origen: Ayudantía 28, 2026
+% =========================================================================
+\subsubsection{Collarín y péndulo con resorte horizontal}
+
+Una partícula de masa $m_2$ está suspendida de una barra rígida sin masa de longitud $l$, como se muestra en la Figura \ref{fig:c3_e01_p19_collarin_pendulo}. La barra está unida en su otro extremo a un collarín de masa $m_1$. El collarín, a su vez, se desliza sin fricción a lo largo de una guía horizontal. Además, el collarín está unido a un resorte lineal con constante elástica $K$ y longitud natural (sin estirar) $\ell_0$, anclado a la pared izquierda. Sea $x$ la posición del collarín medida desde esa pared y $\theta$ el ángulo de la barra con la vertical descendente. Asumiendo que la gravedad actúa hacia abajo, determine un sistema de dos ecuaciones diferenciales en términos de las variables $x$ y $\theta$ que describa el movimiento del collarín y de la partícula.
+
+\begin{figure}[!ht]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.2,
+        resorte/.style={thick, decorate, decoration={coil, aspect=0.5, segment length=5pt, amplitude=4pt, pre length=3pt, post length=3pt}}]
+        % --- PARÁMETROS ---
+        \def\xc{2.2}      % posición del collarín respecto a la pared izquierda [u]
+        \def\Lg{4.6}      % separación entre paredes [u]
+        \def\Lbar{2.6}    % largo de la barra [u]
+        \def\ang{25}      % ángulo theta [°]
+
+        % --- PAREDES Y GUÍA ---
+        \fill[pattern=north east lines] (-0.3,-0.5) rectangle (0,0.6);
+        \draw[thick] (0,-0.5) -- (0,0.6);
+        \fill[pattern=north east lines] (\Lg,-0.5) rectangle (\Lg+0.3,0.6);
+        \draw[thick] (\Lg,-0.5) -- (\Lg,0.6);
+        \draw[line width=3pt, gray!50] (0,0) -- (\Lg,0);
+        \draw[thick] (0,0.04) -- (\Lg,0.04);
+        \draw[thick] (0,-0.04) -- (\Lg,-0.04);
+
+        % --- RESORTE ---
+        \draw[resorte] (0,0) -- (\xc-0.2,0);
+        \node[above] at (1.0,0.25) {$K$};
+
+        % --- COLLARÍN ---
+        \coordinate (O) at (\xc,0);
+        \draw[thick, fill=gray!20] (\xc,0) circle (0.2);
+        \node[above right] at (\xc+0.1,0.15) {$m_1$};
+        \filldraw (O) circle (1.2pt) node[below left, xshift=-1pt] {$O$};
+
+        % --- BARRA Y PARTÍCULA ---
+        \coordinate (P) at ({\xc+\Lbar*sin(\ang)},{-\Lbar*cos(\ang)});
+        \draw[line width=4pt] (O) -- (P);
+        \draw[line width=3pt, gray!40, line cap=round] (O) -- (P);
+        \shadedraw[ball color=gray!40] (P) circle (0.2);
+        \node[below right] at ($(P)+(0.1,-0.1)$) {$m_2$};
+        \node[above right, xshift=2pt] at ($(O)!0.55!(P)$) {$l$};
+        \node[below left] at (P) {$P$};
+
+        % --- ÁNGULO THETA ---
+        \draw[dashed, gray] (O) -- (\xc,-\Lbar-0.2);
+        \draw[->] (\xc,-1.4) arc (-90:{-90+\ang}:1.4);
+        \node at ({\xc+0.35},-1.7) {$\theta$};
+
+        % --- COORDENADA x ---
+        \draw[|<->|] (0,0.95) -- (\xc,0.95) node[midway, above] {$x$};
+        \draw[dotted] (0,0.6) -- (0,1.0);
+        \draw[dotted] (\xc,0.2) -- (\xc,1.0);
+
+        % --- GRAVEDAD ---
+        \draw[->, thick] (-0.9,-0.6) -- (-0.9,-1.5) node[midway, left] {$\mathbf{g}$};
+    \end{tikzpicture}
+    \caption{Collarín con resorte en una guía horizontal y péndulo suspendido.}
+    \label{fig:c3_e01_p19_collarin_pendulo}
+\end{figure}
+
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Collarín y péndulo con resorte horizontal}
+\textbf{Marcos de referencia y Sistemas de Coordenadas}\\
+Definimos un sistema de coordenadas cartesianas inercial con origen fijo $O$ en la pared izquierda donde se ancla el resorte (o en la referencia de $x$), con el eje $\vec{e}_x$ horizontal hacia la derecha y el eje $\vec{e}_y$ vertical hacia abajo (en dirección de $\vec{g} = g\,\vec{e}_y$).
+
+\subsubsection*{Cinemática del sistema de partículas}
+Los vectores de posición, velocidad y aceleración del collarín $m_1$ y de la partícula $m_2$ (ubicada en el extremo $P$ de la barra de longitud $l$) son:
+$$\begin{aligned}
+    \vec{r}_1 &= x\,\vec{e}_x, \qquad \dot{\vec{r}}_1 = \dot{x}\,\vec{e}_x, \qquad \ddot{\vec{r}}_1 = \ddot{x}\,\vec{e}_x \\
+    \vec{r}_2 &= (x + l\sin\theta)\,\vec{e}_x + l\cos\theta\,\vec{e}_y \\
+    \dot{\vec{r}}_2 &= (\dot{x} + l\dot{\theta}\cos\theta)\,\vec{e}_x - l\dot{\theta}\sin\theta\,\vec{e}_y \\
+    \ddot{\vec{r}}_2 &= (\ddot{x} + l\ddot{\theta}\cos\theta - l\dot{\theta}^2\sin\theta)\,\vec{e}_x + (-l\ddot{\theta}\sin\theta - l\dot{\theta}^2\cos\theta)\,\vec{e}_y
+\end{aligned}$$
+
+\subsubsection*{Cinética del conjunto de partículas}
+\textbf{Primera ecuación: momentum lineal del conjunto $\{m_1, m_2\}$ en el eje $\vec{e}_x$}\\
+Para el sistema completo $\{m_1, m_2\}$, la tensión interna de la barra sin masa se cancela ($\vec{f}_{12} + \vec{f}_{21} = \vec{0}$). La única fuerza externa con componente horizontal es la fuerza del resorte $\vec{F}_s = -K(x - \ell_0)\,\vec{e}_x$. Aplicando $\sum F_{x,\text{ext}} = \dot{L}_x = m_1 \ddot{x}_1 + m_2 \ddot{x}_2$:
+$$-K(x - \ell_0) = m_1 \ddot{x} + m_2 (\ddot{x} + l\ddot{\theta}\cos\theta - l\dot{\theta}^2\sin\theta)$$
+\respuesta{$\displaystyle (m_1 + m_2)\ddot{x} + m_2 l\ddot{\theta}\cos\theta - m_2 l\dot{\theta}^2\sin\theta + K(x - \ell_0) = 0$}
+
+\textbf{Segunda ecuación: ecuación transversal en $\vec{e}_\theta$ para $m_2$}\\
+La fuerza de la barra rígida sin masa sobre $m_2$ es puramente radial ($\vec{e}_r = \sin\theta\,\vec{e}_x + \cos\theta\,\vec{e}_y$). Proyectando la Segunda Ley de Newton de $m_2$ sobre la dirección transversal perpendicular a la barra $\vec{e}_\theta = \cos\theta\,\vec{e}_x - \sin\theta\,\vec{e}_y$:
+$$\sum \vec{F}_2 \cdot \vec{e}_\theta = m_2 \ddot{\vec{r}}_2 \cdot \vec{e}_\theta \quad\Longrightarrow\quad (m_2 g\,\vec{e}_y) \cdot \vec{e}_\theta = m_2 (\ddot{x}\cos\theta + l\ddot{\theta})$$
+$$-m_2 g\sin\theta = m_2 (\ddot{x}\cos\theta + l\ddot{\theta})$$
+\respuesta{$\displaystyle l\ddot{\theta} + \ddot{x}\cos\theta + g\sin\theta = 0$}
+
+\patotip[squareglasses]{Elegir el eje $\vec{e}_y$ hacia \emph{abajo} deja la gravedad con signo positivo, $\vec{g}=g\,\vec{e}_y$, y $\theta$ medido desde la vertical descendente da las proyecciones $\sin\theta$ y $\cos\theta$ sin signos extraños.}
+
+\patotruco{Elige bien el sistema para cada Newton: con $\{m_1+m_2\}$ completo en $\vec{e}_x$ la tensión de la barra es interna y no aparece; con $m_2$ solo, proyectado en $\vec{e}_\theta$, la tensión es perpendicular y tampoco aparece. Cero incógnitas de reacción.}
+\end{solucion}

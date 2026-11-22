@@ -1,0 +1,247 @@
+% =========================================================================
+% Capítulo 4: Cuerpo rígido
+% Tema 01: Cuerpo rígido
+% Problema 12: Barra soldada a un eje giratorio
+% Origen: Ayudantía 3, 2026
+% =========================================================================
+\subsubsection{Barra soldada a un eje giratorio}
+
+Una barra sólida de longitud $l$ está soldada a un eje que gira con una velocidad angular
+constante $\omega$. La masa de la barra es $m$ y la barra se encuentra en el plano de la figura
+en el instante mostrado (Figura \ref{fig:c4_e01_p12_barra_eje}).
+
+\begin{enumerate}
+    \item Halle el tensor de inercia $I$ de la barra.
+    \item Halle el momento angular $\vec{H}$ de la barra.
+    \item Halle la energía cinética $T$ de la barra.
+\end{enumerate}
+
+\noindent Especifique el sistema de coordenadas que está utilizando.
+
+% --- FIGURA PRINCIPAL -------------------------------------------------------
+\begin{figure}[!ht]
+    \centering
+    \begin{tikzpicture}[scale=1.2]
+        % --- PARÁMETROS ---
+        \def\ang{60}   % inclinación de la barra respecto del eje [°]
+
+        % --- EJE (SHAFT) ---
+        \draw[thick] (-4,0) -- (4,0);
+
+        % --- SOPORTES A Y B ---
+        \draw[thick] (-3.2, 0.2) rectangle (-2.8, -0.2);
+        \node at (-3, 0.4) {$A$};
+        \fill[pattern=north east lines] (-3.3, -0.2) rectangle (-2.7, -0.4);
+        \draw (-3.3, -0.2) -- (-2.7, -0.2);
+
+        \draw[thick] (2.8, 0.2) rectangle (3.2, -0.2);
+        \node at (3, 0.4) {$B$};
+        \fill[pattern=north east lines] (2.7, -0.2) rectangle (3.3, -0.4);
+        \draw (2.7, -0.2) -- (3.3, -0.2);
+
+        % --- BARRA SÓLIDA ---
+        \begin{scope}[rotate=\ang]
+            \draw[line width=4pt, line cap=round] (-2,0) -- (4,0);
+            \draw[line width=3pt, line cap=round, gray] (-2,0) -- (4,0);
+            % Líneas de cota
+            \draw[dashed, thin] (0,0) -- (0,0.5);
+            \draw[dashed, thin] (4,0) -- (4,0.5);
+            \draw[dashed, thin] (-2,0) -- (-2,-0.5);
+            \draw[dashed, thin] (0,0) -- (0,-0.5);
+
+            \draw[|<->|] (0,0.4) -- (4,0.4) node[midway, above left] {$2l/3$};
+            \draw[<->] (-2,-0.4) -- (0,-0.4) node[midway, below right] {$l/3$};
+        \end{scope}
+
+        % --- ÁNGULO ---
+        \draw (0.8,0) arc (0:\ang:0.8);
+        \node at (1.1, 0.3) {$60^\circ$};
+
+        % --- VELOCIDAD ANGULAR ---
+        \draw[thick, ->] (2.2, -0.2) arc (-150:150:0.2 and 0.5);
+        \node at (2, -0.4) {$\omega$};
+
+        % --- PUNTO DE SOLDADURA ---
+        \fill (0,0) circle (1.5pt);
+    \end{tikzpicture}
+    \caption{Barra soldada a un eje que gira con velocidad angular constante $\omega$.}
+    \label{fig:c4_e01_p12_barra_eje}
+\end{figure}
+
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Barra soldada a un eje giratorio}
+
+Para simplificar el cálculo del tensor de inercia, utilizaremos un sistema de \textbf{ejes principales} ($\vec{e}_1, \vec{e}_2, \vec{e}_3$) fijos a la barra y con origen en el punto de soldadura $O$:
+\begin{itemize}
+    \item \textbf{Eje 1 ($\vec{e}_1$):} A lo largo del eje longitudinal de la barra.
+    \item \textbf{Eje 2 ($\vec{e}_2$):} Perpendicular a la barra, contenido en el plano de la figura.
+    \item \textbf{Eje 3 ($\vec{e}_3$):} Perpendicular al plano de la figura ($\vec{e}_3 = \vec{e}_1 \times \vec{e}_2$).
+\end{itemize}
+
+\subsubsection*{a) Tensor de inercia $I$}
+
+\textbf{Manera 1: por integración}\\
+Considerando la barra como un elemento unidimensional con densidad lineal $\lambda = m/l$, los momentos de inercia respecto a los ejes principales en $O$ son:
+
+$$I_{11} = 0 \quad \text{(barra delgada)}$$
+
+$$I_{22} = \int_{-l/3}^{2l/3} \xi^2 \left( \frac{m}{l} \right) d\xi = \frac{m}{l} \left[ \frac{\xi^3}{3} \right]_{-l/3}^{2l/3} = \frac{m}{3l} \left( \frac{8l^3}{27} - \left( -\frac{l^3}{27} \right) \right) = \frac{ml^2}{9}$$
+
+$$I_{33} = I_{11} + I_{22} = \frac{ml^2}{9}$$
+
+El tensor de inercia en la base principal es:
+\[ I' = \begin{bmatrix} 0 & 0 & 0 \\ 0 & \frac{ml^2}{9} & 0 \\ 0 & 0 & \frac{ml^2}{9} \end{bmatrix} \]
+
+\textbf{Manera 2: con el teorema de Steiner}\\
+\textbf{Localización del centro de masa (CM).} Consideramos la barra de longitud $l$ alineada con un eje coordenado $\xi$ cuyo origen está en el punto de soldadura $O$. Según la geometría del problema, la barra se extiende desde $\xi_1 = -l/3$ hasta $\xi_2 = 2l/3$.
+
+La posición del centro de masa $\xi_{cm}$ se encuentra en el punto medio de la barra:
+$$\xi_{cm} = \frac{\xi_1 + \xi_2}{2} = \frac{-l/3 + 2l/3}{2} = \frac{l/6}{2} = \frac{l}{6}$$
+
+Por lo tanto, la distancia entre el origen $O$ y el centro de masa es $d = \frac{l}{6}$.
+
+\begin{center}
+\begin{tikzpicture}[scale=1.2, >=Latex]
+    % Ejes principales proyectados
+    \draw[->, gray!50, dashed] (0,0) -- (60:3.5) node[right] {$\vec{e}_1$};
+
+    % Barra sólida
+    \coordinate (O) at (0,0);
+    \coordinate (Inf) at (240:1.33);
+    \coordinate (Sup) at (60:2.66);
+    \draw[line width=4pt, line cap=round, black!80] (Inf) -- (Sup);
+
+    % Marcación del CM
+    \coordinate (CM) at (60:0.66);
+    \filldraw[myred] (CM) circle (1.5pt) node[right, myred] {$CM$};
+
+    % Origen O
+    \filldraw[black] (O) circle (1.5pt) node[anchor=north east] {$O$};
+
+    % Cota de distancia d = l/6
+    \draw[<->, myred, thin] ($(O)+(150:0.25)$) -- ($(CM)+(150:0.25)$)
+        node[midway, left, font=\small] {$d = l/6$};
+
+    % Eje principal transversal en CM
+    \draw[->, gray, thick] (CM) -- ($(CM)+(150:1.2)$) node[left] {$\vec{e}_2^{cm}$};
+
+    % Ángulo de inclinación de la barra y eje de rotación
+    \draw[thick] (0.5,0) arc (0:60:0.5);
+    \node at (0.7,0.3) {$60^\circ$};
+    \draw[thick, gray] (0,0) -- (1.5,0) node[right] {Eje de rotación};
+\end{tikzpicture}
+\end{center}
+
+Para una barra delgada, el momento de inercia respecto a un eje transversal que pasa por su centro de masa es $I_{cm} = \frac{1}{12}ml^2$. El momento de inercia respecto a un eje paralelo que pasa por $O$ se define como (Steiner):
+$$I_{xx} = I^{cm}_{xx} + m \left((\Delta x)^2+(\Delta z)^2\right)$$
+
+Aplicando esto a los ejes principales de la barra:
+\begin{itemize}
+    \item \textbf{Eje longitudinal ($I_{11}$):} Como el eje de la barra pasa por $O$ y por el $CM$, $d=0$.
+    $$I_{11}^O = 0 + m(0)^2 = 0$$
+
+    \item \textbf{Eje transversal ($I_{22}$):} Trasladamos la inercia del $CM$ a una distancia $d = l/6$.
+    $$I_{22}^O = \frac{1}{12}ml^2 + m\left( \frac{l}{6} \right)^2 = \frac{1}{12}ml^2 + \frac{1}{36}ml^2 = \frac{3+1}{36}ml^2 = \frac{ml^2}{9}$$
+
+    \item \textbf{Eje perpendicular ($I_{33}$):} Por simetría de la barra delgada:
+    $$I_{33}^O = I_{22}^O = \frac{ml^2}{9}$$
+\end{itemize}
+
+El tensor de inercia expresado en la base principal con origen en el punto de soldadura $O$ es:
+\[ [I']_O = \begin{bmatrix}
+    0 & 0 & 0 \\
+    0 & \frac{ml^2}{9} & 0 \\
+    0 & 0 & \frac{ml^2}{9}
+    \end{bmatrix} \]
+
+\subsubsection*{b) Momento angular $\vec{H}$}
+
+Descomponemos el vector $\vec{\omega} = \omega \vec{i}$ (eje horizontal) en la base de ejes principales:
+\begin{itemize}
+    \item $\omega_1 = \omega \cos(60^\circ) = \frac{1}{2}\omega$
+    \item $\omega_2 = -\omega \sin(60^\circ) = -\frac{\sqrt{3}}{2}\omega$
+    \item $\omega_3 = 0$
+\end{itemize}
+
+El momento angular se obtiene mediante $\vec{H} = I' \vec{\omega}$:
+\[ \vec{H} = \begin{bmatrix} 0 & 0 & 0 \\ 0 & \frac{ml^2}{9} & 0 \\ 0 & 0 & \frac{ml^2}{9} \end{bmatrix} \begin{bmatrix} \frac{1}{2}\omega \\ -\frac{\sqrt{3}}{2}\omega \\ 0 \end{bmatrix} = \begin{bmatrix} 0 \\ -\frac{\sqrt{3}ml^2\omega}{18} \\ 0 \end{bmatrix} \]
+
+Por lo tanto:
+\respuesta{$\displaystyle \vec{H} = -\frac{\sqrt{3}\,ml^2\omega}{18}\,\vec{e}_2$}
+
+\subsubsection*{c) Energía cinética $T$}
+
+La energía cinética de rotación es:
+\[ T = \frac{1}{2} \vec{\omega} \cdot \vec{H} = \frac{1}{2} (\omega_1 H_1 + \omega_2 H_2 + \omega_3 H_3) \]
+\[ T = \frac{1}{2} \left[ \left( \frac{1}{2}\omega \right)(0) + \left( -\frac{\sqrt{3}}{2}\omega \right) \left( -\frac{\sqrt{3}ml^2\omega}{18} \right) \right] \]
+\respuesta{$\displaystyle T = \frac{1}{2} \left( \frac{3ml^2\omega^2}{36} \right) = \frac{ml^2\omega^2}{24}$}
+
+\subsubsection*{Otro método: tensor respecto a ejes no principales}
+
+Para resolver por integración, definimos el eje $x$ coincidente con el eje de rotación y el eje $y$ en el plano de la barra. Un diferencial de masa $dm$ se ubica a una distancia $\xi$ del origen.
+
+\begin{center}
+\begin{tikzpicture}[scale=1.4, >=Latex]
+    % Ejes fijos
+    \draw[->, thick, gray!80] (-1.5,0) -- (4,0) node[right, black] {$x$ (eje de rotación)};
+    \draw[->, thick, gray!80] (0,-1) -- (0,3) node[above, black] {$y$};
+    \node[above left] at (-0.15,-0.15) {$O$};
+
+    % Coordenadas principales
+    \coordinate (O) at (0,0);
+    \coordinate (P1) at (240:1.33);
+    \coordinate (P2) at (60:2.66);
+
+    % Barra sólida
+    \draw[line width=3.5pt, line cap=round, black!85] (P1) -- (P2);
+
+    % Elemento diferencial dm
+    \coordinate (DM) at (60:1.8);
+    \filldraw[myred] (DM) circle (1.5pt) node[anchor=south west, xshift=2pt] {$dm = \frac{m}{l} d\xi$};
+
+    % Proyecciones de dm
+    \draw[dashed, myred!60, thin] (DM) -- (0.9,0) node[below, yshift=-2pt, font=\small, black] {$x = \xi \cos 60^\circ$};
+    \draw[dashed, myred!60, thin] (DM) -- (0,1.558) node[left, xshift=-2pt, font=\small, black] {$y = \xi \sin 60^\circ$};
+
+    % Vector posición xi, desplazado lateralmente para no pisar la barra
+    \draw[->, azul, thick] (0.1,0.05) -- ($(DM)+(0.1,0.05)$) node[midway, right, xshift=2pt] {$\xi$};
+
+    % Ángulo de inclinación
+    \draw[->] (0.4,0) arc (0:60:0.4) node[midway, right] {\small $60^\circ$};
+
+    % Cotas de longitud, a la derecha de la barra
+    \begin{scope}[shift={(0.4,-0.2)}]
+        \draw[|<->|, gray] (P1) -- (O) node[midway, right, xshift=2pt] {$l/3$};
+        \draw[|<->|, gray] (O) -- (P2) node[midway, right, xshift=2pt] {$2l/3$};
+    \end{scope}
+
+    % Velocidad angular
+    \draw[->, thick] (3.5,0.5) arc (120:-120:0.3 and 0.6);
+    \node[below] at (3.8,0) {$\omega$};
+\end{tikzpicture}
+\end{center}
+
+La barra se encuentra en el plano $xy$, por lo que $z = 0$. Las coordenadas de cualquier punto son $x = \frac{1}{2}\xi$ e $y = \frac{\sqrt{3}}{2}\xi$.
+
+\textbf{Tensor de inercia $[I]$}\\
+Utilizamos la definición $I_{ij} = \int (r^2 \delta_{ij} - r_i r_j) dm$. Para una barra delgada con $dm = \frac{m}{l} d\xi$:
+
+\begin{itemize}
+    \item \textbf{Momento $I_{xx}$:}
+    \[ I_{xx} = \int y^2 dm = \frac{m}{l} \int_{-l/3}^{2l/3} \left( \frac{\sqrt{3}}{2}\xi \right)^2 d\xi = \frac{3m}{4l} \left[ \frac{\xi^3}{3} \right]_{-l/3}^{2l/3} = \frac{ml^2}{12} \]
+
+    \item \textbf{Momento $I_{yy}$:}
+    \[ I_{yy} = \int x^2 dm = \frac{m}{l} \int_{-l/3}^{2l/3} \left( \frac{1}{2}\xi \right)^2 d\xi = \frac{m}{4l} \left[ \frac{\xi^3}{3} \right]_{-l/3}^{2l/3} = \frac{ml^2}{36} \]
+
+    \item \textbf{Producto $I_{xy}$:}
+    \[ I_{xy} = -\int xy \, dm = -\frac{m}{l} \int_{-l/3}^{2l/3} \left( \frac{\xi}{2} \right) \left( \frac{\sqrt{3}\xi}{2} \right) d\xi = -\frac{\sqrt{3}ml^2}{36} \]
+\end{itemize}
+
+\textbf{Momento angular y energía}\\
+Dado que $\vec{\omega} = \omega \vec{i}$, el momento angular es:
+\[ \vec{H} = I_{xx}\omega \vec{i} + I_{yx}\omega \vec{j} = \left( \frac{ml^2\omega}{12} \right) \vec{i} - \left( \frac{\sqrt{3}ml^2\omega}{36} \right) \vec{j} \]
+
+La energía cinética se reduce a:
+\[ T = \frac{1}{2} \omega H_x = \frac{1}{2} \omega \left( \frac{ml^2\omega}{12} \right) = \frac{ml^2\omega^2}{24} \]
+
+\end{solucion}

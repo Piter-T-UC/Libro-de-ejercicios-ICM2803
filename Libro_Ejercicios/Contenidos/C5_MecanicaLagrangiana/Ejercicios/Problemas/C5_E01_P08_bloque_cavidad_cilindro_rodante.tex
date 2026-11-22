@@ -1,3 +1,8 @@
+% =========================================================================
+% Capítulo 5: Mecánica Lagrangiana
+% Tema 01: Mecánica Lagrangiana
+% Problema 08: Cilindro rodante en la cavidad de un bloque móvil
+% =========================================================================
 \subsubsection{Cilindro rodante en la cavidad de un bloque móvil}
 
 Un bloque de masa $M$ descansa sobre una superficie horizontal perfectamente lisa (sin
@@ -75,3 +80,170 @@ $\mathbf{g}$ dirigida hacia abajo.
     \caption{Cuerpo circular de masa $m$ que rueda sin resbalar en la cavidad semicircular de un bloque $M$ libre de moverse.}
     \label{fig:c5_e01_p08_bloque_cavidad}
 \end{figure}
+
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Cilindro rodante en la cavidad de un bloque móvil}
+\subsubsection*{Pregunta 1--2: Vínculo cinemático y grados de libertad}
+
+El sistema posee inicialmente tres coordenadas: $x$ (posición del bloque $M$), $\theta$
+(posición angular del centro de $m$ respecto a $O$) y $\phi$ (rotación propia de $m$). La
+rodadura sin deslizamiento vincula $\theta$ y $\phi$. Cuando el centro de $m$ avanza un
+ángulo $\theta$, su centro recorre un arco $(R-r)\theta$ respecto al bloque; igualándolo al
+arco de rotación propia $r\phi$:
+$$r\phi = (R-r)\theta \;\Longrightarrow\; \dot\phi = \frac{R-r}{r}\dot\theta.$$
+La velocidad angular absoluta del cuerpo es
+$$\omega = \dot\theta + \dot\phi = \frac{R}{r}\dot\theta.$$
+El sistema se reduce así a \textbf{dos grados de libertad}: $x$ y $\theta$.
+
+\subsubsection*{Pregunta 3: Lagrangiano}
+
+Sea $x$ la posición horizontal del centro $O$ de la cavidad. El bloque se mueve solo
+horizontalmente ($v_M=\dot x$). El centro de masa de $m$ es
+$$\vec{r}_m = \big(x + (R-r)\sin\theta\big)\hat{\imath} - (R-r)\cos\theta\,\hat{\jmath},$$
+con
+$$v_m^2 = \dot{x}^2 + (R-r)^2\dot\theta^2 + 2\dot{x}(R-r)\dot\theta\cos\theta.$$
+
+Con $I=\gamma m r^2$ ($\gamma=\tfrac12$ cilindro, $\gamma=\tfrac25$ esfera), la energía
+cinética es
+$$T = \tfrac12 M\dot{x}^2 + \tfrac12 m v_m^2 + \tfrac12 I\omega^2
+= \tfrac12(M+m)\dot{x}^2
++ \tfrac12\Big[m(R-r)^2 + I\tfrac{R^2}{r^2}\Big]\dot\theta^2
++ m(R-r)\dot{x}\dot\theta\cos\theta.$$
+
+La energía potencial (nivel de referencia en $O$) es $V=-mg(R-r)\cos\theta$, de modo que
+$$\boxed{\;\mathcal{L} = \tfrac12(M+m)\dot{x}^2
++ \tfrac12\Big[m(R-r)^2 + I\tfrac{R^2}{r^2}\Big]\dot\theta^2
++ m(R-r)\dot{x}\dot\theta\cos\theta + mg(R-r)\cos\theta\;}$$
+
+\subsubsection*{Pregunta 4: Ecuaciones de movimiento}
+
+La coordenada $x$ es cíclica ($\partial\mathcal{L}/\partial x=0$), por lo que se conserva
+el momento conjugado $p_x=(M+m)\dot{x}+m(R-r)\dot\theta\cos\theta$. Derivando y aplicando
+Euler-Lagrange en $\theta$:
+$$\boxed{\begin{cases}
+(M+m)\ddot{x} + m(R-r)\big(\ddot\theta\cos\theta - \dot\theta^2\sin\theta\big) = 0 \\[4pt]
+\Big[m(R-r)^2 + I\left(\dfrac{R}{r}\right)^2\Big]\ddot\theta + m(R-r)\ddot{x}\cos\theta
++ mg(R-r)\sin\theta = 0
+\end{cases}}$$
+Se sustituye $I=\tfrac12 mr^2$ (cilindro) o $I=\tfrac25 mr^2$ (esfera) según corresponda.
+
+% TODO(Pedro): lo que sigue viene de "Ultima Solucion.tex". Ahí la rodadura se mide con
+% R*theta = r*phi (phi relativo a la línea OP) y omega = -(R-r)/r * thetadot, lo que difiere
+% de la solución de más arriba en esta caja (omega = R/r * thetadot, T con I(R/r)^2). Revisar cuál vale.
+\subsubsection*{Complemento: energía, ecuaciones desacopladas y verificación}
+
+\textbf{Marcos del complemento}
+\begin{itemize}
+    \item $\mathcal{N}$: el suelo (inercial) $\longrightarrow\{\vec{E}_x;\vec{E}_y;\vec{E}_z\}$
+    \item $\mathcal{B}$: el bloque $M$. Sólo se traslada (no gira), así que usa la misma base que $\mathcal{N}$: ${}^{\mathcal N}\vec{\omega}^{\mathcal B}=\vec{0}$.
+    \item $\mathcal{A}$: la línea $OP$, que gira con $\theta$ $\longrightarrow\{\vec{e}_r;\vec{e}_\theta;\vec{E}_z\}$, con ${}^{\mathcal N}\vec{\omega}^{\mathcal A}=\dot\theta\,\vec{E}_z$
+    \item $\mathcal{D}$: el cuerpo de masa $m$, que gira un ángulo $\phi$ (horario) respecto a la línea $OP$: ${}^{\mathcal A}\vec{\omega}^{\mathcal D}=-\dot\phi\,\vec{E}_z$
+\end{itemize}
+
+Transformación entre las bases de $\mathcal{A}$ y $\mathcal{N}$:
+\begin{equation*}
+\begin{split}
+\vec{e}_r &= \sin\theta\,\vec{E}_x - \cos\theta\,\vec{E}_y\\
+\vec{e}_\theta &= \cos\theta\,\vec{E}_x + \sin\theta\,\vec{E}_y
+\end{split}
+\end{equation*}
+y por transporte, $\dfrac{d\vec{e}_r}{dt}=\dot\theta\,\vec{E}_z\times\vec{e}_r=\dot\theta\,\vec{e}_\theta$ y $\dfrac{d\vec{e}_\theta}{dt}=-\dot\theta\,\vec{e}_r$.
+ 
+Usaremos $I_P=\kappa\,m r^2$, con $\kappa=\tfrac12$ para el cilindro y $\kappa=\tfrac25$ para la esfera. Las coordenadas generalizadas son $x$ y $\theta$; $\phi$ queda amarrada por la rodadura.
+ 
+\textbf{Posición}\\
+Unimos un punto fijo del suelo, ubicado bajo la posición inicial de $O$, con el centro $P$:
+$$\vec{r}_P = x\,\vec{E}_x + R\,\vec{E}_y + (R-r)\,\vec{e}_r$$
+ 
+\textbf{Velocidad}\\
+$\vec{E}_x$ y $\vec{E}_y$ son constantes, pero $\vec{e}_r$ gira con $\mathcal{A}$, así que usamos transporte:
+$$\vec{v}_P = \dot x\,\vec{E}_x + (R-r)\,\dot\theta\,\vec{E}_z\times\vec{e}_r = \dot x\,\vec{E}_x + (R-r)\dot\theta\,\vec{e}_\theta$$
+$$v_P^2 = \dot x^2 + 2(R-r)\,\dot x\dot\theta\cos\theta + (R-r)^2\dot\theta^2$$
+ 
+\textbf{Aceleración}\\
+$$\vec{a}_P = \ddot x\,\vec{E}_x + (R-r)\ddot\theta\,\vec{e}_\theta - (R-r)\dot\theta^2\,\vec{e}_r$$
+ 
+\textbf{Rodadura sin deslizar}\\
+El bloque sólo se traslada, así que basta pedir que el punto de contacto $Q$ del cuerpo tenga velocidad nula relativa al bloque. Equivalentemente, el arco recorrido sobre la cavidad es igual al arco recorrido sobre el cuerpo, medido desde la línea $OP$:
+$$R\,\theta = r\,\phi \quad\Rightarrow\quad \dot\phi = \frac{R}{r}\dot\theta$$
+Sumando velocidades angulares relativas:
+$${}^{\mathcal N}\vec{\omega}^{\mathcal D} = {}^{\mathcal N}\vec{\omega}^{\mathcal A}+{}^{\mathcal A}\vec{\omega}^{\mathcal D} = (\dot\theta-\dot\phi)\,\vec{E}_z = -\frac{R-r}{r}\,\dot\theta\,\vec{E}_z$$
+El cuerpo gira en sentido horario cuando $\theta$ crece. Comprobación: $\vec{v}_{Q,\text{rel}} = (R-r)\dot\theta\,\vec{e}_\theta + \omega_z\vec{E}_z\times r\,\vec{e}_r = \big[(R-r)\dot\theta + r\omega_z\big]\vec{e}_\theta = \vec{0}$ \checkmark
+ 
+\textbf{Momento angular y energía}\\
+Momento angular del cuerpo respecto a su centro de masa:
+$$\vec{H}_P = I_P\,{}^{\mathcal N}\vec{\omega}^{\mathcal D} = -\kappa\, m\, r (R-r)\,\dot\theta\;\vec{E}_z$$
+Por König, la energía cinética del cuerpo es la de traslación de $P$ más $\tfrac12\vec{\omega}\cdot\vec{H}_P$:
+$$T_m = \tfrac12 m v_P^2 + \tfrac12\kappa m (R-r)^2\dot\theta^2$$
+Sumando la del bloque, $T_M=\tfrac12 M\dot x^2$:
+\respuesta{$\displaystyle T = \tfrac12 (M+m)\dot x^2 + m(R-r)\,\dot x\dot\theta\cos\theta + \tfrac12(1+\kappa)\,m(R-r)^2\dot\theta^2$}
+$$V = -m g (R-r)\cos\theta + \text{cte.}$$
+ 
+\textbf{¿Por qué se conserva la energía?}\\
+La normal del suelo es vertical y el bloque no se mueve en vertical, así que no trabaja. Entre bloque y cuerpo actúan la normal $N$ y el roce $F$ en $Q$. Son pares acción--reacción aplicados sobre puntos con la misma velocidad (no hay deslizamiento), así que su trabajo neto es cero. Sólo trabaja el peso, que es conservativo.
+ 
+\patotip[squareglasses]{\textbf{¿Roce y energía a la vez?} Sí: el roce en $Q$ es \emph{estático}. Como el punto de contacto no desliza, no hace trabajo. Por eso la energía se conserva aunque haya roce.}
+ 
+\textbf{Ecuación en $x$: momentum lineal horizontal}\\
+El suelo es liso, así que no hay fuerzas externas en $\vec{E}_x$ sobre el sistema bloque $+$ cuerpo:
+$$p_x = M\dot x + m\,\vec{v}_P\cdot\vec{E}_x = (M+m)\dot x + m(R-r)\dot\theta\cos\theta = \text{cte.}$$
+Derivando:
+\begin{equation*}
+(M+m)\,\ddot x + m(R-r)\big(\ddot\theta\cos\theta - \dot\theta^2\sin\theta\big) = 0 \tag{1.1}
+\end{equation*}
+ 
+\textbf{Ecuación en $\theta$: derivada de la energía}\\
+$E=T+V=\text{cte.}\Rightarrow \dot E = 0$. Agrupando los términos que multiplican a $\dot x$:
+\[
+\dot x\underbrace{\Big[(M+m)\ddot x + m(R-r)(\ddot\theta\cos\theta-\dot\theta^2\sin\theta)\Big]}_{=0\ \text{por (1.1)}}
++\; m(R-r)\,\dot\theta\Big[(1+\kappa)(R-r)\ddot\theta + \ddot x\cos\theta + g\sin\theta\Big] = 0
+\]
+Como esto vale para todo $\dot\theta\neq 0$:
+\begin{equation*}
+(1+\kappa)(R-r)\,\ddot\theta + \ddot x\cos\theta + g\sin\theta = 0 \tag{1.2}
+\end{equation*}
+ 
+\textbf{Resultados: ecuaciones desacopladas}\\
+Con $\mu \equiv \dfrac{m}{M+m}$, despejando $\ddot x$ de (1.1) y reemplazando en (1.2):
+\respuesta{$\displaystyle (R-r)\big[(1+\kappa) - \mu\cos^2\theta\big]\ddot\theta + \mu (R-r)\,\dot\theta^2\sin\theta\cos\theta + g\sin\theta = 0$}
+Despejando $\ddot\theta$ de (1.2) y reemplazando en (1.1):
+\respuesta{$\displaystyle \Big[(M+m) - \frac{m\cos^2\theta}{1+\kappa}\Big]\ddot x = m\sin\theta\left[\frac{g\cos\theta}{1+\kappa} + (R-r)\dot\theta^2\right]$}
+con $1+\kappa = 3/2$ para el cilindro y $7/5$ para la esfera.
+ 
+\textbf{Integral primera (opcional)}\\
+Si se suelta desde el reposo en $\theta_0$, $p_x=0\Rightarrow \dot x = -\mu(R-r)\dot\theta\cos\theta$, y la energía da
+$$\dot\theta^2 = \frac{2g(\cos\theta-\cos\theta_0)}{(R-r)\big[(1+\kappa)-\mu\cos^2\theta\big]}$$
+ 
+\textbf{Verificación}\\
+\textbf{1) Newton--Euler sobre el cuerpo (momento angular respecto a $P$)}\\
+Fuerzas sobre $m$: peso, normal $-N\vec{e}_r$ (hacia $O$) y roce $F\vec{e}_\theta$ en $Q$.
+\begin{center}
+\begin{tikzpicture}[>=Latex, scale=1.1]
+  \def\r{1}
+  \coordinate (P) at (0,0);
+  \draw[thick, fill=gray!15] (P) circle (\r);
+  \fill (P) circle (1.2pt) node[left] {$P$};
+  \coordinate (Q) at (-50:\r);
+  \fill (Q) circle (1.2pt) node[left=2pt] {$Q$};
+  \draw[gray, dashed] (Q) -- ++(130:2.6) node[above, black] {hacia $O$};
+  \draw[->, thick, myred] (Q) ++(-50:1.1) -- (Q) node[pos=0, right] {$N$};
+  \draw[->, thick, myred] (Q) -- ++(40:1) node[right] {$F$};
+  \draw[->, thick, myred] (P) -- ++(0,-1.5) node[below] {$mg$};
+  \draw[->, azul] (P) -- ++(-50:0.6) node[left=1pt, pos=1.1] {$\vec{e}_r$};
+  \draw[->, azul] (P) -- ++(40:0.6) node[above] {$\vec{e}_\theta$};
+\end{tikzpicture}
+\end{center}
+\begin{align*}
+\vec{e}_\theta:&\quad m\big[\ddot x\cos\theta + (R-r)\ddot\theta\big] = F - m g\sin\theta \\
+\vec{e}_r:&\quad m\big[\ddot x\sin\theta - (R-r)\dot\theta^2\big] = -N + m g\cos\theta \\
+\text{momento angular en }P:&\quad \dot{\vec{H}}_P\cdot\vec{E}_z = (r\vec{e}_r\times F\vec{e}_\theta)\cdot\vec{E}_z = rF
+\;\Rightarrow\; F = -\kappa\, m (R-r)\ddot\theta
+\end{align*}
+Reemplazando $F$ en la ecuación tangencial se recupera exactamente (1.2) \checkmark. Además se obtiene $N = m g\cos\theta + m(R-r)\dot\theta^2 - m\ddot x\sin\theta$, y la rodadura exige $|F|\le\mu_s N$.
+ 
+\textbf{2) Caso límite $M\to\infty$} ($\mu\to0$)\\
+$(1+\kappa)(R-r)\ddot\theta + g\sin\theta = 0$, que para el cilindro es el clásico $\tfrac32(R-r)\ddot\theta+g\sin\theta=0$ \checkmark
+ 
+\textbf{3) Pequeñas oscilaciones}\\
+$\omega_n^2 = \dfrac{g}{(R-r)(1+\kappa-\mu)}$. Al liberar el bloque ($\mu>0$) la frecuencia aumenta: el bloque retrocede y acorta el ``péndulo efectivo''.
+\end{solucion}

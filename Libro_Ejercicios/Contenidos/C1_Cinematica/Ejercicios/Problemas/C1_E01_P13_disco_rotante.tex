@@ -1,0 +1,91 @@
+% =========================================================================
+% Capítulo 1: Cinemática
+% Tema 01: Coordenadas cilíndricas
+% Problema 13: Disco rotante
+% =========================================================================
+% NOTA: el archivo original estaba vacío; el enunciado se reconstruyó a
+% partir de los datos de la solución. Revisar.
+\subsubsection{Disco rotante}
+Un disco gira con velocidad angular constante $\Omega$ alrededor de su eje, que es fijo al
+suelo. Un punto $P$ se mueve radialmente sobre el disco, alejándose del centro con rapidez
+constante $v$ relativa al disco, de modo que $r(t) = r_0 + vt$ y $\theta(t) = \Omega t$.
+Determine, para un observador fijo al suelo:
+\begin{enumerate}
+    \item La velocidad del punto $P$.
+    \item La aceleración del punto $P$.
+    \item Las componentes de la aceleración y su interpretación física.
+\end{enumerate}
+
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Disco rotante}
+\subsubsection*{Pregunta 1: Velocidad del punto P}
+
+En coordenadas cilíndricas, la posición del punto es:
+$$\vec{r} = r(t) \, \hat{e}_r + z \, \hat{e}_z$$
+
+Con $r(t) = r_0 + vt$ (movimiento radial constante) y $\theta(t) = \Omega t$ (rotación a velocidad angular constante).
+
+La velocidad en coordenadas cilíndricas es:
+$$\vec{v} = \dot{r} \, \hat{e}_r + r \dot{\theta} \, \hat{e}_\theta + \dot{z} \, \hat{e}_z$$
+
+Sustituyendo nuestras funciones:
+\begin{equation}
+\boxed{\vec{v} = v \, \hat{e}_r + (r_0 + vt) \Omega \, \hat{e}_\theta}
+\end{equation}
+
+Interpretación:
+\begin{itemize}
+    \item \textbf{Componente radial}: $v_r = v$ (constante, movimiento hacia afuera)
+    \item \textbf{Componente transversal}: $v_\theta = (r_0 + vt) \Omega$ (aumenta con el tiempo)
+    \item \textbf{Magnitud de velocidad}: $|\vec{v}| = \sqrt{v^2 + [(r_0 + vt) \Omega]^2}$
+\end{itemize}
+
+\subsubsection*{Pregunta 2: Aceleración del punto P}
+
+La aceleración en coordenadas cilíndricas es:
+$$\vec{a} = (\ddot{r} - r\dot{\theta}^2) \hat{e}_r + (r\ddot{\theta} + 2\dot{r}\dot{\theta}) \hat{e}_\theta + \ddot{z} \, \hat{e}_z$$
+
+Con nuestras funciones:
+\begin{itemize}
+    \item $\dot{r} = v$ (velocidad radial constante)
+    \item $\ddot{r} = 0$ (aceleración radial nula)
+    \item $\dot{\theta} = \Omega$ (velocidad angular constante)
+    \item $\ddot{\theta} = 0$ (aceleración angular nula)
+    \item $r = r_0 + vt$
+\end{itemize}
+
+Sustituyendo:
+\begin{equation}
+\vec{a} = [0 - (r_0 + vt)\Omega^2] \hat{e}_r + [0 + 2v\Omega] \hat{e}_\theta
+\end{equation}
+
+\begin{equation}
+\boxed{\vec{a} = -(r_0 + vt) \Omega^2 \, \hat{e}_r + 2v\Omega \, \hat{e}_\theta}
+\end{equation}
+
+\subsubsection*{Pregunta 3: Componentes de Aceleración}
+
+\paragraph{Componente Radial (Centrípeta)}
+$$a_r = -(r_0 + vt) \Omega^2$$
+
+Esta es la aceleración \textbf{centrípeta}: negativa (apunta hacia el centro), proporcional a la distancia radial, y proporcional al cuadrado de la velocidad angular. Su magnitud aumenta linealmente con el tiempo.
+
+\paragraph{Componente Transversal (Coriolis)}
+$$a_\theta = 2v\Omega$$
+
+Esta es la aceleración de \textbf{Coriolis}: es constante, proporcional a la velocidad radial $v$ y a la velocidad angular $\Omega$. Representa el cambio de dirección de la velocidad debido a la rotación del sistema.
+
+\paragraph{Componente Axial}
+$$a_z = 0$$
+
+No hay movimiento en la dirección axial (perpendicular al disco).
+
+\paragraph{Magnitud Total}
+\begin{equation}
+|\vec{a}| = \sqrt{[(r_0 + vt) \Omega^2]^2 + (2v\Omega)^2}
+\end{equation}
+
+\paragraph{Interpretación Física}
+
+El término centrípeto $-(r_0 + vt) \Omega^2$ es necesario para mantener el punto en una trayectoria circular alrededor del eje mientras se aleja del centro. El término de Coriolis $2v\Omega$ resulta del hecho de que la velocidad del punto en la dirección transversal $v_\theta = (r_0 + vt) \Omega$ cambia continuamente debido al movimiento radial: conforme el punto se aleja del eje, su velocidad tangencial aumenta, requiriendo una aceleración tangencial.
+\end{solucion}

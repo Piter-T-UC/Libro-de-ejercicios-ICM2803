@@ -1,0 +1,122 @@
+% =========================================================================
+% Capítulo N: <Nombre del capítulo>
+% Tema YY: <Nombre del tema>
+% Problema ZZ: <Título del problema>
+% Origen: <Ayudantía X, 2026 / Interrogación / Propio>
+% =========================================================================
+% PLANILLA DE PROBLEMA
+%  1. Copia este archivo a Contenidos/CN_<Nombre>/Ejercicios/Problemas/
+%     con el nombre CN_EYY_PZZ_titulo_en_snake_case.tex (PZZ = siguiente libre).
+%  2. Cáblalo en Ejercicios/CN_EYY_problemas.tex:
+%       \input{Contenidos/CN_<Nombre>/Ejercicios/Problemas/CN_EYY_PZZ_titulo}
+%       \clearpage
+%  3. Borra los bloques que no uses (patos, resumen, etc.).
+%
+%  Interruptores (main.tex): \mostrarSolucionfalse, \mostrarTipsfalse,
+%  \mostrarOjofalse, \mostrarTrucosfalse, \mostrarResumenfalse.
+% =========================================================================
+\subsubsection{Título del problema}
+
+% --- ENUNCIADO --------------------------------------------------------------
+Describe el sistema y las variables, haciendo referencia a la Figura
+\ref{fig:cN_eYY_pZZ_titulo}. Determine:
+
+\begin{enumerate}
+    \item Primera pregunta.
+    \item Segunda pregunta.
+\end{enumerate}
+
+% --- FIGURA PRINCIPAL (TikZ nativo, nada de \includegraphics) ---------------
+\begin{figure}[!ht]
+    \centering
+    \begin{tikzpicture}[>=Latex, scale=1.5]
+        % --- CONFIGURACIÓN DE PARÁMETROS ---
+        \def\R{2.0}   % radio [u]
+        \def\ang{35}  % ángulo de dibujo [°]
+
+        % --- SOPORTES Y ELEMENTOS FIJOS ---
+        \fill[pattern=north east lines] (-0.5,-0.2) rectangle (0.5,0);
+        \draw[thick] (-0.5,0) -- (0.5,0);
+
+        % --- GEOMETRÍA PRINCIPAL ---
+        \coordinate (O) at (0,0);
+        \coordinate (P) at (\ang:\R);
+        \draw[thick] (O) -- (P);
+
+        % --- SISTEMAS DE COORDENADAS ---
+
+        % --- PUNTOS Y COORDENADAS ---
+        \filldraw (O) circle (1.5pt) node[below left] {$O$};
+        \filldraw (P) circle (1.5pt) node[above right] {$P$};
+
+        % --- VECTORES Y FUERZAS ---
+
+        % --- ANOTACIONES Y ETIQUETAS ---
+        % Ángulos: arco + nodo (las comillas de la librería quotes no
+        % funcionan con babel en español).
+        \draw[dashed] (O) -- (1.2,0);
+        \draw[->] (0.8,0) arc (0:\ang:0.8) node[midway, right] {$\theta$};
+    \end{tikzpicture}
+    \caption{Descripción breve de la figura (45--70 caracteres).}
+    \label{fig:cN_eYY_pZZ_titulo}
+\end{figure}
+
+% --- SOLUCIÓN (se oculta con \mostrarSolucionfalse) --------------------------
+\begin{solucion}{Título del problema}
+
+\textbf{Marcos de referencia y Sistemas de Coordenadas}
+\begin{itemize}
+    \item $\mathcal{N}$: suelo (inercial) $\longrightarrow \{\vec{E}_x;\vec{E}_y;\vec{E}_z\}$
+    \item $\mathcal{A}$: <cuerpo> $\longrightarrow \{\vec{e}_r;\vec{e}_\theta;\vec{E}_z\}$
+\end{itemize}
+
+% Figura de apoyo (opcional): sin figure, sin caption, sin label.
+% \begin{center}
+% \begin{tikzpicture}[scale=0.8] \Polaresrtz{\theta}{E}{e}{azul}{myred} \end{tikzpicture}
+% \end{center}
+
+% Transformaciones entre bases: equation* + split
+\begin{equation*}
+\begin{split}
+    \vec{e}_r &= \cos\theta\,\vec{E}_x + \sin\theta\,\vec{E}_y\\
+    \vec{e}_\theta &= -\sin\theta\,\vec{E}_x + \cos\theta\,\vec{E}_y
+\end{split}
+\end{equation*}
+
+$$\velang{N}{A} = \dot\theta\,\vec{E}_z$$
+
+\subsubsection*{Cinemática de la partícula}
+\textbf{Posición}\\
+$$\vec{r}_{P/O} = r\,\vec{e}_r$$
+
+\textbf{Velocidad}\\
+$$\marc{\vec{v}_P}{N} = \der{\vec{r}_{P/O}}{N} = \der{\vec{r}_{P/O}}{A}{} + \velang{N}{A}\times\vec{r}_{P/O}$$
+
+\textbf{Aceleración}\\
+$$\marc{\vec{a}_P}{N} = \der{\marc{\vec{v}_P}{N}{}}{N}{}$$
+
+% OJO: \marc y \der se tragan el token siguiente; ciérralas con {} al final
+% de un grupo o antes de $$.
+
+% --- Cinética (capítulos C2 en adelante) ---
+% \subsubsection*{Cinética}
+% \textbf{Diagrama de cuerpo libre}\\
+% \textbf{Segunda ley de Newton}\\
+
+% --- Resultado final destacado (en vez de \boxed) ---
+\respuesta{$\displaystyle \marc{\vec{a}_P}{N} = (\ddot r - r\dot\theta^2)\,\vec{e}_r + (r\ddot\theta + 2\dot r\dot\theta)\,\vec{e}_\theta$}
+
+% --- PATOS (cada uno con su interruptor) -------------------------------------
+% Accesorios extra opcionales entre corchetes: squareglasses, glasses,
+% sunglasses, shovel, tie=<color>, book, think=<texto>, megaphone, ...
+\patotip[squareglasses]{Consejo general para abordar el problema.}
+
+\patoojo{Error típico o trampa del enunciado.}
+
+\patotruco{Atajo que ahorra álgebra.}
+
+\begin{resumen}[Resumen del método]
+Lo que hay que llevarse de este problema.
+\end{resumen}
+
+\end{solucion}

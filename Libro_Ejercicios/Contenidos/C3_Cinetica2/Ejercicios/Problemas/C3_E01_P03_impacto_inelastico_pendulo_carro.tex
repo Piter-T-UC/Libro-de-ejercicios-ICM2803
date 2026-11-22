@@ -1,3 +1,9 @@
+% =========================================================================
+% Capítulo 3: Cinética de sistemas de partículas
+% Tema 01: Sistemas de partículas
+% Problema 03: Impacto inelástico en péndulo acoplado a carro
+% Origen: Ayudantía 29, 2026
+% =========================================================================
 \subsubsection{Impacto inelástico en péndulo acoplado a carro}
 
 Una partícula $A$ de masa $m/2$ se desplaza con una velocidad inicial $v_0$ hacia la derecha e impacta a una partícula $B$ de masa $m/2$, inicialmente en reposo. La partícula $B$ está conectada a un carro $C$ de masa $m$ mediante una barra rígida sin masa de longitud $l$. El carro se desliza sobre una superficie horizontal sin fricción. Sabiendo que la colisión es perfectamente inelástica, realice lo siguiente:
@@ -48,3 +54,107 @@ Una partícula $A$ de masa $m/2$ se desplaza con una velocidad inicial $v_0$ hac
     \caption{Sistema de impacto inelástico entre una partícula proyectil y un péndulo montado sobre un carro móvil.}
     \label{fig:impacto_carro_pendulo}
 \end{figure}
+
+
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Impacto inelástico en péndulo acoplado a carro}
+\textbf{Planteamiento.} Marco inercial $F$ con base $\{\vec{e}_x,\vec{e}_y,\vec{e}_z\}$ y marco $A$ ligado a la barra $OB$ con base $\{\vec{e}_r,\vec{e}_{\theta},\vec{e}_z\}$. Coordenadas: $x$ (posición horizontal de $O$, medida desde el lugar del choque) y $\theta$ (ángulo de la barra respecto de $\vec{e}_x$). Todas las velocidades se miden en $F$. Se supone que la barra sin masa sólo transmite fuerza en su propia dirección y que, tras el choque, se estudia el sistema $B+C$ (con centro de masa $G$); $A$ interviene sólo mediante el impulso $\hat P$ que le entrega a $B$.
+ 
+\begin{center}
+\begin{tikzpicture}[>=Stealth, scale=1.2, font=\small]
+  \def\L{2.0}\def\hc{0.9}\def\wc{1.6}\def\yO{0.45}\def\xo{1.4}\def\th{30}
+  \pgfmathsetmacro{\xB}{\xo+\L*sin(\th)}
+  \pgfmathsetmacro{\yB}{\yO-\L*cos(\th)}
+  \pgfmathsetmacro{\yc}{\hc/2}
+  \coordinate (O) at (\xo,\yO);
+  \coordinate (B) at (\xB,\yB);
+  % suelo y carro
+  \fill[pattern=north east lines, pattern color=black!55] (-2.2,-0.22) rectangle (4.8,0);
+  \draw[thick] (-2.2,0) -- (4.8,0);
+  \draw[thick, fill=black!8] (\xo-\wc,0) rectangle (\xo+\wc,\hc);
+  \node at (\xo-1.05,\yc) {$m$};
+  \node at (\xo+1.15,\yc) {$C$};
+  % cota de x
+  \draw[dashed, gray] (0,1.5) -- (0,\yO-\L-0.3);
+  \draw[dashed, gray] (\xo,\hc) -- (\xo,1.5);
+  \draw[<->, gray] (0,1.3) -- (\xo,1.3) node[midway, above] {$x$};
+  % barra, vertical de referencia y ángulo
+  \draw[dashed, gray] (O) -- ++(0,-\L);
+  \draw[->] (B) -- ++(-60:0.9) node[below right] {$\vec{e}_r$};
+  \draw[->] (B) -- ++(30:0.9) node[above right] {$\vec{e}_{\theta}$};
+  \draw[line width=2.2pt, black!70] (O) -- (B) node[midway, right=2pt] {$l$};
+  \fill (O) circle (0.045);
+  \node[above left=0pt] at (O) {$O$};
+  \draw[<->, gray] ($(O)+(0,-0.9)$) arc[start angle=-90, end angle=-60, radius=0.9];
+  \node at ($(O)+(-75:1.25)$) {$\theta$};
+  \node[circle, draw, thick, fill=black!8, inner sep=0pt, minimum size=5.5mm] at (B) {$B$};
+  % marco F
+  \coordinate (F0) at (-1.8,-0.7);
+  \draw[->] (F0) -- ++(0.8,0) node[right] {$\vec{e}_y$};
+  \draw[->] (F0) -- ++(0,-0.8) node[below] {$\vec{e}_x$};
+  \draw (F0) circle (0.07); \fill (F0) circle (0.02);
+  \node[above left=-1pt] at (F0) {$\vec{e}_z$};
+  \node at ($(F0)+(-0.45,-0.5)$) {$F$};
+\end{tikzpicture}
+\end{center}
+ 
+\medskip
+\textbf{1) Velocidades justo después del choque.}
+Choque perfectamente inelástico ($e=0$), con $n$ la dirección normal al plano de colisión ($\vec{e}_y$):
+$$e=\frac{v'_{B_n}-v'_{A_n}}{v_{A_n}-v_{B_n}}=0\quad\Rightarrow\quad v'_{B_n}=v'_{A_n}\equiv v'_n .$$
+La barra sólo transmite fuerza según $\vec{e}_x$, así que en $\vec{e}_y$ el único impulso sobre $B$ es el de $A$ y se conserva el momentum del par $A$--$B$:
+$$m_A\,\vec{v}_{A_n}+\underbrace{m_B\,\vec{v}_{B_n}}_{0}=m_A\,\vec{v}\,'_{A_n}+m_B\,\vec{v}\,'_{B_n}$$
+$$\frac m2\,(v_0\vec{e}_y)=\frac m2\,\vec{v}\,'_n+\frac m2\,\vec{v}\,'_n
+\;\Rightarrow\; \vec{v}\,'_A=\vec{v}\,'_B=\frac{v_0}{2}\,\vec{e}_y$$
+ 
+\textbf{Impulso sobre $B$.} Como $B$ parte del reposo:
+$$\hat P=m_B\,\vec{v}\,'_B=\frac m2\cdot\frac{v_0}{2}\,\vec{e}_y=\frac{m v_0}{4}\,\vec{e}_y .$$
+Este impulso produce un movimiento lineal del centro de masa y otro rotacional de la barra.
+ 
+\textbf{Centro de masa de $B+C$.} El centro de masa estaba en reposo antes del choque:
+$$\underbrace{(m_B+m_C)\,\vec{v}_G}_{0}+\hat P=(m_B+m_C)\,\vec{v}_G'
+\;\Rightarrow\;
+\vec{v}_G'=\frac{m v_0/4}{m/2+m}=\frac{m v_0/4}{\tfrac32 m}=\frac{v_0}{6}\,\vec{e}_y .$$
+ 
+\textbf{Velocidad del carro y giro de la barra.} Por cinemática, con $\vec{e}_{\theta}=\vec{e}_y$ en $\theta=0$:
+$$\vec{v}_C=\dot x\,\vec{e}_y,\qquad \vec{v}_B=\dot x\,\vec{e}_y+l\dot\theta\,\vec{e}_{\theta} .$$
+Con el subíndice $i$ para el instante justo después del choque, hay dos condiciones. La del centro de masa:
+$$ \vec{v}_G'=\frac{m_C\,\dot x_i+m_B\,(\dot x_i+l\dot\theta_i)}{m_C+m_B}\,\vec{e}_y=\Big[\dot x_i+\frac13\,l\dot\theta_i\Big]\vec{e}_y=\frac{v_0}{6}\,\vec{e}_y
+\;\Rightarrow\; 6\,\dot x_i+2\,l\dot\theta_i=v_0 ,$$
+y la velocidad de $B$ obtenida en el choque, $\dot x_i+l\dot\theta_i=v_0/2$, es decir, $2\,\dot x_i+2\,l\dot\theta_i=v_0$. Resolviendo:
+$$\dot x_i=0,\qquad \dot\theta_i=\frac{v_0}{2\,l}.$$
+\respuesta{$\displaystyle \vec{v}\,'_A=\vec{v}\,'_B=\frac{v_0}{2}\,\vec{e}_y,\qquad \vec{v}\,'_C=\vec{0},\qquad \vec{v}_G'=\frac{v_0}{6}\,\vec{e}_y$}
+ 
+\medskip
+\textbf{2) Máximo ángulo de la barra.}
+Tras el choque no actúan fuerzas no conservativas (sin roce, la normal no trabaja y la barra rígida sin masa no hace trabajo neto), luego se conserva la energía de $B+C$: ${}^{F}T_f+{}^{F}U_f={}^{F}T_i+{}^{F}U_i$, con estado inicial justo después del choque y final en $\theta_{\max}$.
+ 
+\textbf{Energía potencial} (referencia $U=0$ a la altura de $O$; la del carro es constante):
+$${}^{F}U_i=-\frac m2\,g\,l,\qquad {}^{F}U_f=-\frac m2\,g\,l\cos\theta_{\max}.$$
+ 
+\textbf{Energía cinética (König).} ${}^{F}T={}^{F}T^{(1)}+{}^{F}T^{(2)}$, con
+$${}^{F}T^{(1)}=\tfrac12\,(m_B+m_C)\,\vec{v}_G\cdot\vec{v}_G,\qquad
+{}^{F}T^{(2)}=\tfrac12\sum_k m_k\,(\vec{v}_k-\vec{v}_G)\cdot(\vec{v}_k-\vec{v}_G).$$
+\begin{itemize}
+  \item \emph{Final:} en $\theta_{\max}$, $\dot\theta=0$ y las partículas no se mueven respecto del centro de masa, así que ${}^{F}T_f^{(2)}=0$.
+  \item \emph{Centro de masa:} no hay fuerzas horizontales sobre $B+C$, luego $\vec{v}_{G,f}\cdot\vec{e}_y=\vec{v}_{G,i}\cdot\vec{e}_y=v_0/6$ y ${}^{F}T_i^{(1)}={}^{F}T_f^{(1)}$.
+  \item \emph{Inicial:} con $\vec{v}_{C,i}=\vec{0}$, $\vec{v}_{B,i}=\tfrac{v_0}{2}\vec{e}_y$, $\vec{v}_{G,i}=\tfrac{v_0}{6}\vec{e}_y$:
+\end{itemize}
+$${}^{F}T_i^{(2)}=\frac12\Big[m\Big(0-\frac{v_0}{6}\Big)^2+\frac m2\Big(\frac{v_0}{2}-\frac{v_0}{6}\Big)^2\Big]
+=\frac12\Big[\frac{m v_0^2}{36}+\frac{m v_0^2}{18}\Big]=\frac{m v_0^2}{24}.$$
+ 
+\textbf{Balance.} Como ${}^{F}T^{(1)}$ no cambia y ${}^{F}T_f^{(2)}=0$, queda $U_f={}^{F}T_i^{(2)}+U_i$:
+$$-\frac m2\,g\,l\cos\theta_{\max}=\frac{m v_0^2}{24}-\frac m2\,g\,l
+\;\Rightarrow\;
+\cos\theta_{\max}=1-\frac{v_0^2}{12\,g\,l}$$
+\respuesta{$\displaystyle \theta_{\max}=\arccos\!\left(1-\frac{v_0^2}{12\,g\,l}\right)$}
+Válido mientras el argumento sea mayor que $-1$, es decir, $v_0^2<24\,g\,l$.
+ 
+\medskip
+\textbf{Verificación.} (i) Momentum total en $\vec{e}_y$: antes, $m_A v_0=\tfrac12 m v_0$; después, $\tfrac m2\tfrac{v_0}{2}+\tfrac m2\tfrac{v_0}{2}+0=\tfrac12 m v_0$. (ii) Sin König: en $\theta_{\max}$, $B$ y $C$ van a la misma velocidad $u$ y $\tfrac32 m\,u=\tfrac m2\tfrac{v_0}{2}$, así $u=v_0/6$; la energía da $\tfrac{m v_0^2}{16}=\tfrac{m v_0^2}{48}+\tfrac m2 g l(1-\cos\theta_{\max})$, que lleva al mismo resultado. (iii) Si $v_0\to0$, $\theta_{\max}\to0$.
+ 
+
+\patoojo{Durante el choque, que dura un instante, la barra solo puede transmitir fuerza a lo largo de su propia dirección. Como el impulso de $A$ sobre $B$ es perpendicular a la barra, el carro $C$ no recibe impulso horizontal y por eso sale del choque con $\dot{x}=0$. Toda la velocidad de $B$ se la lleva la rotación de la barra.}
+
+\patotruco{Para el ángulo máximo no hace falta resolver ninguna ecuación diferencial: en $\theta_{\max}$ la barra deja de girar y $B$ y $C$ se mueven juntos con la misma velocidad $u$. Conservación de momentum horizontal ($u=v_0/6$) más conservación de energía, y listo.}
+\end{solucion}

@@ -1,3 +1,8 @@
+% =========================================================================
+% Capítulo 4: Cuerpo rígido
+% Tema 01: Cuerpo rígido
+% Problema 01: Cilindro rodando sobre un plano inclinado
+% =========================================================================
 \subsubsection{Cilindro rodando sobre un plano inclinado}
 
 Un cilindro sólido homogéneo de masa $m$ y radio $R$ se suelta desde el reposo en la parte superior de un plano inclinado que forma un ángulo $\theta$ con la horizontal, como se muestra en la Figura \ref{fig:c4_e01_p01_cilindro_inclinado}. El coeficiente de roce estático entre el cilindro y el plano es $\mu_s$, suficiente para garantizar rodadura sin deslizar. Determine las siguientes cantidades:
@@ -46,3 +51,43 @@ Un cilindro sólido homogéneo de masa $m$ y radio $R$ se suelta desde el reposo
     \caption{Cilindro sólido rodando sin deslizar sobre un plano inclinado en ángulo $\theta$.}
     \label{fig:c4_e01_p01_cilindro_inclinado}
 \end{figure}
+
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Cilindro rodando sobre un plano inclinado}
+\subsubsection*{Pregunta 1: Aceleración del centro de masa}
+
+Ecuaciones de Newton-Euler para el cilindro, con $x$ a lo largo del plano (positivo hacia abajo) y $C$ el punto de contacto:
+
+\textbf{Traslación} (segunda ley de Newton a lo largo del plano):
+$$mg\sin\theta - f = ma_{cm}$$
+
+\textbf{Rotación} respecto al centro de masa $G$, con momento de inercia $I_G = \frac{1}{2}mR^2$ para un cilindro sólido:
+$$fR = I_G \alpha = \frac{1}{2}mR^2\alpha$$
+
+\textbf{Restricción de rodadura sin deslizar}:
+$$a_{cm} = R\alpha$$
+
+Sustituyendo $\alpha = a_{cm}/R$ en la ecuación de rotación:
+$$f = \frac{1}{2}m a_{cm}$$
+
+Sustituyendo en la ecuación de traslación:
+$$mg\sin\theta - \frac{1}{2}m a_{cm} = m a_{cm}$$
+
+$$\boxed{a_{cm} = \frac{2}{3}g\sin\theta}$$
+
+\subsubsection*{Pregunta 2: Fuerza de roce estático}
+
+$$f = \frac{1}{2}m a_{cm} = \frac{1}{2}m\left(\frac{2}{3}g\sin\theta\right)$$
+
+$$\boxed{f = \frac{1}{3}mg\sin\theta}$$
+
+\subsubsection*{Pregunta 3: Coeficiente mínimo de roce}
+
+La condición de no deslizamiento requiere $f \leq \mu_s N$. En la dirección perpendicular al plano, el equilibrio da $N = mg\cos\theta$. Entonces:
+
+$$\frac{1}{3}mg\sin\theta \leq \mu_s \, mg\cos\theta$$
+
+$$\boxed{\mu_{s,\text{min}} = \frac{1}{3}\tan\theta}$$
+
+\paragraph{Interpretación física} La aceleración $\frac{2}{3}g\sin\theta$ es menor que $g\sin\theta$ (caso sin rotación, como un bloque deslizando sin roce) porque parte de la energía potencial se convierte en energía cinética rotacional además de traslacional. El resultado es independiente de $m$ y $R$: todos los cilindros sólidos homogéneos ruedan con la misma aceleración en un plano dado.
+\end{solucion}

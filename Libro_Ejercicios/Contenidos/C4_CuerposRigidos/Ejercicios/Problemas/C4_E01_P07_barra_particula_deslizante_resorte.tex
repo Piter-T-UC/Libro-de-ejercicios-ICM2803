@@ -1,3 +1,8 @@
+% =========================================================================
+% Capítulo 4: Cuerpo rígido
+% Tema 01: Cuerpo rígido
+% Problema 07: Barra pivotada con partícula deslizante y resorte
+% =========================================================================
 \subsubsection{Barra pivotada con partícula deslizante y resorte}
 
 Una partícula de masa $m$ se desliza sin fricción a lo largo de una barra homogénea de masa
@@ -64,3 +69,34 @@ la orientación de la barra respecto a la vertical descendente, y la gravedad ac
     \caption{Barra homogénea $M,L$ pivotada en $O$ con una partícula $m$ que desliza sobre ella, ligada a $O$ por un resorte.}
     \label{fig:c4_e01_p07_barra_particula}
 \end{figure}
+
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Barra pivotada con partícula deslizante y resorte}
+\subsubsection*{Pregunta 1: Momento de inercia de la barra}
+
+Con densidad lineal $\rho=M/L$, el momento de inercia respecto al centro de masa es
+$$\bar{I}_z = \int_{-L/2}^{L/2} s^2\,\frac{M}{L}\,ds = \frac{M}{L}\cdot\frac{2}{3}\left(\frac{L}{2}\right)^3 = \frac{1}{12}ML^2.$$
+Por el teorema de Huygens-Steiner, trasladando al extremo $O$ (a distancia $L/2$):
+$$I_z^O = \bar{I}_z + M\left(\frac{L}{2}\right)^2 = \frac{1}{12}ML^2 + \frac{1}{4}ML^2 = \boxed{\tfrac13 ML^2}.$$
+
+\subsubsection*{Pregunta 2: Ecuaciones de movimiento}
+
+\textbf{Cinemática.} Se usa una base polar $\{\vec{e}_r,\vec{e}_\theta\}$ solidaria a la barra
+($\vec{e}_r$ a lo largo de la barra). La partícula está en $\vec{r}_m=r\,\vec{e}_r$, de modo que
+$$\vec{a}_m = (\ddot{r}-r\dot\theta^2)\,\vec{e}_r + (2\dot{r}\dot\theta + r\ddot\theta)\,\vec{e}_\theta.$$
+Con $\theta$ medido desde la vertical descendente, la gravedad se proyecta como
+$g\cos\theta\,\vec{e}_r - g\sin\theta\,\vec{e}_\theta$.
+
+\textbf{Newton sobre la partícula.} La barra lisa ejerce sólo una normal $\vec{N}=-N\vec{e}_\theta$;
+el resorte da $-K(r-r_0)\vec{e}_r$:
+$$\vec{e}_r:\quad -K(r-r_0) + mg\cos\theta = m(\ddot{r}-r\dot\theta^2),$$
+$$\vec{e}_\theta:\quad -N - mg\sin\theta = m(2\dot{r}\dot\theta + r\ddot\theta).$$
+De la primera ecuación se despeja directamente
+$$\boxed{\;\ddot{r} = -\frac{K}{m}(r-r_0) + g\cos\theta + r\dot\theta^2\;}$$
+
+\textbf{Euler sobre la barra respecto a $O$.} La gravedad de la barra (en $L/2$) y la reacción
+$N$ de la partícula (a distancia $r$) generan el torque:
+$$I_z^O\,\ddot\theta = -\frac{L}{2}Mg\sin\theta + rN,\qquad I_z^O=\tfrac13 ML^2.$$
+Sustituyendo $N = -mg\sin\theta - m(2\dot{r}\dot\theta + r\ddot\theta)$ y agrupando:
+$$\boxed{\;\ddot\theta = \frac{-g\sin\theta\left(\tfrac{L}{2}M + rm\right) - 2mr\dot{r}\dot\theta}{\tfrac13 ML^2 + mr^2}\;}$$
+\end{solucion}

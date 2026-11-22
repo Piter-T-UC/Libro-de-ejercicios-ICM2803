@@ -1,3 +1,8 @@
+% =========================================================================
+% Capítulo 1: Cinemática
+% Tema 04: Rodadura sin deslizar
+% Problema 01: Barra pelota
+% =========================================================================
 \subsubsection{Barra pelota}
 Un brazo de longitud \( l \) está articulado en uno de sus extremos al centro de un disco circular de radio \( r \), como se muestra en la Figura \ref{fig:rodadura_varilla}. El disco rueda sin deslizamiento a lo largo de una superficie horizontal fija. Usando la variable \( x \) para describir la posición del centro del disco y la variable \( \phi \) para describir la orientación del brazo con respecto a la vertical, determine los siguientes vectores según lo visto por un observador fijo al suelo:
 
@@ -60,9 +65,8 @@ Un brazo de longitud \( l \) está articulado en uno de sus extremos al centro d
     \label{fig:rodadura_varilla}
 \end{figure}
 
-
-\ifmostrarSolucion
-\begin{tcolorbox}[title=Disco en barra rotatoria vertical,breakable]
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Barra pelota}
 \begin{itemize}
     \item $\mathcal{N}$ El suelo $\longrightarrow\{\vec{e}_x;\vec{e}_y;\vec{e}_z\}$
     \item $\mathcal{D}$ Disco $\longrightarrow\{\vec{E}_r;\vec{E}_\theta;\vec{E}_z\}$
@@ -142,7 +146,7 @@ Al igual que antes podemos simplemente derivar la velocidad para obtener la velo
 $$\marc{\vec{a}_O}{A}=\der{\marc{}{N}\vec{v}_O}{N}=\der{\dot x\vec{e}_x}{N}=\ddot{x}\vec{e}_x$$
 
 \textbf{La velocidad y aceleración angular del disco}
-Ahora es donde se complica un poco mas las cosas, nosotros sabemos la velocidad del centro del disco, pero desconocemos la velocidad angular, en este caso podemos usar la cinemática de cuerpo rígido.(\href{https://dynref.engr.illinois.edu/rkg.html#rkg-er}{Link Cinematica de Cuerpo Rigido}) y la condicion de rodamineto sin deslizamiento para obtener la velocidad angular.(\href{https://dynref.engr.illinois.edu/rko.html#rko-wr}{Link rodar sin resbalar})\\
+Ahora es donde se complica un poco mas las cosas, nosotros sabemos la velocidad del centro del disco, pero desconocemos la velocidad angular, en este caso podemos usar la cinemática de cuerpo rígido.(\href{https://dynref.engr.illinois.edu/rkg.html\#rkg-er}{Link Cinematica de Cuerpo Rigido}) y la condicion de rodamineto sin deslizamiento para obtener la velocidad angular.(\href{https://dynref.engr.illinois.edu/rko.html\#rko-wr}{Link rodar sin resbalar})\\
 Se conoce que la velocidad de cualquier punto de un cuerpo rigido si se conoce la velocidad angular del cuerpo y la velocidad de un punto arbitrario.
 $$\marc{\Vec{v}_P}{N}=\marc{{\Vec{v}_C}}{N} + \transporta{\Vec{r}_{P/C}}{N}{R}$$
 (La formula sale de ocupar el teorema del transporte en $\vec{r}_{P/C}=\vec{r}_P-\vec{r}_C$)\\
@@ -188,6 +192,70 @@ Esto por la cinemática de una partícula en contacto continuo con una superfici
     \end{align*}
     Si bien no pasamos todo a una base la respuesta sigue estando buena, mas adelante pasarlo a una base no sera tan importante como saber trabajar con ella (la aceleración).
 
+\patotruco{El ``trucazo'' de las cilíndricas: derivar la base directo con $\dot{\vec{e}}_r=\dot\theta\vec{e}_\theta$ y $\dot{\vec{e}}_\theta=-\dot\theta\vec{e}_r$ (válido si $\vec{e}_\theta$ apunta hacia $\theta$ creciente; si no, cambia el signo). Para esféricas conviene pasar a cilíndricas y usarlo ahí.}
 
-\end{tcolorbox}
-\fi
+\begin{resumen}[Resumen y Trucos]
+\subsubsection*{Cinematica de cuerpo rigido}
+(\href{https://dynref.engr.illinois.edu/rkg.html\#rkg-er}{Link Cinematica de Cuerpo Rigido})
+\subsubsection*{Rodar sin resbalar}
+(\href{https://dynref.engr.illinois.edu/rko.html\#rko-wr}{Link rodar sin resbalar})\\
+
+
+El caso de rodar sin resbalar, ocurre que la velocidad del punto de contacto tanto del solido que rueda, como del punto que esta en la superficie en la que rueda, son la misma, para el caso del suelo es 0, pero podría llegar a ser que no fuese 0 (por ejemplo dos esferas que giran sin resbalar.) 
+
+
+$$\marc{\vec{v}_p}{N}=\marc{\cancelto{\vec{0}}{\vec{v}_C}}{N} \quad+ \transporta{\vec{r}_{p/C}}{N}{R}$$
+
+Incluso muchas veces el vector $\marc{\vec{r}_{p/C}}{R}$ es constante por ende se elimina y solo queda
+$$\marc{\vec{v}_p}{N}=\stackbin{\mathcal{N}\to \mathcal{R}}{\omega}\times \vec{r}_{p/C}$$
+\subsubsection*{Derivada temporal de vectores}
+
+\subsubsection*{Coordenadas cilíndricas}
+Se caracterizan estas por depender de un vector radio, son usadas en casos donde tenemos una distancia y una manera de medir el ángulo, y se definen como \{$\vec{e}_r,\vec{e}_{\theta},\vec{e}_z$\}
+
+$$\vec{e}_r=(\cos(\theta),\sin(\theta),0)$$
+$$\vec{e}_{\theta}=(-\sin(\theta),\cos(\theta),0)$$
+$$\vec{e}_z=(0,0,1)$$
+Y todos los puntos del espacio se pueden determinar como
+$$\vec{r}=r\vec{e}_r+z\vec{e}_z$$
+En las coordenadas cilíndricas esta lo que se llama el trucazo (es derivar el vector en el tiempo pero aumenta la eficiencia)\\
+Pero primero debemos obtener derivadas respecto a parámetros en este caso solo $\theta$
+$$\dfrac{\partial}{\partial\theta}(\vec{e}_r)=(-\sin(\theta),\cos(\theta),0)=\vec{e}_{\theta}$$
+$$\dfrac{\partial}{\partial\theta}(\vec{e}_{\theta})=(-\cos(\theta),-\sin(\theta),0)=-\vec{e}_r$$
+
+De esto se puede obtener que
+$$\dfrac{d}{dt}(\vec{e}_r)=\dfrac{\partial(\vec{e}_r)}{\partial\theta}\cdot\dfrac{d(\theta)}{dt}\longrightarrow\dfrac{d}{dt}(\vec{e}_r)=\dot{\theta}\vec{e}_{\theta}$$
+$$\dfrac{d}{dt}(\vec{e}_{\theta})=\dfrac{\partial(\vec{e}_{\theta})}{\partial\theta}\cdot\dfrac{d(\theta)}{dt}\longrightarrow\dfrac{d}{dt}(\vec{e}_{\theta})=-\dot{\theta}\vec{e}_r$$
+
+De esto lo mas importante es (esto funciona cuando $\vec{e}_\theta$ esta definido en sentido de $\theta$ creciente si no cambia el signo.)
+$$\dfrac{d}{dt}(\vec{e}_r)=\dot{\theta}\vec{e}_{\theta}$$
+$$\dfrac{d}{dt}(\vec{e}_{\theta})=-\dot{\theta}\vec{e}_r$$
+\subsubsection*{Coordenadas esféricas}
+Las coordenadas esfericas son muy utilizadas en objetos que pueden medir una distancia lineal y este pivotea respecto a dos angulos, un ejemplo de esto es una antena la cual gira arriba y abajo, y de lado a lado
+\{$\vec{e}_r,\vec{e}_{\phi},\vec{e}_{\theta}$\}
+
+
+$$\vec{e}_r=(\cos(\theta)\sin(\phi),\sin(\theta)\sin(\phi),\cos{\phi})=\sin(\phi)\cdot(\cos(\theta)\vec{e}_x+\sin(\theta)\vec{e}_y)+\cos(\phi)\vec{e}_z$$
+$$\vec{e}_\phi=(\cos(\phi)\cos(\theta),\cos(\phi)\sin(\theta),-\sin(\phi))=\cos(\phi)\cdot(\cos(\theta)\vec{e}_x+\sin(\theta)\vec{e}_y)-\sin(\phi)\vec{e}_z$$
+$$\vec{e}_{\theta}=(-\sin(\theta),\cos(\theta),0)=-\sin(\theta)\vec{e}_x+\cos(\theta)\vec{e}_y$$
+Y todos los puntos del espacio se pueden determinar como
+$$\vec{r}=r\vec{e}_r$$
+Al igual que se hizo en coordenadas cilíndricas podemos obtener las derivadas temporales de la base de vectores, y al igual que antes comenzaremos con las derivadas parciales de los vectores unitarios respecto a los parámetros tempo dependiente (que dependen el tiempo como $\theta$ y $\phi$)\\
+Partiendo del vector $\vec{e}_r$
+$$\dfrac{\partial(\vec{e}_r)}{\partial\theta}=\sin(\phi)\cdot\vec{e}_\theta$$
+$$\dfrac{\partial(\vec{e}_r)}{\partial\phi}=\vec{e}_\phi$$
+Seguimos con el vector $\vec{e}_{\phi}$
+$$\dfrac{\partial(\vec{e}_{\phi})}{\partial\theta}=\cos(\phi)\cdot\vec{e}_\theta$$
+$$\dfrac{\partial(\vec{e}_{\phi})}{\partial\phi}=-\vec{e}_r$$
+Finalmente con el vector $\vec{e}_{\theta}$
+$$\dfrac{\partial(\vec{e}_{\theta})}{\partial\theta}=\sin(\phi)\cdot\vec{e}_r-\cos(\phi)\vec{e}_{\phi}$$
+$$\dfrac{\partial(\vec{e}_{\theta})}{\partial\phi}=\vec{0}$$
+
+Todo esto para finalmente obtener que la derivada de la base es:
+$$\dfrac{d}{dt}(\vec{e}_r)=\dfrac{\partial(\vec{e}_r)}{\partial\phi}\dfrac{d\phi}{dt}+\dfrac{\partial(\vec{e}_r)}{\partial\theta}\dfrac{d\theta}{dt}=\dot{\phi}\vec{e}_{\phi}+\sin(\phi)\dot{\theta}\vec{e}_\theta$$
+$$\dfrac{d}{dt}(\vec{e}_{\phi})=\dfrac{\partial(\vec{e}_{\phi})}{\partial\theta}\dfrac{d\theta}{dt}+\dfrac{\partial(\vec{e}_{\phi})}{\partial\phi}\dfrac{d\phi}{dt}=\cos(\phi)\dot{\theta}\cdot\vec{e}_\theta-\dot{\phi}\vec{e}_r$$
+$$\dfrac{d}{dt}(\vec{e}_{\theta})=\dfrac{\partial(\vec{e}_{\theta})}{\partial\theta}\dfrac{d\theta}{dt}=\sin(\phi)\dot{\theta}\cdot\vec{e}_r-\cos(\phi)\dot{\theta}\vec{e}_{\phi}$$
+Personalmente no me gusta utilizar el trucazo para esféricas, simplemente me gusta utilizarlo para cilíndricas porque es mas simple, lo que hago si tengo un esférico, es que lo transformo a uno cilíndrico donde pueda ocupar lo.
+\end{resumen}
+\end{solucion}
+
