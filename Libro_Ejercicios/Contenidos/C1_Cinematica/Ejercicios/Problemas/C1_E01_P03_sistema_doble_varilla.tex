@@ -1,3 +1,8 @@
+% =========================================================================
+% Capítulo 1: Cinemática
+% Tema 01: Coordenadas cilíndricas
+% Problema 03: Sistema de doble varilla
+% =========================================================================
 \subsubsection{Sistema de doble varilla}
 Dos varillas rígidas de longitudes $l_1$ y $l_2$ están articuladas en serie como se muestra en la Figura \ref{fig:doble_varilla}. La varilla $OA$ está articulada en uno de sus extremos al punto fijo $O$, mientras que su otro extremo está articulado en el punto $A$, que es un extremo de la segunda varilla $AP$. El punto $P$ se encuentra en el extremo libre de la varilla $AP$. Sabiendo que $\theta$ es el ángulo entre la varilla $OA$ y la horizontal y que $\phi$ es el ángulo entre la varilla $AP$ y la prolongación de la varilla $OA$, determine:
 
@@ -90,10 +95,8 @@ Dos varillas rígidas de longitudes $l_1$ y $l_2$ están articuladas en serie co
     \label{fig:doble_varilla}
 \end{figure}
 
-\ifmostrarSolucion
-
-        
-\begin{tcolorbox}[title=Solucion sistema Doble varilla,breakable]
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Sistema de doble varilla}
 Para poder definir los marcos de referencia tenemos que pensar y analizar los distintos cuerpo que esta compuesto y en como estos se comportan. Tambien le asociamos un sistema de coordenadas a cada uno, lo que significa que si uno gira el otro tambien gira de la misma manera.
 \begin{itemize}
     \item $\mathcal{N}$ Inercial (Suelo) $\longrightarrow\{\vec{E}_x;\vec{E}_y;\vec{E}_z\}$
@@ -305,7 +308,5 @@ En este caso los otros terminos se teminan siendo constantes por ende se elimina
         \end{align}
         entonces la velocidad al final quedaria asi
         $$\marc{}{N}\vec{a}_P = -l_1 \dot{\theta}^2 \vec{e}_x + l_1 \ddot{\theta} \vec{e}_y - l_2 (\dot{\theta} + \dot{\phi})^2 \vec{u}_r + l_2 (\ddot{\theta} + \ddot{\phi}) \vec{u}_\phi$$
-\end{tcolorbox}
+\end{solucion}
 
-
-\fi

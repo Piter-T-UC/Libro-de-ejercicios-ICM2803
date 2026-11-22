@@ -1,3 +1,8 @@
+% =========================================================================
+% Capítulo 1: Cinemática
+% Tema 04: Rodadura sin deslizar
+% Problema 01: Barra pelota
+% =========================================================================
 \subsubsection{Barra pelota}
 Un brazo de longitud \( l \) está articulado en uno de sus extremos al centro de un disco circular de radio \( r \), como se muestra en la Figura \ref{fig:rodadura_varilla}. El disco rueda sin deslizamiento a lo largo de una superficie horizontal fija. Usando la variable \( x \) para describir la posición del centro del disco y la variable \( \phi \) para describir la orientación del brazo con respecto a la vertical, determine los siguientes vectores según lo visto por un observador fijo al suelo:
 
@@ -60,9 +65,8 @@ Un brazo de longitud \( l \) está articulado en uno de sus extremos al centro d
     \label{fig:rodadura_varilla}
 \end{figure}
 
-
-\ifmostrarSolucion
-\begin{tcolorbox}[title=Disco en barra rotatoria vertical,breakable]
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Barra pelota}
 \begin{itemize}
     \item $\mathcal{N}$ El suelo $\longrightarrow\{\vec{e}_x;\vec{e}_y;\vec{e}_z\}$
     \item $\mathcal{D}$ Disco $\longrightarrow\{\vec{E}_r;\vec{E}_\theta;\vec{E}_z\}$
@@ -142,7 +146,7 @@ Al igual que antes podemos simplemente derivar la velocidad para obtener la velo
 $$\marc{\vec{a}_O}{A}=\der{\marc{}{N}\vec{v}_O}{N}=\der{\dot x\vec{e}_x}{N}=\ddot{x}\vec{e}_x$$
 
 \textbf{La velocidad y aceleración angular del disco}
-Ahora es donde se complica un poco mas las cosas, nosotros sabemos la velocidad del centro del disco, pero desconocemos la velocidad angular, en este caso podemos usar la cinemática de cuerpo rígido.(\href{https://dynref.engr.illinois.edu/rkg.html#rkg-er}{Link Cinematica de Cuerpo Rigido}) y la condicion de rodamineto sin deslizamiento para obtener la velocidad angular.(\href{https://dynref.engr.illinois.edu/rko.html#rko-wr}{Link rodar sin resbalar})\\
+Ahora es donde se complica un poco mas las cosas, nosotros sabemos la velocidad del centro del disco, pero desconocemos la velocidad angular, en este caso podemos usar la cinemática de cuerpo rígido.(\href{https://dynref.engr.illinois.edu/rkg.html\#rkg-er}{Link Cinematica de Cuerpo Rigido}) y la condicion de rodamineto sin deslizamiento para obtener la velocidad angular.(\href{https://dynref.engr.illinois.edu/rko.html\#rko-wr}{Link rodar sin resbalar})\\
 Se conoce que la velocidad de cualquier punto de un cuerpo rigido si se conoce la velocidad angular del cuerpo y la velocidad de un punto arbitrario.
 $$\marc{\Vec{v}_P}{N}=\marc{{\Vec{v}_C}}{N} + \transporta{\Vec{r}_{P/C}}{N}{R}$$
 (La formula sale de ocupar el teorema del transporte en $\vec{r}_{P/C}=\vec{r}_P-\vec{r}_C$)\\
@@ -187,7 +191,5 @@ Esto por la cinemática de una partícula en contacto continuo con una superfici
         &=\ddot x\vec{e}_x+l\ddot\phi\vec{e}_\phi-l\dot\phi^2\vec{e}_r
     \end{align*}
     Si bien no pasamos todo a una base la respuesta sigue estando buena, mas adelante pasarlo a una base no sera tan importante como saber trabajar con ella (la aceleración).
+\end{solucion}
 
-
-\end{tcolorbox}
-\fi

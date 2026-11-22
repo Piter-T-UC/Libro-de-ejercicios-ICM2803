@@ -1,4 +1,9 @@
-\subsubsection{Problema: Anillo rotador}
+% =========================================================================
+% Capítulo 1: Cinemática
+% Tema 02: Coordenadas esféricas
+% Problema 01: Anillo rotador
+% =========================================================================
+\subsubsection{Anillo rotador}
 Un anillo \( P \) se desliza a lo largo de un aro circular de radio \( r \) como indica la figura \ref{fig:anillo_deslizante}. El aro rota con una velocidad angular \( \Omega \) que apunta en la dirección vertical gracias a las uniones en \( A \) y \( B \), que en conjunto actúan como una conexión de revolución.
 
 Si el ángulo \( \phi \) describe la posición del anillo con respecto al centro \( O \) del aro circular, determine:
@@ -81,8 +86,8 @@ Si el ángulo \( \phi \) describe la posición del anillo con respecto al centro
     \label{fig:anillo_deslizante}
 \end{figure}
 
-\ifmostrarSolucion
-\begin{tcolorbox}[title=Anillo rotador,breakable]
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Anillo rotador}
 \textbf{Marcos de referencia y Sistemas de coordenadas}\\
 
 Lo primero de todo es podes obtener los marcos de referencia y se parte primero con el marco de referencia inercia;\\
@@ -238,6 +243,5 @@ $$\velang{N}{B}\times\left(\marc{\vec{v}}{N}\right)=\left(\dot\theta\vec{e}_\phi
 $$=r\dot\theta^2 \vec{e}_r+\vec{0}+r\dot\theta\Omega\cos(\theta)\vec{e}_\phi+r\Omega^2\cos(\theta)\sin(\theta)(-\vec{e}_\theta)+r\dot\theta\Omega(-\sin(\theta))\vec{e}_{\phi}-r\Omega^2\sin^2(\theta)(\vec{e}_r)$$
 
 $$\marc{\vec{a}}{N}=\left(-r\dot\theta^2-r\Omega^2\sin^2(\theta)\right)\vec{e}_r+\left(r\ddot{\theta}-r\Omega\sin(\theta)\cos(\theta)\right)\vec{e}_\theta+\left(r\dot\Omega\sin(\theta)+2r\Omega\dot\theta\cos(\theta)\right)\vec{e}_\phi$$
+\end{solucion}
 
-\end{tcolorbox}
-\fi

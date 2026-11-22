@@ -30,12 +30,9 @@ CX_E[YY]_P[ZZ]_titulo.tex
 Ejemplo: C1_E01_P02_barra_articulada.tex
 ```
 
-**Archivos de Solución:**
-```
-CX_E[YY]_solucion.tex
-
-Ejemplo: C1_E01_solucion.tex
-```
+**Soluciones:** van al final del mismo archivo del problema, en el entorno `solucion`
+(no hay archivos de solución aparte). Parte siempre desde la planilla
+`Plantillas/CN_EYY_PZZ_plantilla.tex`.
 
 ### Estructura de Archivo de Ejercicio
 
@@ -196,26 +193,21 @@ Si es un tema existente, editar:
 \input{Contenidos/C[X]_[Nombre]/Ejercicios/Problemas/C[X]_E[YY]_P[ZZ]_titulo.tex}
 ```
 
-### 4. Crear archivo de solución
+### 4. Escribir la solución (en el mismo archivo)
 
-```bash
-touch Contenidos/C[X]_[Nombre]/Ejercicios/Soluciones/C[X]_E[YY]_solucion.tex
-```
-
-Estructura:
 ```latex
-\begin{sol}[Tema: Nombre del Tema]
+\begin{solucion}{Título del problema}
+\textbf{Marcos de referencia y Sistemas de Coordenadas}
+...
+\textbf{Posición}\\
+$$ ... $$
+\respuesta{$\displaystyle \ddot\theta = \dots$}   % resultado final (en vez de \boxed)
 
-\subsubsection*{Problema ZZ: Título}
-
-% Solución paso a paso
-\begin{equation}
-    % Ecuaciones clave
-\end{equation}
-
-% Explicación de pasos
-
-\end{sol}
+\patotip[squareglasses]{Consejo.}   % pato ingeniero  (\mostrarTipsfalse lo oculta)
+\patoojo{Error típico.}             % pato del letrero (\mostrarOjofalse)
+\patotruco{Atajo.}                  % pato mago       (\mostrarTrucosfalse)
+\begin{resumen}[Título] ... \end{resumen}  % pato profe (\mostrarResumenfalse)
+\end{solucion}
 ```
 
 ### 5. Compilar y verificar
@@ -236,7 +228,6 @@ make pdf
 
 ```bash
 git add Contenidos/C[X]_[Nombre]/Ejercicios/Problemas/
-git add Contenidos/C[X]_[Nombre]/Ejercicios/Soluciones/
 git add main.tex  # si es necesario actualizar rutas
 ```
 
@@ -283,14 +274,14 @@ En GitHub, crear PR con descripción clara de:
   - [ ] Tiene comentarios agrupados (`-- SECCIÓN --`)
   - [ ] Tiene `\caption` y `\label` únicos
   - [ ] Se renderiza correctamente
-- [ ] La solución está en archivo `CX_E[YY]_solucion.tex`
+- [ ] La solución está al final del problema, en `\begin{solucion}{...}`
 - [ ] El PDF compila sin errores
 - [ ] No hay referencias cruzadas rotas ("???")
 - [ ] Los nombres y estilos son consistentes con ejemplos existentes
 
 ## 📊 Ejemplo Completo
 
-Ver archivo: `Contenidos/C1_Cinematica/Ejercicios/Problemas/C1_E01_P03_hormiga_velocista.tex`
+Ver archivo: `Contenidos/C1_Cinematica/Ejercicios/Problemas/C1_E01_P01_hormiga_velocista.tex`
 
 Este es el estándar de referencia. Si tus ejercicios se parecen a éste, vas bien.
 

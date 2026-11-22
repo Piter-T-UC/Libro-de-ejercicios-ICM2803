@@ -1,3 +1,8 @@
+% =========================================================================
+% Capítulo 5: Mecánica Lagrangiana
+% Tema 01: Mecánica Lagrangiana
+% Problema 01: Péndulo simple vía formulación Lagrangiana
+% =========================================================================
 \subsubsection{Péndulo simple vía formulación Lagrangiana}
 
 Una partícula de masa $m$ está suspendida de un punto fijo $O$ mediante una cuerda ideal (inextensible, de masa despreciable) de longitud $\ell$, formando un péndulo simple que oscila en un plano vertical, como se muestra en la Figura \ref{fig:c5_e01_p01_pendulo_simple}. Sea $\theta$ el ángulo que forma la cuerda con la vertical.
@@ -44,3 +49,44 @@ Una partícula de masa $m$ está suspendida de un punto fijo $O$ mediante una cu
     \caption{Péndulo simple de longitud $\ell$, con coordenada generalizada $\theta$.}
     \label{fig:c5_e01_p01_pendulo_simple}
 \end{figure}
+
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Péndulo simple vía formulación Lagrangiana}
+\subsubsection*{Pregunta 1: Grados de libertad}
+
+La partícula está restringida a moverse sobre una circunferencia de radio $\ell$ (vínculo holonómico $x^2+y^2=\ell^2$), por lo que el sistema tiene $1$ grado de libertad. La coordenada generalizada natural es $q = \theta$, el ángulo respecto a la vertical.
+
+\subsubsection*{Pregunta 2: Lagrangiano}
+
+En coordenadas polares centradas en $O$, con $\theta$ medido desde la vertical:
+$$x = \ell\sin\theta, \qquad y = -\ell\cos\theta$$
+
+$$\dot{x} = \ell\dot\theta\cos\theta, \qquad \dot{y} = \ell\dot\theta\sin\theta$$
+
+Energía cinética:
+$$T = \frac{1}{2}m(\dot{x}^2+\dot{y}^2) = \frac{1}{2}m\ell^2\dot\theta^2\left(\cos^2\theta+\sin^2\theta\right) = \frac{1}{2}m\ell^2\dot\theta^2$$
+
+Energía potencial gravitatoria, con referencia en $O$:
+$$V = mgy = -mg\ell\cos\theta$$
+
+El Lagrangiano es:
+$$\boxed{L = T - V = \frac{1}{2}m\ell^2\dot\theta^2 + mg\ell\cos\theta}$$
+
+\subsubsection*{Pregunta 3: Ecuación de Euler-Lagrange}
+
+$$\frac{d}{dt}\left(\frac{\partial L}{\partial\dot\theta}\right) - \frac{\partial L}{\partial\theta} = 0$$
+
+Calculando cada término:
+$$\frac{\partial L}{\partial\dot\theta} = m\ell^2\dot\theta \quad\Rightarrow\quad \frac{d}{dt}\left(\frac{\partial L}{\partial\dot\theta}\right) = m\ell^2\ddot\theta$$
+
+$$\frac{\partial L}{\partial\theta} = -mg\ell\sin\theta$$
+
+Sustituyendo:
+$$m\ell^2\ddot\theta - (-mg\ell\sin\theta) = 0$$
+
+$$m\ell^2\ddot\theta + mg\ell\sin\theta = 0$$
+
+$$\boxed{\ddot\theta + \frac{g}{\ell}\sin\theta = 0}$$
+
+\paragraph{Comparación con el enfoque newtoniano} Este resultado coincide exactamente con el obtenido aplicando $\vec{F}=m\vec{a}$ en la dirección tangencial: $-mg\sin\theta = m\ell\ddot\theta$. La ventaja del enfoque Lagrangiano es que la tensión de la cuerda —una fuerza de restricción que no realiza trabajo— nunca aparece explícitamente en el cálculo, ya que $\theta$ es la única coordenada independiente compatible con el vínculo.
+\end{solucion}

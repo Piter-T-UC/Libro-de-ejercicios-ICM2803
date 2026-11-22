@@ -1,4 +1,9 @@
-\subsection{Problema 6: Centros de Masa}
+% =========================================================================
+% Capítulo 0: Repaso
+% Tema 02: Cálculo vectorial
+% Problema 06: Centros de Masa
+% =========================================================================
+\subsubsection{Centros de Masa}
 El centro de masa ($\vec{r}_{cm}$) representa el punto donde se puede considerar concentrada toda la masa de un sistema.
 
 \begin{enumerate}
@@ -6,3 +11,15 @@ El centro de masa ($\vec{r}_{cm}$) representa el punto donde se puede considerar
     \item Lámina Semicircular: Calcule la coordenada $\bar{y}$ del centro de masa de una placa plana semicircular de radio $R$ y densidad constante $\rho$, situada en el plano $xy$ sobre el eje $x$ (con el diámetro sobre el eje $x$).
     \item Barra no uniforme: Una barra de longitud $L$ tiene una densidad lineal $\lambda(x) = kx$. Halle la posición $\bar{x}$ de su centro de masa.
 \end{enumerate}
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Centro de Masa}
+\begin{enumerate}
+    \item $\vec{r}_{cm} = \frac{\sum m_i \vec{r}_i}{\sum m_i} = \frac{2(1,0,0) + 3(0,2,0) + 5(0,0,2)}{2+3+5} = \frac{(2, 6, 10)}{10} = (0.2, 0.6, 1.0)$.
+    \item $\bar{y} = \frac{1}{M} \iint y \rho dA$. En polares: $y = r\sin\theta$, $dA = r \, dr \, d\theta$.
+    $M = \frac{1}{2}\pi R^2 \rho$. 
+    $\iint y \rho dA = \rho \int_0^\pi \int_0^R r^2 \sin\theta \, dr \, d\theta = \rho \frac{R^3}{3} [-\cos\theta]_0^\pi = \frac{2\rho R^3}{3}$.
+    $\bar{y} = \frac{2\rho R^3 / 3}{\pi R^2 \rho / 2} = \frac{4R}{3\pi}$.
+    \item $M = \int_0^L kx \, dx = \frac{1}{2}kL^2$. 
+    $\bar{x} = \frac{1}{M} \int_0^L x (kx) dx = \frac{1}{M} \frac{kL^3}{3} = \frac{kL^3/3}{kL^2/2} = \frac{2}{3}L$.
+\end{enumerate}
+\end{solucion}

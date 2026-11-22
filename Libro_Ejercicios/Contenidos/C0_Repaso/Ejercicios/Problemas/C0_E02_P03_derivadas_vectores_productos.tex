@@ -1,5 +1,9 @@
-% --- PROBLEMA 3: DERIVACIÓN VECTORIAL ---
-\subsection{Problema 3: Derivadas de Vectores y Productos}
+% =========================================================================
+% Capítulo 0: Repaso
+% Tema 02: Cálculo vectorial
+% Problema 03: Derivadas de Vectores y Productos
+% =========================================================================
+\subsubsection{Derivadas de Vectores y Productos}
 Considere que $\vec{u}(t)$ y $\vec{v}(t)$ son vectores que dependen del tiempo. Calcule:
 
 \begin{enumerate}
@@ -8,3 +12,14 @@ Considere que $\vec{u}(t)$ y $\vec{v}(t)$ son vectores que dependen del tiempo. 
     \item Sea $\vec{r}(t) = \cos(\omega t)\vec{i} + \sin(\omega t)\vec{j} + bt\vec{k}$. Calcule $\dot{\vec{r}}$ y $\ddot{\vec{r}}$.
     \item Si $\vec{v} = \dot{\vec{r}}$, calcule la derivada de la energía cinética escalar: $\frac{d}{dt} (\frac{1}{2} m \vec{v} \cdot \vec{v})$.
 \end{enumerate}
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Derivación Vectorial}
+\begin{enumerate}
+    \item $\frac{d}{dt} (\vec{u} \cdot \vec{v}) = \dot{\vec{u}} \cdot \vec{v} + \vec{u} \cdot \dot{\vec{v}}$.
+    \item $\vec{r}(t) = \cos(\omega t)\vec{i} + \sin(\omega t)\vec{j} + bt\vec{k}$. 
+    Derivando componente a componente:
+    $\dot{\vec{r}} = -\omega\sin(\omega t)\vec{i} + \omega\cos(\omega t)\vec{j} + b\vec{k}$.
+    $\ddot{\vec{r}} = -\omega^2\cos(\omega t)\vec{i} - \omega^2\sin(\omega t)\vec{j}$.
+    \item $\frac{d}{dt} (\frac{1}{2} m \vec{v} \cdot \vec{v}) = \frac{1}{2} m (\dot{\vec{v}} \cdot \vec{v} + \vec{v} \cdot \dot{\vec{v}}) = m \vec{v} \cdot \dot{\vec{v}} = m \vec{v} \cdot \vec{a} = P$ (Potencia).
+\end{enumerate}
+\end{solucion}

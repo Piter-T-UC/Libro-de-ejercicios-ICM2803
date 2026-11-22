@@ -1,5 +1,9 @@
-% --- EJERCICIO 1 ---
-\subsection{Problema 1: Operaciones con Base Única}
+% =========================================================================
+% Capítulo 0: Repaso
+% Tema 01: Álgebra de vectores
+% Problema 01: Operaciones con Base Única
+% =========================================================================
+\subsubsection{Operaciones con Base Única}
 Se define una base orto-normal $\{\vec{e}_1, \vec{e}_2, \vec{e}_3\}$. Considere $a, b, c$ como escalares constantes. Resuelva:
 
 \begin{multicols}{2}
@@ -18,7 +22,7 @@ Se define una base orto-normal $\{\vec{e}_1, \vec{e}_2, \vec{e}_3\}$. Considere 
     \item $(a\vec{e}_1 + b\vec{e}_3) \cdot (c\vec{e}_2) =$
 \end{enumerate}
 \end{multicols}
-\subsection{Operaciones 1 Base 2}
+\textbf{Segunda parte.}
   
 Se define un marco de referencia y a el se fija la siguiente base $\{\Vec{e}_1,\Vec{e}_2,\Vec{e}_3\}$ que es orto-normal, resuelva las siguientes operaciones:
 \begin{multicols}{2}
@@ -35,3 +39,42 @@ Se define un marco de referencia y a el se fija la siguiente base $\{\Vec{e}_1,\
     \item$\|(a\Vec{e}_1+d\Vec{e}_3)\times (b\Vec{e}_2+c\Vec{e}_3)\|=$
 \end{enumerate}
 \end{multicols}
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Operaciones con base única (primera parte)}
+\begin{multicols}{2} 
+\begin{enumerate}
+    \item $\vec{e}_1 \cdot \vec{e}_1 = \|\vec{e}_1\|^2 = 1$ (por ser base orto-normal).
+    \item $a\vec{e}_1 \cdot b\vec{e}_2 = ab(\vec{e}_1 \cdot \vec{e}_2) = ab(0) = 0$ (vectores perpendiculares).
+    \item $\vec{e}_2 \times \vec{e}_3 = \vec{e}_1$ (orden cíclico positivo).
+    \item $\vec{e}_3 \times \vec{e}_2 = -(\vec{e}_2 \times \vec{e}_3) = -\vec{e}_1$ (propiedad anticonmutativa).
+    \item $\vec{e}_1 \times \vec{e}_1 = \vec{0}$ (el producto cruz de un vector consigo mismo es nulo).
+    \item $\| a\vec{e}_2 + b\vec{e}_2 \| = \|(a+b)\vec{e}_2\| = |a+b| \cdot 1 = |a+b|$.
+    \item $(a\vec{e}_1 + b\vec{e}_2) \cdot \vec{e}_1 = a(\vec{e}_1 \cdot \vec{e}_1) + b(\vec{e}_2 \cdot \vec{e}_1) = a(1) + b(0) = a$.
+    \item $\| a\vec{e}_1 \times b\vec{e}_3 \| = \| ab(\vec{e}_1 \times \vec{e}_3) \| = \| ab(-\vec{e}_2) \| = |ab| \cdot 1 = |ab|$.
+    \item $\vec{e}_1 \cdot (\vec{e}_2 \times \vec{e}_3) = \vec{e}_1 \cdot \vec{e}_1 = 1$.
+    \item $(\vec{e}_1 \times \vec{e}_2) \cdot \vec{e}_3 = \vec{e}_3 \cdot \vec{e}_3 = 1$.
+    \item $\| a\vec{e}_1 - a\vec{e}_1 \| = \| \vec{0} \| = 0$.
+    \item $(a\vec{e}_1 + b\vec{e}_3) \cdot (c\vec{e}_2) = ac(\vec{e}_1 \cdot \vec{e}_2) + bc(\vec{e}_3 \cdot \vec{e}_2) = 0 + 0 = 0$.
+\end{enumerate}
+\end{multicols}
+\end{solucion}
+
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Operaciones con base única (segunda parte)}
+\begin{multicols}{2}
+            
+    \begin{enumerate}
+        
+    \item$\vec{e}_1\cdot\vec{e}_2=0$
+    %\item$a\vec{e}_1\cdot \vec{e}_3=$
+    \item$\vec{e}_2\cdot a\vec{e}_2= a$
+    \item$\vec{e}_3\times \vec{e}_1=\vec{e}_2$
+    %\item$\|a\vec{e}_3\times b\vec{e}_3\|=$
+    \item$\|a\vec{e}_1\times b\vec{e}_2\|=ab$
+    %\item$\vec{e}_1\cdot (\vec{e}_2+a\vec{e}_3)=$
+    \item$\vec{e}_1\cdot (\vec{e}_2+a\vec{e}_1 )=a$
+    %\item$(a\vec{e}_1+d\vec{e}_3)\cdot (b\vec{e}_2+c\vec{e}_3)=$
+    \item$\|(a\vec{e}_1+d\vec{e}_3)\times (b\vec{e}_2+c\vec{e}_3)\|=\sqrt{(ab)^2+(ac)^2+(db)^2}$
+        \end{enumerate}
+        \end{multicols}
+\end{solucion}

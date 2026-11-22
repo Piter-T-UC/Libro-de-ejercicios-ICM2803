@@ -1,3 +1,8 @@
+% =========================================================================
+% Capítulo 1: Cinemática
+% Tema 01: Coordenadas cilíndricas
+% Problema 07: Mecanismo articulado de dos barras
+% =========================================================================
 \subsubsection{Mecanismo articulado de dos barras}
 Considere el mecanismo articulado mostrado en la Figura \ref{fig:mecanismo_2_barras_refinado}, compuesto por dos barras rígidas unidas mediante juntas rotacionales. El extremo inferior de la primera barra está fijo en el punto $O$, anclado al suelo, y forma un ángulo $\theta$ con la horizontal. La segunda barra está unida a la primera mediante una articulación intermedia en $A$ y forma un ángulo relativo $\phi$ respecto a la prolongación de la primera barra.
 
@@ -69,10 +74,8 @@ Sabiendo que las longitudes de las barras, los ángulos $\theta$ y $\phi$, así 
     \label{fig:mecanismo_2_barras_refinado}
 \end{figure}
 
-\ifmostrarSolucion
-
-        
-\begin{tcolorbox}[title=Solucion sistema Doble varilla,breakable]
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Mecanismo articulado de dos barras}
 Para poder definir los marcos de referencia tenemos que pensar y analizar los distintos cuerpo que esta compuesto y en como estos se comportan. Tambien le asociamos un sistema de coordenadas a cada uno, lo que significa que si uno gira el otro tambien gira de la misma manera.
 \begin{itemize}
     \item $\mathcal{N}$ Inercial (Suelo) $\longrightarrow\{\vec{E}_x;\vec{E}_y;\vec{E}_z\}$
@@ -284,7 +287,5 @@ En este caso los otros terminos se teminan siendo constantes por ende se elimina
         \end{align*}
         entonces la velocidad al final quedaria asi
         $$\marc{}{N}\vec{a}_P = -l_1 \dot{\theta}^2 \vec{e}_x + l_1 \ddot{\theta} \vec{e}_y - l_2 (\dot{\theta} + \dot{\phi})^2 \vec{u}_r + l_2 (\ddot{\theta} + \ddot{\phi}) \vec{u}_\phi$$
-\end{tcolorbox}
+\end{solucion}
 
-
-\fi

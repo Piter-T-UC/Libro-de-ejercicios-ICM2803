@@ -1,4 +1,9 @@
-\subsection{Problema 1: Derivadas e Integrales Simples}
+% =========================================================================
+% Capítulo 0: Repaso
+% Tema 02: Cálculo vectorial
+% Problema 01: Derivadas e Integrales Simples
+% =========================================================================
+\subsubsection{Derivadas e Integrales Simples}
 Resuelva las siguientes operaciones de cálculo básico respecto a una variable $t$ o $x$:
 
 \begin{multicols}{2}
@@ -13,3 +18,19 @@ Resuelva las siguientes operaciones de cálculo básico respecto a una variable 
     \item Calcule $\int x^2 \ln(x) dx$.
 \end{enumerate}
 \end{multicols}
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Cálculo Unidimensional}
+\begin{enumerate}
+    \item $\frac{d}{dt} [t^2 \cos(3t)]$: Usando la regla del producto $(uv)' = u'v + uv'$:
+    $2t \cos(3t) + t^2 (-\sin(3t) \cdot 3) = 2t\cos(3t) - 3t^2\sin(3t)$.
+    
+    \item $\frac{d}{dt} [ \ln(t^2 + 1) e^{-2t} ]$: Regla del producto y cadena:
+    $\frac{2t}{t^2+1} e^{-2t} + \ln(t^2+1) (-2e^{-2t}) = e^{-2t} \left( \frac{2t}{t^2+1} - 2\ln(t^2+1) \right)$.
+    
+    \item $\int (3t^2 - 5\sin(t)) dt$: Integración directa:
+    $t^3 - 5(-\cos(t)) + C = t^3 + 5\cos(t) + C$.
+    
+    \item $\int x e^{x^2} dx$: Sustitución $u = x^2$, $du = 2x dx$:
+    $\frac{1}{2} \int e^u du = \frac{1}{2} e^{x^2} + C$.
+\end{enumerate}
+\end{solucion}

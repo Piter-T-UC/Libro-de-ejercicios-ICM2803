@@ -1,3 +1,8 @@
+% =========================================================================
+% Capítulo 5: Mecánica Lagrangiana
+% Tema 01: Mecánica Lagrangiana
+% Problema 05: Péndulo elástico
+% =========================================================================
 \subsubsection{Péndulo elástico}
 
 Una partícula de masa $m$ está unida a un punto fijo $O$ mediante un resorte ideal de constante elástica $k$ y largo natural $\ell_0$. El sistema puede oscilar libremente en un plano vertical, combinando estiramiento radial del resorte con oscilación angular tipo péndulo, como se muestra en la Figura \ref{fig:c5_e01_p05_pendulo_elastico}. Sean $r(t)$ la longitud instantánea del resorte y $\theta(t)$ el ángulo respecto a la vertical.
@@ -48,3 +53,55 @@ Una partícula de masa $m$ está unida a un punto fijo $O$ mediante un resorte i
     \caption{Péndulo elástico: partícula unida a un resorte de constante $k$ y largo natural $\ell_0$, con dos grados de libertad $r$ y $\theta$.}
     \label{fig:c5_e01_p05_pendulo_elastico}
 \end{figure}
+
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Péndulo elástico}
+\subsubsection*{Pregunta 1: Grados de libertad}
+
+A diferencia del péndulo simple, el resorte permite variar su longitud, por lo que el sistema tiene $2$ grados de libertad. Las coordenadas generalizadas naturales son $q_1 = r$ (longitud instantánea del resorte) y $q_2 = \theta$ (ángulo respecto a la vertical).
+
+\subsubsection*{Pregunta 2: Lagrangiano}
+
+En coordenadas polares centradas en $O$: $x = r\sin\theta$, $y=-r\cos\theta$. La rapidez al cuadrado en polares es el resultado estándar:
+$$v^2 = \dot{r}^2 + r^2\dot\theta^2$$
+
+Energía cinética:
+$$T = \frac{1}{2}m\dot{r}^2 + \frac{1}{2}mr^2\dot\theta^2$$
+
+Energía potencial: gravitatoria más elástica, con referencia en $O$:
+$$V = -mgr\cos\theta + \frac{1}{2}k(r-\ell_0)^2$$
+
+$$\boxed{L = \frac{1}{2}m\dot{r}^2 + \frac{1}{2}mr^2\dot\theta^2 + mgr\cos\theta - \frac{1}{2}k(r-\ell_0)^2}$$
+
+\subsubsection*{Pregunta 3: Ecuaciones de movimiento}
+
+\textbf{Respecto a $r$:}
+$$\frac{\partial L}{\partial\dot{r}} = m\dot{r}, \qquad \frac{\partial L}{\partial r} = mr\dot\theta^2 + mg\cos\theta - k(r-\ell_0)$$
+
+$$m\ddot{r} - mr\dot\theta^2 - mg\cos\theta + k(r-\ell_0) = 0$$
+
+$$\boxed{\ddot{r} - r\dot\theta^2 - g\cos\theta + \frac{k}{m}(r-\ell_0) = 0}$$
+
+\textbf{Respecto a $\theta$:}
+$$\frac{\partial L}{\partial\dot\theta} = mr^2\dot\theta \quad\Rightarrow\quad \frac{d}{dt}\left(\frac{\partial L}{\partial\dot\theta}\right) = mr^2\ddot\theta + 2mr\dot{r}\dot\theta$$
+
+$$\frac{\partial L}{\partial\theta} = -mgr\sin\theta$$
+
+$$mr^2\ddot\theta + 2mr\dot{r}\dot\theta + mgr\sin\theta = 0$$
+
+Dividiendo por $mr$ (con $r\neq0$):
+
+$$\boxed{r\ddot\theta + 2\dot{r}\dot\theta + g\sin\theta = 0}$$
+
+El término $2\dot r\dot\theta$ es la contribución tipo Coriolis: acopla el estiramiento radial con la oscilación angular, siendo responsable de fenómenos como la transferencia de energía entre el modo radial y el modo angular (resonancia $1{:}2$) característica del péndulo elástico.
+
+\subsubsection*{Pregunta 4: Límite de resorte infinitamente rígido}
+
+Si $k\to\infty$, el resorte se vuelve efectivamente inextensible y $r(t) \to \ell_0 = \text{constante}$, de modo que $\dot{r}=\ddot{r}=0$. Sustituyendo en la ecuación para $\theta$:
+
+$$\ell_0\ddot\theta + 2(0)\dot\theta + g\sin\theta = 0$$
+
+$$\boxed{\ddot\theta + \frac{g}{\ell_0}\sin\theta = 0}$$
+
+que es exactamente la ecuación del péndulo simple de longitud $\ell_0$ (comparar con el Problema 1 de este tema), confirmando la consistencia del modelo: el péndulo elástico se reduce al péndulo simple cuando se elimina el grado de libertad radial.
+\end{solucion}

@@ -1,3 +1,8 @@
+% =========================================================================
+% Capítulo 1: Cinemática
+% Tema 01: Coordenadas cilíndricas
+% Problema 01: Hormiga velocista
+% =========================================================================
 \subsubsection{Hormiga velocista}
 En la figura \ref{fig:Hormiga}, se encuentra una hormiga (Punto $B$), la cual camina de manera radial, hacia afuera del disco a una velocidad constante $v_0$ desde el centro. Si el disco rota desde su centro $O$ con una velocidad angular de magnitud $\Omega$ relativa al suelo, determine:
 \begin{enumerate}
@@ -65,11 +70,9 @@ En la figura \ref{fig:Hormiga}, se encuentra una hormiga (Punto $B$), la cual ca
     \caption{Hormiga Velocista}
     \label{fig:Hormiga}
 \end{figure}
-\ifmostrarSolucion
 
-\begin{tcolorbox}[colframe=black!50!white, % Borde gris oscuro
-        title= Solucion Hormiga Velocista (Definición), breakable]
-
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Hormiga velocista (por definición)}
 \textbf{Marcos de referencia y Sistemas de Coordenadas}
 En este caso se pueden diferenciar 2 marcos de referencia distintos.
 \begin{itemize}
@@ -199,9 +202,10 @@ $$\marc{\vec{a}_B}{N}=-r\Omega^2(\cos(\Omega t)\vec{E}_x+\sin(\Omega t)\vec{E}_y
 En realidad hay mas terminos que salen de la derivación los cuales son:
 $$\ddot{r}(\cos(\Omega t)\vec{E}_x+\sin(\Omega t)\vec{E}_y)+r\dot{\Omega}(-\sin(\Omega t)\vec{E}_x+\cos(\Omega t)\vec{E}_y)$$
 Pero para este caso se sabe del enunciado que camina de manera radial con una velocidad constante $\dot{r}=v_0$ osea ($\ddot{r}=0$), y que la velocidad angular también es constante por ende $\dot{\Omega}=0$.
-\end{tcolorbox}
-\begin{tcolorbox}[colframe=black!50!white, % Borde gris oscuro
-        title= Solucion Hormiga Velocista (Teorema del transporte), breakable]
+\end{solucion}
+
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Hormiga velocista (por teorema del transporte)}
 \subsubsection*{Derivadas por Teorema del Transporte}
 Si bien esto es algo que aun no terminan de ver aun, el resto del curso se trabajara de esta manera, es mejor que se acostumbren
 \textbf{Velocidad}\\
@@ -228,6 +232,5 @@ $$\der{}{D}\marc{\vec{v}_B}{N}=\dot{r}\Omega\vec{e}_y$$
 Por otro lado se tiene el producto cruz
 $$\Omega\vec{e}_z\times\left(\dot{r}\vec{e}_x+r\Omega \vec{e}_y\right)=\left(\dot{r}\Omega\vec{e}_y+r\Omega^2 (-\vec{e}_x)\right)$$
 Para finalmente obtener que la aceleración de la hormiga velocista es 
-$$\marc{\vec{a}_B}{N}=-r\Omega^2\vec{e}_x+2\dot{r}\Omega\vec{e}_y$$ 
-\end{tcolorbox}
-\fi
+$$\marc{\vec{a}_B}{N}=-r\Omega^2\vec{e}_x+2\dot{r}\Omega\vec{e}_y$$
+\end{solucion}

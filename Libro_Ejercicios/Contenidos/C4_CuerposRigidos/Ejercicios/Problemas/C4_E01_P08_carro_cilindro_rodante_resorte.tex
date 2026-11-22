@@ -1,3 +1,8 @@
+% =========================================================================
+% Capítulo 4: Cuerpo rígido
+% Tema 01: Cuerpo rígido
+% Problema 08: Carro con cilindro rodante acoplado por un resorte
+% =========================================================================
 \subsubsection{Carro con cilindro rodante acoplado por un resorte}
 
 Un carro de masa $m$ se desliza sin fricción sobre una superficie horizontal, accionado por
@@ -62,3 +67,37 @@ abajo.
     \caption{Cilindro de masa $m$ que rueda sin resbalar sobre un carro de masa $m$, ligado a su pared por un resorte.}
     \label{fig:c4_e01_p08_carro_cilindro}
 \end{figure}
+
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Carro con cilindro rodante acoplado por un resorte}
+\subsubsection*{Pregunta 1: Momento de inercia del cilindro}
+
+Con densidad volumétrica $\rho=\dfrac{m}{\pi r^2 h}$, integrando en coordenadas cilíndricas:
+$$I = \int_0^h\!\!\int_0^{2\pi}\!\!\int_0^r s^2\,\rho\,s\,ds\,d\varphi\,dz
+= \frac{m}{\pi r^2 h}\cdot\frac{r^4}{4}\cdot 2\pi h = \boxed{\tfrac12 mr^2}.$$
+
+\subsubsection*{Pregunta 2: Ecuaciones de movimiento}
+
+\textbf{Cinemática.} El carro está en $\vec{r}_1=x_1\vec{e}_x$ y el centro del cilindro en
+$\vec{r}_2=(x_1+x_2)\vec{e}_x$, luego $\vec{a}_1=\ddot{x}_1\vec{e}_x$ y
+$\vec{a}_2=(\ddot{x}_1+\ddot{x}_2)\vec{e}_x$. La rodadura sin resbalar del cilindro sobre el
+carro relaciona su rotación con el movimiento relativo: $\dot{x}_2 = r\,\omega$, es decir
+$\omega=\dot{x}_2/r$ y $\dot\omega=\ddot{x}_2/r$.
+
+\textbf{Fuerzas.} Sobre el sistema actúan la fuerza externa $f_1$, la del resorte
+$F_s=-k(x_2-\ell_0)$, la normal en el contacto y la fuerza tangencial (de roce) $R$ entre carro
+y cilindro. Aplicando la primera ley de Euler (traslación) al carro y al cilindro:
+$$\text{carro:}\quad f_1 + F_s - R = m\ddot{x}_1,\qquad
+\text{cilindro:}\quad R - F_s = m(\ddot{x}_1+\ddot{x}_2).$$
+Sumando ambas se elimina $R$ y $F_s$:
+$$f_1 = m(2\ddot{x}_1 + \ddot{x}_2). \qquad (\ast)$$
+
+\textbf{Euler sobre el cilindro (respecto a su centro).} Sólo $R$ genera torque:
+$$I\dot\omega = -rR \;\Longrightarrow\; \tfrac12 mr^2\,\frac{\ddot{x}_2}{r} = -rR
+\;\Longrightarrow\; R = -\tfrac12 m\ddot{x}_2.$$
+Sustituyendo $R$ en la ecuación del cilindro, con $F_s=-k(x_2-\ell_0)$:
+$$-\tfrac12 m\ddot{x}_2 + k(x_2-\ell_0) = m(\ddot{x}_1+\ddot{x}_2).$$
+Combinando esta relación con $(\ast)$ se obtiene finalmente:
+$$\boxed{\;\ddot{x}_2 = -\frac{1}{2m}f_1 + \frac{k}{m}(x_2-\ell_0)\;}\qquad
+\boxed{\;\ddot{x}_1 = \frac{1}{4m}f_1 - \frac{k}{2m}(x_2-\ell_0)\;}$$
+\end{solucion}

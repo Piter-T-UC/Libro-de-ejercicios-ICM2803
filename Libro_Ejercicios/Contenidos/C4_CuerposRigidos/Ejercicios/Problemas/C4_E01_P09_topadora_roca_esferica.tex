@@ -1,3 +1,8 @@
+% =========================================================================
+% Capítulo 4: Cuerpo rígido
+% Tema 01: Cuerpo rígido
+% Problema 09: Roca esférica empujada por una topadora cuesta arriba
+% =========================================================================
 \subsubsection{Roca esférica empujada por una topadora cuesta arriba}
 
 Una topadora empuja una roca de masa $m$ con una fuerza conocida $\mathbf{P}$ cuesta arriba
@@ -68,3 +73,41 @@ centro es $I=\tfrac25 mr^2$.
     \caption{Roca esférica ($m,r$) empujada con fuerza $\mathbf{P}$ paralela a una ladera de inclinación $\beta$; rueda sin deslizar sobre la ladera.}
     \label{fig:c4_e01_p09_topadora}
 \end{figure}
+
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Roca esférica empujada por una topadora cuesta arriba}
+\subsubsection*{Marcos y cinemática}
+
+Se usa un marco inercial fijo a la ladera con $\vec{E}_x$ cuesta arriba (a lo largo de la
+pendiente), $\vec{E}_y$ normal a la superficie y $\vec{E}_z=\vec{E}_x\times\vec{E}_y$. El
+centro de la esfera está en $\vec{r}_O=x\vec{E}_x$, de modo que $\vec{a}_O=\ddot{x}\vec{E}_x$.
+La condición de rodadura sin deslizar en el punto de contacto $Q$ con la ladera da
+$$\dot{x}=r\omega \;\Longrightarrow\; \omega=\frac{\dot{x}}{r},\qquad \dot\omega=\frac{\ddot{x}}{r}.$$
+
+\subsubsection*{Fuerzas}
+
+El punto de la esfera en contacto con la hoja ($P$) desliza respecto a ésta, por lo que la
+fricción dinámica de la hoja es $\vec{F}_f=\mu P\,\vec{E}_y$ (magnitud $\mu P$). Además actúan
+la fuerza $\vec{P}=P\vec{E}_x$, el peso $\vec{W}=-mg\sin\beta\,\vec{E}_x + mg\cos\beta\,\vec{E}_y$,
+y la normal y la tracción del suelo en $Q$ (que no generan torque respecto a $Q$).
+
+\subsubsection*{Balance de momento angular respecto al contacto $Q$}
+
+Para evitar las reacciones desconocidas del suelo, se toma momento angular respecto al punto
+de contacto $Q$. Con $\bar{I}=\tfrac25 mr^2$:
+$$\vec{H}_Q = \bar{I}\,\omega\,\vec{E}_z + (\vec{r}_O-\vec{r}_Q)\times m\vec{v}_O
+= \frac{2}{5}mr\dot{x}\,\vec{E}_z + mr\dot{x}\,\vec{E}_z = \frac{7}{5}mr\dot{x}\,\vec{E}_z,$$
+de donde $\dot{\vec{H}}_Q = \tfrac75 mr\ddot{x}\,\vec{E}_z$.
+
+El torque respecto a $Q$, con $\vec{r}_P-\vec{r}_Q=-r\vec{E}_x-r\vec{E}_y$ y
+$\vec{r}_O-\vec{r}_Q=-r\vec{E}_y$, resulta
+$$\vec{M}_Q = (\vec{r}_P-\vec{r}_Q)\times(\vec{P}+\vec{F}_f) + (\vec{r}_O-\vec{r}_Q)\times\vec{W}
+= \big[rP(1-\mu) - mgr\sin\beta\big]\vec{E}_z.$$
+
+Igualando $\vec{M}_Q=\dot{\vec{H}}_Q$ y dividiendo por $r$:
+$$rP(1-\mu) - mgr\sin\beta = \frac{7}{5}mr\ddot{x}
+\;\Longrightarrow\;
+\boxed{\;\frac{7}{5}m\ddot{x} + mg\sin\beta = P(1-\mu)\;}$$
+
+Equivalentemente, $\ddot{x} = \dfrac{5}{7m}\big[P(1-\mu) - mg\sin\beta\big]$.
+\end{solucion}

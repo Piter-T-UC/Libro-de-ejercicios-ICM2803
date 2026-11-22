@@ -1,3 +1,8 @@
+% =========================================================================
+% Capítulo 5: Mecánica Lagrangiana
+% Tema 01: Mecánica Lagrangiana
+% Problema 07: Dos masas en varillas paralelas unidas por un resorte
+% =========================================================================
 \subsubsection{Dos masas en varillas paralelas unidas por un resorte}
 
 Dos masas idénticas $m$, etiquetadas $P$ y $Q$, están ensartadas en dos varillas
@@ -58,3 +63,42 @@ medidas desde el extremo izquierdo de las varillas.
     \caption{Masas $P$ y $Q$ en varillas paralelas separadas $\ell_0$, unidas por un resorte de longitud natural nula.}
     \label{fig:c5_e01_p07_masas_paralelas}
 \end{figure}
+
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Dos masas en varillas paralelas unidas por un resorte}
+\subsubsection*{Pregunta 1: Posiciones y velocidades}
+
+Con el extremo izquierdo de la varilla inferior como origen $(0,0)$, las posiciones de las
+masas $Q$ y $P$ son
+$$\vec{r}_Q = x_1\,\hat{\imath},\qquad \vec{r}_P = x_2\,\hat{\imath} + \ell_0\,\hat{\jmath},$$
+y derivando respecto al tiempo,
+$$\vec{v}_Q = \dot{x}_1\,\hat{\imath},\qquad \vec{v}_P = \dot{x}_2\,\hat{\imath}.$$
+
+\subsubsection*{Pregunta 2: Lagrangiano}
+
+La energía cinética total es la suma de las traslaciones de ambas masas:
+$$T = \tfrac12 m\dot{x}_1^2 + \tfrac12 m\dot{x}_2^2.$$
+
+La energía potencial combina el término gravitatorio (constante, pues $P$ permanece a
+altura $\ell_0$) y el elástico. Como el resorte tiene longitud natural nula, su energía es
+$\tfrac12 K d^2$ con $d^2=(x_2-x_1)^2+\ell_0^2$ (teorema de Pitágoras):
+$$V = m g\ell_0 + \tfrac12 K\big[(x_2-x_1)^2 + \ell_0^2\big].$$
+
+El Lagrangiano $\mathcal{L}=T-V$ resulta
+$$\boxed{\;\mathcal{L} = \tfrac12 m(\dot{x}_1^2 + \dot{x}_2^2)
+- m g\ell_0 - \tfrac12 K\big[(x_2-x_1)^2 + \ell_0^2\big]\;}$$
+Los términos $m g\ell_0$ y $\tfrac12 K\ell_0^2$ son constantes y no contribuyen a las
+ecuaciones de movimiento.
+
+\subsubsection*{Pregunta 3: Ecuaciones de movimiento}
+
+Aplicando Euler-Lagrange a cada coordenada:
+$$m\ddot{x}_1 = K(x_2-x_1),\qquad m\ddot{x}_2 = -K(x_2-x_1),$$
+es decir,
+$$\boxed{\begin{cases} m\ddot{x}_1 + K(x_1-x_2) = 0 \\[2pt] m\ddot{x}_2 + K(x_2-x_1) = 0\end{cases}}$$
+
+Sumando ambas se obtiene $m(\ddot{x}_1+\ddot{x}_2)=0$: el centro de masa se mueve con
+velocidad constante. Restándolas, la coordenada relativa $u=x_2-x_1$ satisface
+$\ddot{u} + \tfrac{2K}{m}u = 0$, un movimiento armónico simple de frecuencia
+$\omega=\sqrt{2K/m}$.
+\end{solucion}
