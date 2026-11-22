@@ -85,3 +85,106 @@ Determine la velocidad angular y la aceleración angular de la rueda por un obse
     \caption{Representación mejorada del sistema de rueda pivotante. El disco de radio $R$ rueda sobre una trayectoria circular de radio $L$, impulsado por el brazo que gira con velocidad $\Omega$ alrededor del eje vertical.}
     \label{fig:rueda_brazo_final}
 \end{figure}
+
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Rueda de molino}
+\textbf{Marcos de referencia y Sistemas de coordenadas}\\
+Como siempre con los ejercicios, debemos definir los marcos de referencia, en este caso podemos diferenciar 3
+\begin{itemize}
+    \item $\mathcal{N}$ El suelo $\longrightarrow\{\vec{e}_x;\vec{e}_y;\vec{e}_z\}$
+    \item $\mathcal{C}$ Cilindro $OA$ $\longrightarrow\{\vec{E}_r;\vec{E}_\theta;\vec{E}_z\}$
+    \item $\mathcal{D}$ Disco $\longrightarrow\{\vec{u}_r;\vec{u}_\phi;\vec{u}_z\}$
+\end{itemize}
+
+\begin{center}
+\begin{minipage}{0.48\linewidth}
+    \centering
+    % Vista superior: marcos N y C (el eje z sale de la página)
+    \begin{tikzpicture}[>=Latex, scale=1.5]
+        % --- PARÁMETROS ---
+        \def\Rc{1.5}     % radio de la trayectoria
+        \def\wt{30}      % ángulo Omega t [grados]
+        % --- TRAYECTORIA Y BRAZO ---
+        \draw[dashed] (0,0) circle (\Rc);
+        \draw[line width=4pt, gray!30] (0,0) -- ({-90+\wt}:\Rc);
+        \begin{scope}[shift={({-90+\wt}:\Rc)}, rotate={\wt}]
+            \draw[rounded corners=1pt, fill=gray!30] (-0.4,-0.08) rectangle (0.4,0.08);
+        \end{scope}
+        % --- BASE FIJA N: e_x hacia abajo, e_y hacia la derecha ---
+        \draw[->, thick, myred] (0,0) -- (0,-1.1) node[below] {$\vec{e}_x$};
+        \draw[->, thick, myred] (0,0) -- (1.1,0) node[right] {$\vec{e}_y$};
+        % --- BASE MÓVIL C ---
+        \draw[->, thick, azul] (0,0) -- ({-90+\wt}:1.1) node[below left] {$\vec{E}_r$};
+        \draw[->, thick, azul] (0,0) -- ({\wt}:1.1) node[above right] {$\vec{E}_\theta$};
+        % --- ÁNGULOS ---
+        \draw[->] (0,-0.6) arc (-90:{-90+\wt}:0.6);
+        \node at ({-90+0.5*\wt}:0.85) {$\Omega t$};
+        \draw[->] (0.6,0) arc (0:\wt:0.6);
+        \node at ({0.5*\wt}:0.85) {$\Omega t$};
+        % --- EJE Z (sale de la página) ---
+        \draw[fill=white] (0,0) circle (0.1);
+        \fill (0,0) circle (1.2pt);
+        \node[left] at (-0.12,0.15) {$\vec{e}_z=\vec{E}_z$};
+    \end{tikzpicture}
+\end{minipage}
+\hfill
+\begin{minipage}{0.48\linewidth}
+    \centering
+    % Vista del disco desde el eje de la barra: E_r = u_z sale de la página
+    \begin{tikzpicture}[>=Latex, scale=1.5]
+        % --- PARÁMETROS ---
+        \def\Rd{1.3}     % radio del disco
+        \def\bt{30}      % ángulo beta [grados]
+        % --- DISCO ---
+        \draw[fill=gray!20] (0,0) circle (\Rd);
+        % --- BASE C ---
+        \draw[->, thick, azul] (0,0) -- (1.1,0) node[below right] {$\vec{E}_\theta$};
+        \draw[->, thick, azul] (0,0) -- (0,1.1) node[above left] {$\vec{E}_z$};
+        % --- BASE D ---
+        \draw[->, thick, orange] (0,0) -- (\bt:1.0) node[above right] {$\vec{u}_r$};
+        \draw[->, thick, orange] (0,0) -- ({90+\bt}:1.0) node[above left] {$\vec{u}_\beta$};
+        % --- ÁNGULOS ---
+        \draw[->] (0.55,0) arc (0:\bt:0.55);
+        \node at ({0.5*\bt}:0.78) {$\beta$};
+        \draw[->] (0,0.55) arc (90:{90+\bt}:0.55);
+        \node at ({90+0.5*\bt}:0.78) {$\beta$};
+        % --- EJE (sale de la página) ---
+        \draw[fill=white] (0,0) circle (0.1);
+        \fill (0,0) circle (1.2pt);
+        \node[below left] at (-0.1,-0.1) {$\vec{E}_r=\vec{u}_z$};
+    \end{tikzpicture}
+\end{minipage}
+\end{center}
+
+Ya una vez hecho esto estamos medios complejizados, porque lo que buscamos es esto $\velang{N}{D}$ y $\accang{N}{D}$ pero lo único que conocemos es $\velang{N}{C}=\Omega\vec{e}_z$. Aparte, parecido como en el ejercicio pasado, podemos saber que el disco gira con respecto al cilindro en la dirección $\vec{E}_r$, entonces podríamos ocupar algo similar a lo del ejercicio pasado, donde calculamos la velocidad del punto $B$ de manera habitual y con la condición de rodar sin resbalar.\\
+Como siempre lo primero es obtener la posición desde un punto inercial.
+$$\vec{r}_B=L\vec{E}_r$$
+
+\textbf{Velocidad del punto $B$}\\
+Como de costumbre basta con derivar pero ocuparemos las derivadas de los vectores.
+$$\marc{\vec{v}_B}{N}=\der{\vec{r}_B}{N}=\der{L\vec{E}_r}{N}=\underbrace{\dfrac{d}{dt}(L)}_{0}\cdot\vec{E}_r+L\cdot\der{\vec{E}_r}{N}{}$$
+Derivadas temporales de $\vec{E}_r$ y $\vec{E}_\theta$
+$$\transport{\vec{E}_r}{N}{C}=\Omega\vec{e}_z\times\vec{E}_r=\Omega\vec{E}_\theta $$
+$$\transport{\vec{E}_\theta}{N}{C}=\Omega\vec{e}_z\times\vec{E}_\theta=-\Omega\vec{E}_r $$
+$$\marc{\vec{v}_B}{N}=L\Omega\vec{E}_\theta$$
+Ahora ocupando la condición de rodamiento sin deslizamiento se tiene que
+$$\vec{r}_{B/C}=\vec{r}_B-\vec{r}_C=R\vec{e}_z$$
+donde $C$ es el punto de contacto del disco con el suelo.
+
+Aplicando el teorema del transporte
+$$\marc{\vec{v}_B}{N}=\marc{}{N}\cancelto{\vec{0}}{\vec{v}_C} \quad+ \transporta{\vec{r}_{B/C}}{N}{D}$$
+$$\marc{\vec{v}_B}{N}=\velang{N}{D}\times\vec{r}_{B/C}=(\Omega\vec{e}_z+\velang{C}{D})\times R\vec{e}_z$$
+llamaremos $\dot\beta$ a la velocidad angular del disco respecto a la barra
+$$\marc{\vec{v}_B}{N}=(\Omega\vec{e}_z+\dot\beta\vec{E}_r)\times R\vec{e}_z\longrightarrow -R\dot\beta\vec{E}_\theta$$
+Y como sabemos que es el mismo punto, ambos deben tener la misma velocidad
+$$\marc{}{N}\vec{v}_B=L\Omega\vec{E}_\theta=-R\dot\beta\vec{E}_\theta$$
+$$\dot\beta=-\dfrac{L\Omega}{R}$$
+
+\textbf{Velocidad y aceleración angular del disco}\\
+Con $\dot\beta$ ya conocido, la velocidad angular del disco respecto al suelo es la suma de las relativas
+$$\velang{N}{D}=\velang{N}{C}+\velang{C}{D}=\Omega\vec{e}_z-\dfrac{L\Omega}{R}\vec{E}_r$$
+y para la aceleración angular derivamos respecto a $\mathcal{C}$, donde ambos vectores son constantes, de modo que solo sobrevive el término del transporte
+$$\accang{N}{D}=\velang{N}{C}\times\velang{N}{D}=\Omega\vec{e}_z\times\left(-\dfrac{L\Omega}{R}\vec{E}_r\right)=-\dfrac{L\Omega^2}{R}\vec{E}_\theta$$
+
+\patoojo{En rodadura sin deslizar el punto de contacto $C$ del disco con el suelo tiene velocidad \emph{nula} (aunque no su aceleración). Por eso se puede igualar la velocidad de $B$ calculada por el brazo con la calculada por el disco.}
+\end{solucion}

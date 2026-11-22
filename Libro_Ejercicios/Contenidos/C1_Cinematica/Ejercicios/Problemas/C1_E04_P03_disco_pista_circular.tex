@@ -9,14 +9,14 @@ Un disco de radio $r$ rueda sin resbalar a lo largo del interior de una pista ci
 
 El ángulo $\theta$ se mide desde la dirección fija vertical hacia abajo desde el centro de la pista (dirección $OA$), mientras que el ángulo $\phi$ se mide entre la dirección de la línea $OP$ y la dirección del radio $PQ$, siendo $Q$ un punto en el borde del disco. 
 
-Sabiendo que el punto $Q$ coincide con el punto $A$ (el punto más bajo de la pista) cuando $\theta$ y $\phi$ son cero, determine los siguientes vectores según lo visto por un observador fijo al suelo:
+Sabiendo que el punto $Q$ coincide con el punto $A$ (el punto más bajo de la pista) cuando $\theta$ y $\phi$ son cero, y que $\phi$ se mide en sentido horario desde la prolongación de $OP$, determine lo siguiente según lo visto por un observador fijo al suelo:
 
 \begin{enumerate}
-    \item La velocidad angular $\vec{\omega}$ y la aceleración angular $\vec{\alpha}$ del disco.
-    \item La velocidad $\vec{v}_Q$ y aceleración $\vec{a}_Q$ del punto $Q$.
+    \item Defina los marcos de referencia y los sistemas de coordenadas.
+    \item Determine la velocidad angular del disco según lo ve un observador en un marco de referencia inercial.
+    \item Determine la aceleración angular de la pista circular según la ve un observador fijo en el disco.
+    \item Determine la velocidad y aceleración del centro del disco $P$ según un observador fijo en el marco de referencia inercial.
 \end{enumerate}
-
-Exprese sus respuestas en términos del ángulo $\phi$ y sus derivadas temporales ($\dot{\phi}, \ddot{\phi}$).
 
 \begin{figure}[!ht]
     \centering
@@ -53,8 +53,8 @@ Exprese sus respuestas en términos del ángulo $\phi$ y sus derivadas temporale
         \node[below] at (A) {$A$};
 
         % --- 4. Punto Q y ángulo Phi ---
-        % El ángulo de Q es relativo a la línea OP (que está a -90+Theta)
-        \coordinate (Q) at ($(P) + ({-90+\ThetaAng+\PhiAng}:\r)$);
+        % El ángulo de Q es relativo a la línea OP (a -90+Theta), medido en sentido horario
+        \coordinate (Q) at ($(P) + ({-90+\ThetaAng-\PhiAng}:\r)$);
         \draw[thick] (P) -- (Q);
         \filldraw (Q) circle (1.2pt) node[below right] {$Q$};
         
@@ -72,8 +72,8 @@ Exprese sus respuestas en términos del ángulo $\phi$ y sus derivadas temporale
         % Línea de referencia extendida de OP para marcar phi
         \coordinate (RefPhi) at ($(P) + ({-90+\ThetaAng}:0.8)$);
         \draw[dotted, thick] (P) -- (RefPhi);
-        \draw[->] ($(P) + ({-90+\ThetaAng}:0.4)$) arc ({-90+\ThetaAng}:{-90+\ThetaAng+\PhiAng}:0.4);
-        \node at ($(P) + ({-90+\ThetaAng+0.5*\PhiAng}:0.55)$) {$\phi$};
+        \draw[->] ($(P) + ({-90+\ThetaAng}:0.4)$) arc ({-90+\ThetaAng}:{-90+\ThetaAng-\PhiAng}:0.4);
+        \node at ($(P) + ({-90+\ThetaAng-0.5*\PhiAng}:0.55)$) {$\phi$};
 
         % --- 6. Indicación "No desliza" ---
         \node[left] at ({-90+\ThetaAng}: \R+0.6) {No desliza};
@@ -83,3 +83,54 @@ Exprese sus respuestas en términos del ángulo $\phi$ y sus derivadas temporale
     \caption{Disco de radio $r$ rodando sin deslizar por el interior de una pista de radio $R$. El punto $A$ es la referencia vertical inferior.}
     \label{fig:disco_pista}
 \end{figure}
+
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Disco en pista circular}
+\textbf{a. Defina los marcos de referencia y los sistemas de coordenadas.}\\
+Para resolver este problema cinemático, se definen los siguientes marcos de referencia:
+\begin{itemize}
+    \item $\mathcal{N}$ La pista circular (marco inercial) $\longrightarrow\{\vec{E}_x;\vec{E}_y;\vec{E}_z\}$
+    \item $\mathcal{A}$ El brazo imaginario $OP$ $\longrightarrow\{\vec{e}_r;\vec{e}_\theta;\vec{e}_z\}$
+    \item $\mathcal{B}$ El disco $\longrightarrow\{\vec{e}_r;\vec{e}_\phi;\vec{e}_Z\}$
+\end{itemize}
+Se define el eje $z$ saliendo del plano para todos los marcos. El marco $\mathcal{A}$ gira con un ángulo $\theta$ respecto a $\mathcal{N}$, mientras que el marco $\mathcal{B}$ (el disco) gira con un ángulo $\phi$ respecto al marco $\mathcal{A}$.
+
+\textbf{b. Determine la velocidad angular según lo ve un observador en un marco de referencia inercial.}\\
+Nos solicitan obtener la velocidad angular del disco respecto al suelo, es decir, $\velang{N}{B}$. Utilizando la propiedad aditiva de velocidades angulares:
+$$\velang{N}{B}=\velang{N}{A}+\velang{A}{B}$$
+Observando la figura y usando la regla de la mano derecha (asumiendo $\vec{e}_z$ saliendo del plano):
+$$\velang{N}{A}=\dot\theta\vec{e}_z$$
+$$\velang{A}{B}=-\dot\phi\vec{e}_z$$
+(El signo es negativo porque $\phi$ se mide en sentido horario desde la prolongación de $OP$).
+Sumando ambas contribuciones, la velocidad angular del disco es:
+$$\velang{N}{B}=\left(\dot\theta-\dot\phi\right)\vec{e}_z$$
+
+\textbf{c. Determine la aceleración angular de la pista circular según la ve un observador fijo en el disco.}\\
+Se nos pide calcular $\accang{B}{N}$. Por propiedad de aceleraciones angulares relativas, sabemos que:
+$$\accang{B}{N} = -\accang{N}{B}$$
+Primero, calculamos la aceleración angular del disco respecto al marco inercial:
+$$\accang{N}{B} = \der{}{N}\left(\velang{N}{B}\right) = \der{}{N}\left((\dot\theta-\dot\phi)\vec{e}_z\right) = (\ddot\theta-\ddot\phi)\vec{e}_z$$
+Finalmente, invertimos el signo para obtener el resultado buscado:
+$$\accang{B}{N} = -(\ddot\theta-\ddot\phi)\vec{e}_z = (\ddot\phi-\ddot\theta)\vec{e}_z$$
+
+\textbf{d. Determine la velocidad y aceleración del centro del disco $P$ según un observador fijo en el marco de referencia inercial.}\\
+Para obtener la velocidad de $P$ respecto a $\mathcal{N}$, definimos primero su vector posición desde el origen $O$. Sabiendo que el radio interior de la pista es $R$ y el del disco es $r$, la distancia $OP$ es constante y vale $(R-r)$. Utilizando la base del marco $\mathcal{A}$:
+$$\vec{r}_P = (R-r)\vec{e}_r$$
+Para derivar este vector visto desde el suelo, aplicamos el Teorema del Transporte apoyándonos en el marco móvil $\mathcal{A}$:
+$$\marc{\vec{v}_P}{N} = \der{\vec{r}_P}{N} = \transporta{\vec{r}_P}{N}{A}$$
+El primer término es la derivada local (que es nula pues la distancia $OP$ no cambia):
+$$\der{\vec{r}_P}{A} = \vec{0}$$
+El segundo término es el producto cruz (arrastre):
+$$\velang{N}{A} \times \vec{r}_P = (\dot\theta\vec{e}_z) \times ((R-r)\vec{e}_r) = (R-r)\dot\theta\vec{e}_\theta$$
+Sumando ambos términos, la velocidad es:
+$$\marc{\vec{v}_P}{N} = (R-r)\dot\theta\vec{e}_\theta$$
+
+Para la aceleración, aplicamos nuevamente el Teorema del Transporte, ahora sobre el vector velocidad que acabamos de encontrar:
+$$\marc{\vec{a}_P}{N} = \der{\vec{v}_P}{N} = \transporta{\vec{v}_P}{N}{A}$$
+Paso 1: Derivada local en $\mathcal{A}$:
+$$\der{\vec{v}_P}{A} = (R-r)\ddot\theta\vec{e}_\theta$$
+Paso 2: Producto cruz de arrastre:
+$$\velang{N}{A} \times \vec{v}_P = (\dot\theta\vec{e}_z) \times ((R-r)\dot\theta\vec{e}_\theta) = -(R-r)\dot\theta^2\vec{e}_r$$
+Agrupando ambos términos, obtenemos la aceleración total del centro del disco:
+$$\marc{\vec{a}_P}{N} = -(R-r)\dot\theta^2\vec{e}_r + (R-r)\ddot\theta\vec{e}_\theta$$
+\end{solucion}

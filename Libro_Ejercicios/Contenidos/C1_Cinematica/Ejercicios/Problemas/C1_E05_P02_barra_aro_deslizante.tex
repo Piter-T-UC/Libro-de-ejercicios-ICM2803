@@ -59,3 +59,40 @@ Una barra delgada de longitud $l$ está articulada a un aro como se muestra en l
     \caption{Barra de longitud $l$ articulada a un aro que se desplaza horizontalmente una distancia $x$.}
     \label{fig:barra_deslizante}
 \end{figure}5
+
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Barra en aro deslizante (cinemática)}
+\textbf{Planteamiento}\\
+Hay dos grados de libertad, $x$ y $\theta$. Según la figura la barra está \emph{sobre} el aro y $\theta$ se mide desde la vertical hacia arriba, creciendo en sentido horario: $\theta=0$ es la posición invertida y $\theta=\pi$ la barra colgando.
+
+\patoojo[squareglasses,shovel]{¡Ojo con la figura! La barra apunta hacia \emph{arriba}: $\theta=0$ es la posición invertida (inestable) y $\theta=\pi$ es la barra colgando. Además $\theta$ crece en sentido \emph{horario}, así que $\velang{N}{B}=-\dot\theta\vec{E}_z$.}
+
+\textbf{Marcos de referencia y Sistemas de Coordenadas}
+\begin{itemize}
+    \item $\mathcal{N}$ La pista (inercial) $\longrightarrow\{\vec{E}_x;\vec{E}_y;\vec{E}_z\}$
+    \item $\mathcal{B}$ La barra $\longrightarrow\{\vec{e}_r;\vec{e}_\theta;\vec{E}_z\}$, con $\vec{e}_r$ a lo largo de la barra
+\end{itemize}
+\begin{equation*}
+\begin{split}
+    \vec{e}_r&=\sin\theta\,\vec{E}_x+\cos\theta\,\vec{E}_y\\
+    \vec{e}_\theta&=\cos\theta\,\vec{E}_x-\sin\theta\,\vec{E}_y
+\end{split}
+\end{equation*}
+
+\subsubsection*{Cinemática de la partícula}
+\textbf{Posición}\\
+Tomando como referencia el aro, con $O=(x,0)$ en la pista, el extremo libre $P$ está a una distancia $l$ de $O$ a lo largo de la barra:
+$$\vec{r}_P=x\vec{E}_x+l\vec{e}_r=\left(x+l\sin\theta\right)\vec{E}_x+l\cos\theta\,\vec{E}_y$$
+Y la velocidad angular de la barra es $\velang{N}{B}=-\dot\theta\vec{E}_z$ (horaria).
+
+\textbf{Velocidad}\\
+$$\marc{\vec{v}_P}{N}=\der{\vec{r}_P}{N}=\dot{x}\vec{E}_x+\underbrace{\der{(l\vec{e}_r)}{B}{}}_{\vec{0}}+\velang{N}{B}\times l\vec{e}_r=\dot{x}\vec{E}_x+l\dot\theta\vec{e}_\theta$$
+\respuesta{$\displaystyle\marc{\vec{v}_P}{N}=\left(\dot{x}+l\dot\theta\cos\theta\right)\vec{E}_x-l\dot\theta\sin\theta\,\vec{E}_y$}
+
+\textbf{Aceleración}\\
+Derivando de nuevo con el teorema del transporte, ahora sobre $\dot{x}\vec{E}_x+l\dot\theta\vec{e}_\theta$:
+$$\marc{\vec{a}_P}{N}=\ddot{x}\vec{E}_x+l\ddot\theta\vec{e}_\theta+\velang{N}{B}\times\left(l\dot\theta\vec{e}_\theta\right)=\ddot{x}\vec{E}_x+l\ddot\theta\vec{e}_\theta-l\dot\theta^2\vec{e}_r$$
+\respuesta{$\displaystyle\marc{\vec{a}_P}{N}=\left[\ddot{x}+l\left(\ddot\theta\cos\theta-\dot\theta^2\sin\theta\right)\right]\vec{E}_x-l\left(\ddot\theta\sin\theta+\dot\theta^2\cos\theta\right)\vec{E}_y$}
+
+\patotip{Si en cambio piden el centro de masa $G$ de la barra, el cálculo es idéntico reemplazando $l$ por $l/2$ (está a mitad de la barra).}
+\end{solucion}

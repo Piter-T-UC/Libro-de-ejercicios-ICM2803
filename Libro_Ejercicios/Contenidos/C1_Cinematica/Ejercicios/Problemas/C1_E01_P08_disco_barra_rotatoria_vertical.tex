@@ -5,9 +5,9 @@
 % =========================================================================
 \subsubsection{Disco en barra rotatoria vertical}
 
-Un disco circular de radio $R$ está unido al extremo de una barra rígida de longitud $L$. La barra gira libremente con una velocidad angular constante $\dot{\phi}$ alrededor de un eje vertical que pasa por el punto $A$. A su vez, el disco puede girar respecto a su propio centro $O$ sobre un eje ortogonal a la barra. La posición de un punto $P$ ubicado en el borde del disco se describe mediante el ángulo $\theta$, medido desde una referencia fija en el disco como se muestra en la Figura \ref{fig:disco_barra_rotatoria}.
+Un disco circular de radio $R$ está unido al extremo de una barra rígida de longitud $L$. La barra gira libremente con una velocidad angular constante $\dot{\phi}$ alrededor de un eje vertical que pasa por el punto $A$. A su vez, el disco puede girar respecto a su propio centro $O$ sobre un eje ortogonal a la barra. La posición de un punto $P$ ubicado en el borde del disco se describe mediante el ángulo $\theta$, medido desde la prolongación de la barra (referencia fija en el disco) como se muestra en la Figura \ref{fig:disco_barra_rotatoria}.
 
-Considerando que se conocen las magnitudes $\dot{\phi}$, $\theta$ y $\ddot{\theta}$, determine lo siguiente para un observador fijo al suelo:
+Considerando que se conocen las magnitudes $\dot{\phi}$, $\theta$, $\dot{\theta}$ y $\ddot{\theta}$, determine lo siguiente para un observador fijo al suelo:
 
 \begin{enumerate}
     \item Defina los marcos de referencia y los sistemas de coordenadas adecuados para describir el movimiento compuesto del sistema.
@@ -27,7 +27,7 @@ Considerando que se conocen las magnitudes $\dot{\phi}$, $\theta$ y $\ddot{\thet
         % --- Coordenadas principales ---
         \coordinate (A) at (0,0);
         \coordinate (O) at (\L,0);
-        \coordinate (P) at ($ (O) + ({90-\thetaAng}:\R) $);
+        \coordinate (P) at ($ (O) + (\thetaAng:\R) $);
 
         % --- 1. Soporte y Eje en A ---
         % Sombreado de la base
@@ -48,7 +48,7 @@ Considerando que se conocen las magnitudes $\dot{\phi}$, $\theta$ y $\ddot{\thet
         \node[right] at (0.3, 1.0) {$\dot{\phi} = \text{cte}$};
     % --- 3. El Disco (R) ---
         \shadedraw[inner color=gray!5, outer color=gray!30, draw=black, thick] (O) circle (\R);
-        \draw[dashed] (O) -- ($(O) + (0, \R)$); % Línea vertical de referencia en disco
+        \draw[dashed] (O) -- ($(O) + (\R+0.4, 0)$); % Referencia horizontal: prolongación de la barra
         % --- 2. La Barra (L) ---
         \shadedraw[left color=gray!10, right color=gray!40, draw=black, rounded corners=2pt] 
             (-0.15, -0.12) rectangle (\L+0.1, 0.12);
@@ -62,16 +62,67 @@ Considerando que se conocen las magnitudes $\dot{\phi}$, $\theta$ y $\ddot{\thet
         
         % Radio R y Ángulo Theta
         \draw[->] (O) -- (P) node[midway, right, xshift=2pt] {$R$};
-        \draw[->] ($(O) + (0, 0.6)$) arc (90:{90-\thetaAng}:0.6);
-        \node at ($ (O) + (72:0.8) $) {$\theta$};
+        \draw[->] ($(O) + (0.6, 0)$) arc (0:\thetaAng:0.6);
+        \node at ($ (O) + ({0.5*\thetaAng}:0.85) $) {$\theta$};
 
         % --- 4. Puntos y Etiquetas ---
         \filldraw (A) circle (1.5pt) node[below right, xshift=2pt] {$A$};
         \filldraw (O) circle (1.5pt) node[right] {$O$};
-        \filldraw (P) circle (1.8pt) node[right] {$P$};
+        \filldraw (P) circle (1.8pt) node[above right] {$P$};
 
     \end{tikzpicture}
     \caption{Esquema del disco circular de radio $R$ montado sobre una barra rotatoria de longitud $L$.}
     \label{fig:disco_barra_rotatoria}
 \end{figure}
 
+% --- SOLUCIÓN ---------------------------------------------------------------
+\begin{solucion}{Disco en barra rotatoria vertical}
+\textbf{Marcos de referencia y Sistemas de Coordenadas}
+\begin{itemize}
+    \item $\mathcal{N}$ (inercial): el suelo, con origen en $A$ $\longrightarrow\{\vec{E}_x;\vec{E}_y;\vec{E}_z\}$.
+    \item $\mathcal{A}$ (no inercial): fijo a la barra $AO$ $\longrightarrow\{\vec{e}_x;\vec{e}_y;\vec{e}_z\}$, donde $\vec{e}_y=\vec{E}_y$ es el eje de rotación vertical y $\vec{e}_x$ apunta a lo largo de la barra.
+    \item $\mathcal{B}$ (no inercial): fijo al disco, con origen en $O$ $\longrightarrow\{\vec{e}_r;\vec{e}_\theta;\vec{e}_z\}$. Define la rotación propia del disco.
+\end{itemize}
+Como $\theta$ se mide desde la prolongación de la barra, la base del disco se relaciona con la de la barra mediante
+\begin{equation*}
+\begin{split}
+    \vec{e}_r&=\cos\theta\,\vec{e}_x+\sin\theta\,\vec{e}_y\\
+    \vec{e}_\theta&=-\sin\theta\,\vec{e}_x+\cos\theta\,\vec{e}_y
+\end{split}
+\end{equation*}
+
+\subsubsection*{Velocidad y aceleración angular}
+La velocidad angular del disco respecto al suelo es la suma de las velocidades angulares relativas:
+$$\velang{N}{B}=\velang{N}{A}+\velang{A}{B}=\underbrace{\omega_1}_{\dot\phi}\vec{e}_y+\underbrace{\omega_2}_{\dot\theta}\vec{e}_z$$
+Para la aceleración angular, aplicamos el teorema del transporte sobre el vector de velocidad angular:
+$$\accang{N}{B}=\der{\velang{N}{B}}{A}{}+\velang{N}{A}\times\velang{N}{B}$$
+Considerando $\dot{\omega}_1=0$, la aceleración angular resulta:
+$$\accang{N}{B}=\dot\omega_2\vec{e}_z+\omega_1\vec{e}_y\times(\omega_1\vec{e}_y+\omega_2\vec{e}_z)=\omega_1\omega_2\vec{e}_x+\dot\omega_2\vec{e}_z$$
+
+\subsubsection*{Cinemática del punto $P$}
+\textbf{Posición}\\
+El vector posición desde el origen inercial $A$ se descompone como
+$$\vec{r}_P=\vec{r}_{O/A}+\vec{r}_{P/O}=L\vec{e}_x+R\vec{e}_r$$
+
+\textbf{Velocidad}\\
+Aplicando el teorema del transporte sobre la posición de la partícula:
+$$\marc{\vec{v}_P}{N}=\der{\vec{r}_P}{A}{}+\velang{N}{A}\times\vec{r}_P=R\omega_2\vec{e}_\theta+\underbrace{(\omega_1\vec{e}_y)\times(L\vec{e}_x+R\vec{e}_r)}_{-\omega_1(L+R\cos\theta)\vec{e}_z}$$
+$$\marc{\vec{v}_P}{N}=R\omega_2\vec{e}_\theta-\omega_1(L+R\cos\theta)\vec{e}_z$$
+
+\textbf{Aceleración}\\
+Derivando el vector velocidad respecto al marco inercial:
+$$\marc{\vec{a}_P}{N}=\der{\marc{\vec{v}_P}{N}{}}{A}{}+\velang{N}{A}\times\marc{\vec{v}_P}{N}$$
+Agrupando los términos de aceleración (tangencial, centrípeta y de Coriolis):
+\respuesta{$\displaystyle\marc{\vec{a}_P}{N}=\left[-\omega_1^2(L+R\cos\theta)-R\omega_2^2\cos\theta\right]\vec{e}_x-R\omega_2^2\sin\theta\,\vec{e}_y+2R\omega_1\omega_2\sin\theta\,\vec{e}_z$}
+
+\subsubsection*{Solución con matrices}
+Primero partimos expresando el vector posición, que se puede expresar como un vector en la base $\mathcal{A}$ y uno en la base $\mathcal{B}$
+$$\vec{r}_P=\marc{\vec{r}}{A}+\marc{\vec{r}}{B}$$
+$$\vec{r}_P=\begin{bmatrix}L\\0\\0\end{bmatrix}_{\mathcal{A}}+\begin{bmatrix}r\\0\\0\end{bmatrix}_{\mathcal{B}}$$
+Entonces cuando lo pasamos al inercial, cada parte del vector por separado,
+$$\marc{}{N}\vec{r}=\RotA{N}{A}\marc{\vec{r}}{A}+\RotA{N}{A}\RotA{A}{B}\marc{\vec{r}}{B}$$
+Cuando lo derivo llego a
+$$\marc{}{N}\vec{v}=\DotRotA{N}{A}\marc{\vec{r}}{A}+\RotA{N}{A}\marc{\vec{\dot{r}}}{A}+\DotRotA{N}{A}\RotA{A}{B}\marc{\vec{r}}{B}+\RotA{N}{A}\DotRotA{A}{B}\marc{\vec{r}}{B}+\RotA{N}{A}\RotA{A}{B}\marc{\vec{\dot r}}{B}$$
+
+\patoojo{En el desarrollo de la aceleración se supuso implícitamente $\ddot\theta=0$. Si $\ddot\theta\neq0$ (el enunciado lo entrega como dato), al derivar $R\omega_2\vec{e}_\theta$ en $\mathcal{A}$ aparece además el término $R\dot\omega_2\vec{e}_\theta$, que hay que sumar al resultado.}
+\end{solucion}

@@ -243,5 +243,35 @@ $$\velang{N}{B}\times\left(\marc{\vec{v}}{N}\right)=\left(\dot\theta\vec{e}_\phi
 $$=r\dot\theta^2 \vec{e}_r+\vec{0}+r\dot\theta\Omega\cos(\theta)\vec{e}_\phi+r\Omega^2\cos(\theta)\sin(\theta)(-\vec{e}_\theta)+r\dot\theta\Omega(-\sin(\theta))\vec{e}_{\phi}-r\Omega^2\sin^2(\theta)(\vec{e}_r)$$
 
 $$\marc{\vec{a}}{N}=\left(-r\dot\theta^2-r\Omega^2\sin^2(\theta)\right)\vec{e}_r+\left(r\ddot{\theta}-r\Omega\sin(\theta)\cos(\theta)\right)\vec{e}_\theta+\left(r\dot\Omega\sin(\theta)+2r\Omega\dot\theta\cos(\theta)\right)\vec{e}_\phi$$
+\patoojo{Al pasar un vector de una base a otra hay que descomponerlo \emph{completo}: no sirve quedarse con una sola componente. Para comprobarlo, la norma de la descomposición debe dar siempre 1 (aquí, $\cos^2\theta+\sin^2\theta=1$).}
+
+\begin{resumen}[Recordar: matrices de rotación y producto cruz]
+$$R_x(\theta) = \begin{pmatrix}
+1 & 0 & 0 \\
+0 & \cos\theta & -\sin\theta \\
+0 & \sin\theta & \cos\theta
+\end{pmatrix}$$
+$$R_y(\theta) = \begin{pmatrix}
+\cos\theta & 0 & \sin\theta \\
+0 & 1 & 0 \\
+-\sin\theta & 0 & \cos\theta
+\end{pmatrix}$$
+$$R_z(\theta) = \begin{pmatrix}
+\cos\theta & -\sin\theta & 0 \\
+\sin\theta & \cos\theta & 0 \\
+0 & 0 & 1
+\end{pmatrix}$$
+$$\vec{v} \times \vec{w} = [\vec{v}]_\times \vec{w} =
+\begin{pmatrix}
+0 & -v_z & v_y \\
+v_z & 0 & -v_x \\
+-v_y & v_x & 0
+\end{pmatrix}
+\begin{pmatrix}
+w_x \\
+w_y \\
+w_z
+\end{pmatrix}$$
+\end{resumen}
 \end{solucion}
 

@@ -11,6 +11,7 @@ Sabiendo que las longitudes de las barras, los ángulos $\theta$ y $\phi$, así 
     \item Defina los marcos de referencia y los sistemas de coordenadas adecuados para describir el movimiento del sistema desde la perspectiva de un observador fijo al suelo.
     \item Determine el vector posición del punto $P$.
     \item Obtenga las expresiones para los vectores de velocidad angular y aceleración angular de ambas barras respecto al suelo.
+    \item Calcule la velocidad del punto $P$ visto desde un observador fijo en la barra $OA$.
     \item Calcule los vectores de velocidad y aceleración del punto $P$ respecto al suelo.
 \end{enumerate}
 
@@ -65,9 +66,9 @@ Sabiendo que las longitudes de las barras, los ángulos $\theta$ y $\phi$, así 
         \draw[->] (0.7,0) arc (0:\ThetaAng:0.7);
         \node at (0.9, 0.25) {$\theta$};
 
-        \coordinate (Ext) at ($(A) + (0:1.1)$);
+        \coordinate (Ext) at ($(A) + (\ThetaAng:1.1)$);
         \draw[dashed, thin] (A) -- (Ext);
-        \draw[->] ($(A) + (0:0.6)$) arc (0:{\ThetaAng+\PhiAng}:0.6) node[midway, below] {$\phi$};
+        \draw[->] ($(A) + (\ThetaAng:0.6)$) arc (\ThetaAng:{\ThetaAng+\PhiAng}:0.6) node[midway, above] {$\phi$};
 
     \end{tikzpicture}
     \caption{Mecanismo de dos barras con etiquetas de longitud $l_1$ y $l_2$ en posición horizontal.}
@@ -141,10 +142,10 @@ Para poder definir los marcos de referencia tenemos que pensar y analizar los di
         \draw[->] (0.7,0) arc (0:\ThetaAng:0.7);
         \node at (0.9, 0.25) {$\theta$};
 
-        \coordinate (Ext) at ($(A) + (0:1.1)$);
+        \coordinate (Ext) at ($(A) + (\ThetaAng:1.1)$);
         \draw[dashed, thin] (A) -- (Ext);
-        \draw[->] ($(A) + (0:0.6)$) arc (0:{\ThetaAng+\PhiAng}:0.6);
-        \node at ($(A) + ({ 0.5*\PhiAng}:0.85)$) {$\phi$};
+        \draw[->] ($(A) + (\ThetaAng:0.6)$) arc (\ThetaAng:{\ThetaAng+\PhiAng}:0.6);
+        \node at ($(A) + ({\ThetaAng + 0.5*\PhiAng}:0.85)$) {$\phi$};
 
     \end{tikzpicture}
 \end{center}
@@ -153,16 +154,14 @@ El análisis cinemático, tiene en consideración el movimiento de la partícula
         
 \textbf{Posición y Velocidades Angulares}\\
         Siempre que nosotros queremos definir la posición lo que nos importa es que sepamos que el punto del cual la definimos es un punto el cual no se mueve, osea velocidad $\vec{0}$, dado que asi no nos generara problemas en un futuro
-        \begin{equation*}
-            \vec{r}_P=l_1\vec{e}_x+l_2\vec{u}_r 
-        \end{equation*}
+        $$\vec{r}_P=l_1\vec{e}_x+l_2\vec{u}_r$$
         Y para el caso de las velocidades angulares de los marcos de referencia se pueden obtener mediante la regla de la mano derecha y ver en que dirección gira (basicamente se ve el eje con el que gira y saber la razon a la que lo hace, la cual esta relacionado con el angulo). Con esto se llega a lo siguiente
         
         \begin{itemize}
             \item $\velang{N}{A}=\dot \theta\vec{e}_z$
-            \item $\velang{N}{B}=\dot \phi\vec{e}_z$
+            \item $\velang{A}{B}=\dot \phi\vec{e}_z$
         \end{itemize}
-Estos vectores se leen de la siguiente manera, $\velang{N}{A}$ corresponde a la velocidad del marco de referencia $\mathcal{A}$ respecto al marco $\mathcal{N}$, esto es por en angulo $\theta$, pero como verán también obtuvimos el de $\mathcal{B}$ aunque si revisan esto es respecto al marco $\mathcal{N}$ (esto es porque la orientacion de la barra no depende de $\theta$ si ven si cambio el angulo $\theta$ pero mantengo $\phi$ la barra no gira)
+Estos vectores se leen de la siguiente manera, $\velang{N}{A}$ corresponde a la velocidad del marco de referencia $\mathcal{A}$ respecto al marco $\mathcal{N}$, esto es por en angulo $\theta$, pero como verán también obtuvimos el de $\mathcal{B}$ aunque si revisan esto es respecto al marco $\mathcal{A}$ (esto es porque la orientacion de la barra depende de $\theta$ si ven si cambio el angulo $\theta$ pero mantengo $\phi$ la barra igual manera gira, muy distinto seria si defino el angulo $\phi$ desde la horizontal o vertical, ahi no giraria, si les cuesta visualizarlo pueden agregar el angulo y generar un nuevo angulo que si sea respecto a la horizontal)
     \begin{center}
     
     \begin{tikzpicture}[>=Latex, scale=2]
@@ -221,29 +220,25 @@ Estos vectores se leen de la siguiente manera, $\velang{N}{A}$ corresponde a la 
 
         \coordinate (Ext) at ($(A) + (0:1.1)$);
         \draw[dashed, thin] (A) -- (Ext);
-        \draw[->] ($(A) + (0:0.6)$) arc (0:{\ThetaAng+\PhiAng}:0.6) node[midway, above] {$\phi$};
+        \draw[->] ($(A) + (0:0.6)$) arc (0:{\ThetaAng+\PhiAng}:0.6) node[midway, above] {$\phi+\theta$};
 
     \end{tikzpicture}
 \end{center}
 Y para calcular la velocidad angular basta con sumarlas, de esta manera elimino el marco intermedio.
         \begin{itemize}
             \item $\velang{N}{A}=\dot \theta\vec{e}_z$
-            \item $\velang{N}{B}=\dot \phi\vec{e}_z$
-            \item $\velang{A}{B}=(\dot \phi-\dot \theta)\vec{e}_z$
+            \item $\velang{A}{B}=\dot \phi\vec{e}_z$
+            \item $\velang{N}{B}=(\dot \phi+\dot \theta)\vec{e}_z$
         \end{itemize}
-Para el caso de las aceleraciones angulares, conste aqui igual se aplica el teorema del transporte pero el termino de producto cruz vale 0
-        \begin{equation*}
-            \accang{N}{A}=\der{}{N}\velang{N}{A}=\der{}{N}\left(\dot \theta\vec{E}_z\right)=\ddot \theta\vec{E}_z
-        \end{equation*}
-        \begin{equation*}
-            \accang{N}{B}=\der{}{N}\velang{N}{B}=\der{}{N}\left((\dot \phi)\vec{E}_z\right)=(\ddot \phi)\vec{E}_z
-        \end{equation*}
+\patoojo{Antes de sumar velocidades angulares, mira desde dónde se mide cada ángulo. Aquí $\phi$ se mide desde la prolongación de la barra $OA$, así que $\dot\phi$ es una velocidad angular \emph{relativa} ($\velang{A}{B}$) y no la de la barra $AP$ respecto al suelo.}
+
+Para el caso de las aceleraciones angulares
+        $$\accang{N}{A}=\der{}{N}\velang{N}{A}=\der{}{N}\left(\dot \theta\vec{E}_z\right)=\ddot \theta\vec{E}_z$$
+        $$\accang{N}{B}=\der{}{N}\velang{N}{B}=\der{}{N}\left((\dot \phi+\dot \theta)\vec{E}_z\right)=(\ddot \phi+\ddot \theta)\vec{E}_z$$
 
 \textbf{Velocidad Del punto $P$ visto desde un observador fijo en la barra $OA$}\\
 La velocidad se define como la derivada temporal de la posicion, en este caso tiene que ser respecto al marco de referencia $\mathcal{A}$ ya que ese es el marco que se nos pide
-\begin{equation*}
-            \marc{}{A}\vec{v}_P=\der{}{A}{(l_1\vec{e}_x+l_2\vec{u}_r)} 
-        \end{equation*}
+$$\marc{}{A}\vec{v}_P=\der{}{A}{(l_1\vec{e}_x+l_2\vec{u}_r)}$$
 
 
         Para esta ocasion lo que hare sera expresar el vector $\vec{u}_r$ en el sistema de coordenadas $\mathcal{A}$ para asi poder derivar sin tener problemas que los vectores no sean constantes en el tiempo respecto a ese marco
@@ -254,38 +249,23 @@ La velocidad se define como la derivada temporal de la posicion, en este caso ti
     \vec{u}_z&=\vec{e}_z
 \end{split}
 \end{equation*}
-\begin{equation*}
-            \marc{}{A}\vec{v}_P=\der{}{A}{(l_1\vec{e}_x+l_2(\cos(\phi)\vec{e}_x+\sin(\phi)\vec{e}_y))}=l_2\dot\phi(-\sin(\phi)\vec{e}_x+\cos(\phi)\vec{e}_y) =l_2\dot\phi\vec{u}_\phi
-\end{equation*}
+$$\marc{}{A}\vec{v}_P=\der{}{A}{(l_1\vec{e}_x+l_2(\cos(\phi)\vec{e}_x+\sin(\phi)\vec{e}_y))}=l_2\dot\phi(-\sin(\phi)\vec{e}_x+\cos(\phi)\vec{e}_y) =l_2\dot\phi\vec{u}_\phi$$
 En este caso los otros terminos se teminan siendo constantes por ende se eliminan\\
         \textbf{Velocidad y aceleración respecto a un marco inercial}
         Aquí es donde utilizamos el teorema del transporte ya que si no tendríamos que derivar respecto a el sistema de coordenadas inercial y hacer 2 cambios consecutivos. Por ende utilizamos teorema del transoporte con respecto a un marco intermedio que nos ayude a calcular, mas adelante se podran utilizar varios teoremas del transporte para los distintos vectores pero aun estamos aprendiendo.
-        \begin{equation*}
-            \marc{}{N}\vec{v}_P=\transD{(l_1\vec{e}_x+l_2\vec{u}_r)}{\dot\theta\vec{e}_z}{N}{A}{\vec{r}_p}
-        \end{equation*}
-        Desarrollando el teorema del transporte el termino 1, que si lo reconocen es el mismo que previamente habíamos calculado
-        \begin{align*}
-            \der{}{A}\left((l_1\vec{e}_x+l_2\vec{u}_r)\right)=l_2\dot\phi\vec{u}_\phi
-        \end{align*}
+        $$\marc{}{N}\vec{v}_P=\transD{(l_1\vec{e}_x+l_2\vec{u}_r)}{\dot\theta\vec{e}_z}{N}{A}{\vec{r}_p}$$
+        Desarrollando el teorema del transporte el termino 1, que si lo reconocen es el mismo que previamente habiamos calculado
+        $$\der{}{A}\left((l_1\vec{e}_x+l_2\vec{u}_r)\right)=l_2\dot\phi\vec{u}_\phi$$
         Por otro lado el segundo termino del teorema del transporte
-        \begin{align*}
-            \dot\theta\vec{e}_z\times (l_1\vec{e}_x+l_2\vec{u}_r)=\dot\theta(l_1\vec{e}_y+l_2\vec{u}_\phi)
-        \end{align*}
+        $$\dot\theta\vec{e}_z\times (l_1\vec{e}_x+l_2\vec{u}_r)=\dot\theta(l_1\vec{e}_y+l_2\vec{u}_\phi)$$
         entonces finalmente la velocidad quedaria como
         $$\marc{}{N}\vec{v}_P=l_2\dot\phi\vec{u}_\phi+\dot\theta(l_1\vec{e}_y+l_2\vec{u}_\phi)$$
     \textbf{Acelereación}\\
-    \begin{equation*}
-            \marc{}{N}\vec{a}_P=\transD{l_2\dot\phi\vec{u}_\phi+\dot\theta(l_1\vec{e}_y+l_2\vec{u}_\phi)}{\Omega\vec{e}_z}{N}{A}{\marc{}{N}\vec{v}_p}
-        \end{equation*}
+    $$\marc{}{N}\vec{a}_P=\transD{l_2\dot\phi\vec{u}_\phi+\dot\theta(l_1\vec{e}_y+l_2\vec{u}_\phi)}{\Omega\vec{e}_z}{N}{A}{\marc{}{N}\vec{v}_p}$$
         Desarrollando el teorema del transporte el termino 1
-        \begin{align*}
-            \der{}{A}\left((l_1\dot\theta\vec{e}_y+l_2(\dot\theta+\dot\phi)\vec{u}_\phi)\right)=l_1\ddot\theta\vec{e}_y+l_2(\ddot\theta+\ddot\phi)\vec{u}_\phi-l_2(\dot\theta+\dot\phi)\dot\phi\vec{u}_r
-        \end{align*}
+        $$\der{}{A}\left((l_1\dot\theta\vec{e}_y+l_2(\dot\theta+\dot\phi)\vec{u}_\phi)\right)=l_1\ddot\theta\vec{e}_y+l_2(\ddot\theta+\ddot\phi)\vec{u}_\phi-l_2(\dot\theta+\dot\phi)\dot\phi\vec{u}_r$$
         Por otro lado el segundo termino del teorema del transporte
-        \begin{align*}
-            \dot \theta\vec{e}_z\times(l_1\dot\theta\vec{e}_y+l_2(\dot\theta+\dot\phi)\vec{u}_\phi)=-l_1\dot\theta^2\vec{e}_x-l_2(\dot\theta+\dot\phi)\dot\theta\vec{u}_r)
-        \end{align*}
+        $$\dot \theta\vec{e}_z\times(l_1\dot\theta\vec{e}_y+l_2(\dot\theta+\dot\phi)\vec{u}_\phi)=-l_1\dot\theta^2\vec{e}_x-l_2(\dot\theta+\dot\phi)\dot\theta\vec{u}_r)$$
         entonces la velocidad al final quedaria asi
         $$\marc{}{N}\vec{a}_P = -l_1 \dot{\theta}^2 \vec{e}_x + l_1 \ddot{\theta} \vec{e}_y - l_2 (\dot{\theta} + \dot{\phi})^2 \vec{u}_r + l_2 (\ddot{\theta} + \ddot{\phi}) \vec{u}_\phi$$
 \end{solucion}
-
